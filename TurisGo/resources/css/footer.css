@@ -6,13 +6,11 @@
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
-    font-family: Arial, sans-serif;
-    position: fixed; /* Fixa o footer na posição */
-    bottom: 0; /* Alinha o footer no fundo */
-    width: 100%; /* Faz o footer ocupar a largura total */
-    position: absolute;
-    left: 0;
+    font-family: 'Manrope', sans-serif;
+    width: 100%; /* Faz o footer ocupar toda a largura */
+    position: relative; /* Garante que elementos dentro do footer fiquem relativos a ele */
 }
+
 .footer div {
     max-width: 300px;
 }
@@ -37,11 +35,11 @@
     font-size: 14px;
 }
 .footer .copyright {
-    position: absolute;
-    bottom: 10px; /* Ajusta a distância do fundo */
-    right: 150px; /* Ajusta a distância do canto direito */
+    margin-right: 20px; /* Adiciona uma margem da borda direita */
+    bottom: 0;
     font-size: 12px;
     color: #666;
+    align-self: flex-end; /* Alinha no final do footer */
 }
 .footer .estga-logo {
     display: flex;
