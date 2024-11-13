@@ -1,0 +1,85 @@
+/* Importando a fonte Manrope ExtraBold do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap');
+
+.navbar {
+    font-family: 'Manrope', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+/* Logo - Font Manrope ExtraBold e Tamanho 32px */
+.logo {
+    font-weight: 800;  /* ExtraBold */
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+}
+
+/* Contêiner dos links de navegação */
+.nav-links-container {
+    display: flex;
+    flex-grow: 1;  /* Garante que o espaço disponível seja ocupado */
+    justify-content: center;  /* Mantém os links centralizados */
+}
+
+/* Links de navegação - Font Manrope ExtraBold e Tamanho 20px */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;  /* Aumentando a separação entre os itens da lista */
+}
+
+.nav-links li a {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;  /* ExtraBold */
+    font-size: 15px;
+    color: white;
+    text-decoration: none;
+}
+
+/* Seletor de idioma e botão de login */
+.nav-actions {
+    display: flex;
+    align-items: center;  /* Alinha verticalmente os itens ao centro */
+    gap: 15px;  /* Espaçamento entre o idioma e o botão de login */
+}
+
+/* Imagem do globo */
+.language-img {
+    width: 20px;
+    height: auto;
+    margin-right: 5px;  /* Distância entre a imagem e o texto */
+}
+
+/* Estilo do link de idioma */
+.language {
+    display: flex;
+    align-items: center;  /* Alinha a imagem e o texto ao centro verticalmente */
+    font-weight: 800;
+    font-size: 1em;
+    color: white;
+    text-decoration: none;
+    margin-left: -25px;  /* Move o globo e o "EN" mais para a esquerda */
+}
+
+/* Botão de login */
+.login-button {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+    font-size: 1em;
+}
+
