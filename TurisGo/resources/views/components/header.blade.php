@@ -19,7 +19,7 @@
                 <img src="{{ asset('images/language_globe.png') }}" alt="Globe" class="language-img" />
                 EN
             </a>
-            <a href="" class="login-button">Login</a>
+            <a href="{{ route('login')}}" class="login-button">Login</a>
         </div>
 
     </div>
