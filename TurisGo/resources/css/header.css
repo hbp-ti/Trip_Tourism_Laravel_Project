@@ -7,8 +7,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 40px;
+    position: fixed; /* Fixa o conteúdo do header no topo */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Garante que o header fique acima de outros elementos */
+    background: transparent; /* Sem fundo aqui, pois será definido nas próximas páginas */
 }
 
+/* Outras regras mantêm-se como antes */
 .container {
     display: flex;
     justify-content: space-between;
@@ -16,7 +23,6 @@
     align-items: center;
 }
 
-/* Logo - Font Manrope ExtraBold e Tamanho 32px */
 .logo {
     font-weight: 800;  /* ExtraBold */
     font-size: 30px;
@@ -24,18 +30,16 @@
     text-decoration: none;
 }
 
-/* Contêiner dos links de navegação */
 .nav-links-container {
     display: flex;
-    flex-grow: 1;  /* Garante que o espaço disponível seja ocupado */
-    justify-content: center;  /* Mantém os links centralizados */
+    flex-grow: 1;
+    justify-content: center;
 }
 
-/* Links de navegação - Font Manrope ExtraBold e Tamanho 20px */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 30px;  /* Aumentando a separação entre os itens da lista */
+    gap: 30px;
 }
 
 .nav-links li a {
@@ -46,32 +50,28 @@
     text-decoration: none;
 }
 
-/* Seletor de idioma e botão de login */
 .nav-actions {
     display: flex;
-    align-items: center;  /* Alinha verticalmente os itens ao centro */
-    gap: 15px;  /* Espaçamento entre o idioma e o botão de login */
+    align-items: center;
+    gap: 15px;
 }
 
-/* Imagem do globo */
 .language-img {
     width: 20px;
     height: auto;
-    margin-right: 5px;  /* Distância entre a imagem e o texto */
+    margin-right: 5px;
 }
 
-/* Estilo do link de idioma */
 .language {
     display: flex;
-    align-items: center;  /* Alinha a imagem e o texto ao centro verticalmente */
+    align-items: center;
     font-weight: 800;
     font-size: 1em;
     color: white;
     text-decoration: none;
-    margin-left: -25px;  /* Move o globo e o "EN" mais para a esquerda */
+    margin-right: 110px;
 }
 
-/* Botão de login */
 .login-button {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -83,3 +83,7 @@
     font-size: 1em;
 }
 
+/* Espaço para o conteúdo não ser escondido atrás do header */
+body {
+    padding-top: 70px; /* Ajuste conforme a altura do seu header */
+}

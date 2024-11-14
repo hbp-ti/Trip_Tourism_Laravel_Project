@@ -27,11 +27,12 @@
                         <span class="slider"></span>
                     </label>
                     <span class="remember-text">Remember</span>
-                    <a href="" class="forgot-password">Forgot password?</a>
+                    <a href="{{ route('forgotPass') }}" class="forgot-password">Forgot password?</a>
                 </div>
 
                 <button type="submit">Login</button>
             </form>
+            <p class="account-link">Don't have an account? <a href="{{ route('register') }}">Sign Up</a></p>
         </div>
     </div>
     

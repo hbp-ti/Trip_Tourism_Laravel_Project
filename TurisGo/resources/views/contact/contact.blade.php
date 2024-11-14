@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - TurisGo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     @vite(['resources/css/contact.css'])
 </head>
 <body>
 
-    <!-- Header -->
-    <x-header />
-
-    <!-- Spacer para compensar o cabeçalho fixo -->
-    <div class="header-spacer"></div>
+    <x-header/>
+     <!-- Header Section -->
+     <section class="header">
+        <h1>Contact</h1>
+        <p>Chat with us</p>
+    </section>
 
     <!-- Contact Section -->
     <section class="contact-section">
-        <div class="contact-header">
-            <h1>Contact</h1>
-            <p>Chat with us</p>
-        </div>
 
         <!-- Texto fora da caixa -->
         <div class="contact-text">

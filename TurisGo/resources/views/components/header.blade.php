@@ -6,11 +6,11 @@
 
         <div class="nav-links-container">
             <ul class="nav-links">
-                <li><a href="{{ route('welcome') }}">Home</a></li>
-                <li><a href="{{ route("aboutUs") }}">About</a></li>
+                <li><a href="{{ route('homepage') }}">Home</a></li>
+                <li><a href="{{ route('aboutUs') }}">About</a></li>
                 <li><a href="">Tours</a></li>
                 <li><a href="">Hotel</a></li>
-                <li><a href="">Contact</a></li>
+                <li><a href="{{ route('contact') }}">Contact</a></li>
             </ul>
         </div>
 

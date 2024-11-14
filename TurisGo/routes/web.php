@@ -4,8 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
-})->name("welcome");
+    return view('homepage');
+})->name("homepage");
 
 Route::get('/login', function () {
     return view('login.login');
@@ -15,11 +15,11 @@ Route::get('/register', function () {
     return view('register.register');
 })->name("register");
 
-Route::get('/password', function () {
+Route::get('/password/forgot', function () {
     return view('password.forgot');
 })->name("forgotPass");
 
-Route::get('/password', function () {
+Route::get('/password/reset', function () {
     return view('password.reset');
 })->name("resetPass");
 

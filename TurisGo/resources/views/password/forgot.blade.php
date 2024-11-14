@@ -25,7 +25,7 @@
                 <label for="email">Email address</label>
                 <input type="email" id="email" placeholder="Enter your email" required>
 
-                <p class="account-link">Remember your password? <a href="#">Login here</a></p>
+                <p class="account-link">Remember your password? <a href="{{ route('login') }}">Login here</a></p>
 
                 <button type="submit">Forgot Password</button>
             </form>

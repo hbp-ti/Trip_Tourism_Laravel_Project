@@ -6,58 +6,49 @@
     box-sizing: border-box;
 }
 
-body, html {
-    height: 100%;
-    overflow-x: hidden;
-}
-
 body {
     color: #1B1B1B;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     background-color: #f5f5f5;
 }
 
-/* Espaço para o cabeçalho fixo */
-.header-spacer {
-    height: 400px;
+.x-header {
+    position: relative; /* Cria o contexto de posicionamento */
+    z-index: 10; /* Coloca o x-header acima do .header */
 }
 
-/* Cabeçalho fixo */
-.contact-header {
-    background-image: url('/public/images/background_aboutUs.png');
+/* Cabeçalho fixo similar ao 'About Us' */
+.header {
+    background-image: url('/public/images/background_aboutUs.png'); /* Usar a mesma imagem de fundo */
     background-size: cover;
     background-position: center;
-    height: 400px;
+    height: 350px;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative;
-    margin-top: -480px;
-    margin-bottom: 50px;
-    top: 0;
+    position: absolute;
+    top: 0%;
     left: 0;
     right: 0;
     z-index: -1;
 }
 
-.contact-header h1 {
+.header h1 {
     font-size: 4.5rem;
 }
 
-.contact-header p {
+.header p {
     font-size: 1.5rem;
-    margin-top: 0.5em;
 }
 
 /* Seção de contato */
 .contact-section {
     flex: 1;
-    padding-top: 400px;
+    padding-top: 400px; /* Espaço para o cabeçalho fixo */
     position: relative;
     text-align: center;
 }
@@ -87,6 +78,7 @@ body {
     height: 3px;
     background-color: #C76A37;
     margin-left: 12px;
+    border: none;
 }
 
 .contact-text p {
@@ -115,40 +107,30 @@ body {
 .contact-form label {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #1B1B1B;
-    margin: 0.6em 0 0.3em;
+    margin-bottom: 8px;
 }
 
-.contact-form input, .contact-form textarea {
-    padding: 0.8em;
-    margin-bottom: 1.2em;
+.contact-form input,
+.contact-form textarea {
+    padding: 10px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     font-size: 1rem;
     width: 100%;
-    box-sizing: border-box;
-}
-
-.contact-form textarea {
-    min-height: 180px;
+    background-color: #f9f9f9;
 }
 
 .contact-form button {
-    padding: 0.8em;
-    font-size: 1rem;
-    color: white;
+    padding: 12px;
     background-color: #C76A37;
+    color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-    width: 150px;
-    height: 50px;
-    align-self: center;
 }
 
 .contact-form button:hover {
-    background-color: #a6522d;
+    background-color: #9a4f29;
 }
-
