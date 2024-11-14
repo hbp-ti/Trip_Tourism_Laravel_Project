@@ -1,0 +1,152 @@
+/* Remove qualquer margem ou padding padrão do body */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Configuração para o layout da página */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Ajustes para a seção de contato */
+.contact-section {
+    font-family: Arial, sans-serif;
+    color: #333;
+    flex: 1;
+    text-align: center;
+    padding-top: 400px; /* Espaço para posicionar abaixo da imagem */
+    position: relative;
+}
+
+.contact-header {
+    background-image: url('/public/images/background_aboutUs.png');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: fixed; /* Cabeçalho fixo no topo */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.contact-header h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+.contact-header p {
+    font-size: 1.5em;
+    margin: 0.5em 0;
+}
+
+/* Estilo para o texto de introdução "Contact Us" */
+.contact-text {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5em;
+    text-align: left;
+    color: #555;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* Define posição normal */
+    top: 0; /* Remove qualquer posicionamento que poderia estar fixando o elemento */
+}
+
+.contact-text h2 {
+    color: black;
+    font-size: 1.8em;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5em;
+}
+
+.contact-text h2::after {
+    content: "";
+    width: 730px;
+    height: 3px;
+    background-color: #C76A37;
+    margin-left: 12px;
+}
+
+.contact-text p {
+    font-size: 1.1em;
+    margin: 0.6em 0;
+    line-height: 1.8;
+}
+
+/* Caixa do formulário */
+.contact-container {
+    max-width: 730px;
+    margin: 0 auto;
+    padding: 2.5em;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 2em;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form label {
+    margin: 0.6em 0 0.3em;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+    text-align: left;
+}
+
+.contact-form input, .contact-form textarea {
+    padding: 0.8em;
+    margin-bottom: 1.2em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1.1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contact-form textarea {
+    min-height: 180px;
+}
+
+.contact-form button {
+    padding: 0.8em;
+    font-size: 1.2em;
+    color: white;
+    background-color: #C76A37;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #C76A37;
+}
+
+/* Estilização do footer para mantê-lo na parte inferior */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 1.2em;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 100px;
+}
