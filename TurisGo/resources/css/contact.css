@@ -1,28 +1,30 @@
-/* Remove qualquer margem ou padding padrão do body */
-body, html {
+/* General Reset */
+* {
+    font-family: 'Manrope', sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
     height: 100%;
     overflow-x: hidden;
 }
 
-/* Configuração para o layout da página */
 body {
+    color: #1B1B1B;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #f5f5f5;
 }
 
-/* Ajustes para a seção de contato */
-.contact-section {
-    font-family: Arial, sans-serif;
-    color: #333;
-    flex: 1;
-    text-align: center;
-    padding-top: 400px; /* Espaço para posicionar abaixo da imagem */
-    position: relative;
+/* Espaço para o cabeçalho fixo */
+.header-spacer {
+    height: 400px;
 }
 
+/* Cabeçalho fixo */
 .contact-header {
     background-image: url('/public/images/background_aboutUs.png');
     background-size: cover;
@@ -34,7 +36,9 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: fixed; /* Cabeçalho fixo no topo */
+    position: relative;
+    margin-top: -480px;
+    margin-bottom: 50px;
     top: 0;
     left: 0;
     right: 0;
@@ -42,59 +46,65 @@ body {
 }
 
 .contact-header h1 {
-    font-size: 3em;
-    margin: 0;
+    font-size: 4.5rem;
 }
 
 .contact-header p {
-    font-size: 1.5em;
-    margin: 0.5em 0;
+    font-size: 1.5rem;
+    margin-top: 0.5em;
 }
 
-/* Estilo para o texto de introdução "Contact Us" */
+/* Seção de contato */
+.contact-section {
+    flex: 1;
+    padding-top: 400px;
+    position: relative;
+    text-align: center;
+}
+
+/* Texto de introdução "Contact Us" */
 .contact-text {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 2.5em;
-    text-align: left;
-    color: #555;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative; /* Define posição normal */
-    top: 0; /* Remove qualquer posicionamento que poderia estar fixando o elemento */
+    color: #555;
+    text-align: left;
 }
 
 .contact-text h2 {
-    color: black;
-    font-size: 1.8em;
+    font-size: 1.8rem;
+    color: #1B1B1B;
+    margin-bottom: 1.5em;
     display: flex;
     align-items: center;
-    margin-bottom: 1.5em;
 }
 
 .contact-text h2::after {
     content: "";
-    width: 730px;
+    flex-grow: 1;
     height: 3px;
     background-color: #C76A37;
     margin-left: 12px;
 }
 
 .contact-text p {
-    font-size: 1.1em;
+    font-size: 1rem;
     margin: 0.6em 0;
     line-height: 1.8;
+    font-weight: bold;
 }
 
 /* Caixa do formulário */
 .contact-container {
     max-width: 730px;
-    margin: 0 auto;
+    margin: 2em auto 0;
     padding: 2.5em;
     background-color: #f2f2f2;
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    margin-top: 2em;
+    margin-bottom: 50px;
 }
 
 .contact-form {
@@ -103,11 +113,10 @@ body {
 }
 
 .contact-form label {
-    margin: 0.6em 0 0.3em;
+    font-size: 1.1rem;
     font-weight: bold;
-    color: #333;
-    font-size: 1.1em;
-    text-align: left;
+    color: #1B1B1B;
+    margin: 0.6em 0 0.3em;
 }
 
 .contact-form input, .contact-form textarea {
@@ -115,7 +124,7 @@ body {
     margin-bottom: 1.2em;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 1.1em;
+    font-size: 1rem;
     width: 100%;
     box-sizing: border-box;
 }
@@ -126,27 +135,20 @@ body {
 
 .contact-form button {
     padding: 0.8em;
-    font-size: 1.2em;
+    font-size: 1rem;
     color: white;
     background-color: #C76A37;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-weight: bold;
+    width: 150px;
+    height: 50px;
+    align-self: center;
 }
 
 .contact-form button:hover {
-    background-color: #C76A37;
+    background-color: #a6522d;
 }
 
-/* Estilização do footer para mantê-lo na parte inferior */
-footer {
-    background-color: #333;
-    color: white;
-    padding: 1.2em;
-    text-align: center;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 100px;
-}

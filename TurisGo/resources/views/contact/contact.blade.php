@@ -11,6 +11,9 @@
     <!-- Header -->
     <x-header />
 
+    <!-- Spacer para compensar o cabeçalho fixo -->
+    <div class="header-spacer"></div>
+
     <!-- Contact Section -->
     <section class="contact-section">
         <div class="contact-header">
