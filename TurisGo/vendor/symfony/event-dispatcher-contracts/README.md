@@ -1,9 +1,3 @@
-Symfony EventDispatcher Contracts
-=================================
-
-A set of abstractions extracted out of the Symfony components.
-
-Can be used to build on semantics that the Symfony components proved useful and
-that already have battle tested implementations.
-
-See https://github.com/symfony/contracts/blob/main/README.md for more information.
+version https://git-lfs.github.com/spec/v1
+oid sha256:630d46a66a6b6b259aa537bd64cc79ac12b5a9b2ded9534fea5b488069ecf628
+size 346

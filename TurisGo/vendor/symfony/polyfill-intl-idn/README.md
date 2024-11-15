@@ -1,12 +1,3 @@
-Symfony Polyfill / Intl: Idn
-============================
-
-This component provides [`idn_to_ascii`](https://php.net/idn-to-ascii) and [`idn_to_utf8`](https://php.net/idn-to-utf8) functions to users who run php versions without the [Intl](https://php.net/intl) extension.
-
-More information can be found in the
-[main Polyfill README](https://github.com/symfony/polyfill/blob/main/README.md).
-
-License
-=======
-
-This library is released under the [MIT license](LICENSE).
+version https://git-lfs.github.com/spec/v1
+oid sha256:25df08ccce19fd0b088bf049ec068c49fcb1342bda15236eaee49f68d0a348eb
+size 467

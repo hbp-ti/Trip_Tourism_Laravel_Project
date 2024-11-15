@@ -1,9 +1,3 @@
-Symfony Translation Contracts
-=============================
-
-A set of abstractions extracted out of the Symfony components.
-
-Can be used to build on semantics that the Symfony components proved useful and
-that already have battle tested implementations.
-
-See https://github.com/symfony/contracts/blob/main/README.md for more information.
+version https://git-lfs.github.com/spec/v1
+oid sha256:2fb6a2b032778a724d3bd3f187c78a8ab1a634135c6f8f2b031f53b8c9c592e9
+size 338

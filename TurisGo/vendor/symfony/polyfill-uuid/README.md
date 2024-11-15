@@ -1,12 +1,3 @@
-Symfony Polyfill / Uuid
-========================
-
-This component provides `uuid_*` functions to users who run PHP versions without the uuid extension.
-
-More information can be found in the
-[main Polyfill README](https://github.com/symfony/polyfill/blob/main/README.md).
-
-License
-=======
-
-This library is released under the [MIT license](LICENSE).
+version https://git-lfs.github.com/spec/v1
+oid sha256:0c3551bdf69bb801b720dd1503d3ce53d57da16c2c9f32a598707c76dcc9ab7c
+size 347

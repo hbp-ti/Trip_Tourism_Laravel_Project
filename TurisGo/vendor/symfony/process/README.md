@@ -1,13 +1,3 @@
-Process Component
-=================
-
-The Process component executes commands in sub-processes.
-
-Resources
----------
-
- * [Documentation](https://symfony.com/doc/current/components/process.html)
- * [Contributing](https://symfony.com/doc/current/contributing/index.html)
- * [Report issues](https://github.com/symfony/symfony/issues) and
-   [send Pull Requests](https://github.com/symfony/symfony/pulls)
-   in the [main Symfony repository](https://github.com/symfony/symfony)
+version https://git-lfs.github.com/spec/v1
+oid sha256:39b4a88fa70f43cb9b4640526b266863d503c0eb6901e1d8758171835c2b6f32
+size 472

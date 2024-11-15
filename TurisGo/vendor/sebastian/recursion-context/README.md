@@ -1,19 +1,3 @@
-[![Latest Stable Version](https://poser.pugx.org/sebastian/recursion-context/v/stable.png)](https://packagist.org/packages/sebastian/recursion-context)
-[![CI Status](https://github.com/sebastianbergmann/recursion-context/workflows/CI/badge.svg)](https://github.com/sebastianbergmann/recursion-context/actions)
-[![codecov](https://codecov.io/gh/sebastianbergmann/recursion-context/branch/main/graph/badge.svg)](https://codecov.io/gh/sebastianbergmann/recursion-context)
-
-# sebastian/recursion-context
-
-## Installation
-
-You can add this library as a local, per-project dependency to your project using [Composer](https://getcomposer.org/):
-
-```
-composer require sebastian/recursion-context
-```
-
-If you only need this library during development, for instance to run your project's test suite, then you should add it as a development-time dependency:
-
-```
-composer require --dev sebastian/recursion-context
-```
+version https://git-lfs.github.com/spec/v1
+oid sha256:b9b79ebd4068173df25cb217e18f54141f6bd6cd71caf42015acb7afdaa646d4
+size 907

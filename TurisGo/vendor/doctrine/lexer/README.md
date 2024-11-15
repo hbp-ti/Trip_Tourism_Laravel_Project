@@ -1,9 +1,3 @@
-# Doctrine Lexer
-
-[![Build Status](https://github.com/doctrine/lexer/workflows/Continuous%20Integration/badge.svg)](https://github.com/doctrine/lexer/actions)
-
-Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.
-
-This lexer is used in Doctrine Annotations and in Doctrine ORM (DQL).
-
-https://www.doctrine-project.org/projects/lexer.html
+version https://git-lfs.github.com/spec/v1
+oid sha256:c9274d68574ed003b0c18573ddfc2e75354dbf2b6dab9cbf83ca722e269d1277
+size 367

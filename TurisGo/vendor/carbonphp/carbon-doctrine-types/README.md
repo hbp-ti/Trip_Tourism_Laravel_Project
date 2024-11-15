@@ -1,14 +1,3 @@
-# carbonphp/carbon-doctrine-types
-
-Types to use Carbon in Doctrine
-
-## Documentation
-
-[Check how to use in the official Carbon documentation](https://carbon.nesbot.com/symfony/)
-
-This package is an externalization of [src/Carbon/Doctrine](https://github.com/briannesbitt/Carbon/tree/2.71.0/src/Carbon/Doctrine)
-from `nestbot/carbon` package.
-
-Externalization allows to better deal with different versions of dbal. With
-version 4.0 of dbal, it no longer sustainable to be compatible with all version
-using a single code.
+version https://git-lfs.github.com/spec/v1
+oid sha256:953807414fdae59ee1a0f5a24e8b759301fac2804954a415675e210ca0a61563
+size 520

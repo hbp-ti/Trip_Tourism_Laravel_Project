@@ -1,14 +1,3 @@
-HttpFoundation Component
-========================
-
-The HttpFoundation component defines an object-oriented layer for the HTTP
-specification.
-
-Resources
----------
-
- * [Documentation](https://symfony.com/doc/current/components/http_foundation.html)
- * [Contributing](https://symfony.com/doc/current/contributing/index.html)
- * [Report issues](https://github.com/symfony/symfony/issues) and
-   [send Pull Requests](https://github.com/symfony/symfony/pulls)
-   in the [main Symfony repository](https://github.com/symfony/symfony)
+version https://git-lfs.github.com/spec/v1
+oid sha256:2f8c8bec33290637ba7fa42d3b0654cbbc74502f4707a368f0177826b3d2db89
+size 526

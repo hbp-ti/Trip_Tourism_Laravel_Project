@@ -1,13 +1,3 @@
-Yaml Component
-==============
-
-The Yaml component loads and dumps YAML files.
-
-Resources
----------
-
- * [Documentation](https://symfony.com/doc/current/components/yaml.html)
- * [Contributing](https://symfony.com/doc/current/contributing/index.html)
- * [Report issues](https://github.com/symfony/symfony/issues) and
-   [send Pull Requests](https://github.com/symfony/symfony/pulls)
-   in the [main Symfony repository](https://github.com/symfony/symfony)
+version https://git-lfs.github.com/spec/v1
+oid sha256:9e4962d176930420191a04641852d236a23051e689f23fea97b27db9abf5abba
+size 452

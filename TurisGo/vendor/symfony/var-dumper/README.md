@@ -1,15 +1,3 @@
-VarDumper Component
-===================
-
-The VarDumper component provides mechanisms for walking through any arbitrary
-PHP variable. It provides a better `dump()` function that you can use instead
-of `var_dump()`.
-
-Resources
----------
-
- * [Documentation](https://symfony.com/doc/current/components/var_dumper/introduction.html)
- * [Contributing](https://symfony.com/doc/current/contributing/index.html)
- * [Report issues](https://github.com/symfony/symfony/issues) and
-   [send Pull Requests](https://github.com/symfony/symfony/pulls)
-   in the [main Symfony repository](https://github.com/symfony/symfony)
+version https://git-lfs.github.com/spec/v1
+oid sha256:34283089fc922d6ac7447a142a258c4ccd0814c67b82968a1a8b0907a2f709e7
+size 607

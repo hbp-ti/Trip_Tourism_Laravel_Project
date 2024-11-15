@@ -1,13 +1,3 @@
-Container interface
-==============
-
-This repository holds all interfaces related to [PSR-11 (Container Interface)][psr-url].
-
-Note that this is not a Container implementation of its own. It is merely abstractions that describe the components of a Dependency Injection Container.
-
-The installable [package][package-url] and [implementations][implementation-url] are listed on Packagist.
-
-[psr-url]: https://www.php-fig.org/psr/psr-11/
-[package-url]: https://packagist.org/packages/psr/container
-[implementation-url]: https://packagist.org/providers/psr/container-implementation
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:ccea7f7d8bd4d70686721b6460de8e611928c2a9687153969bd49db726d4c182
+size 578

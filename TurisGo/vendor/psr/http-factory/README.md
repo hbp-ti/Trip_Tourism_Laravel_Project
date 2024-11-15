@@ -1,12 +1,3 @@
-HTTP Factories
-==============
-
-This repository holds all interfaces related to [PSR-17 (HTTP Factories)][psr-url].
-
-Note that this is not a HTTP Factory implementation of its own. It is merely interfaces that describe the components of a HTTP Factory.
-
-The installable [package][package-url] and [implementations][implementation-url] are listed on Packagist.
-
-[psr-url]: https://www.php-fig.org/psr/psr-17/
-[package-url]: https://packagist.org/packages/psr/http-factory
-[implementation-url]: https://packagist.org/providers/psr/http-factory-implementation
+version https://git-lfs.github.com/spec/v1
+oid sha256:d80b63e2a8c4f80af830e5307683fc73718d15e71db3c5af56e15b56b2a47d63
+size 556

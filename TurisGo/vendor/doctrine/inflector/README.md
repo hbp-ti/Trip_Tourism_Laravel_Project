@@ -1,7 +1,3 @@
-# Doctrine Inflector
-
-Doctrine Inflector is a small library that can perform string manipulations
-with regard to uppercase/lowercase and singular/plural forms of words.
-
-[![Build Status](https://github.com/doctrine/inflector/workflows/Continuous%20Integration/badge.svg)](https://github.com/doctrine/inflector/actions?query=workflow%3A%22Continuous+Integration%22+branch%3A4.0.x)
-[![Code Coverage](https://codecov.io/gh/doctrine/inflector/branch/2.0.x/graph/badge.svg)](https://codecov.io/gh/doctrine/inflector/branch/2.0.x)
+version https://git-lfs.github.com/spec/v1
+oid sha256:d6c532a2ed15f9fa1652038524af1167517fccab1a698fce199c831628a462b3
+size 525

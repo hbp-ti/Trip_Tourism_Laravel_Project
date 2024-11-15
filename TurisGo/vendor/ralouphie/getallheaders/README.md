@@ -1,27 +1,3 @@
-getallheaders
-=============
-
-PHP `getallheaders()` polyfill. Compatible with PHP >= 5.3.
-
-[![Build Status](https://travis-ci.org/ralouphie/getallheaders.svg?branch=master)](https://travis-ci.org/ralouphie/getallheaders)
-[![Coverage Status](https://coveralls.io/repos/ralouphie/getallheaders/badge.png?branch=master)](https://coveralls.io/r/ralouphie/getallheaders?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/ralouphie/getallheaders/v/stable.png)](https://packagist.org/packages/ralouphie/getallheaders)
-[![Latest Unstable Version](https://poser.pugx.org/ralouphie/getallheaders/v/unstable.png)](https://packagist.org/packages/ralouphie/getallheaders)
-[![License](https://poser.pugx.org/ralouphie/getallheaders/license.png)](https://packagist.org/packages/ralouphie/getallheaders)
-
-
-This is a simple polyfill for [`getallheaders()`](http://www.php.net/manual/en/function.getallheaders.php).
-
-## Install
-
-For PHP version **`>= 5.6`**:
-
-```
-composer require ralouphie/getallheaders
-```
-
-For PHP version **`< 5.6`**:
-
-```
-composer require ralouphie/getallheaders "^2"
-```
+version https://git-lfs.github.com/spec/v1
+oid sha256:a5a015ade842a81fb04d692c9a342fa17446f778110c4e9ba4c8d178f65a8478
+size 1088

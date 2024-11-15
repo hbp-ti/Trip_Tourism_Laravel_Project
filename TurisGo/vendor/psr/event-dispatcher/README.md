@@ -1,6 +1,3 @@
-PSR Event Dispatcher
-====================
-
-This repository holds the interfaces related to [PSR-14](http://www.php-fig.org/psr/psr-14/).
-
-Note that this is not an Event Dispatcher implementation of its own. It is merely interfaces that describe the components of an Event Dispatcher.  See the specification for more details.
+version https://git-lfs.github.com/spec/v1
+oid sha256:eff8dc7da2a04b9479d3f9644fc2ac9307a84c430794a2c0e719573a168ea995
+size 325
