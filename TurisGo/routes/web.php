@@ -32,4 +32,8 @@ Route::get('/contact', function () {
     return view('contact.contact');
 })->name("contact");
 
+Route::get('/profile', function () {
+    return view('profile.profile');
+})->name("profile");
+
 Route::get('/change-language/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
