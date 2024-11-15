@@ -1,4 +1,4 @@
-@vite(['resources/css/header.css'])
+@vite(['resources/css/header.css', 'resources/js/jquery-3.7.1.min.js','resources/js/header.js'])
 
 <nav class="navbar">
     <div class="container">
@@ -15,11 +15,29 @@
         </div>
 
         <div class="nav-actions">
-            <a href="#" class="language">
-                <img src="{{ asset('images/language_globe.png') }}" alt="Globe" class="language-img" />
-                EN
-            </a>
-            <a href="{{ route('login')}}" class="login-button">Login</a>
+            <div class="language-selector">
+                <a href="#" class="language-toggle" id="languageToggle">
+                    <img src="{{ asset('images/language_globe.png') }}" alt="Globe" class="language-img" />
+                    {{ strtoupper(app()->getLocale()) }}
+                </a>
+                <div class="language-dropdown" id="languageDropdown">
+                    <a href="{{ route('language.change', 'en') }}" class="language-option">
+                        <img src="{{ asset('images/UK_flag.png') }}" alt="English" class="flag-icon" />
+                        English
+                        @if (app()->getLocale() === 'en')
+                        <span class="checkmark">✔️</span>
+                        @endif
+                    </a>
+                    <a href="{{ route('language.change', 'pt') }}" class="language-option">
+                        <img src="{{ asset('images/PT_flag.png') }}" alt="Portuguese" class="flag-icon" />
+                        Portuguese
+                        @if (app()->getLocale() === 'pt')
+                        <span class="checkmark">✔️</span>
+                        @endif
+                    </a>
+                </div>
+            </div>
+            <a href="{{ route('login') }}" class="login-button">Login</a>
         </div>
 
     </div>

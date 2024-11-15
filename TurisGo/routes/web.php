@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,5 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('contact.contact');
 })->name("contact");
+
+Route::get('/change-language/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');

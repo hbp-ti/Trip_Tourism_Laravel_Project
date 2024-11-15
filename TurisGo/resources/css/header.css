@@ -87,3 +87,60 @@
 body {
     padding-top: 70px; /* Ajuste conforme a altura do seu header */
 }
+
+.language-selector {
+    position: relative;
+    display: inline-block;
+    margin-right: 100px;
+}
+
+.language-toggle {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.language-img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.language-dropdown {
+    display: none; /* Escondido por padrão */
+    position: absolute;
+    top: 200%;
+    left: -100%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 150px;
+    z-index: 1000;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.language-option:hover {
+    background-color: #f0f0f0;
+}
+
+.flag-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.checkmark {
+    margin-left: auto;
+    color: #4CAF50;
+}
