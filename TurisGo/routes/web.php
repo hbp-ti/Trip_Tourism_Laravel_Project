@@ -36,4 +36,8 @@ Route::get('/profile', function () {
     return view('profile.profile');
 })->name("profile");
 
+Route::get('/cart', function () {
+    return view('cart.cart');
+})->name("profile");
+
 Route::get('/change-language/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
