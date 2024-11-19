@@ -12,17 +12,6 @@ CREATE TABLE if not exists "user"(
     CONSTRAINT chk_age CHECK (age(birthDate) >= INTERVAL '16 years')
 );
 
-CREATE TABLE if not exists cart(
-    id SERIAL PRIMARY KEY,
-    subtotal float NOT NULL,
-    taxes int NOT NULL,
-    total float NOT NULL,
-    numb_items SMALLINT NOT NULL,
-    user_id INT NOT NULL,
-
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES "user"(id)
-);
-
 CREATE TABLE if not exists notification(
     id SERIAL PRIMARY KEY,
     title VARCHAR(20) NOT NULL,
@@ -34,36 +23,35 @@ CREATE TABLE if not exists notification(
 );
 
 CREATE TABLE if not exists review(
-    id SERIAL NOT NULL,
+    id SERIAL NOT NULL PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
     description VARCHAR(200) NOT NULL,
     rating INT NOT NULL,
     user_id INT NOT NULL,
-    hotel_id INT DEFAULT -1,
-    activity_id INT DEFAULT -1,
-    ticket_id INT DEFAULT -1,
+    item INT NOT NULL,
 
-    CONSTRAINT primKey PRIMARY KEY (user_id, ticket_id, activity_id, hotel_id, id),
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES "user"(id),
-    CONSTRAINT fk_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id),
-    CONSTRAINT fk_activity FOREIGN KEY (activity_id) REFERENCES activity(id),
-    CONSTRAINT fk_ticket FOREIGN KEY (ticket_id) REFERENCES ticket(id),
+    CONSTRAINT fk_item FOREIGN KEY (item) REFERENCES Item(id),
     CONSTRAINT chk_rating CHECK ( rating BETWEEN 1 AND 5)
 );
 
+CREATE TABLE if not exists Item(
+    id SERIAL NOT NULL PRIMARY KEY,
+    item_type VARCHAR(30) NOT NULL,
+
+    CONSTRAINT chk_type CHECK ( item_type == 'Hotel' OR item_type == 'Activity' OR item_type == 'Ticket')
+);
 
 CREATE TABLE if not exists image(
     id SERIAL PRIMARY KEY,
     url TEXT NOT NULL,
-    activity_id INT,
-    hotel_id INT,
+    item INT NOT NULL,
 
-    CONSTRAINT fk_activity FOREIGN KEY (activity_id) REFERENCES activity(id),
-    CONSTRAINT fk_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id)
+    CONSTRAINT fk_item FOREIGN KEY (item) REFERENCES item(id)
 );
 
 CREATE TABLE if not exists ticket(
-    id SERIAL PRIMARY KEY,
+    id_item INT PRIMARY KEY,
     transport_type VARCHAR(15) NOT NULL,
     train_class VARCHAR(15),
     departure_hour TIMESTAMP NOT NULL,
@@ -73,18 +61,18 @@ CREATE TABLE if not exists ticket(
     destination VARCHAR(30) NOT NULL,
     is_used BOOLEAN NOT NULL,
 
+    CONSTRAINT fk_item FOREIGN KEY (id_item) REFERENCES Item(id),
     CONSTRAINT chk_trans_type CHECK (transport_type = 'Train' OR transport_type = 'Bus'),
     CONSTRAINT chk_trans_class CHECK (train_class = 'first' OR train_class = 'second')
 );
 
 CREATE TABLE if not exists hotel(
-    id SERIAL PRIMARY KEY,
+    id_item INT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(1000) NOT NULL,
     price_night float NOT NULL,
     stars SMALLINT NOT NULL,
     average_guest_rating float DEFAULT 0,
-    breakfast_included BOOLEAN NOT NULL,
     free_wifi BOOLEAN NOT NULL,
     parking BOOLEAN NOT NULL,
     gym BOOLEAN NOT NULL,
@@ -92,20 +80,19 @@ CREATE TABLE if not exists hotel(
     spa_wellness BOOLEAN NOT NULL,
     hotel_restaurant BOOLEAN NOT NULL,
     bar BOOLEAN NOT NULL,
-    free_cancellation BOOLEAN NOT NULL,
     refundable_reservations BOOLEAN NOT NULL,
-    non_smoking_rooms BOOLEAN NOT NULL,
-    lift BOOLEAN NOT NULL,
-    luggage_storage BOOLEAN NOT NULL,
-    daily_housekeeping BOOLEAN NOT NULL,
-    secretary_24_hours BOOLEAN NOT NULL,
+    country VARCHAR(30) NOT NULL,
+    zip_code VARCHAR(10) NOT NULL,
+    city VARCHAR(30) NOT NULL,
+    street VARCHAR(60) NOT NULL,
 
+    CONSTRAINT fk_item FOREIGN KEY (id_item) REFERENCES Item(id),
     CONSTRAINT chk_stars CHECK (stars >= 0 AND stars <= 5),
     CONSTRAINT aver_guest_rating CHECK (average_guest_rating >= 0 AND average_guest_rating <= 5)
 );
 
 CREATE TABLE if not exists activity(
-    id SERIAL PRIMARY KEY,
+    id_item INT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(1000) NOT NULL,
     address_id INT NOT NULL,
@@ -118,56 +105,33 @@ CREATE TABLE if not exists activity(
     country VARCHAR(30) NOT NULL,
     zip_code VARCHAR(10) NOT NULL,
     city VARCHAR(30) NOT NULL,
-    street VARCHAR(60) NOT NULL
+    street VARCHAR(60) NOT NULL,
+
+    CONSTRAINT fk_item FOREIGN KEY (id_item) REFERENCES Item(id)
 );
 
 CREATE TABLE if not exists room(
     id SERIAL PRIMARY KEY,
     hotel_id INT NOT NULL,
-    number INT NOT NULL,
     type VARCHAR(20) NOT NULL,
-    floor SMALLINT NOT NULL,
     bed_type VARCHAR(20) NOT NULL,
     bed_count SMALLINT NOT NULL,
-    balcony BOOLEAN NOT NULL,
-    bathroom_count SMALLINT NOT NULL,
-    included_meals BOOLEAN NOT NULL,
 
-    CONSTRAINT fk_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id)
+    CONSTRAINT fk_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id_item)
 );
 
-CREATE TABLE if not exists invoice(
-    id SERIAL NOT NULL,
-    date DATE NOT NULL,
+CREATE TABLE if not exists cart(
+    id SERIAL PRIMARY KEY,
     subtotal float NOT NULL,
-    taxes float,
-    total_price float NOT NULL,
-    payment_method VARCHAR(40) NOT NULL,
-    activity_time TIME,
-    activity_numb_people INT,
-    hotel_num_people SMALLINT,
-    hotel_room_number INT,
-    hotel_days_reservation INT,
-    train_type VARCHAR(20),
-    train_ticket_count SMALLINT,
-    billing_country VARCHAR(20) NOT NULL,
-    billing_city VARCHAR(20) NOT NULL,
-    billing_address VARCHAR(20) NOT NULL,
-    billing_postal_code VARCHAR(10) NOT NULL,
-    activity_id INT DEFAULT -1,
-    hotel_id INT DEFAULT -1,
-    ticket_id INT DEFAULT -1,
+    taxes int NOT NULL,
+    total float NOT NULL,
     user_id INT NOT NULL,
 
-    CONSTRAINT primKey PRIMARY KEY (id, activity_id, hotel_id, ticket_id, user_id),
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES "user"(id),
-    CONSTRAINT fk_activity FOREIGN KEY (activity_id) REFERENCES activity(id),
-    CONSTRAINT fk_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id),
-    CONSTRAINT fk_ticket FOREIGN KEY (ticket_id) REFERENCES ticket(id)
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES "user"(id)
 );
 
-CREATE TABLE if not exists Cart_Items(
-    id SERIAL NOT NULL,
+CREATE TABLE if not exists cart_item(
+    id SERIAL NOT NULL PRIMARY KEY,
     numb_people_hotel SMALLINT,
     room_type_hotel VARCHAR(20),
     reservation_date_hotel DATE,
@@ -176,14 +140,42 @@ CREATE TABLE if not exists Cart_Items(
     train_type VARCHAR(20),
     train_people_count SMALLINT,
     cart_id INT NOT NULL,
-    activity_id INT DEFAULT -1,
-    hotel_id INT DEFAULT -1,
-    ticket_id INT DEFAULT -1,
+    item_id INT NOT NULL,
 
-    CONSTRAINT primKey PRIMARY KEY (id, activity_id, hotel_id, ticket_id, cart_id),
+
     CONSTRAINT fk_cart FOREIGN KEY (cart_id) REFERENCES cart(id),
-    CONSTRAINT fk_activity FOREIGN KEY (activity_id) REFERENCES activity(id),
-    CONSTRAINT fk_activity FOREIGN KEY (activity_id) REFERENCES activity(id),
-    CONSTRAINT fk_hotel FOREIGN KEY (hotel_id) REFERENCES hotel(id),
-    CONSTRAINT fk_ticket FOREIGN KEY (ticket_id) REFERENCES ticket(id)
+    CONSTRAINT fk_item FOREIGN KEY (item_id) REFERENCES Item(id)
+);
+
+CREATE TABLE if not exists "order"(
+    id SERIAL PRIMARY KEY,
+    subtotal float NOT NULL,
+    taxes int NOT NULL,
+    total float NOT NULL,
+    date DATE NOT NULL,
+    payment_method VARCHAR(20) NOT NULL,
+    billing_country VARCHAR(20) NOT NULL,
+    billing_city VARCHAR(20) NOT NULL,
+    billing_address VARCHAR(50) NOT NULL,
+    billing_postal_code VARCHAR(10) NOT NULL,
+    user_id INT NOT NULL,
+
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES "user"(id)
+);
+
+CREATE TABLE if not exists order_item(
+    id SERIAL NOT NULL PRIMARY KEY,
+    numb_people_hotel SMALLINT,
+    room_type_hotel VARCHAR(20),
+    reservation_date_hotel DATE,
+    numb_people_activity SMALLINT,
+    hours_activity TIME,
+    train_type VARCHAR(20),
+    train_people_count SMALLINT,
+    order_id INT NOT NULL,
+    item_id INT NOT NULL,
+
+
+    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES "order"(id),
+    CONSTRAINT fk_item FOREIGN KEY (item_id) REFERENCES Item(id)
 );
