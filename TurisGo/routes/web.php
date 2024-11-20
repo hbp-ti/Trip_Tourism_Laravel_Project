@@ -40,4 +40,8 @@ Route::get('/cart', function () {
     return view('cart.cart');
 })->name("profile");
 
+Route::get('/payment1', function () {
+    return view('payment.payment');
+})->name("Payment 1");
+
 Route::get('/change-language/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');

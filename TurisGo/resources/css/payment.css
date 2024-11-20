@@ -1,0 +1,129 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Manrope', sans-serif;
+    box-sizing: border-box;
+}
+
+.awareText {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+	background-color: rgb(51, 51, 51) !important;
+}
+
+.main-content {
+    background-image: url('/public/images/paymentBackground.png');
+    background-size: cover;
+    background-position: center;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+.payment-section {
+    /* background: rgba(255, 255, 255, 0.9); */
+	background-color: rgb(240, 240, 240);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.step {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background: #ddd;
+    color: #333;
+    font-weight: bold;
+}
+
+.step.active {
+    color: white;
+    background: #C76A37;
+}
+
+.payment-form {
+    text-align: left;
+}
+
+.payment-methods {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+/*
+.method {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    flex: 1;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.method:hover {
+    background: #ddd;
+}
+*/
+
+.method {
+	cursor: pointer;
+	width: 120px;
+	object-fit: contain;
+	border-radius: 6px;
+	padding: 12px;
+	/* height: 70px; */
+}
+
+.method:hover {
+    background: #ddd;
+}
+
+.billing-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.billing-info label {
+    width: 100%;
+    font-size: 14px;
+}
+
+.paymentTextInputs {
+	width: 100% !important;
+}
+
+.billing-info input, .billing-info select {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.continue-btn {
+    background: #C76A37;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.continue-btn:hover {
+    background: #B7531D;
+}
