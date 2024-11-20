@@ -1,20 +1,27 @@
 <?php
 
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('homepage');
 })->name("homepage");
 
-Route::get('/login', function () {
-    return view('login.login');
-})->name("login");
 
-Route::get('/register', function () {
-    return view('register.register');
-})->name("register");
+
+Route::prefix('auth')->name('auth.')->group(function() {
+    Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
+    Route::post('register', [AuthController::class, 'register'])->name('register.submit');
+    Route::get('login', [AuthController::class, 'showLoginForm'])->name('login.form');
+    Route::post('login', [AuthController::class, 'login'])->name('login.attempt');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('forgot', [AuthController::class, 'showForgotForm'])->name('forgot.form');
+    Route::post('forgot', [AuthController::class, 'sendResetLink'])->name('forgot.submit');
+    Route::get('reset/{token}', [AuthController::class, 'showResetForm'])->name('reset.form');
+    Route::post('reset', [AuthController::class, 'resetPassword'])->name('reset.submit');
+});
+
 
 Route::get('/password/forgot', function () {
     return view('password.forgot');
@@ -43,5 +50,13 @@ Route::get('/cart', function () {
 Route::get('/payment1', function () {
     return view('payment.payment');
 })->name("Payment 1");
+
+Route::get('/cart', function () {
+    return view('cart.cart');
+})->name("profile");
+
+Route::get('/tours', function () {
+    return view('tours.tours');
+})->name("tours");
 
 Route::get('/change-language/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');

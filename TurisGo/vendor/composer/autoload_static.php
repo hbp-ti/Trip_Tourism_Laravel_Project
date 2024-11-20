@@ -42,6 +42,7 @@ class ComposerStaticInit641be8603529b7dcf24ce5178817e62a
         'c72349b1fe8d0deeedd3a52e8aa814d8' => __DIR__ . '/..' . '/mockery/mockery/library/helpers.php',
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'd634523d799d97a8ab4807b650bf5cea' => __DIR__ . '/..' . '/pestphp/pest-plugin-laravel/src/Autoload.php',
+        '934417de788fc013cd94d9b59eb4a7aa' => __DIR__ . '/../..' . '/app/Helpers/PopupHelper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -205,8 +206,8 @@ class ComposerStaticInit641be8603529b7dcf24ce5178817e62a
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Whoops\\' => 
         array (
@@ -362,8 +363,8 @@ class ComposerStaticInit641be8603529b7dcf24ce5178817e62a
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -581,7 +582,22 @@ class ComposerStaticInit641be8603529b7dcf24ce5178817e62a
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\LanguageController' => __DIR__ . '/../..' . '/app/Http/Controllers/LanguageController.php',
+        'App\\Http\\Middleware\\SetLocaleLanguage' => __DIR__ . '/../..' . '/app/Http/Middleware/SetLocaleLanguage.php',
+        'App\\Models\\Activity' => __DIR__ . '/../..' . '/app/Models/Activity.php',
+        'App\\Models\\Cart' => __DIR__ . '/../..' . '/app/Models/Cart.php',
+        'App\\Models\\CartItem' => __DIR__ . '/../..' . '/app/Models/CartItem.php',
+        'App\\Models\\Hotel' => __DIR__ . '/../..' . '/app/Models/Hotel.php',
+        'App\\Models\\Image' => __DIR__ . '/../..' . '/app/Models/Image.php',
+        'App\\Models\\Item' => __DIR__ . '/../..' . '/app/Models/Item.php',
+        'App\\Models\\Notification' => __DIR__ . '/../..' . '/app/Models/Notification.php',
+        'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
+        'App\\Models\\OrderItem' => __DIR__ . '/../..' . '/app/Models/OrderItem.php',
+        'App\\Models\\Review' => __DIR__ . '/../..' . '/app/Models/Review.php',
+        'App\\Models\\Room' => __DIR__ . '/../..' . '/app/Models/Room.php',
+        'App\\Models\\Ticket' => __DIR__ . '/../..' . '/app/Models/Ticket.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

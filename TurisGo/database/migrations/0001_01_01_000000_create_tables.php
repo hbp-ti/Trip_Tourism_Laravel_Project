@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -23,15 +24,17 @@ return new class extends Migration
             $table->text('image');
             $table->timestamps();
             $table->rememberToken();
-            $table->check("DATE_PART('year', AGE(birth_date)) >= 16");
         });
+
+        // Adicionar a constraint de CHECK usando SQL bruto
+        DB::statement('ALTER TABLE users ADD CONSTRAINT birth_date_check CHECK (DATE_PART(\'year\', AGE(birth_date)) >= 16)');
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
-        
+
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
@@ -44,9 +47,11 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('item_type', 30);
-            $table->check("item_type IN ('Hotel', 'Activity', 'Ticket')");
             $table->timestamps();
         });
+
+        // Adicionar a constraint de CHECK para 'item_type' usando SQL bruto
+        DB::statement("ALTER TABLE items ADD CONSTRAINT item_type_check CHECK (item_type IN ('Hotel', 'Activity', 'Ticket'))");
 
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
@@ -65,8 +70,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('item_id')->constrained('items');
             $table->timestamps();
-            $table->check('rating BETWEEN 1 AND 5');
         });
+
+        // Adicionar a constraint de CHECK para 'rating' usando SQL bruto
+        DB::statement('ALTER TABLE reviews ADD CONSTRAINT rating_check CHECK (rating BETWEEN 1 AND 5)');
 
         Schema::create('images', function (Blueprint $table) {
             $table->id();
@@ -86,9 +93,11 @@ return new class extends Migration
             $table->string('destination', 30);
             $table->boolean('is_used');
             $table->timestamps();
-            $table->check("transport_type IN ('Train', 'Bus')");
-            $table->check("train_class IS NULL OR train_class IN ('first', 'second')");
         });
+
+        // Adicionar a constraint de CHECK para 'transport_type' e 'train_class' usando SQL bruto
+        DB::statement("ALTER TABLE tickets ADD CONSTRAINT transport_type_check CHECK (transport_type IN ('Train', 'Bus'))");
+        DB::statement("ALTER TABLE tickets ADD CONSTRAINT train_class_check CHECK (train_class IS NULL OR train_class IN ('first', 'second'))");
 
         Schema::create('hotels', function (Blueprint $table) {
             $table->foreignId('id_item')->primary()->constrained('items')->onDelete('cascade');
@@ -110,9 +119,11 @@ return new class extends Migration
             $table->string('city', 30);
             $table->string('street', 60);
             $table->timestamps();
-            $table->check('stars BETWEEN 0 AND 5');
-            $table->check('average_guest_rating BETWEEN 0 AND 5');
         });
+
+        // Adicionar a constraint de CHECK para 'stars' e 'average_guest_rating' usando SQL bruto
+        DB::statement('ALTER TABLE hotels ADD CONSTRAINT stars_check CHECK (stars BETWEEN 0 AND 5)');
+        DB::statement('ALTER TABLE hotels ADD CONSTRAINT average_guest_rating_check CHECK (average_guest_rating BETWEEN 0 AND 5)');
 
         Schema::create('activities', function (Blueprint $table) {
             $table->foreignId('id_item')->primary()->constrained('items')->onDelete('cascade');

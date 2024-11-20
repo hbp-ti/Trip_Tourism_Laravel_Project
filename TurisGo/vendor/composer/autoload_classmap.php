@@ -6,7 +6,22 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\LanguageController' => $baseDir . '/app/Http/Controllers/LanguageController.php',
+    'App\\Http\\Middleware\\SetLocaleLanguage' => $baseDir . '/app/Http/Middleware/SetLocaleLanguage.php',
+    'App\\Models\\Activity' => $baseDir . '/app/Models/Activity.php',
+    'App\\Models\\Cart' => $baseDir . '/app/Models/Cart.php',
+    'App\\Models\\CartItem' => $baseDir . '/app/Models/CartItem.php',
+    'App\\Models\\Hotel' => $baseDir . '/app/Models/Hotel.php',
+    'App\\Models\\Image' => $baseDir . '/app/Models/Image.php',
+    'App\\Models\\Item' => $baseDir . '/app/Models/Item.php',
+    'App\\Models\\Notification' => $baseDir . '/app/Models/Notification.php',
+    'App\\Models\\Order' => $baseDir . '/app/Models/Order.php',
+    'App\\Models\\OrderItem' => $baseDir . '/app/Models/OrderItem.php',
+    'App\\Models\\Review' => $baseDir . '/app/Models/Review.php',
+    'App\\Models\\Room' => $baseDir . '/app/Models/Room.php',
+    'App\\Models\\Ticket' => $baseDir . '/app/Models/Ticket.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
