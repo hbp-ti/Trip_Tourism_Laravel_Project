@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     @vite(['resources/css/aboutUs.css'])
 </head>
 <body>
@@ -22,42 +22,95 @@
             <hr class="title-line">
         </div>
         <p class="about-text">Welcome to TurisGo! We are a platform dedicated to making travel planning easier by offering an integrated solution that combines hotel searches, cultural activities, routes and transportation options. We believe that the process of planning a trip should be simple and efficient, allowing travelers to focus on what really matters: enjoying their experience.</p>
-        <button class="cta-button">
-            <img src="{{ asset('images/map_about.png') }}" alt="Offer Icon"> WHAT WE OFFER
-        </button>
+
     </section>
-    <h2 class="titleMiddle">At TurisGo, we provide our users with a platform where they can</h2>
-    <!-- Features Section -->
-    <section class="features-section">
-        <div class="features-container">
-            <div class="features-grid">
-                <div class="feature">
-                    <img src="{{ asset('images/lupa_about.png') }}" alt="Search Icon">
-                    <p>Search and compare hotels and cultural activities in various destinations</p>
-                </div>
-                <div class="feature">
-                    <img src="{{ asset('images/route_about.png') }}" alt="Itinerary Icon">
-                    <p>View automatic itineraries with route and transportation suggestions</p>
-                </div>
-                <div class="feature">
-                    <img src="{{ asset('images/weather_about.png') }}" alt="Weather Icon">
-                    <p>Check updated weather forecasts to better plan their trips</p>
-                </div>
-                <div class="feature">
-                    <img src="{{ asset('images/calendar_about.png') }}" alt="Booking Icon">
-                    <p>Book accommodations and activities securely and conveniently, all in one place</p>
-                </div>
-                <div class="feature">
-                    <img src="{{ asset('images/megafone_about.png') }}" alt="Promotion Icon">
-                    <p>Access exclusive promotional packages with accommodation and activity offers</p>
-                </div>
-                <div class="feature">
-                    <img src="{{ asset('images/lampada_about.png') }}" alt="Personalized Icon">
-                    <p>Get personalized suggestions based on their preferences and bookings</p>
-                </div>
+    <h2 class="titleMiddle">Why you should choose our platform</h2>
+    
+    <!-- ===============  Choose-us start=============== -->
+
+    <div class="choose-us-section">
+      <div class="container">
+            <div class="single-feature hover-border1 wow fadeInDown h-100" data-wow-duration="1.5s" data-wow-delay=".2s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.2s; animation-name: fadeInDown;">
+              <span class="sn">01</span>
+              <div class="icon">
+                <img  width="50" height="50" viewBox="0 0 50 50" src="{{ asset('images/searchIcon.png') }}" alt="Search Icon">
+              </div>
+              <div class="content">
+                <h5>
+                  <a href="#">Search and Compare Options</a>
+                </h5>
+                <p class="para">
+                Search and compare hotels and cultural activities in various destinations, helping you make informed choices with detailed information about pricing, location, and reviews.
+                </p>
+              </div>
+            </div>
+            <div class="single-feature hover-border1 wow fadeInDown h-100" data-wow-duration="1.5s" data-wow-delay=".4s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.4s; animation-name: fadeInDown;">
+              <span class="sn">02</span>
+              <div class="icon">
+                <img  width="50" height="50" viewBox="0 0 50 50" src="{{ asset('images/weatherIcon.png') }}" alt="Weather Icon">
+              </div>
+              <div class="content">
+                <h5><a href="#">Plan with Weather Insights</a></h5>
+                <p class="para">
+                Check updated weather forecasts to better plan your trips, ensuring that your activities and travels are perfectly aligned with the expected conditions.
+</p>
+                </p>
+              </div>
+            </div>
+            <div class="single-feature hover-border1 wow fadeInDown h-100" data-wow-duration="1.5s" data-wow-delay=".6s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.6s; animation-name: fadeInDown;">
+              <span class="sn">03</span>
+              <div class="icon">
+                <img  width="50" height="50" viewBox="0 0 50 50" src="{{ asset('images/promotionsIcon.png') }}" alt="Promotion Icon">
+              </div>
+              <div class="content">
+                <h5><a href="#">Exclusive Promotions</a></h5>
+                <p class="para">
+                Access exclusive promotional packages with combined hotel and activity offers, tailored to suit your preferences and budget for an enhanced travel experience.
+                </p>
+              </div>
+            </div>
+            <div class="single-feature hover-border1 wow fadeInDown h-100" data-wow-duration="1.5s" data-wow-delay=".8s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.8s; animation-name: fadeInDown;">
+              <span class="sn">04</span>
+              <div class="icon">
+                <img  width="50" height="50" viewBox="0 0 50 50" src="{{ asset('images/itineraryIcon.png') }}" alt="Itinerary Icon">
+              </div>
+              <div class="content">
+                <h5><a href="#">Automatic Itineraries</a></h5>
+                <p class="para">
+                View automatic itineraries with route and transportation suggestions, simplifying your journey by organizing your schedule seamlessly.
+                </p>
+              </div>
+            </div>
+            <div class="single-feature hover-border1 wow fadeInDown h-100" data-wow-duration="1.5s" data-wow-delay="1s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 1s; animation-name: fadeInDown;">
+              <span class="sn">05</span>
+              <div class="icon">
+                <img  width="50" height="50" viewBox="0 0 50 50" src="{{ asset('images/bookingIcon.png') }}" alt="Booking Icon">
+              </div>
+              <div class="content">
+                <h5>
+                  <a href="#">Book Seamlessly</a>
+                </h5>
+                <p class="para">
+                Book accommodations and activities securely and conveniently, all in one place, saving time and effort while ensuring reliable transactions.
+</p>
+                </p>
+              </div>
+            </div>
+            <div class="single-feature hover-border1 wow fadeInDown h-100" data-wow-duration="1.5s" data-wow-delay="1.2s" style="visibility: visible; animation-duration: 1.5s; animation-delay: 1.2s; animation-name: fadeInDown;">
+              <span class="sn">06</span>
+              <div class="icon">
+                <img  width="50" height="50" viewBox="0 0 50 50" src="{{ asset('images/personalizedSuggestionsIcon.png') }}" alt="Personalized Suggestions Icon">
+              </div>
+              <div class="content">
+                <h5><a href="#">Personalized Suggestions</a></h5>
+                <p class="para">
+                Get personalized suggestions based on your preferences and bookings, making every trip unique and perfectly tailored to your needs.
+                </p>
+              </div>
             </div>
         </div>
-    </section>
+    </div>
+    <!-- ===============  Choose-us end=============== -->
 
     <!-- Who TurisGo is For Section -->
     <section class="for-section">
