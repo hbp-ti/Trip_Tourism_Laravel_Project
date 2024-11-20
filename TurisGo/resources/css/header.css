@@ -1,6 +1,7 @@
 /* Importando a fonte Manrope ExtraBold do Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
+/* Estilos gerais para a navbar */
 .navbar {
     font-family: 'Manrope', sans-serif;
     display: flex;
@@ -12,10 +13,58 @@
     left: 0;
     right: 0;
     z-index: 1000; /* Garante que o header fique acima de outros elementos */
-    background: transparent; /* Sem fundo aqui, pois será definido nas próximas páginas */
+    background: transparent;
+    transition: all 0.42s ease;
 }
 
-/* Outras regras mantêm-se como antes */
+/* Navbar fixa quando a classe navbar-fixed é aplicada */
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    height: 70px; /* Altura para o header fixo */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Aparece quando a classe .visible é adicionada */
+.navbar-fixed.visible {
+    transform: translateY(0); /* Desce e fica visível */
+}
+
+/* Alteração de cor do logo quando o header está fixo */
+.navbar-fixed .logo {
+    color: #1B1B1B !important;  /* Cor do logo */
+}
+
+/* Alteração das cores dos links de navegação quando o header está fixo */
+.navbar-fixed .nav-links li a {
+    color: #1B1B1B !important;  /* Cor dos links */
+    transition: 0.42s all;
+}
+
+.navbar-fixed .nav-links li a:hover {
+    color: #C76A37 !important;  /* Cor dos links */
+}
+
+/* Alteração da cor do botão de login quando o header está fixo */
+.navbar-fixed .login-button {
+    background-color: #C76A37 !important;  /* Cor do fundo */
+    color: white !important;  /* Cor do texto */
+}
+
+/* Alteração das cores dos itens da linguagem quando o header está fixo */
+.navbar-fixed .language-toggle {
+    color: #1B1B1B !important;  /* Cor do texto de linguagem */
+}
+
+/* Container da navbar */
 .container {
     display: flex;
     justify-content: space-between;
@@ -23,13 +72,16 @@
     align-items: center;
 }
 
+/* Logo */
 .logo {
-    font-weight: 800;  /* ExtraBold */
+    font-weight: 800;
     font-size: 30px;
     color: white;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
+/* Links de navegação */
 .nav-links-container {
     display: flex;
     flex-grow: 1;
@@ -44,43 +96,51 @@
 
 .nav-links li a {
     font-family: 'Manrope', sans-serif;
-    font-weight: 800;  /* ExtraBold */
+    font-weight: 800;
     font-size: 15px;
     color: white;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
+/* Ações de navegação */
 .nav-actions {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.language-img {
-    width: 20px;
-    height: auto;
-    margin-right: 5px;
-}
-
-.language {
-    display: flex;
-    align-items: center;
+/* Estilo para os links de navegação */
+.nav-links li a {
+    font-family: 'Manrope', sans-serif;
     font-weight: 800;
-    font-size: 1em;
+    font-size: 15px;
     color: white;
     text-decoration: none;
-    margin-right: 110px;
+    transition: color 0.43s ease, text-decoration 0.43s ease;
 }
 
+/* Cor do link ativo */
+.nav-links li a.active {
+    color: #C76A37 !important; /* Cor laranja permanente */
+}
+
+/* Efeito de hover (quando o mouse passa sobre o link) */
+.nav-links li a:hover {
+    color: #C76A37; /* Cor laranja no hover */
+}
+
+
+/* Estilo do botão de login */
 .login-button {
     background-color: #fff;
-    border: 1px solid #ddd;
     font-weight: 600;
     padding: 8px 15px;
     border-radius: 5px;
     color: #333;
     text-decoration: none;
     font-size: 1em;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* Espaço para o conteúdo não ser escondido atrás do header */
@@ -88,6 +148,7 @@ body {
     padding-top: 70px; /* Ajuste conforme a altura do seu header */
 }
 
+/* Estilos do dropdown de idioma */
 .language-selector {
     position: relative;
     display: inline-block;
@@ -103,18 +164,17 @@ body {
 }
 
 .language-img {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     margin-right: 5px;
 }
 
 .language-dropdown {
-    display: none; /* Escondido por padrão */
+    display: none;
     position: absolute;
     top: 200%;
     left: -100%;
     background-color: white;
-    border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 150px;
@@ -123,6 +183,7 @@ body {
 
 .language-option {
     display: flex;
+    border-radius: 8px;
     align-items: center;
     padding: 10px;
     text-decoration: none;

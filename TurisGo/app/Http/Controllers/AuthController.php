@@ -114,7 +114,7 @@ class AuthController extends Controller
             );
 
             // Redireciona para a página inicial com o popup
-            return redirect()->intended('homepage')->with('popup', $popup);
+            return redirect()->route('homepage')->with('popup', $popup);
         }
 
         // Caso o login falhe, cria o popup de erro

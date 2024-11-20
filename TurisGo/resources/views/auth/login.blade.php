@@ -19,10 +19,10 @@
                 <form class="resetForm" method="POST" action="{{ route('auth.login.attempt')}}">
                     @csrf
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
                     <label for="password">Confirm Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" required>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
                     <div class="remember-me">
                         <label class="switch">

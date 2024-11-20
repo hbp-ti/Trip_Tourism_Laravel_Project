@@ -42,6 +42,7 @@ body {
 
 .header p {
     font-size: 1.5rem;
+    color: white;
 }
 
 /* About Us Section */
@@ -247,6 +248,10 @@ p {
   fill: #C76A37;
 }
 
+.single-feature:hover a {
+  color: #C76A37 !important;
+}
+
 .single-feature .sn {
   position: absolute;
   top: 30px;
@@ -278,10 +283,6 @@ p {
   color: #1F2230;
   transition: all 0.42s ease-in;
   cursor: unset;
-}
-
-.single-feature .content h5 a:hover {
-  color: #C76A37;
 }
 
 .choose-us-section {

@@ -15,3 +15,27 @@ $(document).ready(function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('.navbar');
+        if (window.scrollY > 50) {  // Se o scroll for maior que 50px
+            header.classList.add('navbar-fixed');  // Adiciona a classe navbar-fixed
+        } else {
+            header.classList.remove('navbar-fixed');  // Remove a classe navbar-fixed
+        }
+    });
+    
+});
+
+document.querySelectorAll('.nav-links li a').forEach(link => {
+    link.addEventListener('click', function() {
+        // Remove a classe 'active' de todos os links
+        document.querySelectorAll('.nav-links li a').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Adiciona a classe 'active' no link clicado
+        this.classList.add('active');
+    });
+});

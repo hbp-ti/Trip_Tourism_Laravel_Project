@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @vite(['resources/css/header.css', 'resources/js/jquery-3.7.1.min.js','resources/js/header.js'])
 
 <nav class="navbar">
@@ -5,19 +6,20 @@
         <a href="/" class="logo">TurisGo</a>
 
         <div class="nav-links-container">
-            <ul class="nav-links">
-                <li><a href="{{ route('homepage') }}">Home</a></li>
-                <li><a href="{{ route('aboutUs') }}">About</a></li>
-                <li><a href="{{ route('tours') }}">Tours</a></li>
-                <li><a href="">Hotel</a></li>
-                <li><a href="{{ route('contact') }}">Contact</a></li>
-            </ul>
+        <ul class="nav-links">
+            <li><a href="{{ route('homepage') }}" class="{{ Route::currentRouteName() == 'homepage' ? 'active' : '' }}">Home</a></li>
+            <li><a href="{{ route('aboutUs') }}" class="{{ Route::currentRouteName() == 'aboutUs' ? 'active' : '' }}">About</a></li>
+            <li><a href="" class="{{ Route::currentRouteName() == 'tours' ? 'active' : '' }}">Tours</a></li>
+            <li><a href="" class="{{ Route::currentRouteName() == 'hotel' ? 'active' : '' }}">Hotel</a></li>
+            <li><a href="{{ route('contact') }}" class="{{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">Contact</a></li>
+        </ul>
+
         </div>
 
         <div class="nav-actions">
             <div class="language-selector">
                 <a href="#" class="language-toggle" id="languageToggle">
-                    <img src="{{ asset('images/language_globe.png') }}" alt="Globe" class="language-img" />
+                    <img src="{{ asset('images/languageSelection.png') }}" alt="Globe" class="language-img" />
                     {{ strtoupper(app()->getLocale()) }}
                 </a>
                 <div class="language-dropdown" id="languageDropdown">
