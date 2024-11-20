@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 
 
-Route::prefix('auth')->name('auth.')->group(function() {
+Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
     Route::post('register', [AuthController::class, 'register'])->name('register.submit');
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login.form');
@@ -20,6 +20,10 @@ Route::prefix('auth')->name('auth.')->group(function() {
     Route::post('forgot', [AuthController::class, 'sendResetLink'])->name('forgot.submit');
     Route::get('reset/{token}', [AuthController::class, 'showResetForm'])->name('reset.form');
     Route::post('reset', [AuthController::class, 'resetPassword'])->name('reset.submit');
+    Route::middleware('auth')->group(function () {
+        Route::get('profile', [AuthController::class, 'showProfile'])->name('profile');
+        Route::get('profile/edit', [AuthController::class, 'editProfile'])->name('profile.edit');
+    });
 });
 
 
@@ -39,21 +43,12 @@ Route::get('/contact', function () {
     return view('contact.contact');
 })->name("contact");
 
-Route::get('/profile', function () {
-    return view('profile.profile');
-})->name("profile");
 
-Route::get('/cart', function () {
-    return view('cart.cart');
-})->name("profile");
 
 Route::get('/payment1', function () {
     return view('payment.payment');
 })->name("Payment 1");
 
-Route::get('/cart', function () {
-    return view('cart.cart');
-})->name("profile");
 
 Route::get('/tours', function () {
     return view('tours.tours');

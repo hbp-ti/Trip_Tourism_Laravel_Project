@@ -6,13 +6,13 @@
         <a href="/" class="logo">TurisGo</a>
 
         <div class="nav-links-container">
-        <ul class="nav-links">
-            <li><a href="{{ route('homepage') }}" class="{{ Route::currentRouteName() == 'homepage' ? 'active' : '' }}">Home</a></li>
-            <li><a href="{{ route('aboutUs') }}" class="{{ Route::currentRouteName() == 'aboutUs' ? 'active' : '' }}">About</a></li>
-            <li><a href="" class="{{ Route::currentRouteName() == 'tours' ? 'active' : '' }}">Tours</a></li>
-            <li><a href="" class="{{ Route::currentRouteName() == 'hotel' ? 'active' : '' }}">Hotel</a></li>
-            <li><a href="{{ route('contact') }}" class="{{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">Contact</a></li>
-        </ul>
+            <ul class="nav-links">
+                <li><a href="{{ route('homepage') }}" class="{{ Route::currentRouteName() == 'homepage' ? 'active' : '' }}">Home</a></li>
+                <li><a href="{{ route('aboutUs') }}" class="{{ Route::currentRouteName() == 'aboutUs' ? 'active' : '' }}">About</a></li>
+                <li><a href="{{ route('tours') }}" class="{{ Route::currentRouteName() == 'tours' ? 'active' : '' }}">Tours</a></li>
+                <li><a href="" class="{{ Route::currentRouteName() == 'hotel' ? 'active' : '' }}">Hotel</a></li>
+                <li><a href="{{ route('contact') }}" class="{{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">Contact</a></li>
+            </ul>
 
         </div>
 
@@ -39,7 +39,17 @@
                     </a>
                 </div>
             </div>
+            @auth
+            <div class="profile-circle">
+                <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('images/default_user_image.png') }}" alt="Profile" class="profile-img">
+            </div>
+            @else
             <a href="{{ route('auth.login.form') }}" class="login-button">Login</a>
+            @endauth
+            <form action="{{ route('auth.logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
         </div>
 
     </div>

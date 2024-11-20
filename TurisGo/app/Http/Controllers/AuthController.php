@@ -100,21 +100,10 @@ class AuthController extends Controller
             'password' => 'required|min:8',
         ]);
 
+        $remember = $request->has('remember');
         // Tentativa de login com as credenciais fornecidas
-        if (Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], $request->remember)) {
-            // Popup de sucesso no login
-            $popup = PopupHelper::showPopup(
-                'Welcome!',
-                'You have successfully logged in.',
-                'success',
-                'Continue',
-                false,
-                '',
-                5000
-            );
-
-            // Redireciona para a página inicial com o popup
-            return redirect()->route('homepage')->with('popup', $popup);
+        if (Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], $remember)) {
+            return redirect()->route('homepage');
         }
 
         // Caso o login falhe, cria o popup de erro
@@ -243,4 +232,64 @@ class AuthController extends Controller
         );
         return redirect()->route('auth.login.form')->with('popup', $popup);
     }
+/*
+    public function showProfile()
+    {
+        // Obtém o usuário autenticado
+        $user = Auth::user();
+
+        // Obtenha as reservas ativas e o histórico do usuário (você pode personalizar isso conforme necessário)
+        $activeReservations = Reservation::where('user_id', $user->id)->where('status', 'active')->get();
+        $reservationHistory = Reservation::where('user_id', $user->id)->where('status', 'completed')->get();
+ 
+        // Retorna a view com os dados necessários
+        return view('auth.profile', compact('user'));
+    }
+    
+
+    public function editProfile()
+    {
+        // Verifica se o usuário está autenticado
+        if (!Auth::check()) {
+            return redirect()->route('auth.login.form')->with('error', 'Not Authorized');
+        }
+
+        // Obtém o usuário autenticado
+        $user = Auth::user();
+
+        // Retorna a visão de edição com as informações do usuário
+        return view('auth.edit-profile', compact('user'));
+    }
+    public function updateProfile(Request $request)
+    {
+        // Validação das informações do perfil
+        $validatedData = $request->validate([
+            'first_name' => 'required|max:20',
+            'last_name' => 'required|max:20',
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'username' => 'required|max:20|unique:users,username,' . Auth::id(),
+            'phone' => 'required|integer',
+            'birth_date' => 'required|date',
+        ]);
+
+        // Obtém o usuário autenticado
+        $user = Auth::user();
+
+        // Atualiza os dados do usuário
+        $user->update($validatedData);
+
+        // Cria um popup de sucesso
+        $popup = PopupHelper::showPopup(
+            'Profile Updated!',
+            'Your profile has been updated successfully.',
+            'success',
+            'OK',
+            false,
+            '',
+            5000
+        );
+
+        // Retorna à página de perfil com o popup de sucesso
+        return redirect()->route('auth.profile')->with('popup', $popup);
+    }*/
 }
