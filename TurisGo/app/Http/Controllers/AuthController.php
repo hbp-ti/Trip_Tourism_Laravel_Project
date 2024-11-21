@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\OrderItem;
+use App\Models\Order;
 use App\Helpers\PopupHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -215,7 +219,7 @@ class AuthController extends Controller
         }
 
         DB::table('password_reset_tokens')->where('email', $request->email)->delete();
-        
+
         $popup = PopupHelper::showPopup(
             'Success!',
             'Your password has been reset.',
@@ -229,26 +233,35 @@ class AuthController extends Controller
         return redirect()->route('auth.login.form')->with('popup', $popup);
     }
 
-    /*
     public function showProfile()
     {
+        // Verifica se o usuário está autenticado
+        if (!Auth::check()) {
+            return redirect('/')->with('error', 'Not Authorized');
+        }
+    
         // Obtém o usuário autenticado
         $user = Auth::user();
-
-        // Obtenha as reservas ativas e o histórico do usuário (você pode personalizar isso conforme necessário)
-        $activeReservations = Reservation::where('user_id', $user->id)->where('status', 'active')->get();
-        $reservationHistory = Reservation::where('user_id', $user->id)->where('status', 'completed')->get();
- 
-        // Retorna a view com os dados necessários
-        return view('auth.profile', compact('user'));
+    
+        // Busca as reservas ativas do usuário
+        $activeReservations = OrderItem::where('is_active', true)
+                                       ->whereHas('order', function ($query) use ($user) {
+                                           $query->where('user_id', $user->id);
+                                       })
+                                       ->get();
+    
+        // Retorna a view com os dados do usuário e as reservas ativas
+        return view('auth.profile', compact('user', 'activeReservations'));
     }
     
+
 
     public function editProfile()
     {
         // Verifica se o usuário está autenticado
         if (!Auth::check()) {
-            return redirect()->route('auth.login.form')->with('error', 'Not Authorized');
+            // Redireciona para a homepage com uma mensagem de erro
+            return redirect('/')->with('error', 'Not Authorized');
         }
 
         // Obtém o usuário autenticado
@@ -257,8 +270,15 @@ class AuthController extends Controller
         // Retorna a visão de edição com as informações do usuário
         return view('auth.edit-profile', compact('user'));
     }
+
     public function updateProfile(Request $request)
     {
+        // Verifica se o usuário está autenticado
+        if (!Auth::check()) {
+            // Redireciona para a homepage com uma mensagem de erro
+            return redirect('/')->with('error', 'Not Authorized');
+        }
+
         // Validação das informações do perfil
         $validatedData = $request->validate([
             'first_name' => 'required|max:20',
@@ -288,5 +308,102 @@ class AuthController extends Controller
 
         // Retorna à página de perfil com o popup de sucesso
         return redirect()->route('auth.profile')->with('popup', $popup);
-    }*/
+    }
+
+    // Dentro do AuthController
+
+    public function showCart()
+    {
+        // Verificar se o usuário está autenticado
+        if (!Auth::check()) {
+            return redirect()->route('auth.login.form')->with('error', 'Você precisa estar logado para visualizar o carrinho.');
+        }
+
+        // Obter o usuário autenticado
+        $user = Auth::user();
+
+        // Verificar se o usuário tem um carrinho
+        $cart = Cart::where('user_id', $user->id)->first();
+
+        // Se o carrinho não existir, cria um novo
+        if (!$cart) {
+            $cart = Cart::create(['user_id' => $user->id, 'subtotal' => 0, 'taxes' => 0, 'total' => 0]);
+        }
+
+        // Carregar os itens do carrinho
+        $cartItems = $cart->cartItems()->with('item')->get();
+
+        // Calcular subtotal, taxas e total
+        $subtotal = $cartItems->sum(function ($item) {
+            return $item->item->price * $item->quantity;  // Supondo que cada item tem um preço e quantidade
+        });
+
+        $taxes = $subtotal * 0.1;  // Supondo que as taxas são 10%
+        $total = $subtotal + $taxes;
+
+        // Atualizar o carrinho com os valores calculados
+        $cart->update([
+            'subtotal' => $subtotal,
+            'taxes' => $taxes,
+            'total' => $total,
+        ]);
+
+        // Retornar a view com os dados do carrinho
+        return view('auth.cart', compact('cart', 'cartItems'));
+    }
+
+    // Dentro do AuthController
+
+    public function addToCart(Request $request, $itemId)
+    {
+        // Verificar se o usuário está autenticado
+        if (!Auth::check()) {
+            return redirect()->route('auth.login.form')->with('error', 'Você precisa estar logado para adicionar itens ao carrinho.');
+        }
+
+        $user = Auth::user();
+        $cart = Cart::where('user_id', $user->id)->first();
+
+        // Se o carrinho não existe, cria um novo
+        if (!$cart) {
+            $cart = Cart::create(['user_id' => $user->id, 'subtotal' => 0, 'taxes' => 0, 'total' => 0]);
+        }
+
+        // Verifica se o item já está no carrinho
+        $existingItem = $cart->cartItems()->where('item_id', $itemId)->first();
+
+        if ($existingItem) {
+            // Se o item já estiver no carrinho, apenas incrementa a quantidade
+            $existingItem->quantity += 1;
+            $existingItem->save();
+        } else {
+            // Caso contrário, cria um novo item no carrinho
+            $cart->cartItems()->create([
+                'item_id' => $itemId,
+                'quantity' => 1,
+            ]);
+        }
+
+        // Redireciona para a página do carrinho
+        return redirect()->route('cart.show');
+    }
+
+    // Dentro do AuthController
+
+    public function removeFromCart($cartItemId)
+    {
+        // Verificar se o usuário está autenticado
+        if (!Auth::check()) {
+            return redirect()->route('auth.login.form')->with('error', 'Você precisa estar logado para remover itens do carrinho.');
+        }
+
+        // Encontra o item no carrinho e o remove
+        $cartItem = CartItem::find($cartItemId);
+
+        if ($cartItem) {
+            $cartItem->delete();
+        }
+
+        return redirect()->route('cart.show');
+    }
 }

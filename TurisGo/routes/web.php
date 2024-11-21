@@ -35,8 +35,12 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('reset/{token}/{email}', [AuthController::class, 'showResetForm'])->name('reset.form');
     Route::post('reset', [AuthController::class, 'resetPassword'])->name('reset.submit');
     Route::middleware('auth')->group(function () {
-        Route::get('profile', [AuthController::class, 'showProfile'])->name('profile');
-        Route::get('profile/edit', [AuthController::class, 'editProfile'])->name('profile.edit');
+        Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile.show');
+        Route::get('/profile/edit', [AuthController::class, 'editProfile'])->name('profile.edit');
+        Route::put('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+        Route::get('/cart', [AuthController::class, 'showCart'])->name('cart.show');
+        Route::post('/cart/{itemId}/add', [AuthController::class, 'addToCart'])->name('cart.add');
+        Route::delete('/cart/{cartItemId}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
     });
 });
 
@@ -77,4 +81,3 @@ Route::get('/tours', function () {
 })->name("tours");
 
 Route::get('/change-language/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
-

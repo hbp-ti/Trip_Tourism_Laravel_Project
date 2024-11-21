@@ -54,7 +54,7 @@
                     </div>
                     <ul class="dropdown-options">
                         <li>
-                            <a href="">
+                            <a href="{{ route('auth.profile.show') }}">
                                 <img src="{{ asset('images/profile_icon.png') }}" class="icon"> Profile
                                 <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
                             </a>
@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ route('auth.cart.show') }}">
                                 <img src="{{ asset('images/cart_icon.png') }}" class="icon"> Shopping Cart
                                 <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
                             </a>
