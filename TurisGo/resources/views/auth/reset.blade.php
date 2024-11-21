@@ -17,14 +17,12 @@
         <div class="form-section">
             <div class="form-container">
                 <h2>Reset Password</h2>
-                <!-- Aqui estamos usando a variável email passada pelo controlador -->
-                <p class="resetpass">Enter a new password for {{ $email }}</p>
+                <p class="resetpass">Enter a new password for {{ session('reset_email') }}</p>
 
-                <!-- Formulário para redefinir a senha -->
                 <form class="resetForm" action="{{ route('auth.reset.submit') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="token" value="{{ $token }}">
-                    <input type="hidden" name="email" value="{{ $email }}">
+                    <input type="hidden" name="token" value="{{ session('reset_token') }}">
+                    <input type="hidden" name="email" value="{{ session('reset_email') }}">
                     <label for="newpassword">New Password</label>
                     <input type="password" name="password" id="password" placeholder="Enter your new password" required>
 

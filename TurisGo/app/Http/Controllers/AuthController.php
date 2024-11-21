@@ -23,7 +23,6 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
-            // Validação dos dados de entrada
             $validatedData = $request->validate([
                 'first_name' => 'required|max:20',
                 'last_name' => 'required|max:20',
@@ -34,16 +33,13 @@ class AuthController extends Controller
                 'password' => [
                     'required',
                     'min:8',
-                    'regex:/[A-Z]/',    // Pelo menos uma letra maiúscula
-                    'regex:/[0-9]/',     // Pelo menos um número
-                    'regex:/[.\@$!%*?&_-]/',  // Pelo menos um caractere especial
-                    'confirmed',   // Verifica se a confirmação de senha corresponde
+                    'regex:/[A-Z]/',
+                    'regex:/[0-9]/',
+                    'regex:/[.\@$!%*?&_-]/',
+                    'confirmed',
                 ],
             ]);
 
-            // Caso a validação seja bem-sucedida
-
-            // Criação do usuário
             $user = User::create([
                 'first_name' => $validatedData['first_name'],
                 'last_name' => $validatedData['last_name'],
@@ -55,7 +51,6 @@ class AuthController extends Controller
                 'image' => 'images/default_user_image.png',  // Imagem padrão do usuário
             ]);
 
-            // Criação do popup de sucesso
             $popup = PopupHelper::showPopup(
                 'Success!',
                 'Your registration was completed successfully. Please log in to continue.',
@@ -66,10 +61,8 @@ class AuthController extends Controller
                 5000
             );
 
-            // Redireciona para a página de login com o popup de sucesso
             return redirect()->route('auth.login.form')->with('popup', $popup);
         } catch (\Exception $e) {
-            // Em caso de erro, cria um popup de erro
             $popup = PopupHelper::showPopup(
                 'Error',
                 'An unexpected error occurred. Please check the credentials!',
@@ -80,7 +73,6 @@ class AuthController extends Controller
                 0
             );
 
-            // Retorna à página de registro com o popup de erro
             return back()->with('popup', $popup);
         }
     }
@@ -94,19 +86,16 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Validação dos dados de entrada
         $validatedData = $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:8',
         ]);
 
         $remember = $request->has('remember');
-        // Tentativa de login com as credenciais fornecidas
         if (Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], $remember)) {
             return redirect()->route('homepage');
         }
 
-        // Caso o login falhe, cria o popup de erro
         $popup = PopupHelper::showPopup(
             'Login Failed',
             'Invalid email or password. Please try again.',
@@ -117,7 +106,7 @@ class AuthController extends Controller
             0
         );
 
-        // Retorna à página de login com o popup de erro
+
         return back()->with('popup', $popup);
     }
 
@@ -139,9 +128,11 @@ class AuthController extends Controller
 
     public function sendResetLink(Request $request)
     {
+
         $request->validate(['email' => 'required|email']);
 
         $user = User::where('email', $request->email)->first();
+
         if (!$user) {
             $popup = PopupHelper::showPopup(
                 'Error',
@@ -175,25 +166,30 @@ class AuthController extends Controller
             '',
             5000
         );
+
         return back()->with('popup', $popup);
     }
 
-    public function showResetForm($token)
+
+
+    public function showResetForm($token, $email)
     {
         $resetRecord = DB::table('password_reset_tokens')->where('token', $token)->first();
 
-        if (!$resetRecord) {
-            return redirect()->route('auth.login.form')->with('error', 'Invalid or expired token');
+        if (!$resetRecord || $resetRecord->email !== $email) {
+            return redirect()->route('auth.login.form')->with('error', 'Token inválido ou expirado');
         }
 
-        return view('auth.reset', [
-            'token' => $token,
-            'email' => $resetRecord->email
-        ]);
+        session()->flash('reset_token', $token);
+        session()->flash('reset_email', $email);
+
+        return view('auth.reset');
     }
+
 
     public function resetPassword(Request $request)
     {
+        // Validação dos campos
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
@@ -212,7 +208,6 @@ class AuthController extends Controller
         if (!$resetRecord) {
             return redirect()->route('auth.login.form')->with('error', 'Invalid or expired token');
         }
-
         $user = User::where('email', $request->email)->first();
         if ($user) {
             $user->password = Hash::make($request->password);
@@ -220,7 +215,7 @@ class AuthController extends Controller
         }
 
         DB::table('password_reset_tokens')->where('email', $request->email)->delete();
-
+        
         $popup = PopupHelper::showPopup(
             'Success!',
             'Your password has been reset.',
@@ -230,9 +225,11 @@ class AuthController extends Controller
             '',
             5000
         );
+
         return redirect()->route('auth.login.form')->with('popup', $popup);
     }
-/*
+
+    /*
     public function showProfile()
     {
         // Obtém o usuário autenticado
