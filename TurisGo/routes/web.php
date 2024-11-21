@@ -3,12 +3,22 @@
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ImageUploadController;
+
+//upload de imagens
+Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
+
+Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('upload.handle');
+//fim de upload de imagens
+
+//exemplo de página de upload de imagens, remover depois
+Route::get('/exemploUpload', function () {
+    return view('exemploUpload');
+})->name("exemploUpload");
 
 Route::get('/', function () {
     return view('homepage');
 })->name("homepage");
-
-
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
@@ -46,7 +56,7 @@ Route::get('/contact', function () {
 
 
 Route::get('/payment1', function () {
-    return view('payment.payment');
+    return view('payment.payment1');
 })->name("Payment 1");
 
 
