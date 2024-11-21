@@ -60,6 +60,66 @@
         </div>
     </div>
 
+    <div class="home">
+        <div class="title-line-container home-section">
+            <h2>Most Popular Hotels</h2>
+            <hr class="title-line-orange">
+        </div>
+
+        <div class="popular-container">
+            <div class="popular-card"></div>
+            <div class="popular-card"></div>
+            <div class="popular-card"></div>
+            <div class="popular-card"></div>
+        </div>
+
+        <div class="title-line-container home-section">
+            <h2>Most Popular Tours</h2>
+            <hr class="title-line-blue">
+        </div>
+
+        <div class="popular-container">
+            <div class="popular-card"></div>
+            <div class="popular-card"></div>
+            <div class="popular-card"></div>
+            <div class="popular-card"></div>
+        </div>
+
+        <div class="title-line-container home-section">
+            <h2>Interactive Map</h2>
+            <hr class="title-line-orange">
+        </div>
+
+        <!-- Mapa Interativo da Google -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31255.612595920426!2d-8.4463744!3d40.574588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd22ebf03068b2b3%3A0x833c2e505b1b476c!2s%C3%81gueda%2C%20Portugal!5e0!3m2!1sen!2spt!4v1696420912345!5m2!1sen!2spt" 
+                width="100%" 
+                height="100%" 
+                style="border:8px;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="title-line-container home-section">
+            <h2>Promotional Packages</h2>
+        </div>
+
+        <div class="promo-card-wrapper">
+            <div class="promo-card-container">
+                <div class="promo-card">
+                </div>
+                <div class="promo-card">
+                </div>
+                <div class="promo-card">
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
     <x-footer />
 
     <script>

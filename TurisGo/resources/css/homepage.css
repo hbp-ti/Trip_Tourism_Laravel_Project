@@ -218,4 +218,162 @@ select {
     letter-spacing: 0;
     line-height: normal;
   }
+
+.home {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
   
+.home-section {
+  padding: 40px 20px;
+  background-color: #ffffff;
+  text-align: left;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto 20px;
+  background: none;
+}
+
+.title-line-container {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.title-line-container h2 {
+    font-size: 1.8rem;
+    color: #1B1B1B;
+    margin-right: 20px;
+}
+
+.title-line-orange {
+    width: 100%;
+    height: 3px !important;
+    background-color: #C76A37;
+    border: none;
+    opacity: 100% !important;
+}
+
+.title-line-blue {
+    width: 100%;
+    height: 3px !important;
+    background-color: #2081A5;
+    border: none;
+    opacity: 100% !important;
+}
+
+/* Container para os cartões populares */
+.popular-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+/* Estilo dos cartões individuais */
+.popular-card {
+  background-color: #f6f6f6;
+  border-radius: 8px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito de hover */
+.popular-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+  .popular-container {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .popular-container {
+      grid-template-columns: 1fr;
+  }
+}
+
+/* Estilo para o contêiner do mapa */
+.map-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajusta o iframe */
+.map-container iframe {
+  width: 100%;
+  height: 450px;
+  border: none;
+}
+
+/* Wrapper com a imagem de fundo */
+.promo-card-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url('/public/images/imagemFundoHomepage.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* Container para os cartões promocionais */
+.promo-card-container {
+  width: 100%;
+  max-width: 1000px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 20px auto;
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+  flex-wrap: wrap;
+}
+
+/* Cartões promocionais */
+.promo-card {
+  cursor: pointer;
+  flex: 1;
+  height: 450px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem; 
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Efeito hover nos cartões */
+.promo-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Quando a tela tem no máximo 992px (exibe 2 colunas) */
+@media (max-width: 992px) {
+  .promo-card-container {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Quando a tela tem no máximo 576px (exibe 1 coluna) */
+@media (max-width: 576px) {
+  .promo-card-container {
+      grid-template-columns: 1fr;
+  }
+}
