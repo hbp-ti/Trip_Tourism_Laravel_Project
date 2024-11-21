@@ -3,6 +3,8 @@
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ImageUploadController;
+
 
 Route::get('/', function () {
     return view('homepage');
@@ -46,7 +48,7 @@ Route::get('/contact', function () {
 
 
 Route::get('/payment1', function () {
-    return view('payment.payment');
+    return view('payment.payment1');
 })->name("Payment 1");
 
 
@@ -55,3 +57,12 @@ Route::get('/tours', function () {
 })->name("tours");
 
 Route::get('/change-language/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
+
+//upload de imagens
+Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
+Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('upload.handle');
+//fim de upload de imagens
+//exemplo de página de upload de imagens, remover depois
+Route::get('/exemploUpload', function () {
+    return view('exemploUpload');
+})->name("exemploUpload");

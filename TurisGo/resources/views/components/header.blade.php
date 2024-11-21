@@ -1,5 +1,5 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@vite(['resources/css/header.css', 'resources/js/jquery-3.7.1.min.js','resources/js/header.js'])
+@vite(['resources/css/header.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/header.js'])
 
 <nav class="navbar">
     <div class="container">
@@ -13,7 +13,6 @@
                 <li><a href="" class="{{ Route::currentRouteName() == 'hotel' ? 'active' : '' }}">Hotel</a></li>
                 <li><a href="{{ route('contact') }}" class="{{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">Contact</a></li>
             </ul>
-
         </div>
 
         <div class="nav-actions">
@@ -39,18 +38,55 @@
                     </a>
                 </div>
             </div>
+
             @auth
-            <div class="profile-circle">
-                <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('images/default_user_image.png') }}" alt="Profile" class="profile-img">
+            <div class="profile-dropdown">
+                <div class="profile-circle">
+                    <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('images/default_user_image.png') }}" alt="Profile" class="profile-img">
+                </div>
+                <div class="dropdown-menu">
+                    <div class="dropdown-header">
+                        <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('images/default_user_image.png') }}" alt="Profile" class="dropdown-profile-img">
+                        <span class="dropdown-username">{{ Auth::user()->first_name }}</span>
+                        <a href="">
+                            <img src="{{ asset('images/notification_icon.png') }}" alt="Notificação" class="notification-icon">
+                        </a>
+                    </div>
+                    <ul class="dropdown-options">
+                        <li>
+                            <a href="">
+                                <img src="{{ asset('images/profile_icon.png') }}" class="icon"> Profile
+                                <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('contact') }}">
+                                <img src="{{ asset('images/support_icon.png') }}" class="icon"> Support
+                                <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img src="{{ asset('images/cart_icon.png') }}" class="icon"> Shopping Cart
+                                <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
+                            </a>
+                        </li>
+                        <li>
+                            <form action="{{ route('auth.logout') }}" method="POST" class="dropdown-form">
+                                @csrf
+                                <button type="submit" class="dropdown-button">
+                                    <img src="{{ asset('images/logout_icon.png') }}" class="icon"> Logout
+                                    <img id="logoutButtonArrow" src="{{ asset('images/arrow_right.png') }}" class="arrow">
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+
+                </div>
             </div>
             @else
             <a href="{{ route('auth.login.form') }}" class="login-button">Login</a>
             @endauth
-            <form action="{{ route('auth.logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
         </div>
-
     </div>
 </nav>
