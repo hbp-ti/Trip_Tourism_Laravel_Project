@@ -4,6 +4,7 @@ use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageUploadController;
+use Illuminate\Support\Facades\Mail;
 
 
 Route::get('/', function () {
@@ -20,12 +21,20 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('forgot', [AuthController::class, 'showForgotForm'])->name('forgot.form');
     Route::post('forgot', [AuthController::class, 'sendResetLink'])->name('forgot.submit');
-    Route::get('reset/{token}', [AuthController::class, 'showResetForm'])->name('reset.form');
+    Route::get('reset/{token}/{email}', [AuthController::class, 'showResetForm'])->name('reset.form');
     Route::post('reset', [AuthController::class, 'resetPassword'])->name('reset.submit');
     Route::middleware('auth')->group(function () {
         Route::get('profile', [AuthController::class, 'showProfile'])->name('profile');
         Route::get('profile/edit', [AuthController::class, 'editProfile'])->name('profile.edit');
     });
+});
+
+Route::get('/test-email', function () {
+    Mail::raw('Test email body', function ($message) {
+        $message->to('hbp@ua.pt')->subject('Test Email');
+    });
+
+    return 'Test email sent!';
 });
 
 
