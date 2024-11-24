@@ -582,10 +582,13 @@ class ComposerStaticInit641be8603529b7dcf24ce5178817e62a
     );
 
     public static $classMap = array (
+        'App\\Helpers\\PopupHelper' => __DIR__ . '/../..' . '/app/Helpers/PopupHelper.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\ImageUploadController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImageUploadController.php',
         'App\\Http\\Controllers\\LanguageController' => __DIR__ . '/../..' . '/app/Http/Controllers/LanguageController.php',
         'App\\Http\\Middleware\\SetLocaleLanguage' => __DIR__ . '/../..' . '/app/Http/Middleware/SetLocaleLanguage.php',
+        'App\\Mail\\PasswordResetMail' => __DIR__ . '/../..' . '/app/Mail/PasswordResetMail.php',
         'App\\Models\\Activity' => __DIR__ . '/../..' . '/app/Models/Activity.php',
         'App\\Models\\Cart' => __DIR__ . '/../..' . '/app/Models/Cart.php',
         'App\\Models\\CartItem' => __DIR__ . '/../..' . '/app/Models/CartItem.php',

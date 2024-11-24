@@ -22,10 +22,12 @@
         </div>
     </section>
 
+    <!-- Main Cart Content -->
     <section class="cart-content">
         <div class="shopping-cart">
             <h2>Shopping Cart</h2>
             <div class="cart-items">
+                <!-- Itera os itens do carrinho dinamicamente -->
                 @foreach($cartItems as $cartItem)
                 <div class="cart-item">
                     <img src="{{ asset('images/' . $cartItem->item->image) }}" alt="{{ $cartItem->item->name }}">
@@ -35,10 +37,11 @@
                         <p><strong>{{ $cartItem->item->location }}</strong> | {{ $cartItem->quantity }} Guests</p>
                     </div>
                     <p class="price">{{ $cartItem->item->price }}€</p>
+                    <!-- Botão de remover com API -->
                     <form action="{{ route('cart.remove', $cartItem->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="remove-btn">Remove</button>
+                        <button class="remove-btn">X</button>
                     </form>
                 </div>
                 @endforeach

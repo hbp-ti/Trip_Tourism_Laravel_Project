@@ -6,10 +6,13 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Helpers\\PopupHelper' => $baseDir . '/app/Helpers/PopupHelper.php',
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\ImageUploadController' => $baseDir . '/app/Http/Controllers/ImageUploadController.php',
     'App\\Http\\Controllers\\LanguageController' => $baseDir . '/app/Http/Controllers/LanguageController.php',
     'App\\Http\\Middleware\\SetLocaleLanguage' => $baseDir . '/app/Http/Middleware/SetLocaleLanguage.php',
+    'App\\Mail\\PasswordResetMail' => $baseDir . '/app/Mail/PasswordResetMail.php',
     'App\\Models\\Activity' => $baseDir . '/app/Models/Activity.php',
     'App\\Models\\Cart' => $baseDir . '/app/Models/Cart.php',
     'App\\Models\\CartItem' => $baseDir . '/app/Models/CartItem.php',

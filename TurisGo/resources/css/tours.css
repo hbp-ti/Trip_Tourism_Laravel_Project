@@ -1,29 +1,25 @@
-/* General Reset */
+/* Reset básico */
 * {
-    font-family: 'Manrope', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    color: #1B1B1B;
-    display: flex;
-    flex-direction: column;
-    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
 }
 
-.x-header {
-    position: relative;
-    /* Cria o contexto de posicionamento */
-    z-index: 10;
-    /* Coloca o x-header acima do .header */
+main {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
 }
 
-/* Cabeçalho fixo similar ao 'About Us' */
 .header {
-    background-image: url('/public/images/tours_background_header.png');
-    /* Usar a mesma imagem de fundo */
+    background-image: url('/public/images/toursheader.png');
     background-size: cover;
     background-position: center;
     height: 350px;
@@ -41,55 +37,169 @@ body {
 }
 
 .header h1 {
-    font-size: 4.5rem;
+    font-size: 48px;
+    font-weight: bold;
 }
 
 .header p {
-    font-size: 1.5rem;
+    font-size: 24px;
 }
 
-/* About Us Section */
-.tours-section {
-    padding: 40px 20px;
-    background-color: #ffffff;
-    text-align: left;
-    max-width: 1000px;
-    margin: 0 auto 20px;
-    background: none;
+
+
+/* Seções Gerais */
+.exclusive-packages {
     margin-top: 350px;
+    text-align: center;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 10px;
+
+    
 }
 
-.title-line-container {
+.backgroundsee {
+    background-image: url('/public/images/fundotours.png');
+    background-size: cover; /* Faz a imagem cobrir toda a área */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição */
+    margin:0; /* Remove quaisquer margens */
+    padding: 0; /* Remove qualquer padding */
+}
+
+.tours-section {
+    
+    margin-top: 350px;
+    text-align: center;
+    max-width: 1650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.activities-section {
+    margin-top: 350px;
+    text-align: center;
+    max-width: 1550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.exclusive-packages h2, .tours-section h2, .activities-section h2 {
+    font-size: 24px;
+    font-weight: bold;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tours-section {
+    margin-top: 50px;
+}
+
+.activities-section {
+    margin-top: 50px;
+}
+
+.exclusive-packages h2::after,
+.tours-section h2::after,
+.activities-section h2::after {
+    content: "";
+    display: inline-block;
+    width: 50%;
+    height: 2px;
+    background-color: #d2691e; /* Cor da linha */
+}
+
+/* Container dos Cartões */
+.packages {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Reduzi o espaçamento */
     align-items: center;
 }
 
-.title-line-container h2 {
-    font-size: 1.8rem;
-    color: #1B1B1B;
-    margin-right: 10px;
+/* Cartões */
+.package-card {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Reduzi o espaçamento interno */
+    width: 100%;
+    max-width: 900px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px; /* Reduzi o padding */
+    overflow: hidden;
 }
 
-.title-line-orange {
-    width: 600px; /* Define o comprimento fixo para a linha */
-    height: 3px !important;
-    background-color: #C76A37;
-    border: none;
-    opacity: 100% !important;
+.package-image {
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
 }
 
-.title-line-blue {
-    width: 1000px; /* Define o comprimento fixo para a linha */
-    height: 3px !important;
-    background-color: #2081A5;
-    border: none;
-    opacity: 100% !important;
+.package-details {
+    flex: 1;
+    text-align: left;
 }
 
-.title-line-orange-big {
-    width: 800px; /* Define o comprimento fixo para a linha */
-    height: 3px !important;
-    background-color: #C76A37;
-    border: none;
-    opacity: 100% !important;
+.card-header {
+    display: flex;
+    gap: 10px; /* Reduzi o espaçamento */
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card-header span {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    background: #f4f4f4;
+}
+
+.card-header .price {
+    background: #fbe3d1;
+    color: #e67e22;
+}
+
+.card-header .duration {
+    background: #dbeffd;
+    color: #3498db;
+}
+
+.card-header .people {
+    background: #dcfce5;
+    color: #2ecc71;
+}
+
+.package-details h3 {
+    font-size: 18px;
+    margin-bottom: 5px; /* Reduzi o espaçamento */
+}
+
+.rating {
+    color: #f39c12;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .package-card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .package-image {
+        width: 100%;
+    }
+
+    .package-details {
+        text-align: center;
+    }
 }

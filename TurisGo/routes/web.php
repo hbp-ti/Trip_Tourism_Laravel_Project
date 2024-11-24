@@ -69,10 +69,13 @@ Route::get('/contact', function () {
     return view('contact.contact');
 })->name("contact");
 
+Route::get('/buyTicketTrain', function () {
+    return view('buyTicketTrain.buyTicketTrain');
+})->name("buyTicketTrain");
 
 
 Route::get('/payment1', function () {
-    return view('payment.payment1');
+    return view('payment.payment2');
 })->name("Payment 1");
 
 
