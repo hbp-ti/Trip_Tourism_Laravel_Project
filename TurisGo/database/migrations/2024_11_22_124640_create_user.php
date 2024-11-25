@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('birth_date');
             $table->string('email', 50)->unique();
             $table->string('username', 20)->unique();
-            $table->integer('phone');
+            $table->string('phone');
             $table->text('password');
             $table->text('image');
             $table->timestamps();

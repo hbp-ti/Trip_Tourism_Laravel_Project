@@ -14,10 +14,10 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'birth_date' => $this->faker->date('Y-m-d', '2005-01-01'), // Nascidos antes de 2005
+            'birth_date' => $this->faker->date('Y-m-d', '2005-01-01'),
             'email' => $this->faker->unique()->safeEmail(),
             'username' => $this->faker->unique()->userName(),
-            'phone' => $this->faker->phoneNumber(),
+            'phone' => $this->faker->e164PhoneNumber(),
             'password' => Hash::make('password'),
             'image' => 0, // 0 é o id da foto predefenida
             'created_at' => now(),
