@@ -35,10 +35,14 @@ $(document).ready(function () {
 document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', function () {
         const header = document.querySelector('.navbar');
-        if (window.scrollY > 50) {  // Se o scroll for maior que 50px
-            header.classList.add('navbar-fixed');  // Adiciona a classe navbar-fixed
+        const languageImg = document.querySelector(".language-img");
+
+        if (window.scrollY > 50) {
+            header.classList.add('navbar-fixed');
+            languageImg.src = languageImg.src.replace("languageSelection1.png", "languageSelection2.png");
         } else {
-            header.classList.remove('navbar-fixed');  // Remove a classe navbar-fixed
+            header.classList.remove('navbar-fixed');
+            languageImg.src = languageImg.src.replace("languageSelection2.png", "languageSelection1.png");
         }
     });
 

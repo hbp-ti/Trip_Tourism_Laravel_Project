@@ -274,7 +274,6 @@ select {
 /* Estilo dos cartões individuais */
 .popular-card {
   background-color: #f6f6f6;
-  border-radius: 8px;
   width: 100%;
   aspect-ratio: 1 / 1;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -345,17 +344,102 @@ select {
 /* Cartões promocionais */
 .promo-card {
   cursor: pointer;
+  position: relative;
   flex: 1;
   height: 450px;
   background-color: #fff;
-  border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1.5rem; 
+  justify-content: flex-start;
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.promo-card img {
+  width: 100%;
+  height: 65%;
+  object-fit: cover;
+  background-color: #cdcdcd;
+}
+
+.promo-card-content {
+  width: 100%;
+  height: 35%;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+}
+
+.promo-card-content p {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Novo estilo para o rating dentro do conteúdo */
+.promo-card .rating {
+  position: absolute;
+  bottom: 0;
+  left: 25px;
+  z-index: 2;
+}
+
+.promo-card .rating img {
+  width: 80px;
+  background-color: transparent;
+}
+
+/* Mini div para o preço no canto superior direito */
+.promo-card .price-tag {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  background-color: #C76A37;
+  color: white;
+  padding: 8px 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.promo-card .price-tag span {
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.promo-card .content-tag {
+  position: absolute;
+  align-items: center;
+  bottom: 30%;
+  display: flex;
+  justify-content: space-between;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2081A5;
+  color: white;
+  width: 85%;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.promo-card .content-tag .icon-tag {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.promo-card .content-tag .icon-tag img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  background-color: transparent;
+}
+
+.promo-card .content-tag .icon-tag span {
+  font-size: 1rem;
+  margin-left: 5px;
 }
 
 /* Efeito hover nos cartões */

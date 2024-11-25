@@ -110,10 +110,46 @@
         <div class="promo-card-wrapper">
             <div class="promo-card-container">
                 <div class="promo-card">
+                    <img src="" alt="Promo Image 1">
+                    <div class="price-tag">$75<span> /per person</span></div>
+                    <div class="content-tag">
+                        <div class="icon-tag"><img src="{{ asset('images/durationTime.png') }}" alt="duration">8H</div>
+                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">People: <span>8</span></div>
+                    </div>
+                    <div class="promo-card-content">
+                        <p>Promotion 1</p>
+                    </div>
+                    <div class="rating">
+                        <img src="{{ asset('images/rating.png') }}" alt="rating">
+                    </div>
                 </div>
                 <div class="promo-card">
+                    <img src="" alt="Promo Image 2">
+                    <div class="price-tag">$75<span> /per person</span></div>
+                    <div class="content-tag">
+                        <div class="icon-tag"><img src="{{ asset('images/durationTime.png') }}" alt="duration">8H</div>
+                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">People: <span>8</span></div>
+                    </div>
+                    <div class="promo-card-content">
+                        <p>Promotion 2</p>
+                    </div>
+                    <div class="rating">
+                        <img src="{{ asset('images/rating.png') }}" alt="rating">
+                    </div>
                 </div>
                 <div class="promo-card">
+                    <img src="" alt="Promo Image 3">
+                    <div class="price-tag">$75<span> /per person</span></div>
+                    <div class="content-tag">
+                        <div class="icon-tag"><img src="{{ asset('images/durationTime.png') }}" alt="duration">8H</div>
+                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">People: <span>8</span></div>
+                    </div>
+                    <div class="promo-card-content">
+                        <p>Promotion 3</p>
+                    </div>
+                    <div class="rating">
+                        <img src="{{ asset('images/rating.png') }}" alt="rating">
+                    </div>
                 </div>
             </div>
         </div>

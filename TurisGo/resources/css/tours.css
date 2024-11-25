@@ -1,21 +1,14 @@
 /* Reset básico */
 * {
+    font-family: 'Manrope', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
-}
-
-main {
-    width: 90%;
-    margin: 0 auto;
-    padding: 20px 0;
+    color: #1b1b1b;
+    background-color: white;
 }
 
 .header {
@@ -45,161 +38,152 @@ main {
     font-size: 24px;
 }
 
-
-
-/* Seções Gerais */
-.exclusive-packages {
+.tour {
     margin-top: 350px;
-    text-align: center;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
-    border-radius: 10px;
-
-    
+    margin-bottom: 100px;
 }
 
-.backgroundsee {
-    background-image: url('/public/images/fundotours.png');
-    background-size: cover; /* Faz a imagem cobrir toda a área */
-    background-position: center; /* Centraliza a imagem */
-    background-repeat: no-repeat; /* Evita repetição */
-    margin:0; /* Remove quaisquer margens */
-    padding: 0; /* Remove qualquer padding */
-}
-
-.tours-section {
-    
-    margin-top: 350px;
-    text-align: center;
-    max-width: 1650px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.activities-section {
-    margin-top: 350px;
-    text-align: center;
-    max-width: 1550px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.exclusive-packages h2, .tours-section h2, .activities-section h2 {
-    font-size: 24px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.tours-section {
-    margin-top: 50px;
-}
-
-.activities-section {
-    margin-top: 50px;
-}
-
-.exclusive-packages h2::after,
-.tours-section h2::after,
-.activities-section h2::after {
-    content: "";
-    display: inline-block;
-    width: 50%;
-    height: 2px;
-    background-color: #d2691e; /* Cor da linha */
-}
-
-/* Container dos Cartões */
-.packages {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Reduzi o espaçamento */
-    align-items: center;
-}
-
-/* Cartões */
-.package-card {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Reduzi o espaçamento interno */
-    width: 100%;
-    max-width: 900px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px; /* Reduzi o padding */
-    overflow: hidden;
-}
-
-.package-image {
-    width: 40%;
-    height: auto;
-    border-radius: 10px;
-}
-
-.package-details {
-    flex: 1;
+.tour-section {
+    padding: 40px 20px;
+    background-color: #ffffff;
     text-align: left;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto 20px;
+    background: none;
 }
 
-.card-header {
+.title-line-container {
     display: flex;
-    gap: 10px; /* Reduzi o espaçamento */
     align-items: center;
-    margin-bottom: 10px;
+    white-space: nowrap;
 }
 
-.card-header span {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    background: #f4f4f4;
+.title-line-container h2 {
+    font-size: 1.8rem;
+    color: #1B1B1B;
+    margin-right: 20px;
 }
 
-.card-header .price {
-    background: #fbe3d1;
-    color: #e67e22;
+.title-line-orange {
+    width: 100%;
+    height: 3px !important;
+    background-color: #C76A37;
+    border: none;
+    opacity: 100% !important;
 }
 
-.card-header .duration {
-    background: #dbeffd;
-    color: #3498db;
+.title-line-blue {
+    width: 100%;
+    height: 3px !important;
+    background-color: #2081A5;
+    border: none;
+    opacity: 100% !important;
 }
 
-.card-header .people {
-    background: #dcfce5;
-    color: #2ecc71;
+.single-column-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 20px auto;
 }
 
-.package-details h3 {
-    font-size: 18px;
-    margin-bottom: 5px; /* Reduzi o espaçamento */
+.exclusive-card {
+    background-color: #fff;
+    height: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: flex-start;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.rating {
-    color: #f39c12;
-    font-size: 16px;
-    margin-top: 5px;
+.exclusive-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.exclusive-card .image-container {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #cdcdcd;
+}
+
+.exclusive-card h2, p{
+    margin-top: 30px;
+    margin-left: 30px;
 }
 
 /* Responsividade */
-@media (max-width: 768px) {
-    .package-card {
-        flex-direction: column;
-        align-items: center;
-    }
+@media (max-width: 992px) {
+    .single-column-container {
+        grid-template-columns: 1fr;
+    }/* Mini div para o preço no canto superior direito */
+.promo-card .price-tag {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    background-color: #C76A37;
+    color: white;
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+}
 
-    .package-image {
-        width: 100%;
-    }
+.text-container {
+    max-width: 550px;
+    width: 100%;
+    text-align: left;
+}
 
-    .package-details {
-        text-align: center;
-    }
+.tourActivity-card {
+    background-color: #fff;
+    height: 350px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: flex-start;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tourActivity-card h2, p {
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.tourActivity-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.tourActivity-card .image-container-tourActivity {
+    width: 40%;
+    height: 100%;
+    background-color: #cdcdcd;
+    object-fit: cover;
+}
+
+.sortby-container {
+    padding: 10px;
+    background-color: #F1F1F1;
+    display: flex;
+    font-weight: bold;
+    margin-left: 20px;
+    cursor: pointer;
+
+}
+
+.sortby-container img {
+    width: 24px;
+    margin-left: 10px;
 }

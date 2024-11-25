@@ -18,7 +18,7 @@
         <div class="nav-actions">
             <div class="language-selector">
                 <a href="#" class="language-toggle" id="languageToggle">
-                    <img src="{{ asset('images/languageSelection.png') }}" alt="Globe" class="language-img" />
+                    <img src="{{ asset('images/languageSelection1.png') }}" alt="Globe" class="language-img" />
                     {{ strtoupper(app()->getLocale()) }}
                 </a>
                 <div class="language-dropdown" id="languageDropdown">

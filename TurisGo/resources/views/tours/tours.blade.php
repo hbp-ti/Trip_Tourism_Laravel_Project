@@ -15,122 +15,126 @@
             <p>Explore Our Tours & Activities</p>
         </div>
 
-        <main>
-        <div class="backgroundsee">
-            <!-- Pacotes Exclusivos -->
-            <section class="exclusive-packages">
+        <div class="tour">
+
+            <!-- Exclusive Tour Packages -->
+
+            <div class="title-line-container tour-section">
                 <h2>Exclusive Tour Packages</h2>
-                <div class="packages">
-                    <!-- Card 1 -->
-                    <div class="package-card">
-                        <img src="{{ asset('images/tourspackage.png') }}" alt="Fátima and Coimbra Day Trip" class="package-image">
-                        <div class="package-details">
-                            <div class="card-header">
-                                <span class="price">$62 / per person</span>
-                                <span class="duration">8H</span>
-                                <span class="people">People: 10</span>
-                            </div>
-                            <h3>Fátima and Coimbra Day Trip</h3>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
-        
-            
+                <hr class="title-line-orange">
+            </div>
 
-                    <!-- Card 2 -->
-                    <div class="package-card">
-                        <img src="{{ asset('images/tourspackage.png') }}" alt="Sintra Full-Day Private Tour" class="package-image">
-                        <div class="package-details">
-                            <div class="card-header">
-                                <span class="price">$120 / per person</span>
-                                <span class="duration">8H</span>
-                                <span class="people">People: 10</span>
-                            </div>
-                            <h3>Sintra Full-Day Private Tour</h3>
-                            <p class="rating">★★★★★</p>
-                        </div>
+            <div class="single-column-container">
+                <div class="exclusive-card">
+                    <div class="image-container">
+                        <img src="" alt="Exclusive Image 1">
                     </div>
-
-                    <!-- Card 3 -->
-                    <div class="package-card">
-                        <img src="{{ asset('images/tourspackage.png') }}" alt="Authentic Douro Wine Tour" class="package-image">
-                        <div class="package-details">
-                            <div class="card-header">
-                                <span class="price">$125 / per person</span>
-                                <span class="duration">9H</span>
-                                <span class="people">People: 2</span>
-                            </div>
-                            <h3>Authentic Douro Wine Tour Including Lunch and River Cruise</h3>
-                            <p class="rating">★★★★★</p>
-                        </div>
+                    <div class="text-container">
+                        <h2>Fátima and Coimbra Day Trip</h2>
                     </div>
                 </div>
-            </section>
-            </div>  
+                <div class="exclusive-card">
+                    <div class="image-container">
+                        <img src="" alt="Exclusive Image 2">
+                    </div>
+                    <div class="text-container">
+                        <h2>Sintra Full-Day Private Tour</h2>
+                    </div>
+                </div>
+                <div class="exclusive-card">
+                    <div class="image-container">
+                        <img src="" alt="Exclusive Image 3">
+                    </div>
+                    <div class="text-container">
+                        <h2>Authentic Douro Wine Tour</h2>
+                    </div>
+                </div>
+            </div>
+
             <!-- Tours -->
-            <section class="tours-section">
-                <h2>Tours</h2>
-                <div class="packages">
-                    <!-- Card 1 -->
-                    <div class="package-card">
-                        <img src="{{ asset('images/tours2.png') }}" alt="Douro Valley Tour" class="package-image">
-                        <div class="package-details">
-                            <div class="card-header">
-                                <span class="price">$94 / per person</span>
-                                <span class="duration">6+ hours</span>
-                            </div>
-                            <h3>Douro Valley: Historical Sites, Wine Experience, Lunch & Cruise</h3>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
 
-                    <!-- Card 2 -->
-                    <div class="package-card">
-                        <img src="{{ asset('images/tours2.png') }}" alt="Porto Food Tour" class="package-image">
-                        <div class="package-details">
-                            <div class="card-header">
-                                <span class="price">$82 / per person</span>
-                                <span class="duration">3 hours</span>
-                            </div>
-                            <h3>Porto 3-Hour Food and Wine Tasting Tour</h3>
-                            <p class="rating">★★★★★</p>
-                        </div>
+            <div class="title-line-container tour-section">
+                <h2>Tours</h2>
+                <hr class="title-line-blue">
+                <div class="sortby-container">
+                    <span>Sort By</span>
+                    <img src="{{ asset('images/sortbyIcon.png') }}" alt="">
+                </div>
+            </div>
+
+            <div class="single-column-container">
+                <div class="tourActivity-card">
+                    <div class="image-container-tourActivity">
+                        <img src="" alt="Tour Image 1">
+                    </div>
+                    <div class="text-container">
+                        <h2>Douro Valley: Historical Sites, Wine Experience, Lunch & Cruise</h2>
+                        <p>Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup</p>
                     </div>
                 </div>
-            </section>
+                <div class="tourActivity-card">
+                    <div class="image-container-tourActivity">
+                        <img src="" alt="Tour Image 2">
+                    </div>
+                    <div class="text-container">
+                        <h2>Porto 3-Hour Food and Wine Tasting Tour</h2>
+                        <p>Explore Porto’s vibrant cafés and markets on a guided culinary tour. Taste local specialties like tapas, pastries, coffee, beer, and port wine while learning about the city’s rich culture</p>
+                    </div>
+                </div>
+                <div class="tourActivity-card">
+                    <div class="image-container-tourActivity">
+                        <img src="" alt="Tour Image 3">
+                    </div>
+                    <div class="text-container">
+                        <h2>Porto 3-Hour Food and Wine Tasting Tour</h2>
+                        <p>Explore Porto’s vibrant cafés and markets on a guided culinary tour. Taste local specialties like tapas, pastries, coffee, beer, and port wine while learning about the city’s rich culture</p>
+                    </div>
+                </div>
+            </div>
 
             <!-- Activities -->
-            <section class="activities-section">
-                <h2>Activities</h2>
-                <div class="packages">
-                    <!-- Card 1 -->
-                    <div class="package-card">
-                        <img src="{{ asset('images/toursactivity.png') }}" alt="Dolphins and Caves Tour" class="package-image">
-                        <div class="package-details">
-                            <div class="card-header">
-                                <span class="price">$38 / per person</span>
-                                <span class="duration">2 - 3 hours</span>
-                            </div>
-                            <h3>Dolphins and Benagil Caves from Albufeira</h3>
-                            <p class="rating">★★★★★</p>
-                        </div>
-                    </div>
 
-                    <!-- Card 2 -->
-                    <div class="package-card">
-                        <img src="{{ asset('images/toursactivity.png') }}" alt="Jeep Safari" class="package-image">
-                        <div class="package-details">
-                            <div class="card-header">
-                                <span class="price">$39 / per person</span>
-                                <span class="duration">4 hours</span>
-                            </div>
-                            <h3>Half Day Tour with Jeep Safari in the Algarve Mountains</h3>
-                            <p class="rating">★★★★★</p>
-                        </div>
+            <div class="title-line-container tour-section">
+                <h2>Activities</h2>
+                <hr class="title-line-orange">
+                <div class="sortby-container">
+                    <span>Sort By</span>
+                    <img src="{{ asset('images/sortbyIcon.png') }}" alt="">
+                </div>
+            </div>
+
+            <div class="single-column-container">
+                <div class="tourActivity-card">
+                    <div class="image-container-tourActivity">
+                        <img src="" alt="Activity Image 1">
+                    </div>
+                    <div class="text-container">
+                        <h2>Porto 3-Hour Food and Wine Tasting Tour</h2>
+                        <p>Explore the coast of Albufeira aboard a semi-rigid boat, visiting hidden spots and the famous Benagil Cave. Swim and spot dolphins along the way (weather permitting)</p>
                     </div>
                 </div>
-            </section>
-        </main>
+                <div class="tourActivity-card">
+                    <div class="image-container-tourActivity">
+                        <img src="" alt="Activity Image 2">
+                    </div>
+                    <div class="text-container">
+                        <h2>Porto 3-Hour Food and Wine Tasting Tour</h2>
+                        <p>Explore Albufeira's mountains on a thrilling Jeep safari. Enjoy off-road fun, visit a medieval castle, fruit plantations, traditional villages, and stop for a swim and food tasting</p>
+                    </div>
+                </div>
+                <div class="tourActivity-card">
+                    <div class="image-container-tourActivity">
+                        <img src="" alt="Activity Image 3">
+                    </div>
+                    <div class="text-container">
+                        <h2>Half Day Tour with Jeep Safari in the Algarve Mountains</h2>
+                        <p>Explore Albufeira's mountains on a thrilling Jeep safari. Enjoy off-road fun, visit a medieval castle, fruit plantations, traditional villages, and stop for a swim and food tasting</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
 
         <x-footer />
     </body>
