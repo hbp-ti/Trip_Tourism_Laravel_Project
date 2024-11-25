@@ -75,12 +75,16 @@ Route::get('/buyTicketTrain', function () {
 
 
 Route::get('/payment1', function () {
-    return view('payment.payment2');
+    return view('payment.payment1');
 })->name("Payment 1");
 
 
 Route::get('/tours', function () {
     return view('tours.tours');
 })->name("tours");
+
+Route::get('/tourDetail', function () {
+    return view('tourDetail.tourDetail');
+})->name("tourDetail");
 
 Route::get('/change-language/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
