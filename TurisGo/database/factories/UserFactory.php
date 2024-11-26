@@ -14,7 +14,7 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'birth_date' => $this->faker->date('Y-m-d', '2005-01-01'),
+            'birth_date' => $this->faker->date('Y-m-d', '2004-12-31'), // apenas nascidos antes de 2005
             'email' => $this->faker->unique()->safeEmail(),
             'username' => $this->faker->unique()->userName(),
             'phone' => $this->faker->e164PhoneNumber(),

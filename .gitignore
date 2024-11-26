@@ -1,3 +1,2 @@
-*.sqlite
-TurisGo/.env
-TurisGo/storage/app/public/imageUploads/*
+/TurisGo/.env
+/TurisGo/storage/app/public/imageUploads/*
