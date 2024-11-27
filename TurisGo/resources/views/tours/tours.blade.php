@@ -8,13 +8,12 @@
         @vite(['resources/css/tours.css'])
     </head>
     <body>
-        <x-header />
-
-        <!-- Hero Section -->
-        <div class="header">
+        <x-header/>
+        <!-- Header Section -->
+        <section class="header">
             <h1>Tours</h1>
             <p>Explore Our Tours & Activities</p>
-        </div>
+        </section>
 
         <div class="tour">
 

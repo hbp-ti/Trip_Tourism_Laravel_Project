@@ -50,7 +50,7 @@ body {
     padding: 40px 20px;
     background-color: #ffffff;
     text-align: left;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto 20px;
     background: none;
     margin-top: 350px;
@@ -328,9 +328,9 @@ p {
 /* For Section */
 .for-section {
     padding: 40px 20px;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     text-align: left;
 }
 

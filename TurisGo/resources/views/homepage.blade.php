@@ -33,17 +33,20 @@
     <div class="box">
         <div class="search-home-page">
             <div class="overlap-group">
-                <div class="overlap">Search</div>
-                <div class="place-wrapper">
+                <div class="search-field">
+                    <label for="location">Destination</label>
                     <input type="text" id="location" placeholder="Enter location" />
                 </div>
-                <div class="calendar-wrapper">
+                <div class="search-field">
+                    <label for="checkin">Check-in Date</label>
                     <input type="text" id="checkin" placeholder="Check-in Date" />
                 </div>
-                <div class="icons-calendar-wrapper">
+                <div class="search-field">
+                    <label for="checkout">Checkout Date</label>
                     <input type="text" id="checkout" placeholder="Checkout Date" />
                 </div>
-                <div class="div">
+                <div class="search-field">
+                    <label for="people">People</label>
                     <select id="people">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -51,13 +54,13 @@
                         <option value="4">4</option>
                     </select>
                 </div>
-                <div class="text-wrapper-2">Destination</div>
-                <div class="text-wrapper-3">Checkin Date</div>
-                <div class="text-wrapper-4">Checkout Date</div>
-                <div class="text-wrapper-5">People</div>
+                <div class="search-button">
+                    <button type="button">Search</button>
+                </div>
             </div>
         </div>
     </div>
+
 
     <div class="home">
         <div class="title-line-container home-section">

@@ -63,161 +63,81 @@ select {
 }
 
 .box {
-    width: 1032px;
-    height: 179px;
-    margin: 0 auto;
-    margin-top: 250px;
+  max-width: 100%;
+  margin: 0 auto;
+  margin-top: 200px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-home-page {
+  width: 100%;
+  max-width: 1000px;
+  background-color: #d9d9d9;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.overlap-group {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os elementos se ajustem ao redimensionar */
+  gap: 15px; /* Espaço entre os campos */
+  justify-content: space-between;
+}
+
+.search-field {
+  flex: 1 1 calc(25% - 15px); /* Cada campo ocupa 25% do espaço com gap */
+  display: flex;
+  flex-direction: column;
+}
+
+.search-field label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #1B1B1B;
+}
+
+.search-field input,
+.search-field select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.search-button {
+  flex: 1 1 100%; /* Botão ocupa largura total */
+  display: flex;
+  justify-content: center;
+}
+
+.search-button button {
+  padding: 10px 20px;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  background-color: #2081A5;
+  color: white;
+  cursor: pointer;
+  transition: 0.43s all;
+}
+
+.search-button button:hover {
+  background-color: #207391;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .search-field {
+      flex: 1 1 100%; /* Cada campo ocupa 100% no mobile */
   }
-  
-  .box .search-home-page {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    height: 160px;
-  }
-  
-  .box .overlap-group {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    height: 160px;
-    background-color: #d9d9d9;
-    border-radius: 8px;
-  }
-  
-  .box .overlap {
-    position: absolute;
-    width: 104px;
-    height: 44px;
-    top: 73px;
-    left: 858px;
-    background-color: #c76a37;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: white;
-  }
-  
-  .box .place-wrapper {
-    position: absolute;
-    width: 173px;
-    height: 44px;
-    top: 73px;
-    left: 70px;
-    background-color: #ffffff;
-    border-radius: 4px;
-  }
-  
-  .box .img {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    top: 10px;
-    left: 9px;
-    object-fit: cover;
-  }
-  
-  .box .calendar-wrapper {
-    position: absolute;
-    width: 173px;
-    height: 44px;
-    top: 73px;
-    left: 285px;
-    background-color: #ffffff;
-    border-radius: 4px;
-  }
-  
-  .box .icons-calendar-wrapper {
-    position: absolute;
-    width: 173px;
-    height: 44px;
-    top: 73px;
-    left: 500px;
-    background-color: #ffffff;
-    border-radius: 4px;
-  }
-  
-  .box .calendar {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    top: 9px;
-    left: 9px;
-    object-fit: cover;
-  }
-  
-  .box .div {
-    position: absolute;
-    width: 92px;
-    height: 44px;
-    top: 73px;
-    left: 715px;
-    background-color: #ffffff;
-    border-radius: 4px;
-  }
-  
-  .box .dropdown {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    top: 10px;
-    left: 58px;
-    object-fit: cover;
-  }
-  
-  .box .text-wrapper-2 {
-    position: absolute;
-    width: 121px;
-    top: 40px;
-    left: 70px;
-    font-family: "Manrope", sans-serif;
-    font-weight: normal;
-    color: #1a1a1a;
-    font-size: 18px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  
-  .box .text-wrapper-3 {
-    position: absolute;
-    width: 146px;
-    top: 40px;
-    left: 285px;
-    font-family: "Manrope", sans-serif;
-    font-weight: normal;
-    color: #1a1a1a;
-    font-size: 18px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  
-  .box .text-wrapper-4 {
-    position: absolute;
-    width: 171px;
-    top: 40px;
-    left: 499px;
-    font-family: "Manrope", sans-serif;
-    font-weight: normal;
-    color: #1a1a1a;
-    font-size: 18px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  
-  .box .text-wrapper-5 {
-    position: absolute;
-    width: 82px;
-    top: 40px;
-    left: 716px;
-    font-family: "Manrope", sans-serif;
-    font-weight: normal;
-    color: #1a1a1a;
-    font-size: 18px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
+}
 
 .home {
   margin-top: 100px;
