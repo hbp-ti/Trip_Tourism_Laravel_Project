@@ -15,9 +15,13 @@
     <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <!-- css e script  de mapa interativo -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
     <!-- Linha modificada com o caminho atualizado do footer.css -->
-    @vite(['resources/css/homepage.css', 'resources/js/app.js'])
+    @vite(['resources/css/homepage.css', 'resources/js/app.js', 'resources/js/mapa.js'])
     @endif
 
 </head>
@@ -92,18 +96,8 @@
             <hr class="title-line-orange">
         </div>
 
-        <!-- Mapa Interativo da Google -->
-        <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31255.612595920426!2d-8.4463744!3d40.574588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd22ebf03068b2b3%3A0x833c2e505b1b476c!2s%C3%81gueda%2C%20Portugal!5e0!3m2!1sen!2spt!4v1696420912345!5m2!1sen!2spt" 
-                width="100%" 
-                height="100%" 
-                style="border:8px;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
+        <!-- Mapa Interativo -->
+        <div id="map"></div>
 
         <div class="title-line-container home-section">
             <h2>Promotional Packages</h2>

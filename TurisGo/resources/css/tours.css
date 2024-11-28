@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
 body {
     color: #1b1b1b;
     background-color: white;
@@ -128,16 +133,6 @@ body {
     .single-column-container {
         grid-template-columns: 1fr;
     }/* Mini div para o preço no canto superior direito */
-.promo-card .price-tag {
-    position: absolute;
-    top: 15px;
-    right: 0;
-    background-color: #C76A37;
-    color: white;
-    padding: 8px 12px;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
 }
 
 .text-container {
@@ -175,6 +170,24 @@ body {
     background-color: #cdcdcd;
     object-fit: cover;
 }
+
+.image-container-tourActivity .price-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #C76A37;
+    color: white;
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    z-index: 2;
+}
+  
+.image-container-tourActivity .price-tag span {
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
 
 .sortby-container {
     padding: 10px;

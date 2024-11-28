@@ -6,6 +6,11 @@ body {
     background-color: #f9f9f9;
 }
 
+html, body {
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
 .header {
     background-image: url('/public/images/background_aboutUs.png');
     background-size: cover;

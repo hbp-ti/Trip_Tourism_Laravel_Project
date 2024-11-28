@@ -73,10 +73,21 @@ Route::get('/payment1', function () {
     return view('payment.payment1');
 })->name("Payment 1");
 
+Route::get('/payment2', function () {
+    return view('payment.payment2');
+})->name("Payment 2");
+
+Route::get('/payment3', function () {
+    return view('payment.payment3');
+})->name("Payment 3");
 
 Route::get('/tours', function () {
     return view('tours.tours');
 })->name("tours");
+
+Route::get('/hotel', function() {
+    return view('hotel.hotel');
+})->name("hotel");
 
 Route::get('/tourDetail', function () {
     return view('tourDetail.tourDetail');

@@ -66,6 +66,7 @@
                 <div class="tourActivity-card">
                     <div class="image-container-tourActivity">
                         <img src="" alt="Tour Image 1">
+                        <div class="price-tag">$75<span> /per person</span></div>
                     </div>
                     <div class="text-container">
                         <h2>Douro Valley: Historical Sites, Wine Experience, Lunch & Cruise</h2>
@@ -75,6 +76,7 @@
                 <div class="tourActivity-card">
                     <div class="image-container-tourActivity">
                         <img src="" alt="Tour Image 2">
+                        <div class="price-tag">$75<span> /per person</span></div>
                     </div>
                     <div class="text-container">
                         <h2>Porto 3-Hour Food and Wine Tasting Tour</h2>
@@ -84,6 +86,7 @@
                 <div class="tourActivity-card">
                     <div class="image-container-tourActivity">
                         <img src="" alt="Tour Image 3">
+                        <div class="price-tag">$75<span> /per person</span></div>
                     </div>
                     <div class="text-container">
                         <h2>Porto 3-Hour Food and Wine Tasting Tour</h2>
@@ -107,6 +110,7 @@
                 <div class="tourActivity-card">
                     <div class="image-container-tourActivity">
                         <img src="" alt="Activity Image 1">
+                        <div class="price-tag">$75<span> /per person</span></div>
                     </div>
                     <div class="text-container">
                         <h2>Porto 3-Hour Food and Wine Tasting Tour</h2>
@@ -116,6 +120,7 @@
                 <div class="tourActivity-card">
                     <div class="image-container-tourActivity">
                         <img src="" alt="Activity Image 2">
+                        <div class="price-tag">$75<span> /per person</span></div>
                     </div>
                     <div class="text-container">
                         <h2>Porto 3-Hour Food and Wine Tasting Tour</h2>
@@ -125,6 +130,7 @@
                 <div class="tourActivity-card">
                     <div class="image-container-tourActivity">
                         <img src="" alt="Activity Image 3">
+                        <div class="price-tag">$75<span> /per person</span></div>
                     </div>
                     <div class="text-container">
                         <h2>Half Day Tour with Jeep Safari in the Algarve Mountains</h2>
