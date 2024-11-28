@@ -44,14 +44,9 @@ Route::prefix('auth')->name('auth.')->group(function () {
     });
 });
 
-Route::get('/test-email', function () {
-    Mail::raw('Test email body', function ($message) {
-        $message->to('hbp@ua.pt')->subject('Test Email');
-    });
-
-    return 'Test email sent!';
-});
-
+Route::get('/hotel', function () {
+    return view('hotelDetails.hotel');
+})->name("hotel");
 
 Route::get('/password/forgot', function () {
     return view('password.forgot');
