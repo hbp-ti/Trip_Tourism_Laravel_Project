@@ -10,22 +10,34 @@
 <body>
    <x-header/>
 
+	<span class="title">Payment</span>
+
     <main class="main-content">
         <section class="payment-section">
-            <h1>Payment</h1>
             <div class="steps">
                 <span class="step active">1</span>
                 <span class="step">2</span>
                 <span class="step">3</span>
             </div>
-            <h2>Payment & Billing Info</h2>
+			
+            <span class="subtitle">Payment & Billing Info</span>
 
             <form class="payment-form">
+				<div class="title-line-container">
+					<span class="titleWithHr">Payment Method</span>
+					<hr class="title-line-orange">
+				</div>
+
                 <div class="payment-methods">
                     <img class="method" src="/images/mbway.png">
                     <img class="method" src="/images/multibanco.png">
                     <img class="method" src="/images/paypal.png">
                 </div>
+
+				<div class="title-line-container">
+					<span class="titleWithHr">Billing Information</span>
+					<hr class="title-line-blue">
+				</div>
 
                 <div class="billing-info">
 					<label class="paymentTextInputs" for="address">Billing address</label>
@@ -50,7 +62,7 @@
                         <input type="checkbox"> I declare I am aware of this purchase
                     </label>
 					
-					<button type="submit" class="continue-btn">Continue</button>
+					<div class="button buttonContinue">Continue</div>
                 </div>
             </form>
         </section>

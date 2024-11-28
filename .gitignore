@@ -1,2 +1,4 @@
 /TurisGo/.env
+/TurisGo/node_modules/
+/TurisGo/public/hot
 /TurisGo/storage/app/public/imageUploads/*
