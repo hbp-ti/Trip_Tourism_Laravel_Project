@@ -85,9 +85,9 @@ Route::get('/tours', function () {
     return view('tours.tours');
 })->name("tours");
 
-Route::get('/hotel', function() {
+Route::get('/hotels', function() {
     return view('hotel.hotel');
-})->name("hotel");
+})->name("hotels");
 
 Route::get('/tourDetail', function () {
     return view('tourDetail.tourDetail');

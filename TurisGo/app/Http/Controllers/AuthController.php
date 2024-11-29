@@ -91,12 +91,20 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validatedData = $request->validate([
-            'email' => 'required|email',
+            'email_username' => 'required|string',
             'password' => 'required|min:8',
         ]);
 
+        $fieldType = filter_var($validatedData['email_username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        $credentials = [
+            $fieldType => $validatedData['email_username'],
+            'password' => $validatedData['password'],
+        ];
+
         $remember = $request->has('remember');
-        if (Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], $remember)) {
+        
+        if (Auth::attempt($credentials, $remember)) {
             return redirect()->route('homepage');
         }
 

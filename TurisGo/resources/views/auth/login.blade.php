@@ -18,11 +18,15 @@
                 <p class="login">Enter your credentials to access your account</p>
                 <form class="resetForm" method="POST" action="{{ route('auth.login.attempt')}}">
                     @csrf
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <label for="email">Email/Username</label>
+                    <input type="text" id="email_username" name="email_username" placeholder="Enter your email or username" required>
 
-                    <label for="password">Confirm Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <label for="password">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <span class="help-icon" title="Password must be at least 8 characters, a number, Uppercase and a special character">?</span>
+                    </div>
+                    
 
                     <div class="remember-me">
                         <label class="switch">

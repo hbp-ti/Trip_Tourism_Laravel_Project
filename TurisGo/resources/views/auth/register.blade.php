@@ -41,7 +41,10 @@
                     <input type="date" name="birth_date" id="birth_date" placeholder="Enter your birth date" required>
 
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                    <div class="password-field">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <span class="help-icon" title="Password must be at least 8 characters, a number, Uppercase and a special character">?</span>
+                    </div>
 
                     <label for="confirm-password">Confirm Password</label>
                     <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm your password" required>

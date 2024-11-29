@@ -1,132 +1,186 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  body, html {
-      height: 100%;
-      font-family: 'Manrope', sans-serif;
-  }
-  
-  .container {
-      display: flex;
-      height: 100vh;
-  }
-  
-  .form-section {
-      width: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-  }
-  
-  .form-container {
-      max-width: 400px;
-      width: 100%;
-  }
-  
-  .form-container h2 {
-      font-size: 24px;
-      margin-bottom: 20px;
-  }
-  
-  .form-container label {
-      font-size: 14px;
-      margin-top: 10px;
-      display: block;
-      color: #333;
-  }
-  
-  .form-container input[type="text"],
-  .form-container input[type="email"],
-  .form-container input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin: 5px 0 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-  }
-  
-  .form-container input[type="checkbox"] {
-      margin-right: 10px;
-  }
-  
-  .form-container button {
-      width: 100%;
-      padding: 10px;
-      background-color: #ff8000;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
-  }
-  
-  .form-container button:hover {
-      background-color: #e67500;
-  }
-  
-  .account-link {
-      margin-top: 15px;
-      font-size: 14px;
-      text-align: center;
-  }
-  
-  .account-link a {
-      color: #ff8000;
-      text-decoration: none;
-  }
-  
-  .account-link a:hover {
-      text-decoration: underline;
-  }
-  
-  .image-section {
-      width: 50%;
-      background-image: 
+}
+
+body,
+html {
+    height: 100%;
+    font-family: 'Manrope', sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.form-section {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.form-container {
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-container label {
+    font-size: 14px;
+    margin-top: 10px;
+    display: block;
+    color: #333;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.password-field {
+    position: relative;
+    width: 100%;
+}
+
+
+
+.help-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+
+.help-icon:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 20000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.help-icon:hover {
+    background-color: #e0e0e0;
+}
+
+.help-icon::after {
+    content: '';
+    opacity: 0;
+}
+
+
+.form-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff8000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.form-container button:hover {
+    background-color: #e67500;
+}
+
+.account-link {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.account-link a {
+    color: #ff8000;
+    text-decoration: none;
+}
+
+.account-link a:hover {
+    text-decoration: underline;
+}
+
+.image-section {
+    width: 50%;
+    background-image:
         linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
         url('/public/images/turisgo_darkPicture_auth.jpg');
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-  }
-  
-  .image-text {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-  }
-  
-  .image-text h1 {
-      font-size: 80px;
-      margin-bottom: 10px;
-      font-weight: bold;
-  }
-  
-  .image-text p {
-      font-size: 24px;
-  }
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
 
-  .resetForm {
+.image-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.image-text h1 {
+    font-size: 80px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.image-text p {
+    font-size: 24px;
+}
+
+.resetForm {
     margin-top: 30px;
-  }
+}
 
-  /* Estilos para o Toggle Switch */
+/* Estilos para o Toggle Switch */
 .switch {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 24px;
-    margin-right: 8px; /* Espaço entre o switch e o texto */
+    margin-right: 8px;
+    /* Espaço entre o switch e o texto */
 }
 
 .switch input {
@@ -159,18 +213,19 @@
     border-radius: 50%;
 }
 
-.switch input:checked + .slider {
+.switch input:checked+.slider {
     background-color: #ff6f00;
 }
 
-.switch input:checked + .slider::before {
+.switch input:checked+.slider::before {
     transform: translateX(26px);
 }
 
 /* Texto "Remember" */
 .remember-text {
     color: #333;
-    margin-right: auto; /* Alinha o texto para a esquerda */
+    margin-right: auto;
+    /* Alinha o texto para a esquerda */
     margin-top: 10px;
 }
 
@@ -178,7 +233,8 @@
 .forgot-password {
     text-decoration: none;
     color: #777;
-    margin-left: auto; /* Alinha o link para a direita */
+    margin-left: auto;
+    /* Alinha o link para a direita */
     margin-top: 10px;
 }
 
@@ -188,8 +244,10 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 10px; /* Reduced margin */
-    font-size: 12px; /* Reduced font size */
+    margin-bottom: 10px;
+    /* Reduced margin */
+    font-size: 12px;
+    /* Reduced font size */
 }
 
 /* Ajuste para responsividade do Toggle Switch */
@@ -202,10 +260,11 @@
     .slider::before {
         height: 16px;
         width: 16px;
-        transform: translateX(0); /* Reset transform */
+        transform: translateX(0);
+        /* Reset transform */
     }
 
-    .switch input:checked + .slider::before {
+    .switch input:checked+.slider::before {
         transform: translateX(20px);
     }
 
