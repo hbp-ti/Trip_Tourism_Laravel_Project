@@ -71,15 +71,15 @@ Route::get('/buyTicketTrain', function () {
 
 Route::get('/payment1', function () {
     return view('payment.payment1');
-})->name("Payment 1");
+})->name("payment1");
 
 Route::get('/payment2', function () {
     return view('payment.payment2');
-})->name("Payment 2");
+})->name("payment2");
 
 Route::get('/payment3', function () {
     return view('payment.payment3');
-})->name("Payment 3");
+})->name("payment3");
 
 Route::get('/tours', function () {
     return view('tours.tours');

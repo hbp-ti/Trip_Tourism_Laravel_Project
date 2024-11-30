@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    @vite(['resources/css/header.css', 'resources/css/payment.css'])
+    @vite(['resources/css/header.css', 'resources/css/payment.css', 'resources/js/payment.js'])
 </head>
 <body>
    <x-header/>
 
-	<span class="title">Payment</span>
+	<h1 class="title">Payment</h1>
 
-    <main class="main-content">
+    <div class="main-content">
         <section class="payment-section">
             <div class="steps">
                 <span class="step active">1</span>
@@ -20,7 +20,7 @@
                 <span class="step">3</span>
             </div>
 			
-            <span class="subtitle">Payment & Billing Info</span>
+            <h2 class="subtitle">Payment & Billing Info</h2>
 
             <form class="payment-form">
 				<div class="title-line-container">
@@ -29,9 +29,15 @@
 				</div>
 
                 <div class="payment-methods">
-                    <img class="method" src="/images/mbway.png">
-                    <img class="method" src="/images/multibanco.png">
-                    <img class="method" src="/images/paypal.png">
+                    <div class="method">
+                        <img class="mbway" src="/images/mbway.png">
+                    </div>
+                    <div class="method">
+                        <img class="multibanco" src="/images/multibanco.png">
+                    </div>
+                    <div class="method">
+                        <img class="paypal" src="/images/paypal.png">
+                    </div>
                 </div>
 
 				<div class="title-line-container">
@@ -58,15 +64,21 @@
 						<option value="United Kingdom">United Kingdom</option>
 					</select>
 
-                    <label class="awareText">
-                        <input type="checkbox"> I declare I am aware of this purchase
-                    </label>
+                    <div class="awareCheckBox">
+                        <label class="awareText">
+                            <label class="switch">
+                                <input type="checkbox" name="aware" id="aware">
+                                <span class="slider"></span>
+                            </label>
+                            <span>I declare I am aware of this purchase</span>
+                        </label>
+                    </div>
 					
-					<div class="button buttonContinue">Continue</div>
+					<a href="{{ route('payment2') }}" class="button buttonContinue">Continue</a>
                 </div>
             </form>
         </section>
-    </main>
+    </div>
 
     <x-footer/>
 </body>

@@ -10,9 +10,9 @@
 <body>
    <x-header/>
 
-	<span class="title">Payment</span>
+	<h1 class="title">Payment</h1>
 
-    <main class="main-content">
+    <div class="main-content">
         <section class="payment-section">
             
             <div class="steps">
@@ -59,14 +59,14 @@
                     
                     <div class="paymentMethod">
                         <img src="/images/multibanco.png" alt="Multibanco">
-                        <div class="button buttonChange">Change</div>
+                        <a href="{{ route('payment1') }}" class="button buttonChange">Change</a>
                     </div>
-                    
+
                     <div class="button buttonPay">Pay</div>
                 </div>
             </form>
         </section>
-    </main>
+    </div>
 
     <x-footer/>
 </body>

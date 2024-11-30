@@ -19,6 +19,20 @@ body {
     background-position: center;
 }
 
+.main-content {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}
+
+.payment-section {
+	background-color: rgb(240, 240, 240, 0.9);
+    padding: 50px;
+    border-radius: 8px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
 .subtitle {
 	font-size: 30px;
 	font-weight: bold;
@@ -55,19 +69,17 @@ body {
 .paymentMethod {
 	display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 	background-color: #B1B1B1;
 	height: 76px;
 	border-radius: 8px;
 	margin-top: 30px;
 	margin-bottom: 30px;
-	padding-top: 22px;
-	padding-right: 22px;
-	padding-left: 22px;
+    padding: 15px;
 }
 
 .paymentMethod img {
-	width: 180px;
+	width: 150px;
 }
 
 .title {
@@ -80,7 +92,7 @@ body {
 
 .reviewInformationUpper {
 	margin-top: 18px;
-	padding: 12px;
+	padding: 15px;
 	background-color: #B1B1B1;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
@@ -94,7 +106,7 @@ body {
 }
 	
 .reviewInformationLower {
-	padding: 12px;
+	padding: 15px;
 	background-color: #D9D9D9;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
@@ -104,14 +116,21 @@ body {
 	cursor: pointer;
 	text-align: center;
 	vertical-align: middle;
-	line-height: 42px;       /* mesmo valor que o height */
+	line-height: 42px;
 	width: 114px;
 	height: 42px;
 	color: white;
 	border-radius: 6px;
 	font-weight: 600;
 	font-size: 18px;
+    text-decoration: none;
 }
+
+.button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 
 .buttonChange {
 	background-color: #2081A5;
@@ -127,39 +146,24 @@ body {
 	height: 46px;
 	text-align: center;
 	vertical-align: middle;
-	line-height: 46px;       /* mesmo valor que o height */
+	line-height: 60px;
 }
 
 .awareText {
     font-family: Arial, sans-serif;
 }
 
-.main-content {
-    margin-top: 100px;
-    margin-bottom: 200px;
-}
-
-.payment-section {
-    /* background: rgba(255, 255, 255, 0.9); */
-	background-color: rgb(240, 240, 240);
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 600px;
-    margin: auto;
-    text-align: center;
-}
-
 .steps {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 30px;
     margin: 20px 0;
 }
 
 .step {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
     border-radius: 50%;
     background: #ddd;
     color: #333;
@@ -179,36 +183,46 @@ body {
 .payment-methods {
     display: flex;
     justify-content: space-between;
-    margin: 20px 0;
+    margin: 30px 0;
 }
-
-/*
-.method {
-    background: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px 20px;
-    flex: 1;
-    margin: 0 5px;
-    cursor: pointer;
-}
-
-.method:hover {
-    background: #ddd;
-}
-*/
 
 .method {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
 	cursor: pointer;
-	width: 120px;
+	max-width: 250px;
+    width: 100%;
+    height: 120px;
 	object-fit: contain;
 	border-radius: 6px;
 	padding: 12px;
-	/* height: 70px; */
+    transition: 0.43s all;
 }
 
 .method:hover {
-    background: #ddd;
+    background: #adadad;
+}
+
+.method.active {
+    background: #adadad;
+}
+
+
+.mbway {
+    width: 130px;
+    height: auto;
+}
+
+.multibanco {
+    width: 200px;
+    height: auto;
+}
+
+.paypal {
+    width: 180px;
+    height: auto;
 }
 
 .billing-info {
@@ -218,8 +232,8 @@ body {
 }
 
 .billing-info label {
-	padding-top: 16px;
     font-size: 16px;
+    margin-top: 15px;
 }
 
 .paymentTextInputs {
@@ -237,9 +251,62 @@ body {
     background: #C76A37;
 	margin-left: auto; 
 	margin-right: 0;
-	margin-top: 18px;
+	margin-top: 20px;
 }
 
 .buttonContinue:hover {
     background: #B7531D;
+}
+
+.awareCheckBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Estilos para o Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(174, 174, 174);
+    transition: background-color 0.4s;
+    border-radius: 34px;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: transform 0.4s;
+    border-radius: 50%;
+}
+
+.switch input:checked+.slider {
+    background-color: #ff6f00;
+}
+
+.switch input:checked+.slider::before {
+    transform: translateX(26px);
 }
