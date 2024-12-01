@@ -1,4 +1,5 @@
 /TurisGo/.env
+/TurisGo/database/database.sqlite
 /TurisGo/node_modules/
 /TurisGo/public/hot
 /TurisGo/storage/app/public/imageUploads/*
