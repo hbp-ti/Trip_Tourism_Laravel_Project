@@ -93,4 +93,8 @@ Route::get('/tourDetail', function () {
     return view('tourDetail.tourDetail');
 })->name("tourDetail");
 
+Route::get('/tour', function () {
+    return view('tour.tour');
+})->name("tour");
+
 Route::get('/change-language/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
