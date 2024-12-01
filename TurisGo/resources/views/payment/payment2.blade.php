@@ -62,7 +62,7 @@
                         <a href="{{ route('payment1') }}" class="button buttonChange">Change</a>
                     </div>
 
-                    <div class="button buttonPay">Pay</div>
+                    <a href="{{ route('payment3') }}" class="button buttonPay">Pay</a>
                 </div>
             </form>
         </section>

@@ -45,7 +45,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
 });
 
 Route::get('/hotel', function () {
-    return view('hotelDetails.hotel');
+    return view('hoteldetails.hotel');
 })->name("hotel");
 
 Route::get('/password/forgot', function () {

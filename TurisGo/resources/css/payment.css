@@ -124,6 +124,7 @@ body {
 	font-weight: 600;
 	font-size: 18px;
     text-decoration: none;
+    display: inline-block;
 }
 
 .button.disabled {
@@ -333,7 +334,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    margin-top: 30px;
     align-items: center;
 }
 
@@ -352,4 +354,9 @@ body {
 .overviewPaymentDetails input {
     max-width: 140px;
     text-align: center;
+    border: none;
+}
+
+.overviewPaymentDetails input:focus {
+    outline: none
 }

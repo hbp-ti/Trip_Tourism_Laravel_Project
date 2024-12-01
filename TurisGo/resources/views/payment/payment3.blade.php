@@ -52,7 +52,7 @@
 					
 				</div>
 				
-				<div class="button buttonReturnHome">Return to Home</div>
+				<a href="{{ route('homepage') }}" class="button buttonReturnHome">Return to Home</a>
             </form>
         </section>
     </div>

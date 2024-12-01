@@ -1,21 +1,40 @@
-// Obtém os elementos do botão de filtro, da barra lateral e do fundo
-const filterButton = document.querySelector('.filter');
-const sidebar = document.getElementById('sidebar');
-const blurBackground = document.getElementById('blur-background');
 
-// Adiciona o evento de clique ao botão de filtro
-filterButton.addEventListener('click', () => {
-    // Alterna a classe 'open' para abrir ou fechar a sidebar
-    sidebar.classList.toggle('open');
-    // Alterna a classe 'active' para aplicar ou remover o blur
-    blurBackground.classList.toggle('active');
-});
+document.querySelector('.sortby-container').addEventListener('click', toggleDropdown);
 
-// Caso você queira fechar a sidebar clicando fora dela
-window.addEventListener('click', (event) => {
-    if (!sidebar.contains(event.target) && !filterButton.contains(event.target)) {
-        // Remove a classe 'open' da sidebar e o efeito de blur
-        sidebar.classList.remove('open');
-        blurBackground.classList.remove('active');
+// Adiciona o evento de clique ao ícone de "Sort By"
+sortByIcon.addEventListener('click', toggleDropdown);
+
+// Função para alternar a visibilidade do dropdown
+function toggleDropdown() {
+    document.getElementById("sortDropdown").classList.toggle("show");
+}
+
+// Fechar o dropdown se clicar fora dele
+window.onclick = function(event) {
+    if (!event.target.closest('.sortby-container')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
     }
-});
+}
+
+// Funções para ordenar
+function sortByPriceAsc() {
+    // Lógica
+}
+
+function sortByPriceDesc() {
+    // Lógica
+}
+
+function sortAlphabetically() {
+    // Lógica
+}
+
+function sortByMostBooked() {
+    // Lógica
+}

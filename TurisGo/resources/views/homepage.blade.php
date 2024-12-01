@@ -19,9 +19,14 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+    <!-- SweetAlert para popups -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
     <!-- Linha modificada com o caminho atualizado do footer.css -->
-    @vite(['resources/css/homepage.css', 'resources/js/app.js', 'resources/js/mapa.js'])
+    @vite(['resources/css/homepage.css', 'resources/js/app.js', 'resources/js/mapa.js', 'resources/js/jquery-3.7.1.min.js', 'resources/js/searchBar.js'])
     @endif
 
 </head>

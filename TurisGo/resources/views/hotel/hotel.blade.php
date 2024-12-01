@@ -8,7 +8,17 @@
     <!-- css e script  de mapa interativo -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    @vite(['resources/css/hotel.css', 'resources/js/mapa.js'])
+
+    <!-- SweetAlert para popups -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    @vite(['resources/css/hotel.css', 'resources/js/mapa.js', 'resources/js/hotel.js', 'resources/js/jquery-3.7.1.min.js', 'resources/js/searchBar.js'])
 </head>
 <body>
 
@@ -61,6 +71,12 @@
             <div class="sortby-container">
                 <span>Sort By</span>
                 <img src="{{ asset('images/sortbyIcon.png') }}" alt="Sort By">
+                <div id="sortDropdown" class="dropdown-content">
+                    <a href="#" onclick="sortByPriceAsc()">Price: Low to High</a>
+                    <a href="#" onclick="sortByPriceDesc()">Price: High to Low</a>
+                    <a href="#" onclick="sortAlphabetically()">Alphabetically</a>
+                    <a href="#" onclick="sortByMostBooked()">Most Booked</a>
+                </div>
             </div>
             <div class="filter">
                 <span>FIlter</span>
