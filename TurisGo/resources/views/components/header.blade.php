@@ -6,7 +6,7 @@
 
 <nav class="navbar">
     <div class="container">
-        <a href="/" class="logo">TurisGo</a>
+        <a href="{{ route('homepage', ['locale' => app()->getLocale()])}}" class="logo">TurisGo</a>
         <div class="nav-links-container">
             <ul class="nav-links">
                 <li><a href="{{ route('homepage', ['locale' => app()->getLocale()]) }}" class="{{ Route::currentRouteName() == 'homepage' ? 'active' : '' }}">{{ __('Home') }}</a></li>
@@ -43,6 +43,7 @@
                         @endif
                     </a>
                 </div>
+
 
 
             </div>
@@ -93,7 +94,7 @@
                 </div>
             </div>
             @else
-            <a href="{{ route('auth.login.form') }}" class="login-button">{{ __('Login') }}</a>
+            <a href="{{ route('auth.login.form', ['locale' => app()->getLocale()]) }}" class="login-button">{{ __('Login') }}</a>
             @endauth
         </div>
     </div>

@@ -54,7 +54,9 @@ class Kernel implements KernelContract
      *
      * @var array<int, class-string|string>
      */
-    protected $middleware = [];
+    protected $middleware = [
+        \App\Http\Middleware\SetLocale::class,
+    ];
 
     /**
      * The application's route middleware groups.

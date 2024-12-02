@@ -21,7 +21,7 @@
         <div class="form-section">
             <div class="form-container">
                 <h2>{{ __('Get Started Now') }}</h2>
-                <form method="POST" action="{{ route('auth.register.submit') }}">
+                <form method="POST" action="{{ route('auth.register.submit', ['locale' => app()->getLocale()]) }}">
                     @csrf
                     <label for="first-name">{{ __('First Name') }}</label>
                     <input type="text" name="first_name" id="first_name" placeholder="{{ __('Enter your first name') }}" required>
@@ -57,7 +57,7 @@
                     <button type="submit">{{ __('Register') }}</button>
                 </form>
 
-                <p class="account-link">{{ __('Already have an account?') }} <a href="{{ route("auth.login.form") }}">{{ __('Click here') }}</a></p>
+                <p class="account-link">{{ __('Already have an account?') }} <a href="{{ route("auth.login.form", ['locale' => app()->getLocale()]) }}">{{ __('Click here') }}</a></p>
             </div>
         </div>
         @if(session('popup'))

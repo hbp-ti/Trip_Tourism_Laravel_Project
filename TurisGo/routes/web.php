@@ -15,10 +15,10 @@ Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('up
 Route::get('/exemploUpload', function () {
     return view('exemploUpload');
 })->name("exemploUpload");
-    
-// Rotas com prefixo de idioma
-//Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () {
 
+// Rotas com prefixo de idioma
+Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () {
+    Route::get('/change-language/{new_locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
     // Página principal
     Route::get('/', function () {
         return view('homepage');
@@ -97,7 +97,4 @@ Route::get('/exemploUpload', function () {
     Route::get('/tour', function () {
         return view('tour.tour');
     })->name("tour");
-
-    Route::get('/{locale}/change-language/{new_locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
-//});
-
+});

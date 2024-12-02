@@ -18,7 +18,7 @@
                 <h2>{{ __('Reset Password') }}</h2>
                 <p class="resetpass">{{ __('Enter a new password for') }} {{ session('reset_email') }}</p>
 
-                <form class="resetForm" action="{{ route('auth.reset.submit') }}" method="POST">
+                <form class="resetForm" action="{{ route('auth.reset.submit', ['locale' => app()->getLocale()]) }}" method="POST">
                     @csrf
                     <input type="hidden" name="token" value="{{ session('reset_token') }}">
                     <input type="hidden" name="email" value="{{ session('reset_email') }}">

@@ -21,12 +21,12 @@
             <div class="form-container">
                 <h2>{{ __('Forgot Password?') }}</h2>
                 <p class="forgotpass">{{ __('Enter your email address, and we will give you reset instructions') }}</p>
-                <form class="forgotForm" action="{{ route('auth.forgot.submit') }}" method="POST">
+                <form class="forgotForm" action="{{ route('auth.forgot.submit', ['locale' => app()->getLocale()]) }}" method="POST">
                     @csrf
                     <label for="email">{{ __('Email address') }}</label>
                     <input type="email" name="email" id="email" placeholder="{{ __('Enter your email') }}" required>
 
-                    <p class="account-link">{{ __('Remember your password?') }} <a href="{{ route('auth.login.form') }}">{{ __('Login here') }}</a></p>
+                    <p class="account-link">{{ __('Remember your password?') }} <a href="{{ route('auth.login.form', ['locale' => app()->getLocale()]) }}">{{ __('Login here') }}</a></p>
 
                     <button type="submit">{{ __('Forgot Password') }}</button>
                 </form>

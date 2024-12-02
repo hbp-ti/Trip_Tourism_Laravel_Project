@@ -16,7 +16,7 @@
             <div class="form-container">
                 <h2>{{ __('Welcome Back!') }}</h2>
                 <p class="login">{{ __('Enter your credentials to access your account') }}</p>
-                <form class="resetForm" method="POST" action="{{ route('auth.login.attempt') }}">
+                <form class="resetForm" method="POST" action="{{ route('auth.login.attempt', ['locale' => app()->getLocale()]) }}">
                     @csrf
                     <label for="email">{{ __('Email/Username') }}</label>
                     <input type="text" id="email_username" name="email_username" placeholder="{{ __('Enter your email or username') }}" required>
@@ -33,12 +33,12 @@
                             <span class="slider"></span>
                         </label>
                         <span class="remember-text">{{ __('Remember') }}</span>
-                        <a href="{{ route('auth.forgot.form') }}" class="forgot-password">{{ __('Forgot password?') }}</a>
+                        <a href="{{ route('auth.forgot.form', ['locale' => app()->getLocale()]) }}" class="forgot-password">{{ __('Forgot password?') }}</a>
                     </div>
 
                     <button type="submit">{{ __('Login') }}</button>
                 </form>
-                <p class="account-link">{{ __("Don't have an account?") }} <a href="{{ route('auth.register.form') }}">{{ __('Sign Up') }}</a></p>
+                <p class="account-link">{{ __("Don't have an account?") }} <a href="{{ route('auth.register.form', ['locale' => app()->getLocale()]) }}">{{ __('Sign Up') }}</a></p>
             </div>
         </div>
         @if(session('popup'))
