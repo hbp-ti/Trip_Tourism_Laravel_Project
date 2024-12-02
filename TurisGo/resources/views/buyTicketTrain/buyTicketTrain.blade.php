@@ -11,19 +11,19 @@
 <body>
     <x-header />
     <div class="header">
-        <h1>{{ __('Tickets') }}</h1>
-        <p>{{ __('Buy tickets with us') }}</p>
+        <h1>{{ __('messages.Tickets') }}</h1>
+        <p>{{ __('messages.Buy tickets with us') }}</p>
     </div>
     <main>
         <section class="tickets">
-            <h1>{{ __('Tickets') }}</h1>
+            <h1>{{ __('messages.Tickets') }}</h1>
             <div class="online-tickets">
-                <h2>{{ __('Online Tickets') }}</h2>
+                <h2>{{ __('messages.Online Tickets') }}</h2>
                 <div class="form-container">
                     <form action="#" method="POST">
                         <div class="form-group">
-                            <input type="text" placeholder="{{ __('Origin') }}">
-                            <input type="text" placeholder="{{ __('Destination') }}">
+                            <input type="text" placeholder="{{ __('messages.Origin') }}">
+                            <input type="text" placeholder="{{ __('messages.Destination') }}">
                         </div>
                         <div class="form-group">
                             <input type="date" value="2024-11-05">
@@ -31,32 +31,32 @@
                         </div>
                         <div class="form-group">
                             <select>
-                                <option value="comfort">{{ __('Comfort / 1st') }}</option>
-                                <option value="tourist">{{ __('Tourist / 2nd') }}</option>
+                                <option value="comfort">{{ __('messages.Comfort / 1st') }}</option>
+                                <option value="tourist">{{ __('messages.Tourist / 2nd') }}</option>
                             </select>
-                            <input type="number" min="1" value="1" placeholder="{{ __('Passengers') }}">
+                            <input type="number" min="1" value="1" placeholder="{{ __('messages.Passengers') }}">
                         </div>
                         <div class="form-options-container">
                             <div class="form-options">
                                 <label>
                                     <input type="radio" name="preference" value="regional" checked>
-                                    {{ __('Alfa Pendular / IC') }}
+                                    {{ __('messages.Alfa Pendular / IC') }}
                                 </label>
                                 <label>
                                     <input type="radio" name="preference" value="intercity">
-                                    {{ __('Intercity') }}
+                                    {{ __('messages.Intercity') }}
                                 </label>
                                 <label>
                                     <input type="radio" name="preference" value="urban">
-                                    {{ __('Urban') }}
+                                    {{ __('messages.Urban') }}
                                 </label>
                                 <label>
                                     <input type="radio" name="preference" value="regional">
-                                    {{ __('Regional') }}
+                                    {{ __('messages.Regional') }}
                                 </label>
                             </div>
                             <div class="form-submit">
-                                <button type="submit">{{ __('Search') }}</button>
+                                <button type="submit">{{ __('messages.Search') }}</button>
                             </div>
                         </div>
                     </form>
@@ -65,10 +65,10 @@
         </section>
 
         <section class="timetable">
-            <h2>{{ __('Timetable') }}</h2>
+            <h2>{{ __('messages.Timetable') }}</h2>
             <div class="route">
                 <div class="go-container">
-                    <span class="go-label">{{ __('GO') }}</span>
+                    <span class="go-label">{{ __('messages.GO') }}</span>
                 </div>
                 <div class="route-info-container">
                     <span class="route-info">Águeda &gt; Aveiro</span>
@@ -80,11 +80,11 @@
                     <thead>
                         <tr>
                             <th></th> <!-- Coluna para os checkboxes -->
-                            <th>{{ __('Service') }}</th>
-                            <th>{{ __('Departure') }}</th>
-                            <th>{{ __('Arrival') }}</th>
-                            <th>{{ __('Duration') }}</th>
-                            <th>{{ __('Price') }}</th>
+                            <th>{{ __('messages.Service') }}</th>
+                            <th>{{ __('messages.Departure') }}</th>
+                            <th>{{ __('messages.Arrival') }}</th>
+                            <th>{{ __('messages.Duration') }}</th>
+                            <th>{{ __('messages.Price') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,9 +119,9 @@
             <div class="confirm">
                 <label>
                     <input type="checkbox" required>
-                    {{ __('I declare that I don’t have less than 18 years.') }}
+                    {{ __('messages.I declare that I don’t have less than 18 years.') }}
                 </label>
-                <button type="button">{{ __('Continue') }}</button>
+                <button type="button">{{ __('messages.Continue') }}</button>
             </div>
         </section>
         

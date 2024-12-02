@@ -26,27 +26,27 @@
     <x-header/>
      <!-- Header Section -->
      <section class="header">
-        <h1>{{ __('Hotel') }}</h1>
-        <p>{{ __('Discover the Best Hotels for Your Stay') }}</p>
+        <h1>{{ __('messages.Hotel') }}</h1>
+        <p>{{ __('messages.Discover the Best Hotels for Your Stay') }}</p>
     </section>
 
     <div class="box">
         <div class="search-home-page">
             <div class="overlap-group">
                 <div class="search-field">
-                    <label for="location">{{ __('Destination') }}</label>
-                    <input type="text" id="location" placeholder="{{ __('Enter location') }}" />
+                    <label for="location">{{ __('messages.Destination') }}</label>
+                    <input type="text" id="location" placeholder="{{ __('messages.Enter location') }}" />
                 </div>
                 <div class="search-field">
-                    <label for="checkin">{{ __('Check-in Date') }}</label>
-                    <input type="text" id="checkin" placeholder="{{ __('Check-in Date') }}" />
+                    <label for="checkin">{{ __('messages.Check-in Date') }}</label>
+                    <input type="text" id="checkin" placeholder="{{ __('messages.Check-in Date') }}" />
                 </div>
                 <div class="search-field">
-                    <label for="checkout">{{ __('Checkout Date') }}</label>
-                    <input type="text" id="checkout" placeholder="{{ __('Checkout Date') }}" />
+                    <label for="checkout">{{ __('messages.Checkout Date') }}</label>
+                    <input type="text" id="checkout" placeholder="{{ __('messages.Checkout Date') }}" />
                 </div>
                 <div class="search-field">
-                    <label for="people">{{ __('People') }}</label>
+                    <label for="people">{{ __('messages.People') }}</label>
                     <select id="people">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -55,7 +55,7 @@
                     </select>
                 </div>
                 <div class="search-button">
-                    <button type="button">{{ __('Search') }}</button>
+                    <button type="button">{{ __('messages.Search') }}</button>
                 </div>
             </div>
         </div>
@@ -67,53 +67,53 @@
 
         <!-- Lista de Hoteis -->
         <div class="title-line-container hotel-section">
-            <h2>{{ __('Hotel') }}</h2>
+            <h2>{{ __('messages.Hotel') }}</h2>
             <hr class="title-line-blue">
             <div class="sortby-container">
-                <span>{{ __('Sort By') }}</span>
-                <img src="{{ asset('images/sortbyIcon.png') }}" alt="{{ __('Sort By') }}">
+                <span>{{ __('messages.Sort By') }}</span>
+                <img src="{{ asset('images/sortbyIcon.png') }}" alt="{{ __('messages.Sort By') }}">
                 <div id="sortDropdown" class="dropdown-content">
-                    <a href="#" onclick="sortByPriceAsc()">{{ __('Price: Low to High') }}</a>
-                    <a href="#" onclick="sortByPriceDesc()">{{ __('Price: High to Low') }}</a>
-                    <a href="#" onclick="sortAlphabetically()">{{ __('Alphabetically') }}</a>
-                    <a href="#" onclick="sortByMostBooked()">{{ __('Most Booked') }}</a>
+                    <a href="#" onclick="sortByPriceAsc()">{{ __('messages.Price: Low to High') }}</a>
+                    <a href="#" onclick="sortByPriceDesc()">{{ __('messages.Price: High to Low') }}</a>
+                    <a href="#" onclick="sortAlphabetically()">{{ __('messages.Alphabetically') }}</a>
+                    <a href="#" onclick="sortByMostBooked()">{{ __('messages.Most Booked') }}</a>
                 </div>
             </div>
             <div class="filter">
-                <span>{{ __('Filter') }}</span>
-                <img src="{{ asset('images/filterControl.png') }}" alt="{{ __('Filter') }}">
+                <span>{{ __('messages.Filter') }}</span>
+                <img src="{{ asset('images/filterControl.png') }}" alt="{{ __('messages.Filter') }}">
             </div>
         </div>
 
         <div class="single-column-container">
             <div class="hotel-card">
                 <div class="image-container-hotel">
-                    <img src="" alt="{{ __('Hotel Image') }} 1">
-                    <div class="price-tag">$75<span> /{{ __('per person') }}</span></div>
+                    <img src="" alt="{{ __('messages.Hotel Image') }} 1">
+                    <div class="price-tag">$75<span> /{{ __('messages.per person') }}</span></div>
                 </div>
                 <div class="text-container">
-                    <h2>{{ __('Hotel Condade Castro') }}</h2>
-                    <p>{{ __('Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup') }}</p>
+                    <h2>{{ __('messages.Hotel Condade Castro') }}</h2>
+                    <p>{{ __('messages.Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup') }}</p>
                 </div>
             </div>
             <div class="hotel-card">
                 <div class="image-container-hotel">
-                    <img src="" alt="{{ __('Hotel Image') }} 1">
-                    <div class="price-tag">$75<span> /{{ __('per person') }}</span></div>
+                    <img src="" alt="{{ __('messages.Hotel Image') }} 1">
+                    <div class="price-tag">$75<span> /{{ __('messages.per person') }}</span></div>
                 </div>
                 <div class="text-container">
-                    <h2>{{ __('Hotel Condade Castro') }}</h2>
-                    <p>{{ __('Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup') }}</p>
+                    <h2>{{ __('messages.Hotel Condade Castro') }}</h2>
+                    <p>{{ __('messages.Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup') }}</p>
                 </div>
             </div>
             <div class="hotel-card">
                 <div class="image-container-hotel">
-                    <img src="" alt="{{ __('Hotel Image') }} 1">
-                    <div class="price-tag">$75<span> /{{ __('per person') }}</span></div>
+                    <img src="" alt="{{ __('messages.Hotel Image') }} 1">
+                    <div class="price-tag">$75<span> /{{ __('messages.per person') }}</span></div>
                 </div>
                 <div class="text-container">
-                    <h2>{{ __('Hotel Condade Castro') }}</h2>
-                    <p>{{ __('Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup') }}</p>
+                    <h2>{{ __('messages.Hotel Condade Castro') }}</h2>
+                    <p>{{ __('messages.Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup') }}</p>
                 </div>
             </div>
         </div>

@@ -41,7 +41,6 @@ return [
     'By creating an account on TurisGo, you accept and agree to the following Terms and Conditions. These terms outline the rights and responsibilities of users and TurisGo.' => 'Ao criar uma conta no TurisGo, aceita e concorda com os seguintes Termos e Condições. Estes termos delineiam os direitos e responsabilidades dos utilizadores e do TurisGo.',
     'TurisGo is a platform designed to facilitate the search, comparison, and booking of hotels, activities, and tour packages. You agree to use the platform for personal, non-commercial purposes only.' => 'O TurisGo é uma plataforma criada para facilitar a pesquisa, comparação e reserva de hotéis, atividades e pacotes turísticos. Concorda em utilizar a plataforma apenas para fins pessoais e não comerciais.',
     'TurisGo strives to provide accurate and up-to-date information on hotels, activities, prices, and availability. However, we are not liable for any changes or inaccuracies in data provided by third-party sources, such as external APIs.' => 'O TurisGo esforça-se por fornecer informações precisas e atualizadas sobre hotéis, atividades, preços e disponibilidade. No entanto, não nos responsabilizamos por quaisquer alterações ou imprecisões nos dados fornecidos por fontes de terceiros, como APIs externas.',
-    'Cancellation and refund policies may vary depending on the type of reservation or service. Users should check specific details for each booking to understand cancellation terms and any applicable refunds.',
     'Cancellation and refund policies may vary depending on the type of reservation or service. Users should check specific details for each booking to understand cancellation terms and any applicable refunds.' => 'As políticas de cancelamento e reembolso podem variar consoante o tipo de reserva ou serviço. Os utilizadores devem consultar os detalhes específicos de cada reserva para entender os termos de cancelamento e os reembolsos aplicáveis.',
     'TurisGo is committed to protecting user privacy in compliance with data protection laws. Personal data will be used solely for platform operations and will not be shared with third parties without consent.' => 'O TurisGo está comprometido em proteger a privacidade dos utilizadores, em conformidade com as leis de proteção de dados. Os dados pessoais serão utilizados exclusivamente para operações da plataforma e não serão partilhados com terceiros sem o consentimento dos utilizadores.',
     'TurisGo reserves the right to modify these Terms and Conditions at any time. Any changes will be notified to users, and continued use of the platform implies acceptance of the revised terms.' => 'O TurisGo reserva-se o direito de modificar estes Termos e Condições a qualquer momento. Quaisquer alterações serão notificadas aos utilizadores, e a utilização contínua da plataforma implica a aceitação dos termos revistos.',
@@ -50,10 +49,8 @@ return [
     'Enter your email address, and we will give you reset instructions' => 'Introduza o seu endereço de e-mail e iremos enviar-lhe as instruções para a reposição.',
     'Remember your password?' => 'Lembra-se da sua palavra-passe?',
     'Login here' => 'Inicie sessão aqui.',
-    'Forgot password?' => 'Lembra-se da sua palavra-passe',
     'Reset Password' => 'Redefinir senha',
     'New Password' => 'Nova password',
-    'Confirm Password' => 'Confirme a password',
     'Enter a new password for' => 'Introduza uma nova palavra-passe para',
     'Destination' => 'Destino',
     'Check-in Date' => 'Data de check-in',
@@ -118,7 +115,7 @@ return [
     'Your message' => 'A sua mensage',
     'Type your message here...' => 'Escreva a sua mensagem aqui...',
     'Send' => 'Enviar',
-    'Edit' => 'Edit',
+    'Edit' => 'Editar',
     'Active Reservations' => 'Reservas Ativas',
     'Reservation History' => 'Histórico de reservas',
     'No active reservations at the moment.' => 'Nenhuma reserva ativa no momento.',
@@ -134,6 +131,7 @@ return [
     'Tickets' => 'Bilhetes',
     'Your journey is almost ready! Add train or bus tickets for a convenient trip. Choose the best option and make the most of your journey!' => 'A sua viagem está quase pronta! Adicione bilhetes de comboio ou autocarro para uma viagem conveniente. Escolha a melhor opção e aproveite ao máximo a sua viagem!',
     'Buy train tickets' => 'Comprar bilhetes de comboio',
-    'Buy bus tickets' => 'Comprar bilhetes de autocarro'
+    'Buy bus tickets' => 'Comprar bilhetes de autocarro',
+    'Login' => 'Entrar',
 ];
 

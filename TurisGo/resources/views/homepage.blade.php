@@ -34,27 +34,27 @@
     <x-header/>
      <!-- Header Section -->
      <section class="header">
-        <h1>{{ __('TurisGo') }}</h1>
-        <p>{{ __('Discover your destination') }}</p>
+        <h1>{{ __('messages.TurisGo') }}</h1>
+        <p>{{ __('messages.Discover your destination') }}</p>
     </section>
 
     <div class="box">
         <div class="search-home-page">
             <div class="overlap-group">
                 <div class="search-field">
-                    <label for="location">{{ __('Destination') }}</label>
-                    <input type="text" id="location" placeholder="{{ __('Enter location') }}" />
+                    <label for="location">{{ __('messages.Destination') }}</label>
+                    <input type="text" id="location" placeholder="{{ __('messages.Enter location') }}" />
                 </div>
                 <div class="search-field">
-                    <label for="checkin">{{ __('Check-in Date') }}</label>
-                    <input type="text" id="checkin" placeholder="{{ __('Check-in Date') }}" />
+                    <label for="checkin">{{ __('messages.Check-in Date') }}</label>
+                    <input type="text" id="checkin" placeholder="{{ __('messages.Check-in Date') }}" />
                 </div>
                 <div class="search-field">
-                    <label for="checkout">{{ __('Checkout Date') }}</label>
-                    <input type="text" id="checkout" placeholder="{{ __('Checkout Date') }}" />
+                    <label for="checkout">{{ __('messages.Checkout Date') }}</label>
+                    <input type="text" id="checkout" placeholder="{{ __('messages.Checkout Date') }}" />
                 </div>
                 <div class="search-field">
-                    <label for="people">{{ __('People') }}</label>
+                    <label for="people">{{ __('messages.People') }}</label>
                     <select id="people">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -63,7 +63,7 @@
                     </select>
                 </div>
                 <div class="search-button">
-                    <button type="button">{{ __('Search') }}</button>
+                    <button type="button">{{ __('messages.Search') }}</button>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
 
     <div class="home">
         <div class="title-line-container home-section">
-            <h2>{{ __('Most Popular Hotels') }}</h2>
+            <h2>{{ __('messages.Most Popular Hotels') }}</h2>
             <hr class="title-line-orange">
         </div>
 
@@ -83,7 +83,7 @@
         </div>
 
         <div class="title-line-container home-section">
-            <h2>{{ __('Most Popular Tours') }}</h2>
+            <h2>{{ __('messages.Most Popular Tours') }}</h2>
             <hr class="title-line-blue">
         </div>
 
@@ -95,7 +95,7 @@
         </div>
 
         <div class="title-line-container home-section">
-            <h2>{{ __('Interactive Map') }}</h2>
+            <h2>{{ __('messages.Interactive Map') }}</h2>
             <hr class="title-line-orange">
         </div>
 
@@ -103,20 +103,20 @@
         <div id="map"></div>
 
         <div class="title-line-container home-section">
-            <h2>{{ __('Promotional Packages') }}</h2>
+            <h2>{{ __('messages.Promotional Packages') }}</h2>
         </div>
 
         <div class="promo-card-wrapper">
             <div class="promo-card-container">
                 <div class="promo-card">
                     <img src="" alt="Promo Image 1">
-                    <div class="price-tag">$75<span> /{{ __('per person') }}</span></div>
+                    <div class="price-tag">$75<span> /{{ __('messages.per person') }}</span></div>
                     <div class="content-tag">
                         <div class="icon-tag"><img src="{{ asset('images/durationTime.png') }}" alt="duration">8H</div>
-                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">{{ __('People') }}: <span>8</span></div>
+                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">{{ __('messages.People') }}: <span>8</span></div>
                     </div>
                     <div class="promo-card-content">
-                        <p>{{ __('Promotion') }} 1</p>
+                        <p>{{ __('messages.Promotion') }} 1</p>
                     </div>
                     <div class="rating">
                         <img src="{{ asset('images/rating.png') }}" alt="rating">
@@ -124,13 +124,13 @@
                 </div>
                 <div class="promo-card">
                     <img src="" alt="Promo Image 1">
-                    <div class="price-tag">$75<span> /{{ __('per person') }}</span></div>
+                    <div class="price-tag">$75<span> /{{ __('messages.per person') }}</span></div>
                     <div class="content-tag">
                         <div class="icon-tag"><img src="{{ asset('images/durationTime.png') }}" alt="duration">8H</div>
-                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">{{ __('People') }}: <span>8</span></div>
+                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">{{ __('messages.People') }}: <span>8</span></div>
                     </div>
                     <div class="promo-card-content">
-                        <p>{{ __('Promotion') }} 1</p>
+                        <p>{{ __('messages.Promotion') }} 1</p>
                     </div>
                     <div class="rating">
                         <img src="{{ asset('images/rating.png') }}" alt="rating">
@@ -138,13 +138,13 @@
                 </div>
                 <div class="promo-card">
                     <img src="" alt="Promo Image 1">
-                    <div class="price-tag">$75<span> /{{ __('per person') }}</span></div>
+                    <div class="price-tag">$75<span> /{{ __('messages.per person') }}</span></div>
                     <div class="content-tag">
                         <div class="icon-tag"><img src="{{ asset('images/durationTime.png') }}" alt="duration">8H</div>
-                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">{{ __('People') }}: <span>8</span></div>
+                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">{{ __('messages.People') }}: <span>8</span></div>
                     </div>
                     <div class="promo-card-content">
-                        <p>{{ __('Promotion') }} 1</p>
+                        <p>{{ __('messages.Promotion') }} 1</p>
                     </div>
                     <div class="rating">
                         <img src="{{ asset('images/rating.png') }}" alt="rating">

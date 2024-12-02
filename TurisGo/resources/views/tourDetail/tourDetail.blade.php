@@ -15,23 +15,23 @@
 
     <!-- Hero Section -->
     <div class="header">
-        <h1>{{ __('Tour Details') }}</h1>
-        <p>{{ __('Some details about your reservation') }}</p>
+        <h1>{{ __('messages.Tour Details') }}</h1>
+        <p>{{ __('messages.Some details about your reservation') }}</p>
     </div>
 
     <!-- Tour Content Section -->
     <div class="tour-details">
-        <h2>{{ __('Parque Jump') }}</h2>
-        <p>{{ __('Explore the beautiful Albufeira coastline, visiting hidden spots and the famous Benagil cave. Swim and spot dolphins along the way (weather permitting) as you enjoy this tour. With a blend of adventure, nature, and relaxing, this tour offers the perfect mix for a day well spent with friends or family. Book today with a simple, quick, and secure booking to bypass the queues and kickstart an unforgettable adventure with memories to keep.') }}</p>
+        <h2>{{ __('messages.Parque Jump') }}</h2>
+        <p>{{ __('messages.Explore the beautiful Albufeira coastline, visiting hidden spots and the famous Benagil cave. Swim and spot dolphins along the way (weather permitting) as you enjoy this tour. With a blend of adventure, nature, and relaxing, this tour offers the perfect mix for a day well spent with friends or family. Book today with a simple, quick, and secure booking to bypass the queues and kickstart an unforgettable adventure with memories to keep.') }}</p>
 
         <!-- Image Slider -->
         <div class="image-slider">
-            <img src="{{ asset('images/tourDetailsJump.png') }}" alt="{{ __('Parque Jump') }}">
+            <img src="{{ asset('images/tourDetailsJump.png') }}" alt="{{ __('messages.Parque Jump') }}">
         </div>
 
         <!-- Direction Section -->
         <div class="section-title-container">
-            <h3 class="section-title">{{ __('Direction') }}</h3>
+            <h3 class="section-title">{{ __('messages.Direction') }}</h3>
             <hr class="section-divider" style="background-color: #C76A37;">
         </div>
         <div id="map"></div>
@@ -47,13 +47,13 @@
             </iframe>
         </div>
         <div class="button-group">
-            <button class="btn btn-primary">{{ __('Open') }}</button>
-            <button class="btn btn-secondary">{{ __('Download') }}</button>
+            <button class="btn btn-primary">{{ __('messages.Open') }}</button>
+            <button class="btn btn-secondary">{{ __('messages.Download') }}</button>
         </div>
 
         <!-- Weather Section -->
         <div class="section-title-container">
-            <h3 class="section-title">{{ __('Weather') }}</h3>
+            <h3 class="section-title">{{ __('messages.Weather') }}</h3>
             <hr class="section-divider" style="background-color: #2081A5;">
         </div>
         <div id="weather">
@@ -62,13 +62,13 @@
 
         <!-- Train/Bus Tickets Section -->
         <div class="section-title-container">
-            <h3 class="section-title">{{ __('Train/Bus Tickets') }}</h3>
+            <h3 class="section-title">{{ __('messages.Train/Bus Tickets') }}</h3>
             <hr class="section-divider" style="background-color: #2081A5;">
         </div>
-        <p style="text-align: center; font-size: 1.7rem; margin-bottom: 20px;">{{ __('Seems like you didn\'t buy train/bus tickets!') }}</p>
+        <p style="text-align: center; font-size: 1.7rem; margin-bottom: 20px;">{{ __('messages.Seems like you didn\'t buy train/bus tickets!') }}</p>
         <div class="button-group">
-            <button class="btn btn-primary" style="background-color: #2081A5;">{{ __('Buy Train Tickets') }}</button>
-            <button class="btn btn-primary" style="background-color: #2081A5;">{{ __('Buy Bus Tickets') }}</button>
+            <button class="btn btn-primary" style="background-color: #2081A5;">{{ __('messages.Buy Train Tickets') }}</button>
+            <button class="btn btn-primary" style="background-color: #2081A5;">{{ __('messages.Buy Bus Tickets') }}</button>
         </div>
     </div>
 

@@ -17,7 +17,7 @@
         <img src="{{ asset('images/profile.png') }}" class="profile-pic" alt="Profile Picture">
         <div class="header-text">
             <h1 class="header-title">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
-            <p class="header-subtitle">{{ __('Profile') }}</p>
+            <p class="header-subtitle">{{ __('messages.Profile') }}</p>
         </div>
     </div>
 
@@ -28,42 +28,42 @@
         <div class="profile-info">
             <!-- Exibição de Informações do Usuário -->
             <div class="form-group">
-                <label>{{ __('First Name') }}</label>
+                <label>{{ __('messages.First Name') }}</label>
                 <input type="text" value="{{ Auth::user()->first_name }}" readonly>
             </div>
             <div class="form-group">
-                <label>{{ __('Last Name') }}</label>
+                <label>{{ __('messages.Last Name') }}</label>
                 <input type="text" value="{{ Auth::user()->last_name }}" readonly>
             </div>
             <div class="form-group">
-                <label>{{ __('Username') }}</label>
+                <label>{{ __('messages.Username') }}</label>
                 <input type="text" value="{{ Auth::user()->username }}" readonly>
             </div>
             <div class="form-group">
-                <label>{{ __('Email') }}</label>
+                <label>{{ __('messages.Email') }}</label>
                 <input type="email" value="{{ Auth::user()->email }}" readonly>
             </div>
             <div class="form-group">
-                <label>{{ __('Address') }}</label>
-                <input type="text" value="{{ Auth::user()->address ?? __('Not provided') }}" readonly>
+                <label>{{ __('messages.Address') }}</label>
+                <input type="text" value="{{ Auth::user()->address ?? __('messages.Not provided') }}" readonly>
             </div>
             <div class="form-group">
-                <label>{{ __('Password') }}</label>
+                <label>{{ __('messages.Password') }}</label>
                 <input type="password" value="********" readonly>
             </div>
         </div>
 
         <!-- Botão de Edição do Perfil -->
-        <a id="editButton" class="edit-button">{{ __('Edit') }}</a>
+        <a id="editButton" class="edit-button">{{ __('messages.Edit') }}</a>
 
         <!-- Reservas Ativas -->
         <div class="reservations active-reservations">
             <h2 class="reservations-title">
-                {{ __('Active Reservations') }} <span class="title-line"></span>
+                {{ __('messages.Active Reservations') }} <span class="title-line"></span>
             </h2>
             <!-- Exibir reservas ativas -->
             @if($activeReservations->isEmpty())
-            <p>{{ __('No active reservations at the moment.') }}</p>
+            <p>{{ __('messages.No active reservations at the moment.') }}</p>
             @else
             @foreach ($activeReservations as $reservation)
             <div class="reservation-item">
@@ -71,10 +71,10 @@
                 <div class="reservation-info">
                     <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon"> {{ $reservation->hotel_name }}</h3>
                     <p><img src="{{ asset('images/datahotel.png') }}" class="icon"> {{ $reservation->reservation_date_hotel }}</p>
-                    <button class="details-button">{{ __('Details') }}</button>
-                    <button class="cancel-button">{{ __('Cancel') }}</button>
+                    <button class="details-button">{{ __('messages.Details') }}</button>
+                    <button class="cancel-button">{{ __('messages.Cancel') }}</button>
                     <button class="download1-button">
-                        {{ __('Download') }} <img src="{{ asset('images/download.png') }}" class="Dicon">
+                        {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}" class="Dicon">
                     </button>
                 </div>
             </div>
@@ -85,11 +85,11 @@
         <!-- Histórico de Reservas -->
         <div class="reservations history">
             <h2 class="reservations-title">
-                {{ __('Reservation History') }} <span class="title-line1"></span>
+                {{ __('messages.Reservation History') }} <span class="title-line1"></span>
             </h2>
             <!-- Exibir histórico de reservas -->
             @if($expiredReservations->isEmpty())
-            <p>{{ __('No past reservations available.') }}</p>
+            <p>{{ __('messages.No past reservations available.') }}</p>
             @else
             @foreach ($expiredReservations as $history)
             <div class="reservation-item">
@@ -97,10 +97,10 @@
                 <div class="reservation-info">
                     <h3><img src="{{ asset('images/iconeatividade.png') }}" class="icon"> {{ $history->activity_name }}</h3>
                     <p><img src="{{ asset('images/datahotel.png') }}" class="icon"> {{ $history->reservation_date }}</p>
-                    <button class="details-button">{{ __('Details') }}</button>
-                    <button class="book-again-button">{{ __('Book Again') }}</button>
+                    <button class="details-button">{{ __('messages.Details') }}</button>
+                    <button class="book-again-button">{{ __('messages.Book Again') }}</button>
                     <button class="download-button">
-                        {{ __('Download') }} <img src="{{ asset('images/download.png') }}" class="Dicon">
+                        {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}" class="Dicon">
                     </button>
                 </div>
             </div>

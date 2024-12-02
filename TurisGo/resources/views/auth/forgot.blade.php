@@ -19,16 +19,16 @@
     <div class="container">
         <div class="form-section">
             <div class="form-container">
-                <h2>{{ __('Forgot Password?') }}</h2>
-                <p class="forgotpass">{{ __('Enter your email address, and we will give you reset instructions') }}</p>
+                <h2>{{ __('messages.Forgot Password?') }}</h2>
+                <p class="forgotpass">{{ __('messages.Enter your email address, and we will give you reset instructions') }}</p>
                 <form class="forgotForm" action="{{ route('auth.forgot.submit', ['locale' => app()->getLocale()]) }}" method="POST">
                     @csrf
-                    <label for="email">{{ __('Email address') }}</label>
-                    <input type="email" name="email" id="email" placeholder="{{ __('Enter your email') }}" required>
+                    <label for="email">{{ __('messages.Email address') }}</label>
+                    <input type="email" name="email" id="email" placeholder="{{ __('messages.Enter your email') }}" required>
 
-                    <p class="account-link">{{ __('Remember your password?') }} <a href="{{ route('auth.login.form', ['locale' => app()->getLocale()]) }}">{{ __('Login here') }}</a></p>
+                    <p class="account-link">{{ __('messages.Remember your password?') }} <a href="{{ route('auth.login.form', ['locale' => app()->getLocale()]) }}">{{ __('messages.Login here') }}</a></p>
 
-                    <button type="submit">{{ __('Forgot Password') }}</button>
+                    <button type="submit">{{ __('messages.Forgot Password') }}</button>
                 </form>
             </div>
         </div>
@@ -37,8 +37,8 @@
         @endif
         <div class="image-section">
             <div class="image-text">
-                <h1>{{ __('TurisGo') }}</h1>
-                <p>{{ __('Discover your destination') }}</p>
+                <h1>{{ __('messages.TurisGo') }}</h1>
+                <p>{{ __('messages.Discover your destination') }}</p>
             </div>
         </div>
     </div>

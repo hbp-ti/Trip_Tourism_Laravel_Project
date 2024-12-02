@@ -13,14 +13,14 @@
     <x-header />
     <!-- Header Section -->
     <section class="header">
-        <h1>{{ __('Shopping Cart') }}</h1>
-        <p>{{ __('Your journey is just a click away') }}</p>
+        <h1>{{ __('messages.Shopping Cart') }}</h1>
+        <p>{{ __('messages.Your journey is just a click away') }}</p>
     </section>
 
     <!-- Main Cart Content -->
     <section class="cart-content">
         <div class="shopping-cart">
-            <h2>{{ __('Shopping Cart') }}</h2>
+            <h2>{{ __('messages.Shopping Cart') }}</h2>
             <div class="cart-items">
                 <!-- Itera os itens do carrinho dinamicamente -->
                 @foreach($cartItems as $cartItem)
@@ -29,7 +29,7 @@
                     <div class="item-details">
                         <h3>{{ $cartItem->item->name }}</h3>
                         <p>{{ $cartItem->item->description }}</p>
-                        <p><strong>{{ $cartItem->item->location }}</strong> | {{ $cartItem->quantity }} {{ __('Guests') }}</p>
+                        <p><strong>{{ $cartItem->item->location }}</strong> | {{ $cartItem->quantity }} {{ __('messages.Guests') }}</p>
                     </div>
                     <p class="price">{{ $cartItem->item->price }}€</p>
                     <!-- Botão de remover com API -->
@@ -42,32 +42,32 @@
                 @endforeach
             </div>
 
-            <a href="{{ route('homepage') }}" class="back-btn">{{ __('Back to Home') }}</a>
+            <a href="{{ route('homepage') }}" class="back-btn">{{ __('messages.Back to Home') }}</a>
         </div>
 
         <div class="summary">
-            <h2>{{ __('Summary') }}</h2>
+            <h2>{{ __('messages.Summary') }}</h2>
             <ul>
                 @foreach($cartItems as $cartItem)
                 <li>{{ $cartItem->item->name }} <span>{{ $cartItem->item->price }}€</span></li>
                 @endforeach
             </ul>
             <hr>
-            <p class="subtotal">{{ __('Subtotal') }}: <span>{{ $cart->subtotal }}€</span></p>
-            <p class="taxes">{{ __('Taxes') }}: <span>{{ $cart->taxes }}€</span></p>
+            <p class="subtotal">{{ __('messages.Subtotal') }}: <span>{{ $cart->subtotal }}€</span></p>
+            <p class="taxes">{{ __('messages.Taxes') }}: <span>{{ $cart->taxes }}€</span></p>
             <hr>
-            <p class="total-price">{{ __('Total Price') }}: <span>{{ $cart->total }}€</span></p>
-            <button class="checkout-btn">{{ __('Checkout') }}</button>
+            <p class="total-price">{{ __('messages.Total Price') }}: <span>{{ $cart->total }}€</span></p>
+            <button class="checkout-btn">{{ __('messages.Checkout') }}</button>
         </div>
     </section>
 
     <!-- Tickets Section -->
     <section class="tickets">
-        <h2>{{ __('Tickets') }}</h2>
-        <p>{{ __('Your journey is almost ready! Add train or bus tickets for a convenient trip. Choose the best option and make the most of your journey!') }}</p>
+        <h2>{{ __('messages.Tickets') }}</h2>
+        <p>{{ __('messages.Your journey is almost ready! Add train or bus tickets for a convenient trip. Choose the best option and make the most of your journey!') }}</p>
         <div class="ticket-buttons">
-            <button class="train-btn">{{ __('Buy Train Tickets') }}</button>
-            <button class="bus-btn">{{ __('Buy Bus Tickets') }}</button>
+            <button class="train-btn">{{ __('messages.Buy Train Tickets') }}</button>
+            <button class="bus-btn">{{ __('messages.Buy Bus Tickets') }}</button>
         </div>
     </section>
 
