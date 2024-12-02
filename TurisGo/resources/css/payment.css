@@ -172,7 +172,7 @@ body {
 .steps {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 46px;
     margin: 20px 0;
 }
 
@@ -181,8 +181,8 @@ body {
     height: 45px;
     line-height: 45px;
     border-radius: 50%;
-    background: #ddd;
-    color: #333;
+    background: #EAEAEA;
+    color: #222;
     font-weight: bold;
 }
 
@@ -327,7 +327,7 @@ body {
 
 .overviewText {
     text-align: justify;
-	margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .overviewPaymentDetails {
