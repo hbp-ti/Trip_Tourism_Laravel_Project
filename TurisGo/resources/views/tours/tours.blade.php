@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    @vite(['resources/css/tours.css'])
+    @vite(['resources/css/tours.css', 'resources/js/tour.js'])
 </head>
 
 <body>
@@ -61,6 +61,12 @@
             <div class="sortby-container">
                 <span>{{ __('messages.Sort By') }}</span>
                 <img src="{{ asset('images/sortbyIcon.png') }}" alt="{{ __('messages.Sort Icon') }}">
+                <div id="sortDropdown" class="dropdown-content">
+                    <a href="#" onclick="sortByPriceAsc()">{{ __('messages.Price: Low to High') }}</a>
+                    <a href="#" onclick="sortByPriceDesc()">{{ __('messages.Price: High to Low') }}</a>
+                    <a href="#" onclick="sortAlphabetically()">{{ __('messages.Alphabetically') }}</a>
+                    <a href="#" onclick="sortByMostBooked()">{{ __('messages.Most Booked') }}</a>
+                </div>
             </div>
         </div>
 
@@ -105,6 +111,12 @@
             <div class="sortby-container">
                 <span>{{ __('messages.Sort By') }}</span>
                 <img src="{{ asset('images/sortbyIcon.png') }}" alt="{{ __('messages.Sort Icon') }}">
+                <div id="sortDropdown" class="dropdown-content">
+                    <a href="#" onclick="sortByPriceAsc()">{{ __('messages.Price: Low to High') }}</a>
+                    <a href="#" onclick="sortByPriceDesc()">{{ __('messages.Price: High to Low') }}</a>
+                    <a href="#" onclick="sortAlphabetically()">{{ __('messages.Alphabetically') }}</a>
+                    <a href="#" onclick="sortByMostBooked()">{{ __('messages.Most Booked') }}</a>
+                </div>
             </div>
         </div>
 

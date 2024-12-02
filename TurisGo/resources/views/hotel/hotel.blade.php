@@ -79,11 +79,12 @@
                     <a href="#" onclick="sortByMostBooked()">{{ __('messages.Most Booked') }}</a>
                 </div>
             </div>
-            <div class="filter">
+            <div class="filter toggle-sidebar" id="toggle-sidebar">
                 <span>{{ __('messages.Filter') }}</span>
                 <img src="{{ asset('images/filterControl.png') }}" alt="{{ __('messages.Filter') }}">
             </div>
         </div>
+
 
         <div class="single-column-container">
             <div class="hotel-card">
@@ -115,6 +116,138 @@
                     <h2>{{ __('messages.Hotel Condade Castro') }}</h2>
                     <p>{{ __('messages.Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup') }}</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="blur-overlay" class="blur-overlay"></div>
+
+    <!-- Barra lateral -->
+    <div id="sidebar" class="sidebar">
+            <h2>{{ __('messages.Hotel Filters') }}</h2>
+
+            <div class="filter-group">
+                <h3><img src="{{ asset('images/sidebarPrice.png') }}" alt="Price Range Icon">
+                {{ __('messages.Price Range') }}</h3>
+                <select>
+                    <option value="50-100">50 - 100€</option>
+                    <option value="100-200">100 - 200€</option>
+                    <option value="200-300">200 - 300€</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <h3><img src="{{ asset('images/sidebarCategory.png') }}" alt="Price Range Icon">
+                {{ __('messages.Hotel Category') }}</h3>
+                <select>
+                    <option value="typeOf">{{ __('messages.Type of hotel') }}</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <h3><img src="{{ asset('images/sidebarHotelStars.png') }}" alt="Hotel Stars">
+                {{ __('messages.Hotel Stars') }}</h3>
+                <select>
+                    <option value="1 star">{{ __('messages.1 star') }}</option>
+                    <option value="2 stars">{{ __('messages.2 stars') }}</option>
+                    <option value="3 stars">{{ __('messages.3 stars') }}</option>
+                    <option value="4 stars">{{ __('messages.4 stars') }}</option>
+                    <option value="5 stars">{{ __('messages.5 stars') }}</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <h3><img src="{{ asset('images/sidebarStar.png') }}" alt="Price Range Icon">
+                {{ __('messages.Guest Ratings') }}</h3>
+                <select>
+                    <option value="0-1">{{ __('0-1') }}</option>
+                    <option value="1-2">{{ __('1-2') }}</option>
+                    <option value="2-3">{{ __('2-3') }}</option>
+                    <option value="3-4">{{ __('3-4') }}</option>
+                    <option value="4-5">{{ __('4-5') }}</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <h3><img src="{{ asset('images/sidebarSettings.png') }}" alt="Price Range Icon">
+                {{ __('messages.Facilities and Services') }}</h3>
+                <div>
+                    <label>
+                        {{ __('messages.Breakfast included') }}
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                    <label>
+                        {{ __('messages.Free Wi-Fi') }}
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                    <label>
+                        {{ __('messages.Parking') }}
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                    <label>
+                        {{ __('messages.Gym') }}
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                    <label>
+                        {{ __('messages.Pool') }}
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                    <label>
+                        {{ __('messages.Spa and wellness') }}
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                    <label>
+                        {{ __('messages.Hotel restaurant') }}
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                    <label>
+                        {{ __('messages.Bar') }}
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3><img src="{{ asset('images/sidebarCancel.png') }}" alt="Price Range Icon">
+                {{ __('messages.Cancellation Policy') }}</h3>
+                <label>
+                    {{ __('messages.Free cancellation') }}
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </label>
+                <label>
+                    {{ __('messages.Refundable reservations') }}
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </label>
             </div>
         </div>
     </div>
