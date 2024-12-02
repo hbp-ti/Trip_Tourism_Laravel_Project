@@ -26,25 +26,23 @@
                 </a>
                 <div class="language-dropdown" id="languageDropdown">
                     <!-- Link para alterar para o inglês -->
-                    <a href="{{ route('language.change', ['locale' => app()->getLocale(), 'new_locale' => 'en']) }}" class="language-option">
-                        <img src="{{ asset('images/UK_flag.png') }}" alt="{{ __('messages.English') }}" class="flag-icon" />
-                        {{ __('messages.English') }}
+                    <a href="{{ url('/'.(app()->getLocale() === 'en' ? 'pt' : 'en').substr(request()->getRequestUri(), 3)) }}" class="language-option">
+                        <img src="{{ asset('images/UK_flag.png') }}" alt="{{ __('English') }}" class="flag-icon" />
+                        {{ __('English') }}
                         @if (app()->getLocale() === 'en')
                         <span class="checkmark">✔️</span>
                         @endif
                     </a>
 
                     <!-- Link para alterar para o português -->
-                    <a href="{{ route('language.change', ['locale' => app()->getLocale(), 'new_locale' => 'pt']) }}" class="language-option">
-                        <img src="{{ asset('images/PT_flag.png') }}" alt="{{ __('messages.Portuguese') }}" class="flag-icon" />
-                        {{ __('messages.Portuguese') }}
+                    <a href="{{ url('/'.(app()->getLocale() === 'pt' ? 'en' : 'pt').substr(request()->getRequestUri(), 3)) }}" class="language-option">
+                        <img src="{{ asset('images/PT_flag.png') }}" alt="{{ __('Portuguese') }}" class="flag-icon" />
+                        {{ __('Portuguese') }}
                         @if (app()->getLocale() === 'pt')
                         <span class="checkmark">✔️</span>
                         @endif
                     </a>
                 </div>
-
-
 
             </div>
 

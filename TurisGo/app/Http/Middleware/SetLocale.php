@@ -9,29 +9,22 @@ use Illuminate\Support\Facades\Session;
 
 class SetLocale
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
     public function handle(Request $request, Closure $next)
     {
-        // Obter o locale da rota
-        $locale = $request->route('locale'); // Obtém o locale diretamente da rota
+        // Captura o locale da URL
+        $locale = $request->route('locale'); // Obtém o locale diretamente da URL
 
         // Lista de idiomas suportados
         $supportedLocales = ['en', 'pt'];
 
-        // Verificar se o locale está na lista de suportados
+        // Verifica se o locale é suportado
         if (in_array($locale, $supportedLocales)) {
-            App::setLocale($locale); // Definir o idioma da aplicação
-            Session::put('locale', $locale); // Armazenar o idioma na sessão
+            App::setLocale($locale); // Define o idioma
+            Session::put('locale', $locale); // Armazena o idioma na sessão
         } else {
             // Se o idioma não for suportado, usa o idioma padrão
-            App::setLocale(config('app.fallback_locale', 'en')); // Idioma padrão
-            Session::put('locale', 'en'); // Garantir que o idioma na sessão seja 'en'
+            App::setLocale(config('app.fallback_locale', 'en'));
+            Session::put('locale', 'en');
         }
 
         return $next($request);

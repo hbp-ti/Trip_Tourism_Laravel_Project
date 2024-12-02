@@ -6,25 +6,19 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageUploadController;
 use Illuminate\Support\Facades\Mail;
 
-// Upload de imagens
 Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
 Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('upload.handle');
-// Fim de upload de imagens
 
-// Exemplo de página de upload de imagens, remover depois
 Route::get('/exemploUpload', function () {
     return view('exemploUpload');
 })->name("exemploUpload");
 
-// Rotas com prefixo de idioma
 Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () {
-    Route::get('/change-language/{new_locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
-    // Página principal
+    
     Route::get('/', function () {
         return view('homepage');
     })->name("homepage");
 
-    // Rotas de autenticação
     Route::prefix('auth')->name('auth.')->group(function () {
         Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
         Route::post('register', [AuthController::class, 'register'])->name('register.submit');
@@ -45,7 +39,6 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         });
     });
 
-    // Outras rotas
     Route::get('/hotel', function () {
         return view('hoteldetails.hotel');
     })->name("hotel");
