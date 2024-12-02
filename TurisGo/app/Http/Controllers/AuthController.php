@@ -103,7 +103,7 @@ class AuthController extends Controller
         ];
 
         $remember = $request->has('remember');
-        
+
         if (Auth::attempt($credentials, $remember)) {
             return redirect()->route('homepage');
         }
@@ -247,21 +247,27 @@ class AuthController extends Controller
         if (!Auth::check()) {
             return redirect('/')->with('error', 'Not Authorized');
         }
-    
+
         // Obtém o usuário autenticado
         $user = Auth::user();
-    
+
         // Busca as reservas ativas do usuário
         $activeReservations = OrderItem::where('is_active', true)
-                                       ->whereHas('order', function ($query) use ($user) {
-                                           $query->where('user_id', $user->id);
-                                       })
-                                       ->get();
-    
+            ->whereHas('order', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->get();
+
+        $expiredReservations = OrderItem::where('is_active', false)
+            ->whereHas('order', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->get();
+
         // Retorna a view com os dados do usuário e as reservas ativas
-        return view('auth.profile', compact('user', 'activeReservations'));
+        return view('auth.profile', compact('user', 'activeReservations', 'expiredReservations'));
     }
-    
+
 
 
     public function editProfile()
