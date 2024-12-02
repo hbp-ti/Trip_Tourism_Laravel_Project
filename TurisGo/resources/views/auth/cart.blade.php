@@ -10,9 +10,9 @@
 </head>
 
 <body>
-    <x-header/>
-     <!-- Header Section -->
-     <section class="header">
+    <x-header />
+    <!-- Header Section -->
+    <section class="header">
         <h1>Shopping Cart</h1>
         <p>Your journey is just a click away</p>
     </section>
