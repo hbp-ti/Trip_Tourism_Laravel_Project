@@ -320,22 +320,21 @@ body {
     margin-bottom: 8px;
 }
 
-.overviewText {
-    text-align: justify;
-	/* margin-bottom: 10px; */
-}
-
 .overviewServiceLogo {
     width: 210px;
     margin-bottom: 20px;
+}
+
+.overviewText {
+    text-align: justify;
+	margin-bottom: 16px;
 }
 
 .overviewPaymentDetails {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 40px;
-    margin-top: 30px;
+    margin-bottom: 30px;
     align-items: center;
 }
 
@@ -359,4 +358,15 @@ body {
 
 .overviewPaymentDetails input:focus {
     outline: none
+}
+
+.overviewInfo p {
+    display: flex;
+    align-items: center;
+}
+
+.overviewInfoSymbol {
+    font-size: 30px;
+    margin-right: 12px;
+    flex-shrink: 0;
 }

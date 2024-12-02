@@ -52,6 +52,11 @@
 					
 				</div>
 				
+				<div class="overviewInfo">
+					<p><span class="overviewInfoSymbol">&#x24D8</span>The receipt issued by the ATM serves as proof of payment. Please keep it for your records.</p>
+					<br>
+				</div>
+				
 				<a href="{{ route('homepage') }}" class="button buttonReturnHome">Return to Home</a>
             </form>
         </section>
