@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="UTF-8">
@@ -14,14 +14,14 @@
 
     <!-- Header Section -->
     <section class="header">
-        <h1>Half Day Tour with Jeep Safari in <br> the Algarve Mountains</h1>
+        <h1>{{ __('Half Day Tour with Jeep Safari in') }} <br> {{ __('the Algarve Mountains') }}</h1>
     </section>
 
     <section class="image-slider">
         <div class="slider-images">
-            <img src="/images/escolhatour.png" alt="Tour Image 1" class="slider-image">
-            <img src="/images/escolhatour.png" alt="Tour Image 2" class="slider-image hidden">
-            <img src="/images/escolhatour.png" alt="Tour Image 3" class="slider-image hidden">
+            <img src="/images/escolhatour.png" alt="{{ __('Tour Image 1') }}" class="slider-image">
+            <img src="/images/escolhatour.png" alt="{{ __('Tour Image 2') }}" class="slider-image hidden">
+            <img src="/images/escolhatour.png" alt="{{ __('Tour Image 3') }}" class="slider-image hidden">
         </div>
         <div class="slider-controls">
             <span class="prev">&#10094;</span>
@@ -34,147 +34,139 @@
         </div>
     </section>
 
-
     <!-- Description Section -->
     <section class="hotel-description">
         <p>
-            Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup. Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup. Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup. Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup. Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup
+            {{ __('Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup.') }}
         </p>
     </section>
 
     <!-- Facilities Section -->
     <section class="facilities">
         <div class="title-line-container">
-            <h2>Most popular facilities</h2>
+            <h2>{{ __('Most popular facilities') }}</h2>
             <hr class="title-line">
         </div>
         <div class="facility-icons">
             <div class="icon">
-                <img src="/images/canceletour.png" alt="CanceleAnytime">
-                <span>Cancel anytime</span>
+                <img src="/images/canceletour.png" alt="{{ __('CanceleAnytime') }}">
+                <span>{{ __('Cancel anytime') }}</span>
             </div>
             <div class="icon">
-                <img src="/images/reservetour.png" alt="ReserveNowPayLater">
-                <span>Reserve now, pay later</span>
+                <img src="/images/reservetour.png" alt="{{ __('ReserveNowPayLater') }}">
+                <span>{{ __('Reserve now, pay later') }}</span>
             </div>
             <div class="icon">
-                <img src="/images/hourtour.png" alt="Duration">
-                <span>7 Hours Duration</span>
+                <img src="/images/hourtour.png" alt="{{ __('Duration') }}">
+                <span>{{ __('7 Hours Duration') }}</span>
             </div>
             <div class="icon">
-                <img src="/images/guidetour.png" alt="Guide">
-                <span>Guide</span>
+                <img src="/images/guidetour.png" alt="{{ __('Guide') }}">
+                <span>{{ __('Guide') }}</span>
             </div>
             <div class="icon">
-                <img src="/images/grouptour.png" alt="SmallGroup">
-                <span>Small Groups</span>
+                <img src="/images/grouptour.png" alt="{{ __('SmallGroup') }}">
+                <span>{{ __('Small Groups') }}</span>
             </div>
         </div>
     </section>
 
     <section class="availability">
         <div class="title-line-container">
-            <h2>Availability</h2>
+            <h2>{{ __('Availability') }}</h2>
             <hr class="title-line-orange">
         </div>
 
         <!-- Search Form Section -->
         <div class="availability-form">
             <div>
-                <label for="checkin">Check-in date</label>
+                <label for="checkin">{{ __('Check-in date') }}</label>
                 <input type="date" id="checkin">
             </div>
 
             <div>
-                <label for="checkout">Check-out date</label>
+                <label for="checkout">{{ __('Check-out date') }}</label>
                 <input type="date" id="checkout">
             </div>
 
             <div>
-                <label for="guests">People</label>
+                <label for="guests">{{ __('People') }}</label>
                 <select id="guests">
-                    <option>1 Adult</option>
-                    <option>2 Adults</option>
-                    <option>3 Adults</option>
+                    <option>{{ __('1 Adult') }}</option>
+                    <option>{{ __('2 Adults') }}</option>
+                    <option>{{ __('3 Adults') }}</option>
                 </select>
             </div>
 
-            <button>Search</button>
+            <button>{{ __('Search') }}</button>
         </div>
-
 
         <!-- Availability Table -->
         <div class="availability-table-container">
             <table class="availability-table">
                 <thead>
                     <tr>
-                        <th>Tour Type</th>
-                        <th>People</th>
-                        <th>Language</th>
-                        <th>Price</th>
-                        <th>Reserve</th>
+                        <th>{{ __('Tour Type') }}</th>
+                        <th>{{ __('People') }}</th>
+                        <th>{{ __('Language') }}</th>
+                        <th>{{ __('Price') }}</th>
+                        <th>{{ __('Reserve') }}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Tour with guide</td>
+                        <td>{{ __('Tour with guide') }}</td>
                         <td>2</td>
-                        <td>EN</td>
+                        <td>{{ __('EN') }}</td>
                         <td>38€</td>
-                        <td><button class="book-btn">Reserve</button></td>
+                        <td><button class="book-btn">{{ __('Reserve') }}</button></td>
                     </tr>
-                    
                 </tbody>
             </table>
         </div>
     </section>
 
-
-
     <!-- Guest Reviews -->
     <section class="reviews">
         <div class="title-line-container">
-            <h2>Guest Reviews</h2>
+            <h2>{{ __('Guest Reviews') }}</h2>
             <hr class="title-line">
         </div>
         <div class="reviews-container">
             <div class="review-box">
                 <div class="review-header">
-                    <img src="/images/default_user_image.png" alt="User 1" class="review-img">
+                    <img src="/images/default_user_image.png" alt="{{ __('User 1') }}" class="review-img">
                     <span class="user-name">John</span>
                 </div>
-                <p class="review-text">"Fantastic hotel with great staff!"</p>
-                <p class="review-excerpt">This hotel is amazing, the staff is very friendly and helpful. The amenities were top-notch and...</p>
-                <span class="read-more">Read More</span>
+                <p class="review-text">"{{ __('Fantastic hotel with great staff!') }}"</p>
+                <p class="review-excerpt">{{ __('This hotel is amazing, the staff is very friendly and helpful. The amenities were top-notch and...') }}</p>
+                <span class="read-more">{{ __('Read More') }}</span>
             </div>
             <div class="review-box">
                 <div class="review-header">
-                    <img src="/images/default_user_image.png" alt="User 2" class="review-img">
+                    <img src="/images/default_user_image.png" alt="{{ __('User 2') }}" class="review-img">
                     <span class="user-name">Mary</span>
                 </div>
-                <p class="review-text">"Beautiful location, will come again."</p>
-                <p class="review-excerpt">The location of the hotel is perfect for sightseeing, and the rooms were very comfortable...</p>
-                <span class="read-more">Read More</span>
+                <p class="review-text">"{{ __('Beautiful location, will come again.') }}"</p>
+                <p class="review-excerpt">{{ __('The location of the hotel is perfect for sightseeing, and the rooms were very comfortable...') }}</p>
+                <span class="read-more">{{ __('Read More') }}</span>
             </div>
             <div class="review-box">
                 <div class="review-header">
-                    <img src="/images/default_user_image.png" alt="User 3" class="review-img">
+                    <img src="/images/default_user_image.png" alt="{{ __('User 3') }}" class="review-img">
                     <span class="user-name">Alice</span>
                 </div>
-                <p class="review-text">"Great experience, highly recommended!"</p>
-                <p class="review-excerpt">I had a wonderful stay at the hotel, and everything exceeded my expectations...</p>
-                <span class="read-more">Read More</span>
+                <p class="review-text">"{{ __('Great experience, highly recommended!') }}"</p>
+                <p class="review-excerpt">{{ __('I had a wonderful stay at the hotel, and everything exceeded my expectations...') }}</p>
+                <span class="read-more">{{ __('Read More') }}</span>
             </div>
         </div>
         <div class="reviews-buttons">
-            <button class="read-all-reviews">Read All Reviews</button>
-            <button class="add-review"><span class="plus-icon">+</span> Add a Review</button>
+            <button class="read-all-reviews">{{ __('Read All Reviews') }}</button>
+            <button class="add-review"><span class="plus-icon">+</span> {{ __('Add a Review') }}</button>
         </div>
     </section>
-
-
-
 
     <x-footer />
 </body>

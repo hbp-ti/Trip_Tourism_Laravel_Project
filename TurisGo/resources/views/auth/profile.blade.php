@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="UTF-8">
@@ -17,53 +17,53 @@
         <img src="{{ asset('images/profile.png') }}" class="profile-pic" alt="Profile Picture">
         <div class="header-text">
             <h1 class="header-title">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
-            <p class="header-subtitle">Profile</p>
+            <p class="header-subtitle">{{ __('Profile') }}</p>
         </div>
     </div>
 
-<!-- Conteúdo do Perfil -->
-<div class="profile-content">
-    <img src="{{ asset('images/fundoprofile.png') }}" class="profile-background" alt="Profile Background">
+    <!-- Conteúdo do Perfil -->
+    <div class="profile-content">
+        <img src="{{ asset('images/fundoprofile.png') }}" class="profile-background" alt="Profile Background">
 
-    <div class="profile-info">
-        <!-- Exibição de Informações do Usuário -->
-        <div class="form-group">
-            <label>First Name</label>
-            <input type="text" value="{{ Auth::user()->first_name }}" readonly>
+        <div class="profile-info">
+            <!-- Exibição de Informações do Usuário -->
+            <div class="form-group">
+                <label>{{ __('First Name') }}</label>
+                <input type="text" value="{{ Auth::user()->first_name }}" readonly>
+            </div>
+            <div class="form-group">
+                <label>{{ __('Last Name') }}</label>
+                <input type="text" value="{{ Auth::user()->last_name }}" readonly>
+            </div>
+            <div class="form-group">
+                <label>{{ __('Username') }}</label>
+                <input type="text" value="{{ Auth::user()->username }}" readonly>
+            </div>
+            <div class="form-group">
+                <label>{{ __('Email') }}</label>
+                <input type="email" value="{{ Auth::user()->email }}" readonly>
+            </div>
+            <div class="form-group">
+                <label>{{ __('Address') }}</label>
+                <input type="text" value="{{ Auth::user()->address ?? __('Not provided') }}" readonly>
+            </div>
+            <div class="form-group">
+                <label>{{ __('Password') }}</label>
+                <input type="password" value="********" readonly>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" value="{{ Auth::user()->last_name }}" readonly>
-        </div>
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" value="{{ Auth::user()->username }}" readonly>
-        </div>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" value="{{ Auth::user()->email }}" readonly>
-        </div>
-        <div class="form-group">
-            <label>Address</label>
-            <input type="text" value="{{ Auth::user()->address ?? 'Not provided' }}" readonly>
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" value="********" readonly>
-        </div>
-    </div>
 
         <!-- Botão de Edição do Perfil -->
-        <a id="editButton" class="edit-button">Edit</a>
-        <!--
+        <a id="editButton" class="edit-button">{{ __('Edit') }}</a>
+
         <!-- Reservas Ativas -->
         <div class="reservations active-reservations">
             <h2 class="reservations-title">
-                Active Reservations <span class="title-line"></span>
+                {{ __('Active Reservations') }} <span class="title-line"></span>
             </h2>
             <!-- Exibir reservas ativas -->
             @if($activeReservations->isEmpty())
-            <p>No active reservations at the moment.</p>
+            <p>{{ __('No active reservations at the moment.') }}</p>
             @else
             @foreach ($activeReservations as $reservation)
             <div class="reservation-item">
@@ -71,10 +71,10 @@
                 <div class="reservation-info">
                     <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon"> {{ $reservation->hotel_name }}</h3>
                     <p><img src="{{ asset('images/datahotel.png') }}" class="icon"> {{ $reservation->reservation_date_hotel }}</p>
-                    <button class="details-button">Details</button>
-                    <button class="cancel-button">Cancel</button>
+                    <button class="details-button">{{ __('Details') }}</button>
+                    <button class="cancel-button">{{ __('Cancel') }}</button>
                     <button class="download1-button">
-                        Download <img src="{{ asset('images/download.png') }}" class="Dicon">
+                        {{ __('Download') }} <img src="{{ asset('images/download.png') }}" class="Dicon">
                     </button>
                 </div>
             </div>
@@ -85,11 +85,11 @@
         <!-- Histórico de Reservas -->
         <div class="reservations history">
             <h2 class="reservations-title">
-                Reservation History <span class="title-line1"></span>
+                {{ __('Reservation History') }} <span class="title-line1"></span>
             </h2>
             <!-- Exibir histórico de reservas -->
             @if($expiredReservations->isEmpty())
-            <p>No past reservations available.</p>
+            <p>{{ __('No past reservations available.') }}</p>
             @else
             @foreach ($expiredReservations as $history)
             <div class="reservation-item">
@@ -97,10 +97,10 @@
                 <div class="reservation-info">
                     <h3><img src="{{ asset('images/iconeatividade.png') }}" class="icon"> {{ $history->activity_name }}</h3>
                     <p><img src="{{ asset('images/datahotel.png') }}" class="icon"> {{ $history->reservation_date }}</p>
-                    <button class="details-button">Details</button>
-                    <button class="book-again-button">Book Again</button>
+                    <button class="details-button">{{ __('Details') }}</button>
+                    <button class="book-again-button">{{ __('Book Again') }}</button>
                     <button class="download-button">
-                        Download <img src="{{ asset('images/download.png') }}" class="Dicon">
+                        {{ __('Download') }} <img src="{{ asset('images/download.png') }}" class="Dicon">
                     </button>
                 </div>
             </div>

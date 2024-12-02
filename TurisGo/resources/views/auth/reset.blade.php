@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">
@@ -15,20 +15,20 @@
     <div class="container">
         <div class="form-section">
             <div class="form-container">
-                <h2>Reset Password</h2>
-                <p class="resetpass">Enter a new password for {{ session('reset_email') }}</p>
+                <h2>{{ __('Reset Password') }}</h2>
+                <p class="resetpass">{{ __('Enter a new password for') }} {{ session('reset_email') }}</p>
 
                 <form class="resetForm" action="{{ route('auth.reset.submit') }}" method="POST">
                     @csrf
                     <input type="hidden" name="token" value="{{ session('reset_token') }}">
                     <input type="hidden" name="email" value="{{ session('reset_email') }}">
-                    <label for="newpassword">New Password</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your new password" required>
+                    <label for="newpassword">{{ __('New Password') }}</label>
+                    <input type="password" name="password" id="password" placeholder="{{ __('Enter your new password') }}" required>
 
-                    <label for="confirmpassword">Confirm Password</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm password" required>
+                    <label for="confirmpassword">{{ __('Confirm Password') }}</label>
+                    <input type="password" name="password_confirmation" id="password_confirmation" placeholder="{{ __('Confirm password') }}" required>
 
-                    <button type="submit">Reset Password</button>
+                    <button type="submit">{{ __('Reset Password') }}</button>
                 </form>
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="image-section">
             <div class="image-text">
                 <h1>TurisGo</h1>
-                <p>Discover your destination</p>
+                <p>{{ __('Discover your destination') }}</p>
             </div>
         </div>
     </div>

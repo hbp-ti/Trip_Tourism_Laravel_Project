@@ -61,7 +61,11 @@ class Kernel implements KernelContract
      *
      * @var array<string, array<int, class-string|string>>
      */
-    protected $middlewareGroups = [];
+    protected $middlewareGroups = [
+        'web' => [
+            'App\Http\Middleware\SetLocale',
+        ],
+    ];
 
     /**
      * The application's route middleware.
@@ -70,7 +74,9 @@ class Kernel implements KernelContract
      *
      * @deprecated
      */
-    protected $routeMiddleware = [];
+    protected $routeMiddleware = [
+        'setlocale' => \App\Http\Middleware\SetLocale::class,
+    ];
 
     /**
      * The application's middleware aliases.
@@ -171,9 +177,9 @@ class Kernel implements KernelContract
         $this->bootstrap();
 
         return (new Pipeline($this->app))
-                    ->send($request)
-                    ->through($this->app->shouldSkipMiddleware() ? [] : $this->middleware)
-                    ->then($this->dispatchToRouter());
+            ->send($request)
+            ->through($this->app->shouldSkipMiddleware() ? [] : $this->middleware)
+            ->then($this->dispatchToRouter());
     }
 
     /**

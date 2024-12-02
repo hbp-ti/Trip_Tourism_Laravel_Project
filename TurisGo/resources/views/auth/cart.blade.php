@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     @vite(['resources/css/cart.css'])
 </head>
@@ -13,14 +13,14 @@
     <x-header />
     <!-- Header Section -->
     <section class="header">
-        <h1>Shopping Cart</h1>
-        <p>Your journey is just a click away</p>
+        <h1>{{ __('Shopping Cart') }}</h1>
+        <p>{{ __('Your journey is just a click away') }}</p>
     </section>
 
     <!-- Main Cart Content -->
     <section class="cart-content">
         <div class="shopping-cart">
-            <h2>Shopping Cart</h2>
+            <h2>{{ __('Shopping Cart') }}</h2>
             <div class="cart-items">
                 <!-- Itera os itens do carrinho dinamicamente -->
                 @foreach($cartItems as $cartItem)
@@ -29,7 +29,7 @@
                     <div class="item-details">
                         <h3>{{ $cartItem->item->name }}</h3>
                         <p>{{ $cartItem->item->description }}</p>
-                        <p><strong>{{ $cartItem->item->location }}</strong> | {{ $cartItem->quantity }} Guests</p>
+                        <p><strong>{{ $cartItem->item->location }}</strong> | {{ $cartItem->quantity }} {{ __('Guests') }}</p>
                     </div>
                     <p class="price">{{ $cartItem->item->price }}€</p>
                     <!-- Botão de remover com API -->
@@ -42,32 +42,32 @@
                 @endforeach
             </div>
 
-            <a href="{{ route('homepage') }}" class="back-btn">Back to Home</a>
+            <a href="{{ route('homepage') }}" class="back-btn">{{ __('Back to Home') }}</a>
         </div>
 
         <div class="summary">
-            <h2>Summary</h2>
+            <h2>{{ __('Summary') }}</h2>
             <ul>
                 @foreach($cartItems as $cartItem)
                 <li>{{ $cartItem->item->name }} <span>{{ $cartItem->item->price }}€</span></li>
                 @endforeach
             </ul>
             <hr>
-            <p class="subtotal">Subtotal: <span>{{ $cart->subtotal }}€</span></p>
-            <p class="taxes">Taxes: <span>{{ $cart->taxes }}€</span></p>
+            <p class="subtotal">{{ __('Subtotal') }}: <span>{{ $cart->subtotal }}€</span></p>
+            <p class="taxes">{{ __('Taxes') }}: <span>{{ $cart->taxes }}€</span></p>
             <hr>
-            <p class="total-price">Total Price: <span>{{ $cart->total }}€</span></p>
-            <button class="checkout-btn">Checkout</button>
+            <p class="total-price">{{ __('Total Price') }}: <span>{{ $cart->total }}€</span></p>
+            <button class="checkout-btn">{{ __('Checkout') }}</button>
         </div>
     </section>
 
     <!-- Tickets Section -->
     <section class="tickets">
-        <h2>Tickets</h2>
-        <p>Your journey is almost ready! Add train or bus tickets for a convenient trip. Choose the best option and make the most of your journey!</p>
+        <h2>{{ __('Tickets') }}</h2>
+        <p>{{ __('Your journey is almost ready! Add train or bus tickets for a convenient trip. Choose the best option and make the most of your journey!') }}</p>
         <div class="ticket-buttons">
-            <button class="train-btn">Buy Train Tickets</button>
-            <button class="bus-btn">Buy Bus Tickets</button>
+            <button class="train-btn">{{ __('Buy Train Tickets') }}</button>
+            <button class="bus-btn">{{ __('Buy Bus Tickets') }}</button>
         </div>
     </section>
 
