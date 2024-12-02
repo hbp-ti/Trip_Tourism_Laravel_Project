@@ -351,6 +351,9 @@ body {
 }
 
 .overviewPaymentDetails input {
+    padding: 3px;
+    border: 1px solid black;
+    border-radius: 5px;
     max-width: 140px;
     text-align: center;
     border: none;
