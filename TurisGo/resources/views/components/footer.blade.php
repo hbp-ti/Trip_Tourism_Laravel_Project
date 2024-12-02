@@ -25,7 +25,7 @@
     <div class="footer-section logo-and-copyright">
         <img src="{{ asset('images/estga.png') }}" alt="Logo ESTGA" class="logo">
         <div class="copyright">
-            Copyright © 2024 TurisGo. All rights reserved.
+            Copyright &#169 <?php echo date("Y"); ?> TurisGo. All rights reserved.
         </div>
     </div>
 </footer>
