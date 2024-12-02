@@ -61,25 +61,25 @@
                     </div>
                     <ul class="dropdown-options">
                         <li>
-                            <a href="{{ route('auth.profile.show') }}">
+                            <a href="{{ route('auth.profile.show', ['locale' => app()->getLocale()]) }}">
                                 <img src="{{ asset('images/profile_icon.png') }}" class="icon"> {{ __('messages.Profile') }}
                                 <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('contact') }}">
+                            <a href="{{ route('contact', ['locale' => app()->getLocale()]) }}">
                                 <img src="{{ asset('images/support_icon.png') }}" class="icon"> {{ __('messages.Support') }}
                                 <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('auth.cart.show') }}">
+                            <a href="{{ route('auth.cart.show', ['locale' => app()->getLocale()]) }}">
                                 <img src="{{ asset('images/cart_icon.png') }}" class="icon"> {{ __('messages.Shopping Cart') }}
                                 <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
                             </a>
                         </li>
                         <li>
-                            <form action="{{ route('auth.logout') }}" method="POST" class="dropdown-form">
+                            <form action="{{ route('auth.logout', ['locale' => app()->getLocale()]) }}" method="POST" class="dropdown-form">
                                 @csrf
                                 <button type="submit" class="dropdown-button">
                                     <img src="{{ asset('images/logout_icon.png') }}" class="icon"> {{ __('messages.Logout') }}
