@@ -13,6 +13,10 @@ Route::get('/exemploUpload', function () {
     return view('exemploUpload');
 })->name("exemploUpload");
 
+Route::get('/', function () {
+    return redirect()->route('homepage', ['locale' => 'en']);
+});
+
 Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () {
     
     Route::get('/', function () {
