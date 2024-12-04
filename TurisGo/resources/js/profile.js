@@ -24,3 +24,54 @@ $(document).ready(function() {
         }
     });
 });
+document.getElementById('changetour').addEventListener('click', function () {
+    const uploadInput = document.getElementById('uploadInput');
+    if (uploadInput) {
+        uploadInput.click();
+    } else {
+        console.error('O input de ficheiro não foi encontrado!');
+    }
+});
+
+document.getElementById('uploadInput').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.querySelector('.profile-pic').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const changePasswordButton = document.getElementById('changePasswordButton');
+    const passwordPopup = document.getElementById('passwordPopup');
+    const cancelChangePassword = document.getElementById('cancelChangePassword');
+    const confirmChangePassword = document.getElementById('confirmChangePassword');
+
+    changePasswordButton.addEventListener('click', () => {
+        passwordPopup.classList.remove('hidden');
+    });
+
+    cancelChangePassword.addEventListener('click', () => {
+        passwordPopup.classList.add('hidden');
+    });
+
+    confirmChangePassword.addEventListener('click', () => {
+        const oldPassword = document.getElementById('oldPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (newPassword !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        // Simular envio dos dados para o servidor
+        alert("Password changed successfully!");
+
+        // Fechar o popup após a confirmação
+        passwordPopup.classList.add('hidden');
+    });
+});
+

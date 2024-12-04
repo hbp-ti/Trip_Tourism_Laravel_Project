@@ -12,15 +12,22 @@
 <body>
     <x-header /> <!-- Componente de Cabeçalho -->
 
-    <!-- Cabeçalho da Página de Perfil -->
     <div class="header">
+    <!-- Container do Cabeçalho -->
+    <div class="profile-pic-container">
         <img src="{{ asset('images/profile.png') }}" class="profile-pic" alt="Profile Picture">
-        <div class="header-text">
-            <h1 class="header-title">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
-            <p class="header-subtitle">{{ __('messages.Profile') }}</p>
+        <div class="button-overlay">
+            <button id="changetour" class="edit-profile-pic">
+                <img src="{{ asset('images/changetour.png') }}" alt="Edit Icon">
+            </button>
         </div>
+        <input type="file" id="uploadInput" accept="image/*" style="display: none;">
     </div>
-
+    <div class="header-text">
+        <h1 class="header-title">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
+        <p class="header-subtitle">{{ __('Profile') }}</p>
+    </div>
+</div>
     <!-- Conteúdo do Perfil -->
     <div class="profile-content">
         <img src="{{ asset('images/fundoprofile.png') }}" class="profile-background" alt="Profile Background">
@@ -48,9 +55,33 @@
                 <input type="text" value="{{ Auth::user()->address ?? __('messages.Not provided') }}" readonly>
             </div>
             <div class="form-group">
-                <label>{{ __('messages.Password') }}</label>
-                <input type="password" value="********" readonly>
-            </div>
+    <label>{{ __('messages.Password') }}</label>
+    <button id="changePasswordButton" class="change-password-btn">Change Password</button>
+</div>
+
+<!-- Popup de Mudança de Password -->
+<div id="passwordPopup" class="popup hidden">
+    <div class="popup-content">
+        <h2>Change Password</h2>
+        <div class="form-group">
+            <label for="oldPassword">Last Password</label>
+            <input type="password" id="oldPassword" placeholder="Enter last password">
+        </div>
+        <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" placeholder="Enter new password">
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm New Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm new password">
+        </div>
+        <div class="popup-buttons">
+            <button id="cancelChangePassword" class="cancel-btn">Cancel</button>
+            <button id="confirmChangePassword" class="confirm-btn">Confirm</button>
+        </div>
+    </div>
+</div>
+
         </div>
 
         <!-- Botão de Edição do Perfil -->

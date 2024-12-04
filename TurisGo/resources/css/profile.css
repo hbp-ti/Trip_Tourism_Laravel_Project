@@ -6,7 +6,6 @@
     font-family: 'Manrope', sans-serif;
 }
 
-/* Header styling */
 .header {
     background-image: url('/public/images/fundoprofileheader.png');
     background-size: cover;
@@ -14,23 +13,18 @@
     height: 350px;
     color: white;
     display: flex;
-    /* Altera para Flexbox */
     flex-direction: row;
-    /* Define que os filhos fiquem lado a lado */
     justify-content: center;
-    /* Centraliza horizontalmente */
     align-items: center;
-    /* Centraliza verticalmente */
     text-align: left;
-    /* Texto alinhado à esquerda */
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    z-index: -1;
+    z-index: 1; /* Este pode causar problemas */
     padding: 20px;
-    /* Espaço interno para um visual mais limpo */
 }
+
 
 /* Profile Picture Styling */
 .profile-pic {
@@ -41,6 +35,28 @@
     margin-right: 20px;
     /* Espaço entre a imagem e o texto */
 }
+
+.edit-profile-pic {
+    position: absolute;
+    bottom: 120px;
+    right: 930px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2; /* Garante que o botão está acima da imagem */
+}
+
+.edit-profile-pic img {
+    width: 28px;
+    height: 28px;
+}
+
 
 /* Header Text Styling */
 .header-text {
@@ -297,3 +313,100 @@ input {
     margin-right: 8px;
     vertical-align: middle;
 } 
+
+/* Botão de Mudança de Password */
+.change-password-btn {
+    background-color: #2081A5;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.change-password-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Popup Styling */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.popup .form-group {
+    margin-bottom: 15px;
+}
+
+.popup .form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.popup .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cancel-btn,
+.confirm-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-btn {
+    background-color: #C76A37;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #a1332b;
+}
+
+.confirm-btn {
+    background-color: #2081A5;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background-color: #0056b3;
+}
