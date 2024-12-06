@@ -52,13 +52,101 @@
         </div>
 
         <!-- Weather Section -->
+
         <div class="section-title-container">
             <h3 class="section-title">{{ __('messages.Weather') }}</h3>
             <hr class="section-divider" style="background-color: #2081A5;">
         </div>
-        <div id="weather">
-            <iframe width="100%" height="400" src="https://embed.windy.com/embed2.html?lat=38.7223&lon=-9.1393&detailLat=38.7223&detailLon=-9.1393&width=650&height=450&zoom=10&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0" allowfullscreen></iframe>
+        <div class="weather-section">
+            <div class="weather-card-today">
+                <div class="weather-head-today">
+                    <h5>{{ __('Monday') }}</h4>
+                    <h6>{{ __('6 Oct') }}</h6>
+                </div>
+                <div class="weather-content">
+                    <h2>Lisboa</h2>
+                    <div class="temp-today">
+                        <h1 class="temp">23ºC</h1>
+                        <img src="{{ asset('images/weatherPartlyCloudy.png') }}" alt="Partly Cloudy">
+                    </div>
+                    <div class="weather-status">
+                        <div class="weather-individual-status">
+                            <img src="{{ asset('images/weatherIconRain.png') }}" alt="Rain">
+                            <h6>20%</h6>
+                        </div>
+                        <div class="weather-individual-status">
+                            <img src="{{ asset('images/weatherIconWind.png') }}" alt="Wind">
+                            <h6>18km/h</h6>
+                        </div>
+                        <div class="weather-individual-status">
+                            <img src="{{ asset('images/weatherIconWindDirection.png') }}" alt="Wind Direction">
+                            <h6>East</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weather-card">
+                <div class="weather-head">
+                    <h5>{{ __('Tuesday') }}</h4>
+                </div>
+                <div class="weather-content">
+                    <img src="{{ asset('images/weatherRaining.png') }}" alt="Raining">
+                    <h3>23ºC</h3>
+                    <h6>68%</h6>
+                </div>
+            </div>
+            <div class="weather-card">
+                <div class="weather-head">
+                    <h5>{{ __('Wednesday') }}</h4>
+                </div>
+                <div class="weather-content">
+                    <img src="{{ asset('images/weatherLightning.png') }}" alt="Lightning">
+                    <h3>18ºC</h3>
+                    <h6>26%</h6>
+                </div>
+            </div>
+            <div class="weather-card">
+                <div class="weather-head">
+                    <h5>{{ __('Thursday') }}</h4>
+                </div>
+                <div class="weather-content">
+                    <img src="{{ asset('images/weatherWind.png') }}" alt="Wind">
+                    <h3>17ºC</h3>
+                    <h6>10%</h6>
+                </div>
+            </div>
+            <div class="weather-card">
+                <div class="weather-head">
+                    <h5>{{ __('Friday') }}</h4>
+                </div>
+                <div class="weather-content">
+                    <img src="{{ asset('images/weatherPartlyCloudy.png') }}" alt="Partly Cloudy">
+                    <h3>23ºC</h3>
+                    <h6>17%</h6>
+                </div>
+            </div>
+            <div class="weather-card">
+                <div class="weather-head">
+                    <h5>{{ __('Saturday') }}</h4>
+                </div>
+                <div class="weather-content">
+                    <img src="{{ asset('images/weatherLightning.png') }}" alt="Lightning">
+                    <h3>20ºC</h3>
+                    <h6>45%</h6>
+                </div>
+            </div>
+            <div class="weather-card">
+                <div class="weather-head">
+                    <h5>{{ __('Sunday') }}</h4>
+                </div>
+                <div class="weather-content">
+                    <img src="{{ asset('images/weatherRaining.png') }}" alt="Raining">
+                    <h3>12ºC</h3>
+                    <h6>89%</h6>
+                </div>
+            </div>
         </div>
+
 
         <!-- Train/Bus Tickets Section -->
         <div class="section-title-container">
