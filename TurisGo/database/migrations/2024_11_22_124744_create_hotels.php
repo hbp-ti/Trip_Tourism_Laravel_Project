@@ -13,7 +13,6 @@ return new class extends Migration
             $table->foreignId('id_item')->primary()->constrained('items')->onDelete('cascade');
             $table->string('name', 50);
             $table->string('description', 1000);
-            $table->float('price_night');
             $table->smallInteger('stars');
             $table->float('average_guest_rating')->default(0);
             $table->boolean('free_wifi');
