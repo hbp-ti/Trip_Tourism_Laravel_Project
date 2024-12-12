@@ -38,7 +38,8 @@
 
                     <button type="submit">{{ __('messages.Login') }}</button>
                 </form>
-                <p class="account-link">{{ __("Don't have an account?") }} <a href="{{ route('auth.register.form', ['locale' => app()->getLocale()]) }}">{{ __('messages.Sign Up') }}</a></p>
+                <p class="account-link">{{ __("Don't have an account?") }} <a href="{{ route('auth.register.form', ['locale' => app()->getLocale()]) }}">{{ __('messages.Sign Up') }}
+                </a></p>
             </div>
         </div>
         @if(session('popup'))

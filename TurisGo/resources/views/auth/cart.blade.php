@@ -42,7 +42,7 @@
                 @endforeach
             </div>
 
-            <a href="{{ route('homepage') }}" class="back-btn">{{ __('messages.Back to Home') }}</a>
+            <a href="{{ route('homepage', ['locale' => app()->getLocale()]) }}" class="back-btn">{{ __('messages.Back to Home') }}</a>
         </div>
 
         <div class="summary">

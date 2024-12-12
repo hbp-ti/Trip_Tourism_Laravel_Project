@@ -51,10 +51,10 @@
         <div class="contact-container">
             <form action="contact.php" method="post" class="contact-form">
                 <label for="name">{{ __('messages.Your Name') }}</label>
-                <input type="text" id="name" name="name" placeholder="{{ __('messages.Ex: John Doe') }}" required>
+                <input type="text" id="name" name="name" placeholder="{{ __('Ex: John Doe') }}" required>
 
                 <label for="email">{{ __('messages.Your Email') }}</label>
-                <input type="email" id="email" name="email" placeholder="{{ __('messages.Ex: johndoe@example.com') }}" required>
+                <input type="email" id="email" name="email" placeholder="{{ __('Ex: johndoe@example.com') }}" required>
 
                 <label for="message">{{ __('messages.Your Message') }}</label>
                 <textarea id="message" name="message" placeholder="{{ __('messages.Type your message here...') }}" required></textarea>
