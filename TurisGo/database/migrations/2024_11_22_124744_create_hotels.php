@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('hotels', function (Blueprint $table) {
             $table->foreignId('id_item')->primary()->constrained('items')->onDelete('cascade');
-            $table->string('name', 50);
+            $table->string('name', 100);
             $table->string('description', 1000);
             $table->smallInteger('stars');
             $table->float('average_guest_rating')->default(0);
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('bar');
             $table->boolean('refundable_reservations');
             $table->string('country', 30);
-            $table->string('zip_code', 10);
+            $table->string('zip_code', 20);
             $table->string('city', 30);
             $table->string('street', 60);
             $table->float('lat', 6)->nullable();
