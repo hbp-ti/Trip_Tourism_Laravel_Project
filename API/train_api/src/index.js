@@ -10,7 +10,21 @@ const getStation = async (req, res) => {
         const stations = await comboios.stations();
         const nome = req.query.nome || '';
         const estacoesEncontradas = stations.filter(station =>
-            station.name.toLowerCase().includes(nome.toLowerCase())
+            station.name.toLowerCase() == nome.toLowerCase()
+        );
+        res.json(estacoesEncontradas);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar estações', details: error.message });
+    }
+};
+
+// Função para listar estações
+const getStationById = async (req, res) => {
+    try {
+        const stations = await comboios.stations();
+        const id = req.query.id || '';
+        const estacoesEncontradas = stations.filter(station =>
+            station.id == id
         );
         res.json(estacoesEncontradas);
     } catch (error) {
@@ -29,19 +43,36 @@ const getStations = async (req, res) => {
 };
 
 
-// Função para listar jornadas
 const getJourneys = async (req, res) => {
     try {
-        const { from, to, date } = req.query;
-        if (!from || !to || !date) {
-            return res.status(400).json({ error: 'Parâmetros inválidos. Informe "from", "to" e "date".' });
+        const { from, to, date, train } = req.query;
+
+        // Verifica se todos os parâmetros foram fornecidos
+        if (!from || !to || !date || !train) {
+            return res.status(400).json({ error: 'Parâmetros inválidos. Informe "from", "to", "date", "train".' });
         }
+
+        // Busca as jornadas
         const journeys = await comboios.journeys(from, to, { when: new Date(date) });
-        res.json(journeys);
+
+        // Filtra as jornadas em que todas as 'legs' possuem o 'productCode' correspondente ao valor de 'train'
+        const filteredJourneys = journeys.filter(journey => 
+            journey.legs.every(leg => leg.line.productCode.trim().toUpperCase() === train.trim().toUpperCase())
+        );
+
+        // Verifica se encontrou jornadas que atendem ao filtro
+        if (filteredJourneys.length === 0) {
+            return res.status(404).json({ error: 'Nenhuma jornada encontrada para o produto solicitado.' });
+        }
+
+        // Retorna as jornadas filtradas
+        res.json(filteredJourneys);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao buscar jornadas', details: error.message });
     }
 };
+
+
 
 // Função para listar paradas de uma estação
 const getStopovers = async (req, res) => {
@@ -73,6 +104,7 @@ const getTripInfo = async (req, res) => {
 
 // Endpoints da API
 app.get('/station', getStation);
+app.get('/stationById', getStationById);
 app.get('/stations', getStations)
 app.get('/journeys', getJourneys);
 app.get('/stopovers', getStopovers);

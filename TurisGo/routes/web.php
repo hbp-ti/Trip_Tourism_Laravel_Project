@@ -4,6 +4,7 @@ use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\TrainController;
 use Illuminate\Support\Facades\Mail;
 
 Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
@@ -18,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () {
-    
+
     Route::get('/', function () {
         return view('homepage');
     })->name("homepage");
@@ -63,9 +64,12 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         return view('contact.contact');
     })->name("contact");
 
-    Route::get('/buyTicketTrain', function () {
-        return view('buyTicketTrain.buyTicketTrain');
-    })->name("buyTicketTrain");
+
+    // Página principal de compra de tickets
+    Route::get('/buyTicketTrain', [TrainController::class, 'stations'])->name('tickets');
+
+    // Buscar jornadas
+    Route::post('/search-journeys', [TrainController::class, 'journeys'])->name('search.journeys');
 
     Route::get('/payment1', function () {
         return view('payment.payment1');

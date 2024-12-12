@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     @vite(['resources/css/buyTicketTrain.css'])
 </head>
+
 <body>
     <x-header />
     <div class="header">
@@ -20,112 +21,102 @@
             <div class="online-tickets">
                 <h2>{{ __('messages.Online Tickets') }}</h2>
                 <div class="form-container">
-                    <form action="#" method="POST">
+                    <form action="{{ route('search.journeys', ['locale' => app()->getLocale()]) }}" method="POST">
+                        @csrf
                         <div class="form-group">
-                            <input type="text" placeholder="{{ __('messages.Origin') }}">
-                            <input type="text" placeholder="{{ __('messages.Destination') }}">
+                            <select name="from" required>
+                                <option value="">{{ __('messages.Origin') }}</option>
+                                @foreach($stations as $station)
+                                <option value="{{ $station['id'] }}">{{ $station['name'] }}</option>
+                                @endforeach
+                            </select>
+                            <select name="to" required>
+                                <option value="">{{ __('messages.Destination') }}</option>
+                                @foreach($stations as $station)
+                                <option value="{{ $station['id'] }}">{{ $station['name'] }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
-                            <input type="date" value="2024-11-05">
-                            <input type="date" value="2024-11-05">
+                            <input type="date" name="date" required>
                         </div>
                         <div class="form-group">
-                            <select>
+                            <select name="class">
                                 <option value="comfort">{{ __('messages.Comfort / 1st') }}</option>
                                 <option value="tourist">{{ __('messages.Tourist / 2nd') }}</option>
                             </select>
-                            <input type="number" min="1" value="1" placeholder="{{ __('messages.Passengers') }}">
+                            <input type="number" name="passengers" min="1" value="1" placeholder="{{ __('messages.Passengers') }}" required>
                         </div>
                         <div class="form-options-container">
                             <div class="form-options">
-                                <label>
-                                    <input type="radio" name="preference" value="regional" checked>
-                                    {{ __('messages.Alfa Pendular / IC') }}
-                                </label>
-                                <label>
-                                    <input type="radio" name="preference" value="intercity">
-                                    {{ __('messages.Intercity') }}
-                                </label>
-                                <label>
-                                    <input type="radio" name="preference" value="urban">
-                                    {{ __('messages.Urban') }}
-                                </label>
-                                <label>
-                                    <input type="radio" name="preference" value="regional">
-                                    {{ __('messages.Regional') }}
-                                </label>
-                            </div>
-                            <div class="form-submit">
-                                <button type="submit">{{ __('messages.Search') }}</button>
+                                <label for="preference">{{ __('messages.Train') }}</label>
+                                <select name="preference" id="preference">
+                                    <option value="AP" selected>{{ __('messages.Alfa Pendular') }}</option>
+                                    <option value="IR">{{ __('messages.Inter regional') }}</option>
+                                    <option value="IC">{{ __('messages.Inter city') }}</option>
+                                    <option value="U">{{ __('messages.Urban') }}</option>
+                                    <option value="R">{{ __('messages.Regional') }}</option>
+                                </select>
                             </div>
                         </div>
+                        <button type="submit">{{ __('messages.Search') }}</button>
                     </form>
                 </div>
             </div>
-        </section>
 
-        <section class="timetable">
-            <h2>{{ __('messages.Timetable') }}</h2>
-            <div class="route">
-                <div class="go-container">
-                    <span class="go-label">{{ __('messages.GO') }}</span>
+            <!-- Exibição das Jornadas -->
+            @isset($journeys)
+            <section class="timetable">
+                <h2>{{ __('messages.Timetable') }}</h2>
+                <div class="route">
+                    <div class="go-container">
+                        <span class="go-label">{{ __('messages.GO') }}</span>
+                    </div>
+                    <div class="route-info-container">
+                        <span class="route-info">{{ $from }} &gt; {{ $to }}</span>
+                    </div>
                 </div>
-                <div class="route-info-container">
-                    <span class="route-info">Águeda &gt; Aveiro</span>
-                </div>
-            </div>
-            
-            <div class="timetable-container">
-                <table class="timetable">
-                    <thead>
-                        <tr>
-                            <th></th> <!-- Coluna para os checkboxes -->
-                            <th>{{ __('messages.Service') }}</th>
-                            <th>{{ __('messages.Departure') }}</th>
-                            <th>{{ __('messages.Arrival') }}</th>
-                            <th>{{ __('messages.Duration') }}</th>
-                            <th>{{ __('messages.Price') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>R1111</td>
-                            <td>15:42</td>
-                            <td>17:04</td>
-                            <td>01h22</td>
-                            <td>$22.20</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>R1112</td>
-                            <td>15:42</td>
-                            <td>17:04</td>
-                            <td>01h22</td>
-                            <td>$22.20</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>R1113</td>
-                            <td>15:42</td>
-                            <td>17:04</td>
-                            <td>01h22</td>
-                            <td>$22.20</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
-            <div class="confirm">
-                <label>
-                    <input type="checkbox" required>
-                    {{ __('messages.I declare that I don’t have less than 18 years.') }}
-                </label>
-                <button type="button">{{ __('messages.Continue') }}</button>
-            </div>
+                <div class="timetable-container">
+                    <table class="timetable">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ __('messages.Service') }}</th>
+                                <th>{{ __('messages.Departure') }}</th>
+                                <th>{{ __('messages.Arrival') }}</th>
+                                <th>{{ __('messages.Duration') }}</th>
+                                <th>{{ __('messages.Price') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($journeys as $journey)
+                            @foreach($journey['legs'] as $leg)
+                            <tr>
+                                <td><input type="checkbox" name="selected_journeys[]" value="{{ $journey['id'] }}"></td>
+                                <td>{{ $leg['line']['productCode'] . -  $leg['line']['id'] }}</td>
+                                <td>{{ \Carbon\Carbon::parse($leg['departure'])->format('H:i') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($leg['arrival'])->format('H:i') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($leg['departure'])->diff(\Carbon\Carbon::parse($leg['arrival']))->format('%H:%I') }}</td>
+                                <td>{{ $journey['price']['amount'] }} {{ $journey['price']['currency'] }}</td>
+                            </tr>
+                            @endforeach
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="confirm">
+                    <label>
+                        <input type="checkbox" required>
+                        {{ __('messages.I declare that I don’t have less than 18 years.') }}
+                    </label>
+                    <button type="button">{{ __('messages.Continue') }}</button>
+                </div>
+            </section>
+            @endisset
         </section>
-        
     </main>
-    <x-footer />
 </body>
+
 </html>
