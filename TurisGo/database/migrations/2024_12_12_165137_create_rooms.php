@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('bed_count');
             $table->decimal('price_night', 8, 2);
             $table->timestamps();
+            $table->boolean('available');
         });
     }
 
