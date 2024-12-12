@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('zip_code', 10);
             $table->string('city', 30);
             $table->string('street', 60);
+            $table->float('lat', 6)->nullable();
+            $table->float('lon', 6)->nullable();
             $table->timestamps();
         });
 

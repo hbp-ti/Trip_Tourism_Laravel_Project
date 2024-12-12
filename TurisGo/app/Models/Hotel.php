@@ -15,7 +15,6 @@ class Hotel extends Model
         'id_item',
         'name',
         'description',
-        'price_night',
         'stars',
         'average_guest_rating',
         'free_wifi',
@@ -30,6 +29,8 @@ class Hotel extends Model
         'zip_code',
         'city',
         'street',
+        'lat',
+        'lon'
     ];
 
     public function item()
