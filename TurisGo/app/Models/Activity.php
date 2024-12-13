@@ -15,7 +15,6 @@ class Activity extends Model
         'id_item',
         'name',
         'description',
-        'address_id',
         'price_hour',
         'cancel_anytime',
         'reserve_now_pay_later',
@@ -26,6 +25,8 @@ class Activity extends Model
         'zip_code',
         'city',
         'street',
+        'lat',
+        'lon'
     ];
 
     public function item()
