@@ -23,6 +23,6 @@ class Room extends Model
 
     public function hotel()
     {
-        return $this->belongsTo(Hotel::class, 'hotel_id');
-    }
+        return $this->belongsTo(Hotel::class, 'hotel_id', 'id_item');
+    }    
 }

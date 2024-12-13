@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\TrainController;
+use App\Http\Controllers\HotelController;
 use Illuminate\Support\Facades\Mail;
 
 Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
@@ -87,9 +88,8 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         return view('tours.tours');
     })->name("tours");
 
-    Route::get('/hotels', function () {
-        return view('hotel.hotel');
-    })->name("hotels");
+    Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels.index');
+
 
     Route::get('/tourDetail', function () {
         return view('tourDetail.tourDetail');

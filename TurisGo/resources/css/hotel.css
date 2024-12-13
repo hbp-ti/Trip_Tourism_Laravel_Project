@@ -446,3 +446,86 @@ select {
     display: none;
     z-index: 1;
 }
+/* Estilo para a navegação de paginação */
+.pagination {
+    display: flex;
+    justify-content: flex-end; /* Alinha à direita */
+    align-items: center; /* Alinha verticalmente os itens */
+    margin-top: 20px; /* Espaço acima */
+    margin-bottom: 20px; /* Espaço abaixo */
+}
+
+/* Estilo para os links de paginação */
+.pagination a,
+.pagination span {
+    margin: 0 5px; /* Espaço entre os itens de paginação */
+    padding: 8px 12px; /* Ajuste de espaçamento */
+    border: 1px solid #ccc; /* Borda suave */
+    text-decoration: none; /* Remove sublinhado */
+    color: #007bff; /* Cor do texto dos links */
+    font-weight: bold; /* Deixa o texto mais destacado */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 14px; /* Ajuste o tamanho da fonte */
+    transition: background-color 0.3s ease; /* Transição suave para fundo */
+}
+
+/* Efeito ao passar o mouse sobre o link */
+.pagination a:hover {
+    background-color: #f1f1f1; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilo para o link ativo */
+.pagination .active {
+    background-color: #007bff; /* Cor de fundo azul */
+    color: white; /* Cor do texto branca */
+    cursor: default; /* Desativa o clique no link ativo */
+}
+
+/* Estilo para links desabilitados */
+.pagination .disabled {
+    color: #ccc; /* Cor para links desativados */
+    cursor: not-allowed; /* Desativa o clique */
+}
+
+/* Estilo para as setas de navegação (anterior e próxima) */
+.pagination .page-link svg {
+    width: 14px; /* Reduz o tamanho das setas */
+    height: 14px; /* Reduz o tamanho das setas */
+}
+
+/* Estilo específico para os botões "Previous" e "Next" */
+.pagination .previous span,
+.pagination .next span {
+    font-size: 14px; /* Ajuste o tamanho das setas */
+    display: flex;
+    justify-content: center; /* Centraliza as setas */
+    align-items: center; /* Alinha as setas verticalmente */
+    padding: 6px 12px; /* Tamanho adequado do botão */
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Efeito suave de transição */
+}
+
+/* Efeito de hover para as setas */
+.pagination .previous span:hover,
+.pagination .next span:hover {
+    background-color: #f1f1f1; /* Cor de fundo suave ao passar o mouse */
+}
+
+/* Responsividade: em telas pequenas */
+@media (max-width: 768px) {
+    .pagination {
+        justify-content: center; /* Centraliza os itens em telas menores */
+    }
+
+    .pagination a,
+    .pagination span {
+        font-size: 12px; /* Ajusta o tamanho da fonte para dispositivos pequenos */
+        padding: 6px 10px; /* Ajuste no padding em telas pequenas */
+    }
+
+    .pagination .page-link svg {
+        width: 12px; /* Tamanho das setas em telas pequenas */
+        height: 12px;
+    }
+}
+

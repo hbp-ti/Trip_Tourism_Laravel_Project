@@ -35,7 +35,7 @@ return [
         ],
     ],
     'train_api' => [
-        'base_uri' => env('API_train_BASE_URL'),
+        'base_uri' => env('API_TRAIN_BASE_URL'),
     ],
 
 ];

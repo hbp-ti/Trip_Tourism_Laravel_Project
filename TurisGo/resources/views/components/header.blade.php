@@ -12,7 +12,7 @@
                 <li><a href="{{ route('homepage', ['locale' => app()->getLocale()]) }}" class="{{ Route::currentRouteName() == 'homepage' ? 'active' : '' }}">{{ __('messages.Home') }}</a></li>
                 <li><a href="{{ route('aboutUs', ['locale' => app()->getLocale()]) }}" class="{{ Route::currentRouteName() == 'aboutUs' ? 'active' : '' }}">{{ __('messages.About') }}</a></li>
                 <li><a href="{{ route('tours', ['locale' => app()->getLocale()]) }}" class="{{ Route::currentRouteName() == 'tours' ? 'active' : '' }}">{{ __('messages.Tours') }}</a></li>
-                <li><a href="{{ route('hotels', ['locale' => app()->getLocale()]) }}" class="{{ Route::currentRouteName() == 'hotels' ? 'active' : '' }}">{{ __('messages.Hotel') }}</a></li>
+                <li><a href="{{ route('hotels.index', ['locale' => app()->getLocale()]) }}" class="{{ Route::currentRouteName() == 'hotels' ? 'active' : '' }}">{{ __('messages.Hotel') }}</a></li>
                 <li><a href="{{ route('contact', ['locale' => app()->getLocale()]) }}" class="{{ Route::currentRouteName() == 'contact' ? 'active' : '' }}">{{ __('messages.Contact') }}</a></li>
             </ul>
         </div>
