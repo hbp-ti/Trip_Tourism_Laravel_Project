@@ -21,7 +21,7 @@ class Hotel extends Model
         'parking',
         'gym',
         'pool',
-        'spa_wellness',
+        'non_smoking_rooms',
         'hotel_restaurant',
         'bar',
         'refundable_reservations',
@@ -42,5 +42,9 @@ class Hotel extends Model
     {
         return $this->hasMany(Room::class, 'hotel_id', 'id_item');
     }
-    
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'item_id', 'id_item');
+    }
 }

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('parking');
             $table->boolean('gym');
             $table->boolean('pool');
-            $table->boolean('spa_wellness');
+            $table->boolean('non_smoking_rooms');
             $table->boolean('hotel_restaurant');
             $table->boolean('bar');
             $table->boolean('refundable_reservations');

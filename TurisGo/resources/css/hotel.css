@@ -213,6 +213,11 @@ select {
     margin: 20px auto;
 }
 
+.single-column-container a {
+    text-decoration: none;
+    color: inherit;
+}
+
 @media (max-width: 768px) {
     .single-column-container {
         margin: 20px 15px;
@@ -287,8 +292,12 @@ select {
     text-align: center;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+
+
 
 .hotel-card h2, p {
     margin-top: 30px;
@@ -488,9 +497,9 @@ select {
 }
 
 /* Estilo para as setas de navegação (anterior e próxima) */
-.pagination .page-link svg {
-    width: 14px; /* Reduz o tamanho das setas */
-    height: 14px; /* Reduz o tamanho das setas */
+.pagination .page-link svg path{
+    width: 12px !important;
+    height: 12px !important;
 }
 
 /* Estilo específico para os botões "Previous" e "Next" */
@@ -524,8 +533,9 @@ select {
     }
 
     .pagination .page-link svg {
-        width: 12px; /* Tamanho das setas em telas pequenas */
-        height: 12px;
+        width: 12px !important;
+        height: 12px !important;
     }
+    
 }
 

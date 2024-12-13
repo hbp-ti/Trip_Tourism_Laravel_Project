@@ -19,7 +19,7 @@
     <!-- Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-    @vite(['resources/css/hotel.css', 'resources/js/mapa.js', 'resources/js/hotel.js', 'resources/js/jquery-3.7.1.min.js', 'resources/js/searchBar.js'])
+    @vite(['resources/css/hotel.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/mapa.js', 'resources/js/hotel.js', 'resources/js/searchBar.js'])
 </head>
 
 <body>
@@ -89,7 +89,7 @@
 
         <div class="single-column-container">
             @foreach ($hotels as $hotel)
-            <div class="hotel-card">
+            <a href="{{ route('hotel.details', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}" class="hotel-card">
                 <div class="image-container-hotel">
                     <img src="{{ $hotel->image_url ?? asset('images/default-hotel.jpg') }}" alt="{{ $hotel->name }}">
 
@@ -102,18 +102,16 @@
                     <div class="price-tag">
                         {{ __('messages.No rooms available') }} <!-- Exibe mensagem se não houver quartos -->
                     </div>
-                    <script>
-                        console.log('Hotel sem quartos: {{ $hotel->rooms }}');
-                    </script>
                     @endif
                 </div>
                 <div class="text-container">
                     <h2>{{ $hotel->name }}</h2>
                     <p>{{ $hotel->description }}</p>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
+
 
         <!-- Adicionando os links de paginação -->
         <div class="pagination">

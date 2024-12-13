@@ -45,9 +45,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         });
     });
 
-    Route::get('/hotel', function () {
-        return view('hoteldetails.hotel');
-    })->name("hotel");
+    Route::get('/hotel/{id}', [HotelController::class, 'showHotelDetails'])->name('hotel.details');
 
     Route::get('/password/forgot', function () {
         return view('password.forgot');
