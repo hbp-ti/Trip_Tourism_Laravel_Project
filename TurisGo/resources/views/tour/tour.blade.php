@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     @vite(['resources/css/tour.css'], ['resources/js/jquery-3.7.1.min.js'])
 </head>
 
@@ -14,59 +15,92 @@
 
     <!-- Header Section -->
     <section class="header">
-        <h1>{{ __('messages.Half Day Tour with Jeep Safari in') }} <br> {{ __('messages.the Algarve Mountains') }}</h1>
+        <h1>{{ $tour->name }}</h1>
     </section>
 
     <section class="image-slider">
         <div class="slider-images">
-            <img src="/images/escolhatour.png" alt="{{ __('messages.Tour Image 1') }}" class="slider-image">
-            <img src="/images/escolhatour.png" alt="{{ __('messages.Tour Image 2') }}" class="slider-image hidden">
-            <img src="/images/escolhatour.png" alt="{{ __('messages.Tour Image 3') }}" class="slider-image hidden">
+            @if ($tour->images && $tour->images->isNotEmpty())
+            @foreach ($tour->images as $image)
+            <img src="{{ asset($image->url) }}" alt="{{ $tour->name }}" class="slider-image {{ $loop->first ? '' : 'hidden' }}">
+            @endforeach
+            @else
+            {{-- Caso não haja imagens associadas, exibe as imagens padrão --}}
+            <img src="/images/escolhatour.png" alt="{{ __('messages.Default tour Image 1') }}" class="slider-image">
+            <img src="/images/escolhatour.png" alt="{{ __('messages.Default tour Image 2') }}" class="slider-image hidden">
+            <img src="/images/escolhatour.png" alt="{{ __('messages.Default tour Image 3') }}" class="slider-image hidden">
+            @endif
         </div>
         <div class="slider-controls">
             <span class="prev">&#10094;</span>
             <span class="next">&#10095;</span>
         </div>
         <div class="dots-container">
+            @if ($tour->images && $tour->images->isNotEmpty())
+            @foreach ($tour->images as $image)
+            <span class="dot {{ $loop->first ? 'active-dot' : '' }}"></span>
+            @endforeach
+            @else
+            {{-- Caso não haja imagens associadas, exibe os dots padrão --}}
             <span class="dot active-dot"></span>
             <span class="dot"></span>
             <span class="dot"></span>
+            @endif
         </div>
     </section>
 
     <!-- Description Section -->
     <section class="hotel-description">
-        <p>
-            {{ __('messages.Enjoy a full day in the Douro Valley with a cruise, lunch, and wine tasting. Explore the UNESCO-listed landscapes by boat and relax with convenient hotel pickup.') }}
-        </p>
+        <p>{{ $tour->description }}</p>
+        <br><br>
+        <div class="location-info">
+            <p><i class="fas fa-globe"></i> <strong>{{ __('messages.Country') }}:</strong> {{ $tour->country }}</p>
+            <p><i class="fas fa-city"></i> <strong>{{ __('messages.City') }}:</strong> {{ $tour->city }}</p>
+            <p><i class="fas fa-envelope"></i> <strong>{{ __('messages.Zip Code') }}:</strong> {{ $tour->zip_code }}</p>
+            <p><i class="fas fa-road"></i> <strong>{{ __('messages.Street') }}:</strong> {{ $tour->street }}</p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>{{ __('messages.Coordinates') }}:</strong> {{ __('messages.Lat') }}: {{ $tour->lat }}, {{ __('messages.Lon') }}: {{ $tour->lon }}</p>
+        </div>
     </section>
 
     <!-- Facilities Section -->
     <section class="facilities">
         <div class="title-line-container">
-            <h2>{{ __('messages.Most popular facilities') }}</h2>
+            <h2>{{ __('messages.Tour details') }}</h2>
             <hr class="title-line">
         </div>
         <div class="facility-icons">
+            <!-- Verificar se a instalação está disponível -->
+            @if ($tour->cancel_anytime)
             <div class="icon">
-                <img src="/images/canceletour.png" alt="{{ __('messages.CanceleAnytime') }}">
-                <span>{{ __('messages.Cancel anytime') }}</span>
+                <img src="/images/cancel_anytime.png" alt="{{ __('messages.cancel_anytime') }}">
+                <span>{{ __('messages.cancel anytime') }}</span>
             </div>
+            @endif
+
+            @if ($tour->guide)
             <div class="icon">
-                <img src="/images/reservetour.png" alt="{{ __('messages.ReserveNowPayLater') }}">
-                <span>{{ __('messages.Reserve now, pay later') }}</span>
+                <img src="/images/guide.png" alt="{{ __('messages.guide') }}">
+                <span>{{ __('messages.guide') }}</span>
             </div>
+            @endif
+
+            @if ($tour->reserve_now_pay_later)
             <div class="icon">
-                <img src="/images/hourtour.png" alt="{{ __('messages.Duration') }}">
-                <span>{{ __('messages.7 Hours Duration') }}</span>
+                <img src="/images/reserve_now_pay_later.png" alt="{{ __('messages.reserve_now_pay_later') }}">
+                <span>{{ __('messages.reserve now pay later') }}</span>
             </div>
+            @endif
+
+            @if ($tour->small_groups)
             <div class="icon">
-                <img src="/images/guidetour.png" alt="{{ __('messages.Guide') }}">
-                <span>{{ __('messages.Guide') }}</span>
+                <img src="/images/small_groups.png" alt="{{ __('messages.small_groups') }}">
+                <span>{{ __('messages.small groups') }}</span>
             </div>
+            @endif
+
             <div class="icon">
-                <img src="/images/grouptour.png" alt="{{ __('messages.SmallGroup') }}">
-                <span>{{ __('messages.Small Groups') }}</span>
+                <img src="/images/language.png" alt="{{ __('messages.language') }}">
+                <span>{{ $tour->language }}</span>
             </div>
         </div>
     </section>
@@ -82,11 +116,6 @@
             <div>
                 <label for="checkin">{{ __('messages.Check-in date') }}</label>
                 <input type="date" id="checkin">
-            </div>
-
-            <div>
-                <label for="checkout">{{ __('messages.Check-out date') }}</label>
-                <input type="date" id="checkout">
             </div>
 
             <div>
@@ -107,7 +136,6 @@
                 <thead>
                     <tr>
                         <th>{{ __('messages.Tour Type') }}</th>
-                        <th>{{ __('messages.People') }}</th>
                         <th>{{ __('messages.Language') }}</th>
                         <th>{{ __('messages.Price') }}</th>
                         <th>{{ __('messages.Reserve') }}</th>
@@ -116,11 +144,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ __('messages.Tour with guide') }}</td>
-                        <td>2</td>
-                        <td>{{ __('messages.EN') }}</td>
-                        <td>38€</td>
-                        <td><button class="book-btn">{{ __('messages.Reserve') }}</button></td>
+                        @if ($tour)
+                        <td>Tour with guide</td>
+                        @else
+                        <td>Tour without guide</td>
+                        @endif
+                        <td>{{ $tour->language }}</td>
+                        <td>€{{ $tour->price_hour }}</td>
+                        <td>
+                            <button class="book-btn">{{ __('messages.Reserve') }}</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -134,33 +167,17 @@
             <hr class="title-line">
         </div>
         <div class="reviews-container">
+            @foreach ($tour->reviews as $review)
             <div class="review-box">
                 <div class="review-header">
-                    <img src="/images/default_user_image.png" alt="{{ __('messages.User 1') }}" class="review-img">
-                    <span class="user-name">John</span>
+                    <img src="{{ $review->user->image ?? asset('images/default_user_image.png') }}" alt="{{ $review->user->first_name . $review->user->last_name }}" class="review-img">
+                    <span class="user-name">{{ $review->user->first_name . $review->user->last_name }}</span>
                 </div>
-                <p class="review-text">"{{ __('messages.Fantastic hotel with great staff!') }}"</p>
-                <p class="review-excerpt">{{ __('messages.This hotel is amazing, the staff is very friendly and helpful. The amenities were top-notch and...') }}</p>
+                <p class="review-text">"{{ $review->title }}"</p>
+                <p class="review-excerpt">{{ $review->description }}</p>
                 <span class="read-more">{{ __('messages.Read More') }}</span>
             </div>
-            <div class="review-box">
-                <div class="review-header">
-                    <img src="/images/default_user_image.png" alt="{{ __('messages.User 2') }}" class="review-img">
-                    <span class="user-name">Mary</span>
-                </div>
-                <p class="review-text">"{{ __('messages.Beautiful location, will come again.') }}"</p>
-                <p class="review-excerpt">{{ __('messages.The location of the hotel is perfect for sightseeing, and the rooms were very comfortable...') }}</p>
-                <span class="read-more">{{ __('messages.Read More') }}</span>
-            </div>
-            <div class="review-box">
-                <div class="review-header">
-                    <img src="/images/default_user_image.png" alt="{{ __('messages.User 3') }}" class="review-img">
-                    <span class="user-name">Alice</span>
-                </div>
-                <p class="review-text">"{{ __('messages.Great experience, highly recommended!') }}"</p>
-                <p class="review-excerpt">{{ __('messages.I had a wonderful stay at the hotel, and everything exceeded my expectations...') }}</p>
-                <span class="read-more">{{ __('messages.Read More') }}</span>
-            </div>
+            @endforeach
         </div>
         <div class="reviews-buttons">
             <button class="read-all-reviews">{{ __('messages.Read All Reviews') }}</button>

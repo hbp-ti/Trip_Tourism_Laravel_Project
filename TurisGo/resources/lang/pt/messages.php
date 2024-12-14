@@ -178,7 +178,7 @@ return [
     'Train' => 'Comboio',
     'Hotel details' => 'Detalhes hotel',
     'Availability' => 'Disponibilidade',
-    'Copyright © 2024 TurisGo. All rights reserved.' => 'Copyright © 2024 TurisGo. Todos os direitos reservados.',
+    'Copyright' => 'Copyright',
     'R. Cmte. Pinho e Freitas 28, 3750-127 Águeda' => 'R. Cmte. Pinho e Freitas 28, 3750-127 Águeda',
     '+351 910529936' => '+351 910529936',
     '1 Adult' => '1 Adulto',
@@ -202,5 +202,9 @@ return [
     'Street' => 'Rua',
     'Coordinates' => 'Coordenadas',
     'Lat' => 'Lat',
-    'Lon' => 'Lon'
+    'Lon' => 'Lon',
+    'Price: Low to High' => 'Preço: Baixo para alto',
+    'Price: High to Low' => 'Preço: Alto para baixo',
+    'Alphabetically' => 'Alfabeticamente',
+    'Most Booked' => 'Mais reservado'
 ];

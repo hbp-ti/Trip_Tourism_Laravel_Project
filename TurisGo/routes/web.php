@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\TrainController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Mail;
 
 Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
@@ -44,8 +45,14 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::delete('/cart/{cartItemId}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
         });
     });
-
-    Route::get('/hotel/{id}', [HotelController::class, 'showHotelDetails'])->name('hotel.details');
+    Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');
+    Route::get('/hotel/{id}', [HotelController::class, 'showHotelDetails'])->name('hotel.hotel');
+    Route::get('/tours', [TourController::class, 'showTours'])->name('tours');
+    Route::get('/tour/{id}', [TourController::class, 'showTourDetails'])->name('tour.tour');
+    
+    Route::get('/tour', function () {
+        return view('tour.tour');
+    })->name("tour");
 
     Route::get('/password/forgot', function () {
         return view('password.forgot');
@@ -82,18 +89,13 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         return view('payment.payment3');
     })->name("payment3");
 
-    Route::get('/tours', function () {
-        return view('tours.tours');
-    })->name("tours");
 
-    Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels.index');
+
+   
 
 
     Route::get('/tourDetail', function () {
         return view('tourDetail.tourDetail');
     })->name("tourDetail");
 
-    Route::get('/tour', function () {
-        return view('tour.tour');
-    })->name("tour");
 });

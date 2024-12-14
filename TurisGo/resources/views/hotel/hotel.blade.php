@@ -89,7 +89,7 @@
 
         <div class="single-column-container">
             @foreach ($hotels as $hotel)
-            <a href="{{ route('hotel.details', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}" class="hotel-card">
+            <a href="{{ route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}" class="hotel-card">
                 <div class="image-container-hotel">
                     <img src="{{ $hotel->image_url ?? asset('images/default-hotel.jpg') }}" alt="{{ $hotel->name }}">
 

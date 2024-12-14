@@ -33,4 +33,9 @@ class Activity extends Model
     {
         return $this->belongsTo(Item::class, 'id_item');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'item_id', 'id_item');
+    }
 }

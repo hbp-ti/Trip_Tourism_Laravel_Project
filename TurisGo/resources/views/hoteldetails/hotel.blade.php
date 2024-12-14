@@ -15,7 +15,7 @@
 
     <!-- Header Section -->
     <section class="header">
-        <h1>{{ $hotel->name }}<br>{{ $hotel->location }}</h1>
+        <h1>{{ $hotel->name }}</h1>
     </section>
 
     <!-- Image Slider -->
