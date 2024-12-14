@@ -59,3 +59,74 @@ document.querySelectorAll('.nav-links li a').forEach(link => {
         this.classList.add('active');
     });
 });
+
+$(document).ready(function () {
+    // Mock de notificações
+    const notifications = [
+        { id: 1, title: "New Tour Added", description: "A new tour is available now!", isRead: false },
+        { id: 2, title: "Booking Confirmation", description: "Your booking has been confirmed.", isRead: true }
+    ];
+
+    const notificationButton = $('#notificationButton');
+    const notificationPopup = $('#liveToast');
+    const notificationContent = $('#accordionExample');
+
+    // Exibe ou oculta o popup de notificações
+    notificationButton.on('click', function () {
+        notificationPopup.toast('show');
+        loadNotifications();
+    });
+
+    // Carrega notificações dinamicamente
+    function loadNotifications() {
+        notificationContent.html(""); // Limpa o conteúdo anterior
+
+        if (notifications.length === 0) {
+            notificationContent.html("<p>No notifications</p>");
+            return;
+        }
+
+        notifications.forEach(notification => {
+            const notificationClass = notification.isRead ? "notification-read" : "notification-unread";
+            notificationContent.append(`
+                <div class="accordion-item ${notificationClass}" data-id="${notification.id}">
+                    <h2 class="accordion-header" id="heading${notification.id}">
+                        <button class="accordion-button ${notificationClass}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${notification.id}" aria-expanded="true" aria-controls="collapse${notification.id}">
+                            ${notification.title}
+                        </button>
+                    </h2>
+                    <div id="collapse${notification.id}" class="accordion-collapse collapse" aria-labelledby="heading${notification.id}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            ${notification.description}
+                        </div>
+                    </div>
+                </div>
+            `);
+        });
+    }
+
+    // Marcar notificação como lida
+    $(document).on('click', '.accordion-button', function () {
+        const notificationId = $(this).closest('.accordion-item').data('id');
+        const notification = notifications.find(n => n.id === notificationId);
+        if (notification && !notification.isRead) {
+            notification.isRead = true;
+            loadNotifications();
+        }
+    });
+
+    // Excluir todas as notificações
+    $('#trash-icon').on('click', function () {
+        notifications.length = 0;  // Limpa todas as notificações
+        loadNotifications();
+    });
+
+    // Fechar o toast ao clicar no X
+    $('.close-toast').on('click', function () {
+        notificationPopup.toast('hide');
+    });
+
+    // Exibir o toast
+    document.getElementById('liveToast').classList.add('show');
+    document.getElementById('liveToast').classList.remove('show');
+});

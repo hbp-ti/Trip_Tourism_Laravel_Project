@@ -369,3 +369,165 @@ body {
 #logoutButtonArrow {
     margin-left: 90px; /* Ajusta o alinhamento para o botão de logout */
 }
+
+/* Ícone de notificação */
+.notification-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.notification-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Container do toast de notificação */
+.toast-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 9999;
+}
+
+/* Toast */
+.toast {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden;
+}
+
+/* Exibição do toast quando ativado */
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Cabeçalho do toast */
+.toast-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f8f8f8;
+    border-radius: 8px 8px 0 0;
+}
+
+.notification-bell {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.toast-title {
+    font-weight: bold;
+    flex-grow: 1;
+    font-size: 16px;
+}
+
+.trash-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-toast {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+/* Corpo do toast */
+.toast-body {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilo da lista de notificações */
+.toast-accordion {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilo de cada item de notificação no acordeão */
+.toast-accordion .notification-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toast-accordion .notification-item:hover {
+    background-color: #f0f0f0;
+}
+
+.toast-accordion .accordion-button {
+    text-align: left;
+    padding: 10px;
+    width: 100%;
+    background-color: #f8f8f8;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.toast-accordion .accordion-collapse {
+    padding: 10px;
+    background-color: #fafafa;
+    font-size: 12px;
+    color: #333;
+}
+
+/* Estilo de notificação lida */
+.notification-read {
+    background-color: #e0e0e0;
+}
+
+.notification-unread {
+    background-color: #f5f5f5;
+}
+
+/* Configuração da animação do ícone de notificação */
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.toast.show {
+    animation: slideUp 0.5s ease-out;
+}
+
+/* Adicionar setas para abrir/fechar notificações */
+.accordion-button::after {
+    content: '\2193'; /* Seta para baixo */
+    font-size: 18px;
+    color: #888;
+    float: right;
+    transition: transform 0.3s ease;
+}
+
+.accordion-button.collapsed::after {
+    content: '\2191'; /* Seta para cima */
+    transform: rotate(180deg); /* Rotaciona a seta quando a notificação está fechada */
+}
+
+/* Estilo do botão de fechar */
+.close-toast {
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+}

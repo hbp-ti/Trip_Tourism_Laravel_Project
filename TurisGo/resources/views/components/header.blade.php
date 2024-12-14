@@ -1,6 +1,9 @@
 <html lang="{{ app()->getLocale() }}">
 
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @vite(['resources/css/header.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/header.js'])
 
@@ -55,7 +58,7 @@
                     <div class="dropdown-header">
                         <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('images/default_user_image.png') }}" alt="{{ __('messages.Profile') }}" class="dropdown-profile-img">
                         <span class="dropdown-username">{{ Auth::user()->first_name }}</span>
-                        <a href="">
+                        <a href="javascript:void(0);" id="notificationButton">
                             <img src="{{ asset('images/notification_icon.png') }}" alt="{{ __('messages.Notification') }}" class="notification-icon">
                         </a>
                     </div>
@@ -94,6 +97,23 @@
             @else
             <a href="{{ route('auth.login.form', ['locale' => app()->getLocale()]) }}" class="login-button">{{ __('messages.Login') }}</a>
             @endauth
+        </div>
+    </div>
+
+    <!-- Toast de Notificação -->
+    <div class="toast-container">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <span class="notification-bell">&#x1F514;</span>
+                <strong class="toast-title">Notifications</strong>
+                <span id="trash-icon" class="trash-icon">&#x1F5D1;</span>
+                <button type="button" class="close-toast" aria-label="Close">&#10006;</button> <!-- Botão de fechar (X) -->
+            </div>
+            <div class="toast-body">
+                <div class="toast-accordion" id="accordionExample">
+                    <!-- As notificações serão carregadas dinamicamente aqui -->
+                </div>
+            </div>
         </div>
     </div>
 </nav>
