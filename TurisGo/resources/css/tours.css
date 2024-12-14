@@ -96,6 +96,8 @@ body {
     gap: 20px;
     max-width: 1000px;
     margin: 20px auto;
+    overflow: visible;
+    position: relative;
 }
 
 .exclusive-card {
@@ -128,6 +130,54 @@ body {
     margin-left: 30px;
 }
 
+.info-banner {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    color: white;
+    line-height: 20px;
+}
+
+.info-banner .price-info,
+.info-banner .geral-info {
+    width: 50%;
+    margin: 0;
+}
+
+.info-banner .price-info {
+    background-color: #C76A37;
+    padding: 10px;
+    text-align: center;
+}
+
+.info-banner .price-info span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.info-banner .geral-info {
+    background-color: #2081A5;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.info-banner .geral-info div {
+    display: flex;
+    align-items: center;
+}
+
+.info-banner .geral-info img {
+    margin-right: 5px;
+}
+
+
 /* Responsividade */
 @media (max-width: 992px) {
     .single-column-container {
@@ -139,6 +189,9 @@ body {
     max-width: 550px;
     width: 100%;
     text-align: left;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
 }
 
 .tourActivity-card {

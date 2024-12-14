@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    @vite(['resources/css/tourDetail.css', 'resources/js/tourDetail.js'])
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+
+    <!-- css e script  de mapa interativo -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    @vite(['resources/css/tourDetail.css', 'resources/js/tourDetail.js', 'resources/js/mapa.js'])
 </head>
 
 <body>
@@ -22,7 +26,7 @@
     <!-- Tour Content Section -->
     <div class="tour-details">
         <h2>{{ __('messages.Parque Jump') }}</h2>
-        <p>{{ __('messages.Explore the beautiful Albufeira coastline, visiting hidden spots and the famous Benagil cave. Swim and spot dolphins along the way (weather permitting) as you enjoy this tour. With a blend of adventure, nature, and relaxing, this tour offers the perfect mix for a day well spent with friends or family. Book today with a simple, quick, and secure booking to bypass the queues and kickstart an unforgettable adventure with memories to keep.') }}</p>
+        <p class="tour-details-text">{{ __('messages.Explore the beautiful Albufeira coastline, visiting hidden spots and the famous Benagil cave. Swim and spot dolphins along the way (weather permitting) as you enjoy this tour. With a blend of adventure, nature, and relaxing, this tour offers the perfect mix for a day well spent with friends or family. Book today with a simple, quick, and secure booking to bypass the queues and kickstart an unforgettable adventure with memories to keep.') }}</p>
 
         <!-- Image Slider -->
         <div class="image-slider">
@@ -34,18 +38,10 @@
             <h3 class="section-title">{{ __('messages.Direction') }}</h3>
             <hr class="section-divider" style="background-color: #C76A37;">
         </div>
+
+        <!-- Mapa Interativo -->
         <div id="map"></div>
-        <div class="map-container">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31255.612595920426!2d-8.4463744!3d40.574588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd22ebf03068b2b3%3A0x833c2e505b1b476c!2s%C3%81gueda%2C%20Portugal!5e0!3m2!1sen!2spt!4v1696420912345!5m2!1sen!2spt"
-                width="100%"
-                height="550px"
-                style="border:8px;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
+
         <div class="button-group">
             <button class="btn btn-primary">{{ __('messages.Open') }}</button>
             <button class="btn btn-secondary">{{ __('messages.Download') }}</button>
