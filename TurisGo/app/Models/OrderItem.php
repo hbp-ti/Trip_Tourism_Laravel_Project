@@ -21,7 +21,7 @@ class OrderItem extends Model
         'train_people_count',
         'order_id',
         'item_id',
-        'is_Active'
+        'is_active'
     ];
 
     public function order()
