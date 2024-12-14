@@ -195,5 +195,12 @@ return [
     'Free WiFi' => 'WiFi grátis',
     'Bar' => 'Bar',
     'Free Parking' => 'Estacionamento grátis',
-    'Non-smoking rooms' => 'Quartos para não fumantes'
+    'Non-smoking rooms' => 'Quartos para não fumantes',
+    'Country' => 'País',
+    'City' => 'Cidade',
+    'Zip Code' => 'Código Postal',
+    'Street' => 'Rua',
+    'Coordinates' => 'Coordenadas',
+    'Lat' => 'Lat',
+    'Lon' => 'Lon'
 ];

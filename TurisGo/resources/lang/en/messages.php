@@ -195,5 +195,12 @@ return [
     'Free WiFi' => 'Free WiFi',
     'Bar' => 'Bar',
     'Free Parking' => 'Free Parking',
-    'Non-smoking rooms' => 'Non-smoking rooms'
+    'Non-smoking rooms' => 'Non-smoking rooms',
+    'Country' => 'Country',
+    'City' => 'City',
+    'Zip Code' => 'Zip Code',
+    'Street' => 'Street',
+    'Coordinates' => 'Coordinates',
+    'Lat' => 'Lat',
+    'Lon' => 'Lon'
 ];

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $hotel->name }} - TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     @vite(['resources/css/hotel_details.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/hotel_details.js'])
 </head>
 
@@ -53,6 +54,14 @@
     <!-- Description Section -->
     <section class="hotel-description">
         <p>{{ $hotel->description }}</p>
+        <br><br>
+        <div class="location-info">
+            <p><i class="fas fa-globe"></i> <strong>{{ __('messages.Country') }}:</strong> {{ $hotel->country }}</p>
+            <p><i class="fas fa-city"></i> <strong>{{ __('messages.City') }}:</strong> {{ $hotel->city }}</p>
+            <p><i class="fas fa-envelope"></i> <strong>{{ __('messages.Zip Code') }}:</strong> {{ $hotel->zip_code }}</p>
+            <p><i class="fas fa-road"></i> <strong>{{ __('messages.Street') }}:</strong> {{ $hotel->street }}</p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>{{ __('messages.Coordinates') }}:</strong> {{ __('messages.Lat') }}: {{ $hotel->lat }}, {{ __('messages.Lon') }}: {{ $hotel->lon }}</p>
+        </div>
     </section>
 
 

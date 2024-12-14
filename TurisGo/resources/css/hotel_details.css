@@ -47,30 +47,38 @@ body {
   text-align: center;
   margin-top: 350px;
   margin-bottom: 50px;
-  width: 80%; /* Ajuste a largura do slider */
-  height: 600px; /* Aumenta a altura do slider para tornar a imagem mais alta */
+  width: 80%;
+  /* Ajuste a largura do slider */
+  height: 600px;
+  /* Aumenta a altura do slider para tornar a imagem mais alta */
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  justify-content: center; /* Centraliza a imagem dentro do contêiner */
-  align-items: center; /* Centraliza a imagem verticalmente */
+  justify-content: center;
+  /* Centraliza a imagem dentro do contêiner */
+  align-items: center;
+  /* Centraliza a imagem verticalmente */
   border-radius: 10px;
 }
 
 .slider-images {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  width: 100%; /* Garante que o contêiner de imagens ocupe toda a largura disponível */
+  width: 100%;
+  /* Garante que o contêiner de imagens ocupe toda a largura disponível */
 }
 
 .slider-image {
-  width: 100%; /* Imagem ocupa 100% da largura do contêiner */
-  height: 100%; /* Garante que a altura da imagem seja 100% */
+  width: 100%;
+  /* Imagem ocupa 100% da largura do contêiner */
+  height: 100%;
+  /* Garante que a altura da imagem seja 100% */
   border-radius: 10px;
   object-fit: cover;
   transition: opacity 0.5s ease-in-out;
-  margin: 0 auto; /* Centraliza as imagens dentro do slider */
+  margin: 0 auto;
+  /* Centraliza as imagens dentro do slider */
 }
 
 .hidden {
@@ -85,7 +93,8 @@ body {
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
-  z-index: 10; /* Garante que as setas fiquem acima das imagens */
+  z-index: 10;
+  /* Garante que as setas fiquem acima das imagens */
 }
 
 .prev {
@@ -97,7 +106,8 @@ body {
   cursor: pointer;
   border-radius: 50%;
   position: absolute;
-  left: 10px; /* A seta da esquerda vai ficar dentro da área da imagem */
+  left: 10px;
+  /* A seta da esquerda vai ficar dentro da área da imagem */
 }
 
 .next {
@@ -109,10 +119,12 @@ body {
   cursor: pointer;
   border-radius: 50%;
   position: absolute;
-  right: 10px; /* Ajusta a seta da direita para ficar visível fora da área da imagem */
+  right: 10px;
+  /* Ajusta a seta da direita para ficar visível fora da área da imagem */
 }
 
-.prev:hover, .next:hover {
+.prev:hover,
+.next:hover {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -137,7 +149,8 @@ body {
 }
 
 .active-dot {
-  background-color: #C76A37; /* Mudando a cor para azul para evitar conflito */
+  background-color: #C76A37;
+  /* Mudando a cor para azul para evitar conflito */
 }
 
 
@@ -194,6 +207,7 @@ body {
   text-align: left;
   margin: 0 auto;
 }
+
 /* Facilities Section */
 .facilities {
   margin: auto;
@@ -210,7 +224,8 @@ body {
 .facility-icons {
   display: flex;
   justify-content: space-around;
-  gap: 20px; /* Espaço entre ícones */
+  gap: 20px;
+  /* Espaço entre ícones */
 }
 
 .icon {
@@ -221,15 +236,59 @@ body {
 }
 
 .icon img {
-  width: 1.5em; /* Define o tamanho com base no texto */
+  width: 1.5em;
+  /* Define o tamanho com base no texto */
   height: 1.5em;
-  margin-bottom: 5px; /* Espaço entre o ícone e o texto */
+  margin-bottom: 5px;
+  /* Espaço entre o ícone e o texto */
 }
 
 .icon span {
-  font-size: 1rem; /* Define o texto em tamanho padrão */
-  line-height: 1.2; /* Melhor espaçamento */
+  font-size: 1rem;
+  /* Define o texto em tamanho padrão */
+  line-height: 1.2;
+  /* Melhor espaçamento */
 }
+
+.location-info {
+  font-family: Arial, sans-serif;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  margin: 20px auto;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.location-info p {
+  display: flex;
+  align-items: center;
+  /* Alinha os ícones e o texto verticalmente */
+  margin: 10px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.location-info i {
+  margin-right: 10px;
+  /* Espaço entre o ícone e o texto */
+  font-size: 16px;
+  color: #C76A37;
+  /* Cor dos ícones */
+}
+
+.location-info strong {
+  font-weight: bold;
+  color: #000;
+  /* Destaque para os rótulos */
+}
+
+.location-info p:last-child {
+  margin-bottom: 0;
+  /* Remove o espaço extra no último item */
+}
+
 
 
 /* Availability Section Styling */
@@ -251,27 +310,34 @@ body {
   padding: 40px;
   background-color: #D9D9D9;
   display: flex;
-  justify-content: space-between; /* Garante que os itens fiquem distribuídos horizontalmente */
+  justify-content: space-between;
+  /* Garante que os itens fiquem distribuídos horizontalmente */
   gap: 20px;
   margin-bottom: 30px;
-  flex-wrap: nowrap; /* Impede que os itens se empilhem */
+  flex-wrap: nowrap;
+  /* Impede que os itens se empilhem */
 }
 
-.availability-form > div {
-  flex: 1; /* Faz com que os inputs e selects ocupem o mesmo espaço */
-  min-width: 200px; /* Define um tamanho mínimo para cada campo */
+.availability-form>div {
+  flex: 1;
+  /* Faz com que os inputs e selects ocupem o mesmo espaço */
+  min-width: 200px;
+  /* Define um tamanho mínimo para cada campo */
 }
 
 .availability-form label {
   font-size: 14px;
   font-weight: bold;
-  display: block; /* Garante que o label ocupe toda a linha */
-  margin-bottom: 5px; /* Espaço entre label e input */
+  display: block;
+  /* Garante que o label ocupe toda a linha */
+  margin-bottom: 5px;
+  /* Espaço entre label e input */
 }
 
 .availability-form input,
 .availability-form select {
-  width: 100%; /* Faz o input ocupar todo o espaço */
+  width: 100%;
+  /* Faz o input ocupar todo o espaço */
   padding: 8px;
   border-radius: 8px;
   border: none;
@@ -286,7 +352,8 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  align-self: flex-end; /* Alinha o botão na parte inferior direita */
+  align-self: flex-end;
+  /* Alinha o botão na parte inferior direita */
   margin-top: 15px;
 }
 
@@ -299,38 +366,46 @@ body {
 
 .availability-table {
   width: 100%;
-  border-collapse: collapse; /* Remove espaçamento entre células */
+  border-collapse: collapse;
+  /* Remove espaçamento entre células */
   font-size: 14px;
   margin: 0 auto;
   background-color: #f5f5f5;
-  border-radius: 8px; /* Bordas arredondadas externas da tabela */
-  overflow: hidden; /* Garantir que o conteúdo da tabela não ultrapasse as bordas arredondadas */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra para um efeito mais destacado (opcional) */
+  border-radius: 8px;
+  /* Bordas arredondadas externas da tabela */
+  overflow: hidden;
+  /* Garantir que o conteúdo da tabela não ultrapasse as bordas arredondadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Adiciona sombra para um efeito mais destacado (opcional) */
 }
+
 .availability-table thead {
-  
+
   background-color: #D9D9D9;
 }
 
 .availability-table thead th {
-  
+
   padding: 15px;
   text-align: left;
   font-weight: bolder;
 }
 
 .availability-table tbody tr {
-  border-bottom: 1px solid #ddd; /* Linha divisória apenas entre as linhas do corpo */
+  border-bottom: 1px solid #ddd;
+  /* Linha divisória apenas entre as linhas do corpo */
 }
 
 .availability-table tbody tr:last-child {
-  border-bottom: none; /* Remove linha abaixo da última linha */
+  border-bottom: none;
+  /* Remove linha abaixo da última linha */
 }
 
 .availability-table td {
   padding: 12px 15px;
   text-align: left;
-  border: none; /* Remove linhas internas desnecessárias nas células */
+  border: none;
+  /* Remove linhas internas desnecessárias nas células */
 }
 
 /* Botões internos */
@@ -373,7 +448,8 @@ body {
 .reviews-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px; /* Espaço entre as caixas de avaliações */
+  gap: 15px;
+  /* Espaço entre as caixas de avaliações */
   justify-content: space-between;
 }
 
@@ -381,11 +457,13 @@ body {
 .review-box {
   background: #f4f4f4;
   padding: 20px;
-  width: 32%; /* Aumenta a largura das caixas */
+  width: 32%;
+  /* Aumenta a largura das caixas */
   box-sizing: border-box;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 240px; /* Ajusta a altura das caixas */
+  height: 240px;
+  /* Ajusta a altura das caixas */
 }
 
 /* Header of the review with image and name */
@@ -418,21 +496,24 @@ body {
   font-size: 12px;
   margin-top: 10px;
   color: #555;
-  max-height: 60px; /* Aumenta a altura para o trecho da avaliação */
+  max-height: 60px;
+  /* Aumenta a altura para o trecho da avaliação */
   overflow: hidden;
 }
 
 /* "Read More" link */
 .read-more {
   margin-top: 10px;
-  color: #f57c00; /* Cor laranja */
+  color: #f57c00;
+  /* Cor laranja */
   cursor: pointer;
 }
 
 /* Buttons at the bottom of reviews */
 .reviews-buttons {
   display: flex;
-  gap: 10px; /* Espaço entre os botões */
+  gap: 10px;
+  /* Espaço entre os botões */
   margin-top: 20px;
 }
 
@@ -490,15 +571,22 @@ body {
 /* Flexbox layout for the images */
 .hotels {
   display: flex;
-  justify-content: space-between; /* Espaço uniforme entre as imagens */
-  gap: 10px; /* Espaçamento entre as imagens */
-  flex-wrap: wrap; /* Garante que a linha quebre se necessário */
+  justify-content: space-between;
+  /* Espaço uniforme entre as imagens */
+  gap: 10px;
+  /* Espaçamento entre as imagens */
+  flex-wrap: wrap;
+  /* Garante que a linha quebre se necessário */
 }
 
 /* Tamanho das imagens */
 .hotels img {
-  width: 22%; /* Faz com que cada imagem ocupe 22% da largura do contêiner */
-  height: auto; /* Mantém a proporção da imagem */
-  object-fit: cover; /* Garante que as imagens cubram a área sem distorção */
-  border-radius: 8px; /* Opcional: arredonda os cantos das imagens */
+  width: 22%;
+  /* Faz com que cada imagem ocupe 22% da largura do contêiner */
+  height: auto;
+  /* Mantém a proporção da imagem */
+  object-fit: cover;
+  /* Garante que as imagens cubram a área sem distorção */
+  border-radius: 8px;
+  /* Opcional: arredonda os cantos das imagens */
 }

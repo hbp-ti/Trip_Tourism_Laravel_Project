@@ -296,7 +296,27 @@ select {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.location-info {
+    margin-top: auto; /* Posiciona as informações no final da seção de texto */
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Espaço entre as linhas */
+    font-size: 13px;
+    color: #666;
+    margin-top: 130px;
+    margin-left: 30px;
+    padding: 10px;
+}
 
+.location-info i {
+    margin-right: 5px;
+    color: #C76A37; /* Cor dos ícones */
+}
+
+.location-info span {
+    display: flex;
+    align-items: center; /* Alinha ícones e texto na mesma linha */
+}
 
 
 .hotel-card h2, p {

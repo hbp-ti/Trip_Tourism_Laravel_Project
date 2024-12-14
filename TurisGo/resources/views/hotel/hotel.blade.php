@@ -13,7 +13,7 @@
     <!-- SweetAlert para popups -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!-- Flatpickr CSS -->
@@ -107,10 +107,16 @@
                 <div class="text-container">
                     <h2>{{ $hotel->name }}</h2>
                     <p>{{ $hotel->description }}</p>
+                    <div class="location-info">
+                        <span><i class="fas fa-globe"></i> {{ $hotel->country }}</span>
+                        <span><i class="fas fa-city"></i> {{ $hotel->city }}</span>
+                        <span><i class="fas fa-road"></i> {{ $hotel->street }}</span>
+                    </div>
                 </div>
             </a>
             @endforeach
         </div>
+
 
 
         <!-- Adicionando os links de paginação -->
