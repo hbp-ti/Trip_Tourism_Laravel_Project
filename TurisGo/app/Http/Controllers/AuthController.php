@@ -210,74 +210,146 @@ class AuthController extends Controller
     }
 
     public function showProfile(Request $request)
-{
-    $locale = $request->route('locale'); 
+    {
+        $locale = $request->route('locale');
 
-    if (!Auth::check()) {
-        return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Not Authorized');
+        if (!Auth::check()) {
+            return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Not Authorized');
+        }
+
+        $user = Auth::user();
+
+        $activeReservations = OrderItem::where('is_active', true)
+            ->whereHas('order', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->get();
+
+        $expiredReservations = OrderItem::where('is_active', false)
+            ->whereHas('order', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->get();
+
+        return view('auth.profile', compact('user', 'activeReservations', 'expiredReservations', 'locale'));
     }
 
-    $user = Auth::user();
+    public function editProfile(Request $request)
+    {
+        $locale = $request->route('locale');
 
-    $activeReservations = OrderItem::where('is_active', true)
-        ->whereHas('order', function ($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })
-        ->get();
+        if (!Auth::check()) {
+            return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Not Authorized');
+        }
 
-    $expiredReservations = OrderItem::where('is_active', false)
-        ->whereHas('order', function ($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })
-        ->get();
-
-    return view('auth.profile', compact('user', 'activeReservations', 'expiredReservations', 'locale'));
-}
-
-public function editProfile(Request $request)
-{
-    $locale = $request->route('locale');
-
-    if (!Auth::check()) {
-        return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Not Authorized');
+        $user = Auth::user();
+        return view('auth.edit-profile', compact('user', 'locale'));
     }
 
-    $user = Auth::user();
-    return view('auth.edit-profile', compact('user', 'locale'));
-}
+    public function updateProfile(Request $request)
+    {
+        $locale = $request->route('locale');
 
-public function updateProfile(Request $request)
-{
-    $locale = $request->route('locale');
+        if (!Auth::check()) {
+            return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Not Authorized');
+        }
 
-    if (!Auth::check()) {
-        return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Not Authorized');
+        $validatedData = $request->validate([
+            'first_name' => 'required|max:20',
+            'last_name' => 'required|max:20',
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'username' => 'required|max:20|unique:users,username,' . Auth::id(),
+            'phone' => 'required|integer',
+            'birth_date' => 'required|date',
+        ]);
+
+        $user = Auth::user();
+        $user->update($validatedData);
+
+        $popup = PopupHelper::showPopup(
+            'Profile Updated!',
+            'Your profile has been updated successfully.',
+            'success',
+            'OK',
+            false,
+            '',
+            5000
+        );
+
+        return redirect()->route('auth.profile.show', ['locale' => $locale])->with('popup', $popup);
     }
 
-    $validatedData = $request->validate([
-        'first_name' => 'required|max:20',
-        'last_name' => 'required|max:20',
-        'email' => 'required|email|unique:users,email,' . Auth::id(),
-        'username' => 'required|max:20|unique:users,username,' . Auth::id(),
-        'phone' => 'required|integer',
-        'birth_date' => 'required|date',
-    ]);
+    public function updatePassword(Request $request)
+    {
+        // Pegando a localidade da rota, se aplicável
+        $locale = $request->route('locale');
 
-    $user = Auth::user();
-    $user->update($validatedData);
+        // Verifica se o usuário está autenticado
+        if (!Auth::check()) {
+            return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Not Authorized');
+        }
 
-    $popup = PopupHelper::showPopup(
-        'Profile Updated!',
-        'Your profile has been updated successfully.',
-        'success',
-        'OK',
-        false,
-        '',
-        5000
-    );
+        $validatedData = $request->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required|min:8|confirmed',
+        ]);
 
-    return redirect()->route('auth.profile.show', ['locale' => $locale])->with('popup', $popup);
-}
+        $user = Auth::user();
+
+        if (!Hash::check($validatedData['oldPassword'], $user->password)) {
+
+            // Exibindo um popup de sucesso
+            $popup = PopupHelper::showPopup(
+                'Password not updated!',
+                'Error updating your password!',
+                'error',
+                'OK',
+                false,
+                '',
+                5000
+            );
+            return redirect()->back()->with('popup', $popup);
+        }
+
+        $user->password = Hash::make($validatedData['newPassword']);
+        $user->save();
+
+        // Exibindo um popup de sucesso
+        $popup = PopupHelper::showPopup(
+            'Password Updated!',
+            'Your password has been updated successfully.',
+            'success',
+            'OK',
+            false,
+            '',
+            5000
+        );
+
+        // Redirecionando com sucesso
+        return redirect()->route('auth.profile.show', ['locale' => $locale])->with('popup', $popup);
+    }
+
+    public function updateProfilePicture(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Not Authorized'], 401);
+        }
+
+        $user = Auth::user();
+
+        if ($request->hasFile('profile_picture')) {
+            $file = $request->file('profile_picture');
+            $path = $file->store('profile_pictures', 'public'); // Salvar a imagem no diretório "public/profile_pictures"
+
+            // Atualize a imagem do perfil no banco de dados
+            $user->profile_picture = $path;
+            $user->save();
+
+            return response()->json(['success' => 'Profile picture updated successfully!']);
+        }
+
+        return response()->json(['error' => 'No file uploaded'], 400);
+    }
 
     // Dentro do AuthController
 

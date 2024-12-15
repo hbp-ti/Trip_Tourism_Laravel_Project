@@ -118,26 +118,25 @@
             <hr class="title-line-orange">
         </div>
 
+        <!-- Search Form Section -->
         <div class="availability-form">
-            <form action="" method="GET">
-                <div class="form-group">
-                    <label for="checkin">{{ __('messages.Check-in Date') }}</label>
-                    <input type="date" id="checkin" name="checkin" required>
-                </div>
-                <div class="form-group">
-                    <label for="checkout">{{ __('messages.Checkout Date') }}</label>
-                    <input type="date" id="checkout" name="checkout" required>
-                </div>
-                <div class="form-group">
-                    <label for="guests">{{ __('messages.People') }}</label>
-                    <select id="guests" name="guests" required>
-                        <option value="1">{{ __('messages.1 Adult') }}</option>
-                        <option value="2">{{ __('messages.2 Adults') }}</option>
-                        <option value="3">{{ __('messages.3 Adults') }}</option>
-                    </select>
-                </div>
-                <button type="submit">{{ __('messages.Search') }}</button>
-            </form>
+            <div class="form-group">
+                <label for="checkin">{{ __('messages.Check-in Date') }}</label>
+                <input type="date" id="checkin" name="checkin" required>
+            </div>
+            <div class="form-group">
+                <label for="checkout">{{ __('messages.Checkout Date') }}</label>
+                <input type="date" id="checkout" name="checkout" required>
+            </div>
+            <div class="form-group">
+                <label for="guests">{{ __('messages.People') }}</label>
+                <select id="guests" name="guests" required>
+                    <option value="1">{{ __('messages.1 Adult') }}</option>
+                    <option value="2">{{ __('messages.2 Adults') }}</option>
+                    <option value="3">{{ __('messages.3 Adults') }}</option>
+                </select>
+            </div>
+            <button type="submit">{{ __('messages.Search') }}</button>
         </div>
 
         <div class="availability-table-container">

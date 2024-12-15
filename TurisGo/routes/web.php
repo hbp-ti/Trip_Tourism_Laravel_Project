@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\TrainController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TourController;
-use Illuminate\Support\Facades\Mail;
 
 Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
 Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('upload.handle');
@@ -19,6 +18,15 @@ Route::get('/exemploUpload', function () {
 Route::get('/', function () {
     return redirect()->route('homepage', ['locale' => 'en']);
 });
+
+
+Route::middleware('auth')->group(function() {
+    Route::get('/notifications', [NotificationController::class, 'showNotifications'])->name('notifications');
+    Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'updateNotification'])->name('update.notification');
+    Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification'])->name('delete.notification');
+    Route::delete('/notifications/delete-all', [NotificationController::class, 'deleteAllNotifications'])->name('delete.notifications');
+});
+
 
 Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () {
 
@@ -39,7 +47,9 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         Route::middleware('auth')->group(function () {
             Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile.show');
             Route::get('/profile/edit', [AuthController::class, 'editProfile'])->name('profile.edit');
-            Route::put('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+            Route::put('/profileUpdate', [AuthController::class, 'updateProfile'])->name('profile.update');
+            Route::post('/profile/update-picture', [AuthController::class, 'updateProfilePicture'])->name('profile.update.picture');
+            Route::put('/passwordUpdate', [AuthController::class, 'updatePassword'])->name('profile.updatePassword');
             Route::get('/cart', [AuthController::class, 'showCart'])->name('cart.show');
             Route::post('/cart/{itemId}/add', [AuthController::class, 'addToCart'])->name('cart.add');
             Route::delete('/cart/{cartItemId}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
@@ -70,7 +80,6 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         return view('contact.contact');
     })->name("contact");
 
-
     // Página principal de compra de tickets
     Route::get('/buyTicketTrain', [TrainController::class, 'stations'])->name('tickets');
 
@@ -88,10 +97,6 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
     Route::get('/payment3', function () {
         return view('payment.payment3');
     })->name("payment3");
-
-
-
-   
 
 
     Route::get('/tourDetail', function () {

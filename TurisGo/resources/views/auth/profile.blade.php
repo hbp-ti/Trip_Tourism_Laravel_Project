@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <!-- Incluir o SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     @vite(['resources/css/profile.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/profile.js'])
 </head>
 
@@ -13,21 +16,21 @@
     <x-header /> <!-- Componente de Cabeçalho -->
 
     <div class="header">
-    <!-- Container do Cabeçalho -->
-    <div class="profile-pic-container">
-        <img src="{{ asset('images/profile.png') }}" class="profile-pic" alt="Profile Picture">
-        <div class="button-overlay">
-            <button id="changetour" class="edit-profile-pic">
-                <img src="{{ asset('images/changetour.png') }}" alt="Edit Icon">
-            </button>
+        <!-- Container do Cabeçalho -->
+        <div class="profile-pic-container">
+            <img src="{{ asset('images/profile.png') }}" class="profile-pic" alt="Profile Picture">
+            <div class="button-overlay">
+                <button id="changeprofilepic" class="edit-profile-pic">
+                    <img src="{{ asset('images/changetour.png') }}" alt="Edit Icon">
+                </button>
+            </div>
+            <input type="file" id="uploadInput" accept="image/*" style="display: none;">
         </div>
-        <input type="file" id="uploadInput" accept="image/*" style="display: none;">
+        <div class="header-text">
+            <h1 class="header-title">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
+            <p class="header-subtitle">{{ __('Profile') }}</p>
+        </div>
     </div>
-    <div class="header-text">
-        <h1 class="header-title">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
-        <p class="header-subtitle">{{ __('Profile') }}</p>
-    </div>
-</div>
     <!-- Conteúdo do Perfil -->
     <div class="profile-content">
         <img src="{{ asset('images/fundoprofile.png') }}" class="profile-background" alt="Profile Background">
@@ -55,32 +58,45 @@
                 <input type="text" value="{{ Auth::user()->address ?? __('messages.Not provided') }}" readonly>
             </div>
             <div class="form-group">
-    <label>{{ __('messages.Password') }}</label>
-    <button id="changePasswordButton" class="change-password-btn" >{{ __('messages.Change Password') }}</button>
-</div>
+                <label>{{ __('messages.Password') }}</label>
+                <button id="changePasswordButton" class="change-password-btn">{{ __('messages.Change Password') }}</button>
+            </div>
 
-<!-- Popup de Mudança de Password -->
-<div id="passwordPopup" class="popup hidden">
-    <div class="popup-content">
-        <h2>{{ __('messages.Change Password') }}</h2>
-        <div class="form-group">
-            <label for="oldPassword">{{ __('messages.Current Password') }}</label>
-            <input type="password" id="oldPassword" placeholder="Enter last password">
-        </div>
-        <div class="form-group">
-            <label for="newPassword">{{ __('messages.New Password') }}</label>
-            <input type="password" id="newPassword" placeholder="Enter new password">
-        </div>
-        <div class="form-group">
-            <label for="confirmPassword">{{ __('messages.Confirm New Password') }}</label>
-            <input type="password" id="confirmPassword" placeholder="Confirm new password">
-        </div>
-        <div class="popup-buttons">
-            <button id="cancelChangePassword" class="cancel-btn">Cancel</button>
-            <button id="confirmChangePassword" class="confirm-btn">Confirm</button>
-        </div>
-    </div>
-</div>
+            <!-- Popup de Mudança de Password -->
+            <!-- Popup de Mudança de Password -->
+            <div id="passwordPopup" class="popup hidden">
+                <div class="popup-content">
+                    <h2>{{ __('messages.Change Password') }}</h2>
+
+                    <form id="changePasswordForm" method="POST" action="{{ route('auth.profile.updatePassword', ['locale' => app()->getlocale()]) }}">
+                        @csrf
+                        <!-- Campo para senha antiga -->
+                        <div class="form-group">
+                            <label for="oldPassword">{{ __('messages.Current Password') }}</label>
+                            <input type="password" id="oldPassword" name="oldPassword" placeholder="{{ __('messages.Enter last password') }}" required>
+                        </div>
+
+                        <!-- Campo para nova senha -->
+                        <div class="form-group">
+                            <label for="newPassword">{{ __('messages.New Password') }}</label>
+                            <input type="password" id="newPassword" name="newPassword" placeholder="{{ __('messages.Enter new password') }}" required>
+                        </div>
+
+                        <!-- Campo para confirmação da nova senha -->
+                        <div class="form-group">
+                            <label for="confirmPassword">{{ __('messages.Confirm New Password') }}</label>
+                            <input type="password" id="confirmPassword" name="newPassword_confirmation" placeholder="{{ __('messages.Confirm new password') }}" required>
+                        </div>
+
+                        <!-- Botões -->
+                        <div class="popup-buttons">
+                            <button type="button" id="cancelChangePassword" class="cancel-btn">Cancel</button>
+                            <button type="submit" id="confirmChangePassword" class="confirm-btn">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
 
         </div>
 
