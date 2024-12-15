@@ -99,21 +99,39 @@
             @endauth
         </div>
     </div>
-
-    <!-- Toast de Notificação -->
     <div class="toast-container">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <span class="notification-bell">&#x1F514;</span>
-                <strong class="toast-title">Notifications</strong>
-                <span id="trash-icon" class="trash-icon">&#x1F5D1;</span>
-                <button type="button" class="close-toast" aria-label="Close">&#10006;</button> <!-- Botão de fechar (X) -->
-            </div>
-            <div class="toast-body">
-                <div class="toast-accordion" id="accordionExample">
-                    <!-- As notificações serão carregadas dinamicamente aqui -->
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <span class="notification-bell">&#x1F514;</span>
+            <strong class="toast-title">Notifications</strong>
+            <span id="trash-icon" class="trash-icon">&#x1F5D1;</span>
+            <button type="button" class="close-toast" aria-label="Close">&#10006;</button>
+        </div>
+        <div class="toast-body">
+            <div class="toast-accordion">
+                <!-- Notificação 1 -->
+                <div class="notification-item">
+                    <div class="notification-header">
+                        <span>New Tour Added</span>
+                        <button class="toggle-button">▼</button>
+                    </div>
+                    <div class="notification-content" style="display: none;">
+                        A new tour is available now!
+                    </div>
+                </div>
+                <!-- Notificação 2 -->
+                <div class="notification-item">
+                    <div class="notification-header">
+                        <span>Booking Confirmation</span>
+                        <button class="toggle-button">▼</button>
+                    </div>
+                    <div class="notification-content" style="display: none;">
+                        Your booking has been confirmed.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 </nav>

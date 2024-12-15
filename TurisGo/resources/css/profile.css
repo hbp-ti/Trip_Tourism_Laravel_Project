@@ -36,15 +36,24 @@
     /* Espaço entre a imagem e o texto */
 }
 
+.profile-pic-container {
+    position: relative; /* Garante que os elementos filhos sejam posicionados relativamente a este container */
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .edit-profile-pic {
     position: absolute;
-    bottom: 120px;
-    right: 930px;
+    bottom: 10px; /* Ajuste para posicionar dentro do círculo */
+    right: 10px;
     background-color: #ffffff;
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
@@ -53,8 +62,8 @@
 }
 
 .edit-profile-pic img {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
 }
 
 

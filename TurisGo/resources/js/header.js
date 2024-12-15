@@ -130,3 +130,15 @@ $(document).ready(function () {
     document.getElementById('liveToast').classList.add('show');
     document.getElementById('liveToast').classList.remove('show');
 });
+document.querySelectorAll('.toggle-button').forEach(button => {
+    button.addEventListener('click', function () {
+        const content = this.parentElement.nextElementSibling; // Seleciona o conteúdo
+        const isVisible = content.style.display === 'block';
+        
+        // Alterna a seta
+        this.textContent = isVisible ? '▼' : '▲';
+        
+        // Mostra ou oculta o conteúdo
+        content.style.display = isVisible ? 'none' : 'block';
+    });
+});

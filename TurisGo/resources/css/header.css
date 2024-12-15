@@ -457,13 +457,33 @@ body {
     margin: 0;
 }
 
-/* Estilo de cada item de notificação no acordeão */
 .toast-accordion .notification-item {
-    padding: 10px;
     border-bottom: 1px solid #ddd;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 10px;
 }
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.notification-content {
+    padding: 10px;
+    color: #333;
+    font-size: 14px;
+    display: none; /* Ocultar o conteúdo por padrão */
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
 
 .toast-accordion .notification-item:hover {
     background-color: #f0f0f0;
@@ -531,3 +551,4 @@ body {
     color: #888;
     cursor: pointer;
 }
+
