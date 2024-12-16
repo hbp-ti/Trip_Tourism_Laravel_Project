@@ -356,12 +356,13 @@ select {
 
 /* Estilo da barra lateral */
 .sidebar {
-    margin-top: 20px;
     height: 80%;
     width: 100%;
     max-width: 400px;
     position: fixed;
+    margin-top: 20px;
     right: 0;
+    top: 50%;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     background-color: white;
@@ -369,53 +370,45 @@ select {
     overflow-y: auto;
     transition: transform 0.43s ease-in-out;
     padding: 40px;
-    transform: translateX(100%);
+    transform: translateY(-50%) translateX(100%);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    z-index: 2;
 }
-
 .sidebar.active {
     transform: translateX(0);
+    transform: translateY(-50%) translateX(0);
 }
-
 .sidebar h2 {
     margin-top: 0;
     text-align: center;
 }
-
 .sidebar .filter-group {
     margin: 20px 0;
 }
-
 .sidebar .filter-group h3 {
     margin-bottom: 10px;
     display: flex;
 }
-
 .sidebar .filter-group h3 img {
     margin-right: 10px;
     width: 24px;
     height: 24px;
 }
-
 .sidebar .filter-group label {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 10px 0;
 }
-
 .sidebar .filter-group select {
     background-color: #f1f1f1;
 }
-
 /* Botão "Filter" */
 .filter {
     cursor: pointer;
     display: flex;
     align-items: center;
 }
-
 /* Estilos para o Toggle Switch */
 .switch {
     position: relative;
@@ -425,13 +418,11 @@ select {
     margin-right: 8px;
     /* Espaço entre o switch e o texto */
 }
-
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
-
 .slider {
     position: absolute;
     cursor: pointer;
@@ -443,7 +434,6 @@ select {
     transition: background-color 0.4s;
     border-radius: 34px;
 }
-
 .slider::before {
     content: "";
     position: absolute;
@@ -455,15 +445,12 @@ select {
     transition: transform 0.4s;
     border-radius: 50%;
 }
-
 .switch input:checked+.slider {
     background-color: #2081A5;
 }
-
 .switch input:checked+.slider::before {
     transform: translateX(26px);
 }
-
 .blur-overlay {
     position: fixed;
     top: 0;
@@ -475,6 +462,11 @@ select {
     display: none;
     z-index: 1;
 }
+
+.blur-overlay.active {
+    display: block;
+}
+
 /* Estilo para a navegação de paginação */
 .pagination {
     display: flex;

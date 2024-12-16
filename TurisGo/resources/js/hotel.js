@@ -50,15 +50,13 @@ const blurOverlay = document.getElementById('blur-overlay');
 toggleSidebar.addEventListener('click', (event) => {
     // Impede que o evento se propague
     event.stopPropagation();
-
     // Alterna a classe 'active' para a sidebar
     sidebar.classList.toggle('active');
-
     // Alterna a exibição do desfoque
     if (sidebar.classList.contains('active')) {
-        blurOverlay.style.display = 'block'; // Exibe o desfoque
+        blurOverlay.style.display = 'block';
     } else {
-        blurOverlay.style.display = 'none'; // Oculta o desfoque
+        blurOverlay.style.display = 'none';
     }
 });
 
@@ -69,12 +67,10 @@ window.addEventListener('click', () => {
         blurOverlay.style.display = 'none'; // Oculta o desfoque
     }
 });
-
 // Impedir que o clique na sidebar feche ela
 sidebar.addEventListener('click', (event) => {
     event.stopPropagation();
 });
-
 // Fechar a sidebar clicando no overlay de desfoque
 blurOverlay.addEventListener('click', () => {
     sidebar.classList.remove('active');
