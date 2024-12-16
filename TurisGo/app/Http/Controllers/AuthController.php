@@ -263,7 +263,7 @@ class AuthController extends Controller
             'birth_date' => 'required|date',
         ]);
 
-        $user = Auth::user();
+        $user = User::find(Auth::id());
         $user->update($validatedData);
 
         $popup = PopupHelper::showPopup(
@@ -294,7 +294,7 @@ class AuthController extends Controller
             'newPassword' => 'required|min:8|confirmed',
         ]);
 
-        $user = Auth::user();
+        $user = User::find(Auth::id());
 
         if (!Hash::check($validatedData['oldPassword'], $user->password)) {
 
@@ -312,7 +312,7 @@ class AuthController extends Controller
         }
 
         $user->password = Hash::make($validatedData['newPassword']);
-        $user->save();
+        $user->update();
 
         // Exibindo um popup de sucesso
         $popup = PopupHelper::showPopup(
@@ -331,11 +331,14 @@ class AuthController extends Controller
 
     public function updateProfilePicture(Request $request)
     {
+
+        $locale = $request->route('locale');
+
         if (!Auth::check()) {
             return response()->json(['error' => 'Not Authorized'], 401);
         }
 
-        $user = Auth::user();
+        $user = User::find(Auth::id());
 
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
@@ -343,12 +346,32 @@ class AuthController extends Controller
 
             // Atualize a imagem do perfil no banco de dados
             $user->profile_picture = $path;
-            $user->save();
+            $user->update();
 
-            return response()->json(['success' => 'Profile picture updated successfully!']);
+            $popupError = PopupHelper::showPopup(
+                'Error updating your profile picture!',
+                'Your profile picture couldnt be updated',
+                'success',
+                'OK',
+                false,
+                '',
+                5000
+            );
+
+            return redirect()->route('auth.profile.show', ['locale' => $locale])->with('popup', $popupError);
         }
 
-        return response()->json(['error' => 'No file uploaded'], 400);
+        $popup = PopupHelper::showPopup(
+            'Porfile picture Updated!',
+            'Your profile picture has been updated successfully.',
+            'success',
+            'OK',
+            false,
+            '',
+            5000
+        );
+
+        return redirect()->route('auth.profile.show', ['locale' => $locale])->with('popup', $popup);
     }
 
     // Dentro do AuthController

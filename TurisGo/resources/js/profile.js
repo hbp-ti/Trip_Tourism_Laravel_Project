@@ -62,7 +62,7 @@ document.getElementById('uploadInput').addEventListener('change', function (even
         reader.readAsDataURL(file);
     }
 });
-
+/*
 // Função para enviar a imagem ao servidor
 function updateProfilePicture(file) {
     const locale = document.documentElement.lang;
@@ -71,7 +71,10 @@ function updateProfilePicture(file) {
 
     // Exemplo de AJAX para enviar a imagem para o controlador
     $.ajax({
-        url: '/' + locale + '/profile/update-picture',
+        url: '/' + locale + '/auth/profile/update-picture',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         type: 'POST',
         data: formData,
         processData: false,
@@ -91,7 +94,7 @@ function updateProfilePicture(file) {
             });
         }
     });
-}
+}*/
 document.addEventListener('DOMContentLoaded', () => {
     const changePasswordButton = document.getElementById('changePasswordButton');
     const passwordPopup = document.getElementById('passwordPopup');
