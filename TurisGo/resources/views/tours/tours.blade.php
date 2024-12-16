@@ -7,7 +7,7 @@
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    @vite(['resources/css/tours.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/tour.js'])
+    @vite(['resources/css/tours.css', 'resources/css/pagination.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/tour.js'])
 </head>
 
 <body>
@@ -115,7 +115,7 @@
 
     <!-- Adicionando os links de paginação -->
     <div class="pagination">
-        {{ $tours->links() }}
+        {{ $tours->links('vendor.pagination.custom') }}
     </div>
     <x-footer />
 </body>

@@ -1,0 +1,51 @@
+
+/* Estilo para a navegação de paginação */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0 auto;
+    margin-bottom: 60px;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a, .pagination span {
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    color: #2081A5;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.4;
+}
+
+.pagination a:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para o item ativo */
+.pagination li.active a,
+.pagination li.active span {
+    background-color: #2081A5; /* Cor do fundo quando ativo */
+    color: white; /* Cor do texto */
+    border-color: #2081A5; /* Ajuste da borda do item ativo */
+    font-weight: bold; /* Negrito para destacar */
+}
+
+.pagination .disabled {
+    color: #ccc;
+}
+
+/* Ajustes responsivos para telas menores */
+@media (max-width: 768px) {
+    .pagination {
+        flex-direction: column;
+    }
+}
