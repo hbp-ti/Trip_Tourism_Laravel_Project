@@ -1,6 +1,6 @@
 <html lang="{{ app()->getLocale() }}">
 
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -103,7 +103,7 @@
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <span class="notification-bell">&#x1F514;</span>
-                <strong class="toast-title">Notifications</strong>
+                <strong class="toast-title">{{__('messages.Notifications')}}</strong>
                 <span id="trash-icon" class="trash-icon">&#x1F5D1;</span>
                 <button type="button" class="close-toast" aria-label="Close">&#10006;</button>
             </div>

@@ -136,6 +136,7 @@ document.querySelectorAll('.toggle-button').forEach(button => {
 
 $(document).ready(function () {
     const notificationsUrl = "/notifications";
+    const notificationUrl = "/notification";
     const $toastAccordion = $('#toast-accordion');
 
     // Função para carregar as notificações via AJAX
@@ -155,8 +156,8 @@ $(document).ready(function () {
                         const notificationItem = `
                             <div class="notification-item ${notificationClass}" data-id="${notification.id}">
                                 <div class="notification-header">
-                                    <span>${notification.title}</span>
                                     <button class="toggle-button">▼</button>
+                                    <span>${notification.title}</span>
                                     <span class="delete-icon trash-icon" data-id="${notification.id}">&#x1F5D1;</span> <!-- ícone de lixo -->
                                 </div>
                                 <div class="notification-content" style="display: none;">
@@ -167,38 +168,42 @@ $(document).ready(function () {
                         $toastAccordion.append(notificationItem);
                     });
 
-                    // Evento de clique para abrir/fechar notificações e atualizar status
-                    $('.toggle-button').on('click', function () {
-                        const $notificationItem = $(this).closest('.notification-item');
+                    // Delegação de eventos para abrir/fechar notificações e atualizar status
+                    $toastAccordion.on('click', '.notification-item', function (e) {
+                        const $notificationItem = $(this);
                         const $content = $notificationItem.find('.notification-content');
                         const isHidden = $content.is(':hidden');
                         const notificationId = $notificationItem.data('id');
 
-                        // Alternar visibilidade do conteúdo
-                        $content.toggle();
-                        $(this).text(isHidden ? '▲' : '▼');
+                        // Verifica se o clique não foi no ícone de exclusão
+                        if (!$(e.target).hasClass('trash-icon')) {
+                            // Alterna visibilidade do conteúdo
+                            $content.toggle();
+                            $(this).find('.toggle-button').text(isHidden ? '▲' : '▼'); // Alterar texto do botão, se necessário
 
-                        // Atualizar status para "lida" se necessário
-                        if (isHidden && $notificationItem.hasClass('notification-unread')) {
-                            $.ajax({
-                                url: `${notificationsUrl}/${notificationId}/mark-as-read`,
-                                method: 'POST',
-                                headers: {
-                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                },
-                                success: function () {
-                                    // Alterar classe para indicar que foi lida
-                                    $notificationItem.removeClass('notification-unread').addClass('notification-read');
-                                },
-                                error: function () {
-                                    console.error('Erro ao marcar a notificação como lida');
-                                }
-                            });
+                            // Atualizar status para "lida" se necessário
+                            if (isHidden && $notificationItem.hasClass('notification-unread')) {
+                                $.ajax({
+                                    url: `${notificationsUrl}/${notificationId}/mark-as-read`,
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
+                                    success: function () {
+                                        $notificationItem.removeClass('notification-unread').addClass('notification-read');
+                                    },
+                                    error: function () {
+                                        console.error('Erro ao marcar a notificação como lida');
+                                    }
+                                });
+                            }
                         }
                     });
 
-                    // Evento de clique para excluir uma notificação individual
-                    $('.delete-icon').on('click', function () {
+                    // Delegação de eventos para excluir uma notificação individual
+                    $toastAccordion.on('click', '.delete-icon', function (e) {
+                        e.stopPropagation(); // Impede que o clique no ícone de lixo acione o evento no item pai
+
                         const notificationId = $(this).data('id');
                         const $notificationItem = $(this).closest('.notification-item');
 
@@ -218,22 +223,24 @@ $(document).ready(function () {
                         });
                     });
                 } else {
-                    $toastAccordion.append('<div class="notification-item">Nenhuma notificação encontrada.</div>');
+                    $toastAccordion.append("<div class='notification-item'>{{__('messages.Notification not found.')}}</div>");
                 }
             },
             error: function () {
-                $toastAccordion.append('<div class="notification-item">Erro ao carregar notificações.</div>');
+                $toastAccordion.append("<div class='notification-item'>{{__('messages.Error getting notifications.')}}</div>");
             }
         });
     }
+
 
     // Chama a função para carregar as notificações
     loadNotifications();
 
     // Evento para excluir todas as notificações ao clicar no ícone de lixo no cabeçalho
-    $('#trash-icon').on('click', function () {
+    $('#trash-icon').on('click', function (e) {
+        e.preventDefault();
         $.ajax({
-            url: `${notificationsUrl}/delete-all`,
+            url: `${notificationUrl}/delete-all`,
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

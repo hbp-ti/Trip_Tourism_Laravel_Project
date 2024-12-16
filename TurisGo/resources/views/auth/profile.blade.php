@@ -20,7 +20,7 @@
         <div class="profile-pic-container">
             <img src="{{ asset('images/profile.png') }}" class="profile-pic" alt="Profile Picture">
             <div class="button-overlay">
-                <form action="{{ route('profile.update.picture', ['locale' => app()->getLocale()]) }}" method="POST"
+                <form action="{{ route('auth.profile.update.picture', ['locale' => app()->getLocale()]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <!-- Input de imagem -->
