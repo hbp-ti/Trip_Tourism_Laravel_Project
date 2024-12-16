@@ -75,7 +75,7 @@
                         </label>
                     </div>
 					
-					<a href="{{ route('payment2') }}" class="button buttonContinue">{{ __('messages.Continue') }}</a>
+					<a href="{{ route('payment2', ['locale' => app()->getLocale()]) }}" class="button buttonContinue">{{ __('messages.Continue') }}</a>
                 </div>
             </form>
         </section>

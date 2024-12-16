@@ -67,11 +67,13 @@
                     
                     <div class="paymentMethod">
                         <img src="/images/multibanco.png" alt="{{ __('messages.Multibanco') }}">
-                        <a href="{{ route('payment1') }}" class="button buttonChange">{{ __('messages.Change') }}</a>
+                        <a href="{{ route('payment1', ['locale' => app()->getLocale()]) }}" class="button buttonChange">{{ __('messages.Change') }}</a>
                     </div>
 
-                    <a href="{{ route('payment3') }}" class="button buttonPay">{{ __('messages.Pay') }}</a>
-                </div>
+                    <a href="{{ route('payment3', ['locale' => app()->getLocale()]) }}" class="button buttonPay">{{ __('messages.Pay') }}</a>
+                
+					<br><br>
+				</div>
             </form>
         </section>
     </div>

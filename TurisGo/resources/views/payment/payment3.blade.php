@@ -56,7 +56,11 @@
                     <p><span class="overviewInfoSymbol">&#x24D8</span>{{ __('messages.The receipt issued by the ATM serves as proof of payment. Please keep it for your records.') }}</p>
                 </div>
 				
+				<br>
+				
                 <a href="{{ route('homepage', ['locale' => app()->getLocale()]) }}" class="button buttonReturnHome">{{ __('messages.Return to Home') }}</a>
+				
+				<br><br>
             </form>
         </section>
     </div>
