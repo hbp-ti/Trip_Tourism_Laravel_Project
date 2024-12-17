@@ -53,59 +53,79 @@
                         <div class="line blue-line"></div>
                     </div>
                     <div class="buttons">
-                        <button class="transport-button">
-                            <img src="{{ asset('images/popupmapacarro.png') }}" alt="Car">
-                        </button>
-                        <button class="transport-button">
-                            <img src="{{ asset('images/popupmapacomboio.png') }}" alt="Train">
-                        </button>
-                        <button class="transport1-button">
-                            <img src="{{ asset('images/popupmapape.png') }}" alt="Walk">
-                        </button>
-                    </div>
+    <button id="carButton" class="transport-button">
+        <img src="{{ asset('images/popupmapacarro.png') }}" alt="Car">
+    </button>
+    <button id="trainButton" class="transport-button">
+        <img src="{{ asset('images/popupmapacomboio.png') }}" alt="Train">
+    </button>
+    <button id="walkButton" class="transport-button">
+        <img src="{{ asset('images/popupmapape.png') }}" alt="Walk">
+    </button>
+</div>
 
-                    <!-- Options com linha à frente -->
+ 
+<!-- Options com linha à frente -->
                     <div class="options-title">
                         <h4>{{ __('messages.Options') }}</h4>
                         <div class="line orange-line"></div>
                     </div>
-                    <div class="options">
-                        <!-- Toggles -->
-                        <div class="toggle-switch">
-                            <label for="tolls">{{ __('messages.Tolls') }}</label>
-                            <div class="toggle">
-                                <input type="checkbox" id="tolls" class="toggle-option">
-                                <span class="slider"></span>
-                            </div>
-                        </div>
-                        <div class="toggle-switch">
-                            <label for="radars">{{ __('messages.Radars') }}</label>
-                            <div class="toggle">
-                                <input type="checkbox" id="radars" class="toggle-option">
-                                <span class="slider"></span>
-                            </div>
-                        </div>
-                        <div class="toggle-switch">
-                            <label for="urbanAreas">{{ __('messages.Urban areas') }}</label>
-                            <div class="toggle">
-                                <input type="checkbox" id="urbanAreas" class="toggle-option">
-                                <span class="slider"></span>
-                            </div>
-                        </div>
-                        <div class="toggle-switch">
-                            <label for="customs">{{ __('messages.Customs') }}</label>
-                            <div class="toggle">
-                                <input type="checkbox" id="customs" class="toggle-option">
-                                <span class="slider"></span>
-                            </div>
-                        </div>
-                        <div class="toggle-switch">
-                            <label for="motorway">{{ __('messages.Motorway') }}</label>
-                            <div class="toggle">
-                                <input type="checkbox" id="motorway" class="toggle-option">
-                                <span class="slider"></span>
-                            </div>
-                        </div>
+                    <!-- Caixa de Informação do Comboio (Adicionar Aqui!) -->
+                    <div id="trainInfo" class="train-info hidden train-box">
+    <p><strong>São Bento → Aveiro</strong></p>
+    <p>
+        <img src="{{ asset('images/locmapa.png') }}" alt="Location Icon" style="width: 12px; vertical-align: middle;">
+        <span class="small-text">Rua São Mamede nº291 1312-123</span>
+    </p>
+    <p>
+        <img src="{{ asset('images/horamapa.png') }}" alt="Clock" style="width: 16px; margin-right: 5px;">
+        <span class="hora-text">12:23 - 14:02</span>
+    </p>
+</div>
+
+<!-- Options Section -->
+<div id="optionsContainer" class="options">
+    <div class="toggle-switch">
+        <label for="tolls">{{ __('messages.Tolls') }}</label>
+        <label class="toggle">
+            <input type="checkbox" id="tolls" class="toggle-option">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <div class="toggle-switch">
+        <label for="radars">{{ __('messages.Radars') }}</label>
+        <label class="toggle">
+            <input type="checkbox" id="radars" class="toggle-option">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <div class="toggle-switch">
+        <label for="urbanAreas">{{ __('messages.Urban areas') }}</label>
+        <label class="toggle">
+            <input type="checkbox" id="urbanAreas" class="toggle-option">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+
+
+<div class="toggle-switch">
+    <label for="customs">{{ __('messages.Customs') }}</label>
+    <label class="toggle">
+        <input type="checkbox" id="customs" class="toggle-option">
+        <span class="slider"></span>
+    </label>
+</div>
+
+<div class="toggle-switch">
+    <label for="motorway">{{ __('messages.Motorway') }}</label>
+    <label class="toggle">
+        <input type="checkbox" id="motorway" class="toggle-option">
+        <span class="slider"></span>
+    </label>
+</div>
+
+                      
                     </div>
 
                 </div>
