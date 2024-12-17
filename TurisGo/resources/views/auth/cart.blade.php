@@ -33,7 +33,7 @@
                     </div>
                     <p class="price">{{ $cartItem->item->price }}€</p>
                     <!-- Botão de remover com API -->
-                    <form action="{{ route('cart.remove', $cartItem->id) }}" method="POST">
+                    <form action="{{ route('auth.cart.remove', ['cartItemId' => $cartItem->id, 'locale' => app()->getLocale()]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button class="remove-btn">X</button>

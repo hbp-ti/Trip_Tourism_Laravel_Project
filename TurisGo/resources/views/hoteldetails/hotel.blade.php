@@ -124,67 +124,73 @@
             <hr class="title-line-orange">
         </div>
 
-        @if(session('popup'))
-        {!! session('popup') !!}
+        @if (session('popup'))
+            {!! session('popup') !!}
         @endif
         <div class="availability-table-container">
-            <form action="{{ route('auth.cart.add', ['itemId' => $hotel->id_item, 'locale' => app()->getLocale()]) }}" method="POST">
-                @csrf
-                <table class="availability-table">
-                    <thead>
+            <table class="availability-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('messages.Accommodation Type') }}</th>
+                        <th>{{ __('messages.Bed Count') }}</th>
+                        <th>{{ __('messages.Price') }}</th>
+                        <th>{{ __('messages.Check-in Date') }}</th>
+                        <th>{{ __('messages.Checkout Date') }}</th>
+                        <th>{{ __('messages.Number of Guests') }}</th>
+                        <th>{{ __('messages.Reserve') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($hotel->rooms as $room)
+                        @php
+                            // Gerar hash combinando room_id e price_night
+                            $dataToHash = $room->id . '|' . $room->price_night;
+                            $hash = hash_hmac('sha256', $dataToHash, config('app.key'));
+                        @endphp
                         <tr>
-                            <th>{{ __('messages.Accommodation Type') }}</th>
-                            <th>{{ __('messages.Bed Count') }}</th>
-                            <th>{{ __('messages.Price') }}</th>
-                            <th>{{ __('messages.Check-in Date') }}</th>
-                            <th>{{ __('messages.Checkout Date') }}</th>
-                            <th>{{ __('messages.Number of Guests') }}</th>
-                            <th>{{ __('messages.Reserve') }}</th>
+                            <td>{{ $room->type }}</td>
+                            <td>{{ $room->bed_count }}</td>
+                            <td>€{{ $room->price_night }}</td>
+                            <td>
+                                <form
+                                    action="{{ route('auth.cart.add', ['itemId' => $hotel->id_item, 'locale' => app()->getLocale()]) }}"
+                                    method="POST">
+                                    @csrf
+                                    <input type="date" name="checkin_date[{{ $room->id }}]" class="custom-input"
+                                        required>
+                            </td>
+                            <td>
+                                <input type="date" name="checkout_date[{{ $room->id }}]" class="custom-input"
+                                    required>
+                            </td>
+                            <td>
+                                <select name="guests[{{ $room->id }}]" class="custom-select" required>
+                                    <option value="1">{{ __('messages.1 Adult') }}</option>
+                                    <option value="2">{{ __('messages.2 Adults') }}</option>
+                                    <option value="3">{{ __('messages.3 Adults') }}</option>
+                                </select>
+                            </td>
+                            <td>
+                                @if ($room->available)
+                                    <!-- Adiciona o hash e o room_id como inputs hidden -->
+                                    <input type="hidden" name="item_hash[{{ $room->id }}]"
+                                        value="{{ $hash }}">
+                                    <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                    <button type="submit" class="book-btn">
+                                        {{ __('messages.Reserve') }}
+                                    </button>
+                                @else
+                                    <button class="booked-btn" disabled>{{ __('messages.Reserved') }}</button>
+                                @endif
+                                </form>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($hotel->rooms as $room)
-                            @php
-                                // Gerar hash combinando room_id e price_night
-                                $dataToHash = $room->id . '|' . $room->price_night;
-                                $hash = hash_hmac('sha256', $dataToHash, config('app.key'));
-                            @endphp
-                            <tr>
-                                <td>{{ $room->type }}</td>
-                                <td>{{ $room->bed_count }}</td>
-                                <td>€{{ $room->price_night }}</td>
-                                <td>
-                                    <input type="date" name="checkin_date[{{ $room->id }}]" class="custom-input" required>
-                                </td>
-                                <td>
-                                    <input type="date" name="checkout_date[{{ $room->id }}]" class="custom-input" required>
-                                </td>
-                                <td>
-                                    <select name="guests[{{ $room->id }}]" class="custom-select" required>
-                                        <option value="1">{{ __('messages.1 Adult') }}</option>
-                                        <option value="2">{{ __('messages.2 Adults') }}</option>
-                                        <option value="3">{{ __('messages.3 Adults') }}</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    @if ($room->available)
-                                        <!-- Adiciona o hash como input hidden -->
-                                        <input type="hidden" name="item_hash[{{ $room->id }}]" value="{{ $hash }}">
-                                        <input type="hidden" name="room_id" value="{{ $room->id }}">
-                                        <button type="submit" name="room_id" value="{{ $room->id }}" class="book-btn">
-                                            {{ __('messages.Reserve') }}
-                                        </button>
-                                    @else
-                                        <button class="booked-btn" disabled>{{ __('messages.Reserved') }}</button>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </form>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-        
+
+
 
 
 

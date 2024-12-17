@@ -436,7 +436,7 @@ class AuthController extends Controller
         $popupError = PopupHelper::showPopup(
             'Authentication!',
             'You must be logged in to add items to the cart',
-            'success',
+            'Error',
             'OK',
             false,
             '',
@@ -452,6 +452,7 @@ class AuthController extends Controller
         // Recuperar dados da requisição
         $roomId = $request->input('room_id');
         $room = Room::findOrFail($roomId); // Buscar o quarto específico
+
         $checkinDate = $request->input('checkin_date.' . $roomId);
         $checkoutDate = $request->input('checkout_date.' . $roomId);
         $guestsCount = $request->input('guests.' . $roomId);
@@ -463,36 +464,29 @@ class AuthController extends Controller
 
         // Verificar se o hash enviado é válido
         if ($expectedHash !== $itemHash) {
-            return back()->with('popup', 'Invalid hash!')->with('error', 'The hash does not match.');
+            $popupError2 = PopupHelper::showPopup(
+                'Error!',
+                'The ids do not match.',
+                'Error',
+                'OK',
+                false,
+                '',
+                5000
+            );
+            return back()->with('popup', $popupError2);
         }
 
         // Adicionar item ao carrinho
         $user = Auth::user();
 
-        // Calcular a diferença de dias entre check-in e check-out
-        $checkin = \Carbon\Carbon::parse($checkinDate);
-        $checkout = \Carbon\Carbon::parse($checkoutDate);
-        $daysDifference = $checkin->diffInDays($checkout);
-
-        // Calcular o subtotal (preço do quarto * número de dias * número de pessoas)
-        $subtotal = $room->price_night * $daysDifference * $guestsCount;
-
-        // Definir as taxas (exemplo: uma taxa fixa de 4)
-        $taxes = 4; // Taxa fixa, você pode ajustar conforme necessário
-
-        // Calcular o total (subtotal + taxas)
-        $total = $subtotal + $taxes;
-
         // Criar ou obter o carrinho com os valores de subtotal, taxas e total
         $cart = Cart::firstOrCreate(
-            ['user_id' => $user->id],
-            ['subtotal' => 0, 'taxes' => 0, 'total' => 0]
+            ['user_id' => $user->id]
         );
 
         // Identificar o tipo do item a partir do banco de dados
-        $itemId = $request->input('item_id');
+        $itemId = $request->route('itemId');
         $item = Item::findOrFail($itemId);
-        $type = $item->item_type;  // Assumindo que o campo item_type está no modelo Item
 
         // Preparar dados para criar o item no carrinho
         $data = [
@@ -501,8 +495,7 @@ class AuthController extends Controller
         ];
 
         // Lógica para tipo "Hotel"
-        if ($type === 'Hotel') {
-            // Preencher os campos de hotel com base no request
+        if ($item->item_type === 'Hotel') {
             $data['numb_people_hotel'] = $guestsCount;  // Pegando o número de pessoas do quarto específico
             $data['room_type_hotel'] = $room->type;  // Usando o tipo do quarto diretamente da variável $room
             $data['reservation_date_hotel_checkin'] = $checkinDate;  // Data de check-in
@@ -513,10 +506,24 @@ class AuthController extends Controller
             $data['hours_activity'] = null;
             $data['train_type'] = null;
             $data['train_people_count'] = null;
+
+            // Calcular a diferença de dias entre check-in e check-out
+            $checkin = \Carbon\Carbon::parse($checkinDate);
+            $checkout = \Carbon\Carbon::parse($checkoutDate);
+            $daysDifference = $checkin->diffInDays($checkout);
+
+            // Calcular o subtotal (preço do quarto * número de dias * número de pessoas)
+            $itemSubtotal = $room->price_night * $daysDifference * $guestsCount;
+
+            // Definir as taxas (exemplo: uma taxa fixa de 4)
+            $taxes = 4; // Taxa fixa, você pode ajustar conforme necessário
+
+            // Calcular o total (subtotal + taxas)
+            $itemTotal = $itemSubtotal + $taxes;
         }
 
         // Lógica para tipo "Activity"
-        if ($type === 'Activity') {
+        if ($item->item_type === 'Activity') {
             $data['numb_people_activity'] = $request->input('numb_people_activity.' . $itemId);
             $data['hours_activity'] = $request->input('hours_activity.' . $itemId);
 
@@ -530,7 +537,7 @@ class AuthController extends Controller
         }
 
         // Lógica para tipo "Ticket"
-        if ($type === 'Ticket') {
+        if ($item->item_type === 'Ticket') {
             $data['train_type'] = $request->input('train_type.' . $itemId);
             $data['train_people_count'] = $request->input('train_people_count.' . $itemId);
 
@@ -546,17 +553,32 @@ class AuthController extends Controller
         // Criar o item no carrinho
         $cart->cartItems()->create($data);
 
-        // Atualizar o carrinho com os novos valores de subtotal, taxas e total
-        $cart->subtotal += $subtotal;
-        $cart->taxes += $taxes;
-        $cart->total += $total;
+        // Somar os valores do novo item com os existentes no carrinho
+        $newSubtotal = $cart->subtotal + $itemSubtotal;
+        $newTaxes = $cart->taxes + $taxes;
+        $newTotal = $cart->total + $itemTotal;
 
-        // Salvar as alterações no carrinho
+        // Atualizar os valores do carrinho com a soma
+        $cart->subtotal = $newSubtotal;
+        $cart->taxes = $newTaxes;
+        $cart->total = $newTotal;
         $cart->save();
 
+        // Exibir popup de sucesso
+        $popupSuccess = PopupHelper::showPopup(
+            'Success!',
+            'The item has been added to your cart',
+            'success',
+            'OK',
+            false,
+            '',
+            5000
+        );
+
         // Redirecionar para a página do carrinho
-        return redirect()->route('cart.show', ['locale' => $locale])->with('success', 'Item adicionado ao carrinho com sucesso.');
+        return back()->with('popup', $popupSuccess);
     }
+
 
 
 
