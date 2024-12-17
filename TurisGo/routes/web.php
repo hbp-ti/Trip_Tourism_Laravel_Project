@@ -46,10 +46,9 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         Route::post('reset', [AuthController::class, 'resetPassword'])->name('reset.submit');
         Route::middleware('auth')->group(function () {
             Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile.show');
-            Route::get('/profile/edit', [AuthController::class, 'editProfile'])->name('profile.edit');
-            Route::put('/profileUpdate', [AuthController::class, 'updateProfile'])->name('profile.update');
+            Route::post('/profileUpdate', [AuthController::class, 'updateProfile'])->name('profile.update');
             Route::post('/profile/update-picture', [AuthController::class, 'updateProfilePicture'])->name('profile.update.picture');
-            Route::put('/passwordUpdate', [AuthController::class, 'updatePassword'])->name('profile.updatePassword');
+            Route::post('/passwordUpdate', [AuthController::class, 'updatePassword'])->name('profile.updatePassword');
             Route::get('/cart', [AuthController::class, 'showCart'])->name('cart.show');
             Route::post('/cart/{itemId}/add', [AuthController::class, 'addToCart'])->name('cart.add');
             Route::delete('/cart/{cartItemId}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');

@@ -1,29 +1,29 @@
 $(document).ready(function () {
-    // Função que alterna entre modo de leitura e edição
-    $('#editButton').click(function () {
-        let inputs = $('.profile-info input'); // Seleciona todos os inputs
-        let isEditable = false;
-
-        // Verifica se algum campo está em modo de edição
-        inputs.each(function () {
-            if (!$(this).prop('readonly')) {
-                isEditable = true;
+    // Interceptar o evento de envio do formulário
+    $('#changeinfoButton').click(function (event) {
+        event.preventDefault(); // Previne o envio do formulário
+        
+        // Exibe o popup de confirmação usando SweetAlert2
+        Swal.fire({
+            title: 'Are you sure you want to update your information?',
+            text: 'If you confirm, your profile information will be updated.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, update it!',
+            cancelButtonText: 'No, keep it',
+            confirmButtonColor: '#ff8000',
+            cancelButtonColor: '#2081A5'
+        }).then((result) => {
+            // Se o usuário confirmar, submete o formulário
+            if (result.isConfirmed) {
+                // Submete o formulário
+                $('form.profile-info').submit();
             }
         });
-
-        if (isEditable) {
-            // Se já estiver em edição, desativa o modo de edição
-            inputs.prop('readonly', true); // Coloca os campos em modo de leitura
-            inputs.removeClass('editable'); // Remove a classe 'editable'
-            $('#editButton').text('Edit'); // Muda o texto do botão para 'Edit'
-        } else {
-            // Se estiver em modo de leitura, ativa a edição
-            inputs.prop('readonly', false); // Torna os campos editáveis
-            inputs.addClass('editable'); // Adiciona a classe 'editable'
-            $('#editButton').text('Save'); // Muda o texto do botão para 'Save'
-        }
     });
 });
+
+
 document.getElementById('changeprofilepic').addEventListener('click', function () {
     const uploadInput = document.getElementById('uploadInput');
     if (uploadInput) {
@@ -38,7 +38,7 @@ document.getElementById('uploadInput').addEventListener('change', function (even
     if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
-            // Exibe a imagem na tela
+            // Exibe a imagem na tela antes da confirmação
             document.querySelector('.profile-pic').src = e.target.result;
 
             // Exibe o popup de confirmação com SweetAlert2
@@ -53,8 +53,48 @@ document.getElementById('uploadInput').addEventListener('change', function (even
                 cancelButtonColor: '#2081A5'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    updateProfilePicture(file);
+                    // Previne o envio do formulário padrão
+                    event.preventDefault(); // Impede o envio padrão do formulário
+
+                    const form = document.querySelector('form');
+                    const formData = new FormData(form);
+                    formData.append('profile_picture', file);
+
+                    // Envia a imagem com fetch() para evitar o reload
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Profile picture updated!',
+                                icon: 'success'
+                            });
+                            // Atualiza a imagem no frontend
+                            document.querySelector('.profile-pic').src = data.new_image_url;
+                        } else {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: data.message,
+                                icon: 'error'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Something went wrong.',
+                            icon: 'error'
+                        });
+                    });
                 } else {
+                    // Caso o usuário cancele, restauramos a imagem original
                     document.querySelector('.profile-pic').src = "{{ asset('images/profile.png') }}";
                 }
             });
@@ -62,6 +102,7 @@ document.getElementById('uploadInput').addEventListener('change', function (even
         reader.readAsDataURL(file);
     }
 });
+
 /*
 // Função para enviar a imagem ao servidor
 function updateProfilePicture(file) {

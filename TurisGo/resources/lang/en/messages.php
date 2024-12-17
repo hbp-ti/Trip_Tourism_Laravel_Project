@@ -206,5 +206,11 @@ return [
     'Price: Low to High' => 'Price: Low to High',
     'Price: High to Low' => 'Price: High to Low',
     'Alphabetically' => 'Alphabetically',
-    'Most Booked' => 'Most Booked'
+    'Most Booked' => 'Most Booked',
+    'Phone' => 'Phone',
+    'Submit' => 'Submit',
+    'Submit Changes' => 'Submit Changes',
+    'Enter last password' => 'Enter last password',
+    'Enter new password' => 'Enter new password',
+    'Confirm new password' => 'Confirm new password'
 ];

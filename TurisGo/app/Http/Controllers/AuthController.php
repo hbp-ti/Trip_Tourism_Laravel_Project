@@ -30,6 +30,7 @@ class AuthController extends Controller
         $locale = $request->route('locale');
 
         try {
+            // Validação dos dados recebidos
             $validatedData = $request->validate([
                 'first_name' => 'required|max:20',
                 'last_name' => 'required|max:20',
@@ -47,6 +48,7 @@ class AuthController extends Controller
                 ],
             ]);
 
+            // Criação do usuário
             User::create([
                 'first_name' => $validatedData['first_name'],
                 'last_name' => $validatedData['last_name'],
@@ -58,6 +60,7 @@ class AuthController extends Controller
                 'image' => 'images/default_user_image.png',
             ]);
 
+            // Popup de sucesso
             $popup = PopupHelper::showPopup(
                 'Success!',
                 'Your registration was completed successfully. Please log in to continue.',
@@ -69,7 +72,23 @@ class AuthController extends Controller
             );
 
             return redirect()->route('auth.login.form', ['locale' => $locale])->with('popup', $popup);
-        } catch (\Exception $e) {
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Tratamento do erro caso o email ou username já estejam em uso
+            if ($e->getCode() == '23000') {
+                // Código de erro relacionado a violação de chave única (unique constraint violation)
+                $popup = PopupHelper::showPopup(
+                    'Error',
+                    'The email or username you entered is already in use. Please choose a different one.',
+                    'error',
+                    'OK',
+                    false,
+                    '',
+                    0
+                );
+                return back()->with('popup', $popup);
+            }
+
+            // Outro tipo de erro inesperado
             $popup = PopupHelper::showPopup(
                 'Error',
                 'An unexpected error occurred. Please check the credentials!',
@@ -79,10 +98,10 @@ class AuthController extends Controller
                 '',
                 0
             );
-
             return back()->with('popup', $popup);
         }
     }
+
 
     public function showLoginForm(Request $request)
     {
@@ -234,50 +253,57 @@ class AuthController extends Controller
         return view('auth.profile', compact('user', 'activeReservations', 'expiredReservations', 'locale'));
     }
 
-    public function editProfile(Request $request)
-    {
-        $locale = $request->route('locale');
-
-        if (!Auth::check()) {
-            return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Not Authorized');
-        }
-
-        $user = Auth::user();
-        return view('auth.edit-profile', compact('user', 'locale'));
-    }
-
     public function updateProfile(Request $request)
     {
+
         $locale = $request->route('locale');
 
         if (!Auth::check()) {
             return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Not Authorized');
         }
 
-        $validatedData = $request->validate([
-            'first_name' => 'required|max:20',
-            'last_name' => 'required|max:20',
-            'email' => 'required|email|unique:users,email,' . Auth::id(),
-            'username' => 'required|max:20|unique:users,username,' . Auth::id(),
-            'phone' => 'required|integer',
-            'birth_date' => 'required|date',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'first_name' => 'required|max:20',
+                'last_name' => 'required|max:20',
+                'email' => 'required|email|unique:users,email,' . Auth::id(),
+                'username' => 'required|max:20|unique:users,username,' . Auth::id(),
+                'phone' => 'required|integer',
+            ]);
+            
+            // Encontrar e atualizar o usuário autenticado
+            $user = User::find(Auth::id());
+            $user->update($validatedData);
 
-        $user = User::find(Auth::id());
-        $user->update($validatedData);
+            // Criar popup de sucesso
+            $popup = PopupHelper::showPopup(
+                'Profile Updated!',
+                'Your profile has been updated successfully.',
+                'success',
+                'OK',
+                false,
+                '',
+                5000
+            );
 
-        $popup = PopupHelper::showPopup(
-            'Profile Updated!',
-            'Your profile has been updated successfully.',
-            'success',
-            'OK',
-            false,
-            '',
-            5000
-        );
+            // Redirecionar com popup
+            return redirect()->route('auth.profile.show', ['locale' => $locale])->with('popup', $popup);
+        } catch (\Exception $e) {
+            // Caso ocorra um erro, enviar uma mensagem de erro
+            $popup = PopupHelper::showPopup(
+                'Error',
+                'An error occurred while updating your profile. Please try again later.',
+                'error',
+                'OK',
+                false,
+                '',
+                5000
+            );
 
-        return redirect()->route('auth.profile.show', ['locale' => $locale])->with('popup', $popup);
+            return redirect()->route('auth.profile.show', ['locale' => $locale])->with('popup', $popup);
+        }
     }
+
 
     public function updatePassword(Request $request)
     {
@@ -301,7 +327,7 @@ class AuthController extends Controller
             // Exibindo um popup de sucesso
             $popup = PopupHelper::showPopup(
                 'Password not updated!',
-                'Error updating your password!',
+                'Oops! The current password you entered is not correct.',
                 'error',
                 'OK',
                 false,

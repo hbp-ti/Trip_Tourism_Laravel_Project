@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <!-- Incluir o SweetAlert2 -->
@@ -20,18 +21,20 @@
         <div class="profile-pic-container">
             <img src="{{ asset('images/profile.png') }}" class="profile-pic" alt="Profile Picture">
             <div class="button-overlay">
-                <form action="{{ route('auth.profile.update.picture', ['locale' => app()->getLocale()]) }}" method="POST"
+                <form id="profileForm"
+                    action="{{ route('auth.profile.update.picture', ['locale' => app()->getLocale()]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <!-- Input de imagem -->
                     <input type="file" name="profile_picture" id="uploadInput" accept="image/*"
                         style="display: none;">
                     <!-- Botão de enviar imagem -->
-                    <button type="submit" class="edit-profile-pic">
+                    <button type="button" class="edit-profile-pic" id="changeprofilepic">
                         <img src="{{ asset('images/changetour.png') }}" alt="Edit Icon">
                     </button>
                 </form>
             </div>
+
             <input type="file" id="uploadInput" accept="image/*" style="display: none;">
         </div>
         <div class="header-text">
@@ -43,36 +46,43 @@
     <div class="profile-content">
         <img src="{{ asset('images/fundoprofile.png') }}" class="profile-background" alt="Profile Background">
 
-        <form class="profile-info">
+        <form class="profile-info" method="POST"
+            action="{{ route('auth.profile.update', ['locale' => app()->getLocale()]) }}">
             @csrf
-            <!-- Exibição de Informações do Usuário -->
             <div class="form-group">
                 <label>{{ __('messages.First Name') }}</label>
-                <input type="text" value="{{ Auth::user()->first_name }}" readonly>
+                <input type="text" name="first_name" value="{{ Auth::user()->first_name }}">
             </div>
             <div class="form-group">
                 <label>{{ __('messages.Last Name') }}</label>
-                <input type="text" value="{{ Auth::user()->last_name }}" readonly>
+                <input type="text" name="last_name" value="{{ Auth::user()->last_name }}">
             </div>
             <div class="form-group">
                 <label>{{ __('messages.Username') }}</label>
-                <input type="text" value="{{ Auth::user()->username }}" readonly>
+                <input type="text" name="username" value="{{ Auth::user()->username }}">
             </div>
             <div class="form-group">
                 <label>{{ __('messages.Email') }}</label>
-                <input type="email" value="{{ Auth::user()->email }}" readonly>
+                <input type="email" name="email" value="{{ Auth::user()->email }}">
             </div>
             <div class="form-group">
-                <label>{{ __('messages.Address') }}</label>
-                <input type="text" value="{{ Auth::user()->address ?? __('messages.Not provided') }}" readonly>
+                <label>{{ __('messages.Phone') }}</label>
+                <input type="text" name="phone" value="{{ Auth::user()->phone ?? __('messages.Not provided') }}">
             </div>
             <div class="form-group">
-                <label>{{ __('messages.Password') }}</label>
-                <button id="changePasswordButton"
-                    class="change-password-btn">{{ __('messages.Change Password') }}</button>
+                <label>{{ __('messages.Submit') }}</label>
+                <button id="changeinfoButton" type="submit"
+                    class="change-password-btn">{{ __('messages.Submit Changes') }}</button>
             </div>
         </form>
-        <!-- Popup de Mudança de Password -->
+        @if(session('popup'))
+        {!! session('popup') !!}
+        @endif
+        <div class="form-group">
+            <label>{{ __('messages.Change Password') }}</label>
+            <button id="changePasswordButton"
+                type="button"class="change-password-btn">{{ __('messages.Change Password') }}</button>
+        </div>
         <!-- Popup de Mudança de Password -->
         <div id="passwordPopup" class="popup hidden">
             <div class="popup-content">
@@ -110,8 +120,7 @@
                 </form>
             </div>
         </div>
-        <!-- Botão de Edição do Perfil -->
-        <a id="editButton" class="edit-button">{{ __('messages.Edit') }}</a>
+
 
         <!-- Reservas Ativas -->
         <div class="reservations active-reservations">

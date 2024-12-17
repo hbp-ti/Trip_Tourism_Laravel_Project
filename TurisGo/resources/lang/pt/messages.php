@@ -206,5 +206,11 @@ return [
     'Price: Low to High' => 'Preço: Baixo para alto',
     'Price: High to Low' => 'Preço: Alto para baixo',
     'Alphabetically' => 'Alfabeticamente',
-    'Most Booked' => 'Mais reservado'
+    'Most Booked' => 'Mais reservado',
+    'Phone' => 'Telemóvel',
+    'Submit' => 'Enviar',
+    'Submit Changes' => 'Confirmar mudanças',
+    'Enter last password' => 'Introduza a última password',
+    'Enter new password' => 'Introduza a nova password',
+    'Confirm new password' => 'Confirme a nova password'
 ];
