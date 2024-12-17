@@ -43,5 +43,6 @@ $(document).ready(function() {
   
     // Mostrar a primeira imagem inicialmente
     showImage(currentIndex);
+
   });
   

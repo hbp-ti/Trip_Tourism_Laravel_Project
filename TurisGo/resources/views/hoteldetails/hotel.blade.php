@@ -22,14 +22,18 @@
     <section class="image-slider">
         <div class="slider-images">
             @if ($hotel->images && $hotel->images->isNotEmpty())
-            @foreach ($hotel->images as $image)
-            <img src="{{ asset($image->url) }}" alt="{{ $hotel->name }}" class="slider-image {{ $loop->first ? '' : 'hidden' }}">
-            @endforeach
+                @foreach ($hotel->images as $image)
+                    <img src="{{ asset($image->url) }}" alt="{{ $hotel->name }}"
+                        class="slider-image {{ $loop->first ? '' : 'hidden' }}">
+                @endforeach
             @else
-            {{-- Caso não haja imagens associadas, exibe as imagens padrão --}}
-            <img src="/images/darkhotel_image.png" alt="{{ __('messages.Default Hotel Image 1') }}" class="slider-image">
-            <img src="/images/darkhotel_image.png" alt="{{ __('messages.Default Hotel Image 2') }}" class="slider-image hidden">
-            <img src="/images/darkhotel_image.png" alt="{{ __('messages.Default Hotel Image 3') }}" class="slider-image hidden">
+                {{-- Caso não haja imagens associadas, exibe as imagens padrão --}}
+                <img src="/images/darkhotel_image.png" alt="{{ __('messages.Default Hotel Image 1') }}"
+                    class="slider-image">
+                <img src="/images/darkhotel_image.png" alt="{{ __('messages.Default Hotel Image 2') }}"
+                    class="slider-image hidden">
+                <img src="/images/darkhotel_image.png" alt="{{ __('messages.Default Hotel Image 3') }}"
+                    class="slider-image hidden">
             @endif
         </div>
         <div class="slider-controls">
@@ -38,14 +42,14 @@
         </div>
         <div class="dots-container">
             @if ($hotel->images && $hotel->images->isNotEmpty())
-            @foreach ($hotel->images as $image)
-            <span class="dot {{ $loop->first ? 'active-dot' : '' }}"></span>
-            @endforeach
+                @foreach ($hotel->images as $image)
+                    <span class="dot {{ $loop->first ? 'active-dot' : '' }}"></span>
+                @endforeach
             @else
-            {{-- Caso não haja imagens associadas, exibe os dots padrão --}}
-            <span class="dot active-dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+                {{-- Caso não haja imagens associadas, exibe os dots padrão --}}
+                <span class="dot active-dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             @endif
         </div>
     </section>
@@ -58,9 +62,11 @@
         <div class="location-info">
             <p><i class="fas fa-globe"></i> <strong>{{ __('messages.Country') }}:</strong> {{ $hotel->country }}</p>
             <p><i class="fas fa-city"></i> <strong>{{ __('messages.City') }}:</strong> {{ $hotel->city }}</p>
-            <p><i class="fas fa-envelope"></i> <strong>{{ __('messages.Zip Code') }}:</strong> {{ $hotel->zip_code }}</p>
+            <p><i class="fas fa-envelope"></i> <strong>{{ __('messages.Zip Code') }}:</strong> {{ $hotel->zip_code }}
+            </p>
             <p><i class="fas fa-road"></i> <strong>{{ __('messages.Street') }}:</strong> {{ $hotel->street }}</p>
-            <p><i class="fas fa-map-marker-alt"></i> <strong>{{ __('messages.Coordinates') }}:</strong> {{ __('messages.Lat') }}: {{ $hotel->lat }}, {{ __('messages.Lon') }}: {{ $hotel->lon }}</p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>{{ __('messages.Coordinates') }}:</strong>
+                {{ __('messages.Lat') }}: {{ $hotel->lat }}, {{ __('messages.Lon') }}: {{ $hotel->lon }}</p>
         </div>
     </section>
 
@@ -74,38 +80,38 @@
         <div class="facility-icons">
             <!-- Verificar se a instalação está disponível -->
             @if ($hotel->free_wifi)
-            <div class="icon">
-                <img src="/images/wifi_free_icon.png" alt="{{ __('messages.WiFi') }}">
-                <span>{{ __('messages.Free WiFi') }}</span>
-            </div>
+                <div class="icon">
+                    <img src="/images/wifi_free_icon.png" alt="{{ __('messages.WiFi') }}">
+                    <span>{{ __('messages.Free WiFi') }}</span>
+                </div>
             @endif
 
             @if ($hotel->pool)
-            <div class="icon">
-                <img src="/images/pool_icon.png" alt="{{ __('messages.Pool') }}">
-                <span>{{ __('messages.Pool') }}</span>
-            </div>
+                <div class="icon">
+                    <img src="/images/pool_icon.png" alt="{{ __('messages.Pool') }}">
+                    <span>{{ __('messages.Pool') }}</span>
+                </div>
             @endif
 
             @if ($hotel->bar)
-            <div class="icon">
-                <img src="/images/bar_icon.png" alt="{{ __('messages.Bar') }}">
-                <span>{{ __('messages.Bar') }}</span>
-            </div>
+                <div class="icon">
+                    <img src="/images/bar_icon.png" alt="{{ __('messages.Bar') }}">
+                    <span>{{ __('messages.Bar') }}</span>
+                </div>
             @endif
 
             @if ($hotel->parking)
-            <div class="icon">
-                <img src="/images/parking_icon.png" alt="{{ __('messages.Parking') }}">
-                <span>{{ __('messages.Free Parking') }}</span>
-            </div>
+                <div class="icon">
+                    <img src="/images/parking_icon.png" alt="{{ __('messages.Parking') }}">
+                    <span>{{ __('messages.Free Parking') }}</span>
+                </div>
             @endif
 
             @if ($hotel->non_smoking_rooms)
-            <div class="icon">
-                <img src="/images/no_smoking_icon.png" alt="{{ __('messages.Non-smoking rooms') }}">
-                <span>{{ __('messages.Non-smoking rooms') }}</span>
-            </div>
+                <div class="icon">
+                    <img src="/images/no_smoking_icon.png" alt="{{ __('messages.Non-smoking rooms') }}">
+                    <span>{{ __('messages.Non-smoking rooms') }}</span>
+                </div>
             @endif
         </div>
     </section>
@@ -118,56 +124,70 @@
             <hr class="title-line-orange">
         </div>
 
-        <!-- Search Form Section -->
-        <div class="availability-form">
-            <div class="form-group">
-                <label for="checkin">{{ __('messages.Check-in Date') }}</label>
-                <input type="date" id="checkin" name="checkin" required>
-            </div>
-            <div class="form-group">
-                <label for="checkout">{{ __('messages.Checkout Date') }}</label>
-                <input type="date" id="checkout" name="checkout" required>
-            </div>
-            <div class="form-group">
-                <label for="guests">{{ __('messages.People') }}</label>
-                <select id="guests" name="guests" required>
-                    <option value="1">{{ __('messages.1 Adult') }}</option>
-                    <option value="2">{{ __('messages.2 Adults') }}</option>
-                    <option value="3">{{ __('messages.3 Adults') }}</option>
-                </select>
-            </div>
-            <button type="submit">{{ __('messages.Search') }}</button>
-        </div>
-
+        @if(session('popup'))
+        {!! session('popup') !!}
+        @endif
         <div class="availability-table-container">
-            <table class="availability-table">
-                <thead>
-                    <tr>
-                        <th>{{ __('messages.Accommodation Type') }}</th>
-                        <th>{{ __('messages.People') }}</th>
-                        <th>{{ __('messages.Price') }}</th>
-                        <th>{{ __('messages.Reserve') }}</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($hotel->rooms as $room)
-                    <tr>
-                        <td>{{ $room->type }}</td>
-                        <td>{{ $room->capacity }}</td>
-                        <td>€{{ $room->price_night }}</td>
-                        <td>
-                            @if ($room->available)
-                            <button class="book-btn">{{ __('messages.Reserve') }}</button>
-                            @else
-                            <button class="booked-btn" disabled>{{ __('messages.Reserved') }}</button>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <form action="{{ route('auth.cart.add', ['itemId' => $hotel->id_item, 'locale' => app()->getLocale()]) }}" method="POST">
+                @csrf
+                <table class="availability-table">
+                    <thead>
+                        <tr>
+                            <th>{{ __('messages.Accommodation Type') }}</th>
+                            <th>{{ __('messages.Bed Count') }}</th>
+                            <th>{{ __('messages.Price') }}</th>
+                            <th>{{ __('messages.Check-in Date') }}</th>
+                            <th>{{ __('messages.Checkout Date') }}</th>
+                            <th>{{ __('messages.Number of Guests') }}</th>
+                            <th>{{ __('messages.Reserve') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($hotel->rooms as $room)
+                            @php
+                                // Gerar hash combinando room_id e price_night
+                                $dataToHash = $room->id . '|' . $room->price_night;
+                                $hash = hash_hmac('sha256', $dataToHash, config('app.key'));
+                            @endphp
+                            <tr>
+                                <td>{{ $room->type }}</td>
+                                <td>{{ $room->bed_count }}</td>
+                                <td>€{{ $room->price_night }}</td>
+                                <td>
+                                    <input type="date" name="checkin_date[{{ $room->id }}]" class="custom-input" required>
+                                </td>
+                                <td>
+                                    <input type="date" name="checkout_date[{{ $room->id }}]" class="custom-input" required>
+                                </td>
+                                <td>
+                                    <select name="guests[{{ $room->id }}]" class="custom-select" required>
+                                        <option value="1">{{ __('messages.1 Adult') }}</option>
+                                        <option value="2">{{ __('messages.2 Adults') }}</option>
+                                        <option value="3">{{ __('messages.3 Adults') }}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    @if ($room->available)
+                                        <!-- Adiciona o hash como input hidden -->
+                                        <input type="hidden" name="item_hash[{{ $room->id }}]" value="{{ $hash }}">
+                                        <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                        <button type="submit" name="room_id" value="{{ $room->id }}" class="book-btn">
+                                            {{ __('messages.Reserve') }}
+                                        </button>
+                                    @else
+                                        <button class="booked-btn" disabled>{{ __('messages.Reserved') }}</button>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </form>
         </div>
+        
+
+
+
     </section>
 
     <!-- Guest Reviews -->
@@ -178,15 +198,16 @@
         </div>
         <div class="reviews-container">
             @foreach ($hotel->reviews as $review)
-            <div class="review-box">
-                <div class="review-header">
-                    <img src="{{ $review->user->image ?? asset('images/default_user_image.png') }}" alt="{{ $review->user->first_name . $review->user->last_name }}" class="review-img">
-                    <span class="user-name">{{ $review->user->first_name . $review->user->last_name }}</span>
+                <div class="review-box">
+                    <div class="review-header">
+                        <img src="{{ $review->user->image ?? asset('images/default_user_image.png') }}"
+                            alt="{{ $review->user->first_name . $review->user->last_name }}" class="review-img">
+                        <span class="user-name">{{ $review->user->first_name . $review->user->last_name }}</span>
+                    </div>
+                    <p class="review-text">"{{ $review->title }}"</p>
+                    <p class="review-excerpt">{{ $review->description }}</p>
+                    <span class="read-more">{{ __('messages.Read More') }}</span>
                 </div>
-                <p class="review-text">"{{ $review->title }}"</p>
-                <p class="review-excerpt">{{ $review->description }}</p>
-                <span class="read-more">{{ __('messages.Read More') }}</span>
-            </div>
             @endforeach
         </div>
         <div class="reviews-buttons">
@@ -203,7 +224,8 @@
         </div>
         <div class="hotels">
             @foreach ($similarHotels as $similarHotel)
-            <img src="{{ $similarHotel->image_url ?? asset('images/default-hotel.jpg') }}" alt="{{ $similarHotel->name }}">
+                <img src="{{ $similarHotel->image_url ?? asset('images/default-hotel.jpg') }}"
+                    alt="{{ $similarHotel->name }}">
             @endforeach
         </div>
     </section>

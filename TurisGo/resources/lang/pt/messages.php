@@ -188,7 +188,7 @@ return [
     'Reserve' => 'Reservar',
     'Reserved' => 'Reservado',
     'Guest Reviews' => 'Comentários de utilizadores',
-    'Read All Reviews' => 'Ler todas os comentários',
+    'Read All Reviews' => 'Ler todos os comentários',
     'Add a Review' => 'Adicionar um comentário',
     'Similar Hotels' => 'Hotéis parecidos',
     'Pool' => 'Piscina',
@@ -212,5 +212,7 @@ return [
     'Submit Changes' => 'Confirmar mudanças',
     'Enter last password' => 'Introduza a última password',
     'Enter new password' => 'Introduza a nova password',
-    'Confirm new password' => 'Confirme a nova password'
+    'Confirm new password' => 'Confirme a nova password',
+    'Bed Count' => 'Número de camas',
+    'Number of Guests' => 'Número de pessoas'
 ];

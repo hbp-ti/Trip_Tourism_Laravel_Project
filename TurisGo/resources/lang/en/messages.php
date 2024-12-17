@@ -212,5 +212,7 @@ return [
     'Submit Changes' => 'Submit Changes',
     'Enter last password' => 'Enter last password',
     'Enter new password' => 'Enter new password',
-    'Confirm new password' => 'Confirm new password'
+    'Confirm new password' => 'Confirm new password',
+    'Bed Count' => 'Bed Count',
+    'Number of Guests' => 'Number of Guests'
 ];

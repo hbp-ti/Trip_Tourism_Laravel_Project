@@ -12,7 +12,8 @@ return new class extends Migration
             $table->id();
             $table->smallInteger('numb_people_hotel')->nullable();
             $table->string('room_type_hotel', 20)->nullable();
-            $table->date('reservation_date_hotel')->nullable();
+            $table->date('reservation_date_hotel_checkin')->nullable();
+            $table->date('reservation_date_hotel_checkout')->nullable();
             $table->smallInteger('numb_people_activity')->nullable();
             $table->time('hours_activity')->nullable();
             $table->string('train_type', 20)->nullable();
