@@ -15,11 +15,21 @@
 
     <div class="main-content">
         <section class="payment-section">
-            <div class="steps">
-                <span class="step active">1</span>
-                <span class="step">2</span>
-                <span class="step">3</span>
-            </div>
+        <div class="steps">
+    <div class="step active">
+        <span>1</span>
+    </div>
+    <div class="line"></div>
+    <div class="step">
+        <span>2</span>
+    </div>
+    <div class="line"></div>
+    <div class="step">
+        <span>3</span>
+    </div>
+</div>
+
+
 			
             <h2 class="subtitle">{{ __('messages.Payment & Billing Info') }}</h2>
 
@@ -46,24 +56,32 @@
 					<hr class="title-line-blue">
 				</div>
 
-                <div class="billing-info">
-					<label class="paymentTextInputs" for="address">{{ __('messages.Billing address') }}</label>
-					<input class="paymentTextInputs" type="text" id="address" placeholder="{{ __('messages.Enter your billing address') }}">
+                <div class="billing-info-container">
+    <!-- Primeira coluna: Payment Method -->
+    <div class="billing-column">
+        <label class="paymentTextInputs" for="address">{{ __('messages.Billing address') }}</label>
+        <input class="paymentTextInputs" type="text" id="address" placeholder="{{ __('messages.Enter your billing address') }}">
 
-					<label class="paymentTextInputs" for="address2">{{ __('messages.Billing address, line 2') }}</label>
-					<input class="paymentTextInputs" type="text" id="address2" placeholder="{{ __('messages.Additional address information') }}">
+        <label class="paymentTextInputs" for="address2">{{ __('messages.Billing address, line 2') }}</label>
+        <input class="paymentTextInputs" type="text" id="address2" placeholder="{{ __('messages.Additional address information') }}">
 
-					<label class="paymentTextInputs" for="city">{{ __('messages.City') }}</label>
-					<input class="paymentTextInputs" type="text" id="city" placeholder="{{ __('messages.Enter your city') }}">
+        <label class="paymentTextInputs" for="country">{{ __('messages.Country') }}</label>
+        <select class="paymentTextInputs" id="country">
+            <option value="Portugal">{{ __('messages.Portugal') }}</option>
+            <option value="United Kingdom">{{ __('messages.United Kingdom') }}</option>
+        </select>
+    </div>
 
-					<label class="paymentTextInputs" for="zip">{{ __('messages.Zip or postal code') }}</label>
-					<input class="paymentTextInputs" type="text" id="zip" placeholder="{{ __('messages.Enter your postal code') }}">
+    <!-- Segunda coluna: City e Zip -->
+    <div class="billing-column">
+        <label class="paymentTextInputs" for="city">{{ __('messages.City') }}</label>
+        <input class="paymentTextInputs" type="text" id="city" placeholder="{{ __('messages.Enter your city') }}">
 
-					<label for="country">{{ __('messages.Country') }}</label>
-					<select class="paymentTextInputs" id="country">
-						<option value="Portugal">{{ __('messages.Portugal') }}</option>
-						<option value="United Kingdom">{{ __('messages.United Kingdom') }}</option>
-					</select>
+        <label class="paymentTextInputs" for="zip">{{ __('messages.Zip or postal code') }}</label>
+        <input class="paymentTextInputs" type="text" id="zip" placeholder="{{ __('messages.Enter your postal code') }}">
+    </div>
+</div>
+
 
                     <div class="awareCheckBox">
                         <label class="awareText">
