@@ -2,14 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ImageUploadController;
+//use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\TrainController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TourController;
 
-Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
-Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('upload.handle');
+//Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
+//Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('upload.handle');
+
+//novo controlador de imagens
+//é preciso meter FILESYSTEM_DISK=public no .env e fazer php artisan storage:link
+use App\Http\Controllers\ImageController;
+
+Route::post('/uploadImage', [ImageController::class, 'upload']);
+
+Route::get('/imagem', function () {
+    return view('imagem');
+})->name("imagem");
+
 
 Route::get('/exemploUpload', function () {
     return view('exemploUpload');

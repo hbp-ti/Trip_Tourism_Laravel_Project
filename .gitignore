@@ -2,4 +2,4 @@
 /TurisGo/database/database.sqlite
 /TurisGo/node_modules/
 /TurisGo/public/hot
-/TurisGo/storage/app/public/imageUploads/*
+/TurisGo/storage/app/public/storage/
