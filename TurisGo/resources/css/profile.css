@@ -325,10 +325,12 @@ input {
 
 /* Botão de Mudança de Password */
 .change-password-btn {
+    float: right;
     background-color: #2081A5;
     color: white;
     font-size: 1rem;
     padding: 10px 20px;
+    right: 0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -337,7 +339,13 @@ input {
 }
 
 .change-password-btn:hover {
-    background-color: #0056b3;
+    background-color: #207391;
+}
+
+.right-align {
+    display: flex;          /* Define o container como flexbox */
+    justify-content: flex-end; /* Move o conteúdo para a direita */
+    margin-top: 20px;       /* Adiciona espaçamento ao topo, se necessário */
 }
 
 /* Popup Styling */
@@ -417,5 +425,5 @@ input {
 }
 
 .confirm-btn:hover {
-    background-color: #0056b3;
+    background-color: #207391;
 }

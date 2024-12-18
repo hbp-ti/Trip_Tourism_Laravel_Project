@@ -227,7 +227,7 @@ select {
 #map {
   height: 400px;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 20px auto;
   border: 2px solid #ddd;
   border-radius: 8px;
   z-index: 1;

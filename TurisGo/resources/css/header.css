@@ -176,7 +176,7 @@ body {
 .language-dropdown {
     display: none;
     position: absolute;
-    top: 200%;
+    top: 60px;
     left: -100%;
     background-color: white;
     border-radius: 8px;
@@ -250,7 +250,7 @@ body {
     display: none;
     /* Oculto por padrão */
     position: absolute;
-    top: 50px;
+    top: 60px;
     right: 0;
     background: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

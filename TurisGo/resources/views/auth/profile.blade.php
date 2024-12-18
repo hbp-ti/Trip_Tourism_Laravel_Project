@@ -69,7 +69,7 @@
                 <label>{{ __('messages.Phone') }}</label>
                 <input type="text" name="phone" value="{{ Auth::user()->phone ?? __('messages.Not provided') }}">
             </div>
-            <div class="form-group">
+            <div class="form-group" >
                 <label>{{ __('messages.Submit') }}</label>
                 <button id="changeinfoButton" type="submit"
                     class="change-password-btn">{{ __('messages.Submit Changes') }}</button>
@@ -78,8 +78,7 @@
         @if(session('popup'))
         {!! session('popup') !!}
         @endif
-        <div class="form-group">
-            <label>{{ __('messages.Change Password') }}</label>
+        <div class="form-group right-align">
             <button id="changePasswordButton"
                 type="button"class="change-password-btn">{{ __('messages.Change Password') }}</button>
         </div>

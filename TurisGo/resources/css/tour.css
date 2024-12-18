@@ -389,6 +389,7 @@ body {
   max-width: 1000px;
   padding: 20px;
   background: white;
+  margin-bottom: 150px;
 }
 
 .reviews h2 {
@@ -481,12 +482,12 @@ body {
 }
 
 .read-all-reviews:hover {
-  background-color: #ff5900;
+  background-color: #b46033;
 }
 
 /* Button "Add a Review" */
 .add-review {
-  background-color: #007bff;
+  background-color: #2081A5;
   color: white;
   padding: 10px 20px;
   font-size: 14px;
@@ -502,7 +503,7 @@ body {
 }
 
 .add-review:hover {
-  background-color: #0056b3;
+  background-color: #207391;
 }
 
 

@@ -104,6 +104,7 @@
 
         <div class="title-line-container home-section">
             <h2>{{ __('messages.Promotional Packages') }}</h2>
+            <hr class="title-line-blue">
         </div>
 
         <div class="promo-card-wrapper">

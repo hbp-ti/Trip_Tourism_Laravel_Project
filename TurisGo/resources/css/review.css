@@ -49,11 +49,11 @@
     font-weight: bold;
     color: #333;
     cursor: pointer;
-    transition: color 0.3s;
+    transition: 0.43s all;
 }
 
 .close-popup:hover {
-    color: #e74c3c;
+    transform: scale(1.1);
 }
 
 /* Estilização dos inputs e do formulário */
@@ -86,20 +86,33 @@ form textarea {
 }
 
 form button {
-    background: linear-gradient(to right, #207391, #2081A5);
+    background: #2081A5;
     color: white;
     border: none;
     padding: 12px 20px;
-    margin-top: 20px;
+    margin-top: 30px;
     font-size: 16px;
-    font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-transform: uppercase;
+    float: right;
 }
 
 form button:hover {
-    background: linear-gradient(to right, #207391, #2081A5);
-    transform: scale(1.05);
+    background: #207391;
+}
+
+.stars {
+    margin-top: 15px;
+}
+
+.stars i {
+    color: #e6e6e6;
+    font-size: 35px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.stars i.active {
+    color: #C76A37;
 }

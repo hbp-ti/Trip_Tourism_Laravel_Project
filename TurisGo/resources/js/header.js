@@ -1,35 +1,50 @@
 $(document).ready(function () {
-    // 1. Language Dropdown
+    
+    // Referências aos elementos
     const $languageToggle = $('#languageToggle');
     const $languageDropdown = $('#languageDropdown');
+    const $profileCircle = $('.profile-circle');
+    const $profileDropdown = $('.dropdown-menu');
 
+    // Abrir/Fechar Language Dropdown
     $languageToggle.on('click', function (event) {
         event.preventDefault();
+        // Fecha o dropdown de perfil, se estiver aberto
+        $profileDropdown.hide();
         $languageDropdown.toggle();
     });
 
+    // Abrir/Fechar Profile Dropdown
+    $profileCircle.on('click', function (event) {
+        event.stopPropagation();
+        // Fecha o dropdown de linguagem, se estiver aberto
+        $languageDropdown.hide();
+        $profileDropdown.toggle();
+    });
+
+    // Fechar dropdowns ao clicar fora
     $(document).on('click', function (event) {
         if (
             !$languageDropdown.is(event.target) &&
             !$languageDropdown.has(event.target).length &&
-            !$languageToggle.is(event.target) &&
-            !$languageToggle.has(event.target).length
+            !$languageToggle.is(event.target)
         ) {
             $languageDropdown.hide();
         }
+        if (
+            !$profileDropdown.is(event.target) &&
+            !$profileDropdown.has(event.target).length &&
+            !$profileCircle.is(event.target)
+        ) {
+            $profileDropdown.hide();
+        }
     });
 
-    // 2. Profile Dropdown
-    $('.profile-circle').on('click', function (e) {
+    // Impedir propagação dentro dos dropdowns
+    $languageDropdown.on('click', function (e) {
         e.stopPropagation();
-        $('.dropdown-menu').toggle();
     });
-
-    $(document).on('click', function () {
-        $('.dropdown-menu').hide();
-    });
-
-    $('.dropdown-menu').on('click', function (e) {
+    $profileDropdown.on('click', function (e) {
         e.stopPropagation();
     });
 
