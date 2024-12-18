@@ -1,0 +1,224 @@
+* {
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Manrope', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('/public/images/paymentBackground.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.main-content {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.payment-section {
+    background-color: #D9D9D9;
+    opacity: 90%;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.title {
+    font-size: 60px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.step {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #EAEAEA;
+    color: #333;
+    font-weight: bold;
+    border: 2px solid #1B1B1B;
+}
+
+.step.active {
+    background-color: #C76A37;
+    color: white;
+}
+
+.line {
+    width: 150px;
+    height: 2px;
+    background-color: #1B1B1B;
+}
+
+.subtitle {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.subtitle1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: -20px;
+    margin-right:70%;
+    color: #333;
+}
+
+.reviewInformation {
+    background-color: #D9D9D9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(10, 10, 10, 10);
+   
+    margin-bottom: 20px;
+}
+
+.reviewInformationUpper {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    background-color: #B1B1B1;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    padding: 20px;
+}
+
+.info-item {
+    text-align: center;
+}
+
+.info-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.info-value {
+    color: #555;
+}
+
+.reviewInformationLower {
+    padding: 15px;
+}
+
+.paymentMethod {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #B1B1B1;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.paymentMethod img {
+    width: 120px;
+}
+
+.button {
+    cursor: pointer;
+    display: inline-block;
+    line-height: 42px;
+    width: 120px;
+    height: 42px;
+    background-color: #C76A37;
+    color: white;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s;
+    margin-top: 10px;   
+}
+
+.button:hover {
+    background-color: #B7531D;
+}
+
+.buttonChange {
+    background-color: #2081A5;
+}
+
+.buttonChange:hover {
+    background-color: #0B55A0;
+}
+
+.payment-logo {
+    width: 25px;
+    height: 25x;
+    object-fit: contain;
+    margin-top: 15px;
+}
+.reviewInformationLower {
+    background-color: #D9D9D9;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+}
+.reviewInformationLower > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.reviewInformationLower .info-title {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+.reviewInformationLower hr {
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid #555;
+    margin: 0 10px;
+}
+.reviewInformationLower .info-value {
+    white-space: nowrap;
+}
+.selectedPaymentMethod {
+    background-color: #B1B1B1;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+.selectedPaymentMethod img {
+    width: 120px;
+}
+.selectedPaymentMethod .buttonChange {
+    background-color: #2081A5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.selectedPaymentMethod .buttonChange:hover {
+    background-color: #0B55A0;
+}
