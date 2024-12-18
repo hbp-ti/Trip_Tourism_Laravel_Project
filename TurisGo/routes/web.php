@@ -108,10 +108,13 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         return view('payment.payment3');
     })->name("payment3");
 
-
     Route::get('/tourDetail', function () {
         return view('tourDetail.tourDetail');
     })->name("tourDetail");
+	
+	    Route::get('/hotelDetail', function () {
+        return view('hotelDetail.hotelDetail');
+    })->name("hotelDetail");
 
 });
 
