@@ -9,6 +9,7 @@ use App\Models\CartItem;
 use App\Models\Room;
 use App\Models\OrderItem;
 use App\Models\Activity;
+use App\Models\Hotel;
 use App\Helpers\PopupHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -409,23 +410,94 @@ class AuthController extends Controller
         $locale = $request->route('locale');
 
         if (!Auth::check()) {
-            return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Você precisa estar logado para visualizar o carrinho.');
+            $popupError = PopupHelper::showPopup(
+                'Authentication!',
+                'You must be logged in to add items to the cart',
+                'Error',
+                'OK',
+                false,
+                '',
+                5000
+            );
+
+            return redirect()->route('auth.login.form', ['locale' => $locale])->with('popup', $popupError);
         }
 
         $user = Auth::user();
         $cart = Cart::firstOrCreate(['user_id' => $user->id], ['subtotal' => 0, 'taxes' => 0, 'total' => 0]);
 
-        $cartItems = $cart->cartItems()->with('item')->get();
+        $cartItems = $cart->cartItems()->get();
 
-        $subtotal = $cartItems->sum(fn($item) => $item->item->price * $item->quantity);
-        $taxes = $subtotal * 0.1;  // Taxas de 10%
-        $total = $subtotal + $taxes;
 
-        $cart->update([
-            'subtotal' => $subtotal,
-            'taxes' => $taxes,
-            'total' => $total,
-        ]);
+        $cartItemsWithDetails = $cartItems->map(function ($cartItem) {
+            $item = $cartItem->item;
+            $taxRate = 0.05; // 4% de taxa (1.04 representa um aumento de 4%)
+
+            if ($item->item_type === 'Hotel') {
+                // Buscar detalhes do hotel relacionado
+                $hotel = Hotel::where('id_item', $item->id)->first();
+
+                // Buscar o quarto na tabela Room com base no tipo de quarto e ID do hotel
+                $room = Room::where('hotel_id', $hotel->id_item)
+                    ->where('type', $cartItem->room_type_hotel)
+                    ->first();
+
+                if (!$room) {
+                    throw new \Exception("Room not found for hotel ID {$hotel->id} and room type {$cartItem->room_type_hotel}");
+                }
+
+                // Calcular preço total para Hotel
+                $checkin = \Carbon\Carbon::parse($cartItem->reservation_date_hotel_checkin);
+                $checkout = \Carbon\Carbon::parse($cartItem->reservation_date_hotel_checkout);
+                $daysDifference = $checkin->diffInDays($checkout);
+
+                $subtotal = $room->price_night * $daysDifference * $cartItem->numb_people_hotel;
+                $taxes = $subtotal * $taxRate; // Calcular o valor da taxa
+                $totalPrice = $subtotal + $taxes; // Somar a taxa ao subtotal para obter o total
+
+                // Associar detalhes ao cartItem
+                $cartItem->details = (object) [
+                    'type' => 'Hotel',
+                    'name' => $hotel->name,
+                    'description' => $hotel->description,
+                    'country' => $hotel->country,
+                    'city' => $hotel->city,
+                    'zip_code' => $hotel->zip_code,
+                    'street' => $hotel->street,
+                    'room_type' => $room->type,
+                    'price_night' => $room->price_night,
+                    'days_difference' => $daysDifference,
+                    'numb_people' => $cartItem->numb_people_hotel,
+                    'subtotal' => $subtotal,
+                    'total_price' => $totalPrice,
+                ];
+            } elseif ($item->item_type === 'Activity') {
+                // Buscar detalhes da atividade relacionada
+                $activity = Activity::where('id_item', $item->id)->first();
+
+                // Calcular preço total para Activity
+                $subtotal = $activity->price_hour * $cartItem->numb_people_activity;
+                $taxes = $subtotal * $taxRate; // Calcular o valor da taxa
+                $totalPrice = $subtotal + $taxes; // Somar a taxa ao subtotal para obter o total
+
+                // Associar detalhes ao cartItem
+                $cartItem->details = (object) [
+                    'type' => 'Activity',
+                    'name' => $activity->name,
+                    'description' => $activity->description,
+                    'country' => $activity->country,
+                    'city' => $activity->city,
+                    'zip_code' => $activity->zip_code,
+                    'street' => $activity->street,
+                    'price_hour' => $activity->price_hour,
+                    'numb_people' => $cartItem->numb_people_activity,
+                    'subtotal' => $subtotal,
+                    'total_price' => $totalPrice,
+                ];
+            }
+
+            return $cartItem;
+        });
 
         return view('auth.cart', compact('cart', 'cartItems', 'locale'));
     }
@@ -461,7 +533,7 @@ class AuthController extends Controller
             $room = Room::findOrFail($roomId); // Buscar o quarto específico
             $dataToHash = $room->id . '|' . $room->price_night;
             $itemHash = $request->input('item_hash.' . $roomId);
-            $guestsCount = $request->input('guests.' . $room->id); 
+            $guestsCount = $request->input('guests.' . $room->id);
             $checkoutDate = $request->input('checkout_date.' . $room->id);
             $checkinDate = $request->input('checkin_date.' . $room->id);  // Check-in para Hotel ou Tour
         } elseif ($item->item_type === 'Activity') {
@@ -486,7 +558,7 @@ class AuthController extends Controller
             return back()->with('popup', $popupError2);
         }
 
-  
+
 
 
         // Gerar o hash esperado com base no tipo de item
@@ -531,15 +603,15 @@ class AuthController extends Controller
 
             // Subtotal do Hotel: preço por noite * número de noites * número de pessoas
             $itemSubtotal = $room->price_night * $daysDifference * $guestsCount;
-            $taxes = 4; // Taxa fixa (ajustar conforme necessário)
+            $taxRate = 0.05; // Taxa fixa (ajustar conforme necessário)
+            $taxes = $itemSubtotal * $taxRate; // Calcular o valor da taxa
             $itemTotal = $itemSubtotal + $taxes;
-
             // Adicionar dados específicos de Hotel
             $data['numb_people_hotel'] = $guestsCount;
             $data['room_type_hotel'] = $room->type;  // Tipo do quarto
             $data['reservation_date_hotel_checkin'] = $checkin;
             $data['reservation_date_hotel_checkout'] = $checkout;
-            
+
 
             // Definir valores nulos para outros tipos de item
             $data['numb_people_activity'] = null;
@@ -548,17 +620,17 @@ class AuthController extends Controller
             $data['train_people_count'] = null;
             $data['date_activity'] = null;
             $data['train_date'] = null;
-
         } else if ($item->item_type === 'Activity') {
             $hoursToAdd = $request->input('hours.' . $itemId);
             $formattedTime = sprintf("%02d:00:00", $hoursToAdd);
             // Subtotal do Tour: preço por hora * número de pessoas
             $itemSubtotal = $tour->price_hour * $guestsCount;
-            $taxes = 4; // Taxa fixa (ajustar conforme necessário)
+            $taxRate = 0.05; // Taxa fixa (ajustar conforme necessário)
+            $taxes = $itemSubtotal * $taxRate; // Calcular o valor da taxa
             $itemTotal = $itemSubtotal + $taxes;
             // Adicionar dados específicos de Activity/Tour
             $data['numb_people_activity'] = $guestsCount;
-            
+
             $data['hours_activity'] = $formattedTime;
             $data['date_activity'] = $checkinDate;  // Definido no frontend para Tour/Activity
 
@@ -570,7 +642,6 @@ class AuthController extends Controller
             $data['train_type'] = null;
             $data['train_people_count'] = null;
             $data['train_date'] = null;
-
         } else if ($item->item_type === 'Ticket') {
             // Para Tickets, o cálculo depende de "train_type" e "train_people_count"
             $data['train_type'] = $request->input('train_type.' . $itemId);
@@ -617,20 +688,167 @@ class AuthController extends Controller
     }
 
 
-    public function removeFromCart(Request $request, $cartItemId)
+    public function removeFromCart(Request $request)
     {
         $locale = $request->route('locale');
-
+        $cartItemJson = $request->route('cartItem');  // Recebe o objeto JSON como string
+    
+        // Decodifica o JSON de volta para um array ou objeto
+        $cartItemOld = json_decode(urldecode($cartItemJson));
+    
+        // Verifica se o usuário está autenticado
         if (!Auth::check()) {
-            return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Você precisa estar logado para remover itens do carrinho.');
+            $popupError = PopupHelper::showPopup(
+                'Authentication!',
+                'You must be logged in to remove items from the cart',
+                'Error',
+                'OK',
+                false,
+                '',
+                5000
+            );
+    
+            return back()->with('popup', $popupError);
         }
-
-        $cartItem = CartItem::find($cartItemId);
-
+    
+        // Obtém o ID do usuário autenticado
+        $userId = Auth::id();
+    
+        // Verifica se o CartItem pertence ao carrinho do usuário autenticado
+        $cartItem = CartItem::where('id', $cartItemOld->id)  // Usando o id do objeto cartItem
+            ->whereHas('cart', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->first();
+    
         if ($cartItem) {
+            // Armazena o subtotal e total do item antes da remoção
+            $itemSubtotal = 0;
+            $itemTotalPrice = 0;
+            
+            // Verifica o tipo do item (Hotel ou Activity) para calcular o subtotal e total
+            $item = $cartItem->item;
+    
+            if ($item->item_type === 'Hotel') {
+                // Buscar detalhes do hotel relacionado
+                $hotel = Hotel::where('id_item', $item->id)->first();
+    
+                // Buscar o quarto na tabela Room com base no tipo de quarto e ID do hotel
+                $room = Room::where('hotel_id', $hotel->id_item)
+                    ->where('type', $cartItem->room_type_hotel)
+                    ->first();
+    
+                if (!$room) {
+                    throw new \Exception("Room not found for hotel ID {$hotel->id} and room type {$cartItem->room_type_hotel}");
+                }
+    
+                // Calcular preço total para Hotel
+                $checkin = \Carbon\Carbon::parse($cartItem->reservation_date_hotel_checkin);
+                $checkout = \Carbon\Carbon::parse($cartItem->reservation_date_hotel_checkout);
+                $daysDifference = $checkin->diffInDays($checkout);
+    
+                $itemSubtotal = $room->price_night * $daysDifference * $cartItem->numb_people_hotel;
+            } elseif ($item->item_type === 'Activity') {
+                // Buscar detalhes da atividade relacionada
+                $activity = Activity::where('id_item', $item->id)->first();
+    
+                // Calcular preço total para Activity
+                $itemSubtotal = $activity->price_hour * $cartItem->numb_people_activity;
+            }
+    
+            // Aplica a taxa de 5% sobre o subtotal
+            $taxRate = 0.05; // Taxa de 5%
+            $taxes = $itemSubtotal * $taxRate; // Calcular o valor da taxa
+            $itemTotalPrice = $itemSubtotal + $taxes; // Somar a taxa ao subtotal para obter o total
+    
+            // Remover o item do carrinho
             $cartItem->delete();
+    
+            // Atualizar o total do carrinho
+            $cart = Cart::where('user_id', $userId)->first();
+    
+            if ($cart) {
+                // Recalcular o subtotal, taxas e total do carrinho
+                $cartItems = $cart->cartItems;
+    
+                $subtotalCart = 0;
+                $taxesCart = 0;
+                $totalCart = 0;
+    
+                foreach ($cartItems as $item) {
+                    // Para cada item, calcula a taxa
+                    $itemSubtotal = 0;
+                    $itemTotalPrice = 0;
+    
+                    if ($item->item->item_type === 'Hotel') {
+                        // Buscar detalhes do hotel relacionado
+                        $hotel = Hotel::where('id_item', $item->item->id)->first();
+                        $room = Room::where('hotel_id', $hotel->id_item)
+                            ->where('type', $item->room_type_hotel)
+                            ->first();
+    
+                        if (!$room) {
+                            throw new \Exception("Room not found for hotel ID {$hotel->id} and room type {$item->room_type_hotel}");
+                        }
+    
+                        // Calcular preço total para Hotel
+                        $checkin = \Carbon\Carbon::parse($item->reservation_date_hotel_checkin);
+                        $checkout = \Carbon\Carbon::parse($item->reservation_date_hotel_checkout);
+                        $daysDifference = $checkin->diffInDays($checkout);
+    
+                        $itemSubtotal = $room->price_night * $daysDifference * $item->numb_people_hotel;
+                    } elseif ($item->item->item_type === 'Activity') {
+                        // Buscar detalhes da atividade relacionada
+                        $activity = Activity::where('id_item', $item->item->id)->first();
+    
+                        // Calcular preço total para Activity
+                        $itemSubtotal = $activity->price_hour * $item->numb_people_activity;
+                    }
+    
+                    // Aplica a taxa de 5% sobre o subtotal
+                    $taxes = $itemSubtotal * $taxRate; // Calcular o valor da taxa
+                    $itemTotalPrice = $itemSubtotal + $taxes; // Somar a taxa ao subtotal para obter o total
+    
+                    // Atualiza o valor total do carrinho com os novos valores
+                    $subtotalCart += $itemSubtotal;
+                    $taxesCart += $taxes;
+                    $totalCart += $itemTotalPrice;
+                }
+    
+                // Atualiza o carrinho com o novo subtotal, taxas e total
+                $cart->subtotal = $subtotalCart;
+                $cart->taxes = $taxesCart;
+                $cart->total = $totalCart;  // Novo total do carrinho com a taxa aplicada
+                $cart->save();
+            }
+    
+            // Retorna a mensagem de sucesso
+            $popupSuccess = PopupHelper::showPopup(
+                'Success!',
+                'The item has been removed from your cart successfully',
+                'Success',
+                'OK',
+                false,
+                '',
+                5000
+            );
+    
+            return redirect()->route('auth.cart.show', ['locale' => $locale])
+                ->with('popup', $popupSuccess);
         }
-
-        return redirect()->route('cart.show', ['locale' => $locale]);
+    
+        // Caso não encontre o CartItem
+        $popupError = PopupHelper::showPopup(
+            'Error!',
+            'There was an error deleting the item from the cart',
+            'Error',
+            'OK',
+            false,
+            '',
+            5000
+        );
+    
+        return back()->with('popup', $popupError);
     }
+    
 }

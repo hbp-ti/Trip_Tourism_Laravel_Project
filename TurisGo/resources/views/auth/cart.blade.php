@@ -26,72 +26,63 @@
         <div class="shopping-cart">
             <h2>{{ __('messages.Shopping Cart') }}</h2>
 
-            @php
-                // Itens de exemplo para teste do layout
-                $cartItems = [
-                    (object)[
-                        'id' => 1,
-                        'item' => (object)[
-                            'image' => 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&h=600&fit=crop',
-                            'name' => 'Viagem a Paris',
-                            'description' => 'Explore as ruas de Paris e a Torre Eiffel.',
-                            'location' => 'Paris, França',
-                            'price' => 250.00
-                        ],
-                        'quantity' => 2
-                    ],
-                    (object)[
-                        'id' => 2,
-                        'item' => (object)[
-                            'image' => 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&h=600&fit=crop',
-                            'name' => 'Passeio em Roma',
-                            'description' => 'Visite o Coliseu e outros marcos históricos.',
-                            'location' => 'Roma, Itália',
-                            'price' => 180.00
-                        ],
-                        'quantity' => 1
-                    ]
-                ];
-
-                $cart = (object)[
-                    'subtotal' => 250*2 + 180*1 + 210*3,
-                    'taxes' => 50.00,
-                    'total' => (250*2 + 180*1 + 210*3) + 50.00
-                ];
-            @endphp
-
             <div class="cart-items">
                 <!-- Itera os itens do carrinho dinamicamente -->
-                @foreach($cartItems as $cartItem)
-                <div class="cart-item">
-                    <img src="{{ $cartItem->item->image }}" alt="{{ $cartItem->item->name }}">
-                    <div class="item-details">
-                        <h3>{{ $cartItem->item->name }}</h3>
-                        <p>{{ $cartItem->item->description }}</p>
-                        <p><strong>{{ $cartItem->item->location }}</strong> &nbsp&nbsp&nbsp{{ $cartItem->quantity }} {{ __('Guests') }}</p>
+                @foreach ($cartItems as $cartItem)
+                    <div class="cart-item">
+                        <img src="{{ $cartItem->item->image }}" alt="{{ $cartItem->item->name }}">
+                        <div class="item-details">
+                            <h3>{{ $cartItem->details->name }}</h3>
+                            <p>{{ $cartItem->details->description }}</p>
+                            <p><strong>{{ $cartItem->details->city . ', ' . $cartItem->details->country }}</strong>
+                                &nbsp&nbsp&nbsp
+                                @if ($cartItem->details->type === 'Hotel')
+                                    <p>{{ $cartItem->numb_people_hotel }} {{ __('Guests') }}</p>
+                                @elseif ($cartItem->details->type === 'Activity')
+                                    <p>{{ $cartItem->numb_people_activity }} {{ __('Guests') }}</p>
+                                @elseif ($cartItem->details->type === 'Ticket')
+                                    <p>{{ $cartItem->train_people_count }} {{ __('Guests') }}</p>
+                                @else
+                                    <p>{{ __('N/A') }}</p>
+                                @endif
+                            </p>
+                        </div>
+                        <p class="price">{{ $cartItem->details->subtotal }}€</p>
+                        <!-- Botão de remover com API -->
+                        <form
+                            action="{{ route('auth.cart.remove', ['cartItem' => urlencode(json_encode($cartItem)), 'locale' => app()->getLocale()]) }}"
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="remove-btn">
+                                <img src="{{ asset('images/removeItem.png') }}" alt="{{ __('messages.Remove') }}"
+                                    style="width: 22px; height: 22px;">
+                            </button>
+                        </form>
                     </div>
-                    <p class="price">{{ $cartItem->item->price }}€</p>
-                    <!-- Botão de remover com API -->
-                    <form action="{{ route('auth.cart.remove', ['cartItemId' => $cartItem->id, 'locale' => app()->getLocale()]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="remove-btn">
-                            <img src="{{ asset('images/removeItem.png') }}" alt="{{ __('messages.Remove') }}" style="width: 22px; height: 22px;">
-                        </button>
-                    </form>
-                </div>
                 @endforeach
             </div>
 
-            <a href="{{ route('homepage', ['locale' => app()->getLocale()]) }}" class="back-btn">{{ __('messages.Back to Home') }}</a>
+            <a href="{{ route('homepage', ['locale' => app()->getLocale()]) }}"
+                class="back-btn">{{ __('messages.Back to Home') }}</a>
         </div>
 
         <div class="summary">
             <h2>{{ __('messages.Summary') }}</h2>
             <hr>
             <ul>
-                @foreach($cartItems as $cartItem)
-                <li>{{ $cartItem->item->name }} <span>{{ $cartItem->item->price }}€</span></li>
+                @foreach ($cartItems as $cartItem)
+                    <li>{{ $cartItem->details->name }} <span>
+                            @if ($cartItem->details->type === 'Hotel')
+                                {{ $cartItem->details->subtotal }}€
+                            @elseif ($cartItem->details->type === 'Activity')
+                                {{ $cartItem->details->subtotal }}€
+                            @elseif ($cartItem->details->type === 'Ticket')
+                                {{ $cartItem->details->subtotal }}€
+                            @else
+                                <p>{{ __('N/A') }}</p>
+                            @endif
+                        </span></li>
                 @endforeach
             </ul>
             <div class="summary-total">
@@ -110,13 +101,16 @@
             <h2>{{ __('messages.Tickets') }}</h2>
             <hr class="title-line-blue">
         </div>
-        <p>{{ __('messages.Your journey is almost ready! Add train or bus tickets for a convenient trip. Choose the best option and make the most of your journey!') }}</p>
+        <p>{{ __('messages.Your journey is almost ready! Add train or bus tickets for a convenient trip. Choose the best option and make the most of your journey!') }}
+        </p>
         <div class="ticket-buttons">
             <button class="train-btn">{{ __('messages.Buy Train Tickets') }}</button>
             <button class="bus-btn">{{ __('messages.Buy Bus Tickets') }}</button>
         </div>
     </section>
-
+    @if (session('popup'))
+        {!! session('popup') !!}
+    @endif
     <!-- Rodapé Principal -->
     <x-footer />
 </body>

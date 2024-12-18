@@ -62,7 +62,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::post('/passwordUpdate', [AuthController::class, 'updatePassword'])->name('profile.updatePassword');
             Route::get('/cart', [AuthController::class, 'showCart'])->name('cart.show');
             Route::post('/cart/{itemId}/add', [AuthController::class, 'addToCart'])->name('cart.add');
-            Route::delete('/cart/{cartItemId}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
+            Route::delete('/cart/{cartItem}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
         });
     });
     Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');
