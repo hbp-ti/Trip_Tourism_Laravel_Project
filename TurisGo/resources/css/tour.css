@@ -564,3 +564,23 @@ body {
   align-items: center;
   /* Alinha ícones e texto na mesma linha */
 }
+
+/* Estilo personalizado para inputs e selects */
+.custom-input,
+.custom-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Para garantir que o padding não ultrapasse a largura */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efeito de foco para inputs e selects */
+.custom-input:focus,
+.custom-select:focus {
+    border-color: #ff8c00; /* Cor de destaque */
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5); /* Efeito de sombra quando em foco */
+}

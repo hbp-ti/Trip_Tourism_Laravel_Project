@@ -188,7 +188,7 @@ return [
     'Reserve' => 'Reservar',
     'Reserved' => 'Reservado',
     'Guest Reviews' => 'Comentários de utilizadores',
-    'Read All Reviews' => 'Ler todas os comentários',
+    'Read All Reviews' => 'Ler todos os comentários',
     'Add a Review' => 'Adicionar um comentário',
     'Similar Hotels' => 'Hotéis parecidos',
     'Pool' => 'Piscina',
@@ -212,5 +212,16 @@ return [
     'Submit Changes' => 'Confirmar mudanças',
     'Enter last password' => 'Introduza a última password',
     'Enter new password' => 'Introduza a nova password',
-    'Confirm new password' => 'Confirme a nova password'
+    'Confirm new password' => 'Confirme a nova password',
+    'Bed Count' => 'Número de camas',
+    'Number of Guests' => 'Número de pessoas',
+    'Tour Type' => 'Tipo de atividade',
+    'Number of Hours' => 'Número de horas',
+    '1 Hour' => '1 Hora',
+    '2 Hours' => '2 Horas',
+    '3 Hours' => '3 Horas',
+    '4 Hours' => '4 Horas',
+    '5 Hours' => '5 Horas',
+    '6 Hours' => '6 Horas',
+    'Language' => 'Linguagem'
 ];

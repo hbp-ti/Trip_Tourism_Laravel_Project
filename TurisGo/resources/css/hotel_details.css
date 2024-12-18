@@ -359,24 +359,43 @@ body {
 
 
 
-/* Table Container */
 .availability-table-container {
-  overflow-x: auto;
+  margin: 0 auto; /* Centraliza o container da tabela */
+  overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
+  width: 100%; /* O container ocupa toda a largura disponível */
 }
 
+/* Tabela */
 .availability-table {
-  width: 100%;
+  width: 100%; /* A tabela ocupa 100% da largura do container */
+  max-width: 100%; /* Evita que a tabela ultrapasse o limite do container */
   border-collapse: collapse;
-  /* Remove espaçamento entre células */
   font-size: 14px;
-  margin: 0 auto;
+  margin: 0 auto; /* Garante que a tabela seja centralizada */
   background-color: #f5f5f5;
-  border-radius: 8px;
-  /* Bordas arredondadas externas da tabela */
+  border-radius: 8px; /* Bordas arredondadas */
   overflow: hidden;
-  /* Garantir que o conteúdo da tabela não ultrapasse as bordas arredondadas */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Adiciona sombra para um efeito mais destacado (opcional) */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+}
+
+/* Estilo personalizado para inputs e selects */
+.custom-input,
+.custom-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Para garantir que o padding não ultrapasse a largura */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efeito de foco para inputs e selects */
+.custom-input:focus,
+.custom-select:focus {
+    border-color: #ff8c00; /* Cor de destaque */
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 140, 0, 0.5); /* Efeito de sombra quando em foco */
 }
 
 .availability-table thead {

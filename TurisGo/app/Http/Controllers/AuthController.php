@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Item;
 use App\Models\CartItem;
+use App\Models\Room;
 use App\Models\OrderItem;
-use App\Models\Order;
+use App\Models\Activity;
 use App\Helpers\PopupHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -270,7 +272,7 @@ class AuthController extends Controller
                 'username' => 'required|max:20|unique:users,username,' . Auth::id(),
                 'phone' => 'required|integer',
             ]);
-            
+
             // Encontrar e atualizar o usuário autenticado
             $user = User::find(Auth::id());
             $user->update($validatedData);
@@ -428,30 +430,192 @@ class AuthController extends Controller
         return view('auth.cart', compact('cart', 'cartItems', 'locale'));
     }
 
-    public function addToCart(Request $request, $itemId)
+    public function addToCart(Request $request)
     {
         $locale = $request->route('locale');
+        $popupError = PopupHelper::showPopup(
+            'Authentication!',
+            'You must be logged in to add items to the cart',
+            'Error',
+            'OK',
+            false,
+            '',
+            5000
+        );
 
+        // Verificar se o usuário está autenticado
         if (!Auth::check()) {
-            return redirect()->route('auth.login.form', ['locale' => $locale])->with('error', 'Você precisa estar logado para adicionar itens ao carrinho.');
+            return redirect()->route('auth.login.form', ['locale' => $locale])
+                ->with('popup', $popupError);
         }
 
-        $user = Auth::user();
-        $cart = Cart::firstOrCreate(['user_id' => $user->id], ['subtotal' => 0, 'taxes' => 0, 'total' => 0]);
+        // Recuperar dados da requisição
+        $itemId = $request->route('itemId');
 
-        $existingItem = $cart->cartItems()->where('item_id', $itemId)->first();
+        $item = Item::findOrFail($itemId);
 
-        if ($existingItem) {
-            $existingItem->increment('quantity');
+        // Verificação do hash dependendo do tipo de item
+        if ($item->item_type === 'Hotel') {
+            // Para Hotéis, o hash será gerado com o price_night
+            $roomId = $request->input('room_id');
+            $room = Room::findOrFail($roomId); // Buscar o quarto específico
+            $dataToHash = $room->id . '|' . $room->price_night;
+            $itemHash = $request->input('item_hash.' . $roomId);
+            $guestsCount = $request->input('guests.' . $room->id); 
+            $checkoutDate = $request->input('checkout_date.' . $room->id);
+            $checkinDate = $request->input('checkin_date.' . $room->id);  // Check-in para Hotel ou Tour
+        } elseif ($item->item_type === 'Activity') {
+            // Para Tours/Activities, o hash será gerado com o price_hour
+            $tour = Activity::where('id_item', $item->id)->firstOrFail();
+            $dataToHash = $tour->id_item . '|' . $tour->price_hour;
+            $itemHash = $request->input('item_hash.' . $tour->id_item);
+            $guestsCount = $request->input('guests.' . $itemId);  // Número de pessoas (para Hotel ou Tour)
+            $checkinDate = $request->input('checkin_date.' . $tour->id_item);  // Check-in para Hotel ou Tour
+
         } else {
-            $cart->cartItems()->create([
-                'item_id' => $itemId,
-                'quantity' => 1,
-            ]);
+            // Caso não seja nem Hotel, nem Activity/Tour, retornamos um erro
+            $popupError2 = PopupHelper::showPopup(
+                'Error!',
+                'Invalid item type.',
+                'Error',
+                'OK',
+                false,
+                '',
+                5000
+            );
+            return back()->with('popup', $popupError2);
         }
 
-        return redirect()->route('cart.show', ['locale' => $locale]);
+  
+
+
+        // Gerar o hash esperado com base no tipo de item
+        $expectedHash = hash_hmac('sha256', $dataToHash, config('app.key'));
+
+        // Verificar se o hash enviado é válido
+        if ($expectedHash !== $itemHash) {
+            $popupError2 = PopupHelper::showPopup(
+                'Error!',
+                'The ids do not match.',
+                'Error',
+                'OK',
+                false,
+                '',
+                5000
+            );
+            return back()->with('popup', $popupError2);
+        }
+
+        // Adicionar item ao carrinho
+        $user = Auth::user();
+
+        // Criar ou obter o carrinho
+        $cart = Cart::firstOrCreate(['user_id' => $user->id]);
+
+        // Preparar os dados para criação do item no carrinho
+        $data = [
+            'item_id' => $itemId,
+            'cart_id' => $cart->id,
+        ];
+
+        // Variáveis de subtotal, taxa e total
+        $itemSubtotal = 0;
+        $taxes = 0;
+        $itemTotal = 0;
+        // Lógica para tipo "Hotel"
+        if ($item->item_type === 'Hotel') {
+            // Calcular as datas para Hotel
+            $checkin = \Carbon\Carbon::parse($checkinDate);
+            $checkout = \Carbon\Carbon::parse($checkoutDate);
+            $daysDifference = $checkin->diffInDays($checkout);
+
+            // Subtotal do Hotel: preço por noite * número de noites * número de pessoas
+            $itemSubtotal = $room->price_night * $daysDifference * $guestsCount;
+            $taxes = 4; // Taxa fixa (ajustar conforme necessário)
+            $itemTotal = $itemSubtotal + $taxes;
+
+            // Adicionar dados específicos de Hotel
+            $data['numb_people_hotel'] = $guestsCount;
+            $data['room_type_hotel'] = $room->type;  // Tipo do quarto
+            $data['reservation_date_hotel_checkin'] = $checkin;
+            $data['reservation_date_hotel_checkout'] = $checkout;
+            
+
+            // Definir valores nulos para outros tipos de item
+            $data['numb_people_activity'] = null;
+            $data['hours_activity'] = null;
+            $data['train_type'] = null;
+            $data['train_people_count'] = null;
+            $data['date_activity'] = null;
+            $data['train_date'] = null;
+
+        } else if ($item->item_type === 'Activity') {
+            $hoursToAdd = $request->input('hours.' . $itemId);
+            $formattedTime = sprintf("%02d:00:00", $hoursToAdd);
+            // Subtotal do Tour: preço por hora * número de pessoas
+            $itemSubtotal = $tour->price_hour * $guestsCount;
+            $taxes = 4; // Taxa fixa (ajustar conforme necessário)
+            $itemTotal = $itemSubtotal + $taxes;
+            // Adicionar dados específicos de Activity/Tour
+            $data['numb_people_activity'] = $guestsCount;
+            
+            $data['hours_activity'] = $formattedTime;
+            $data['date_activity'] = $checkinDate;  // Definido no frontend para Tour/Activity
+
+            // Definir valores nulos para outros tipos de item
+            $data['numb_people_hotel'] = null;
+            $data['room_type_hotel'] = null;
+            $data['reservation_date_hotel_checkin'] = null;
+            $data['reservation_date_hotel_checkout'] = null;
+            $data['train_type'] = null;
+            $data['train_people_count'] = null;
+            $data['train_date'] = null;
+
+        } else if ($item->item_type === 'Ticket') {
+            // Para Tickets, o cálculo depende de "train_type" e "train_people_count"
+            $data['train_type'] = $request->input('train_type.' . $itemId);
+            $data['train_people_count'] = $request->input('train_people_count.' . $itemId);
+            $data['train_date'] = null;
+
+            // Definir valores nulos para outros tipos de item
+            $data['numb_people_hotel'] = null;
+            $data['room_type_hotel'] = null;
+            $data['reservation_date_hotel_checkin'] = null;
+            $data['reservation_date_hotel_checkout'] = null;
+            $data['numb_people_activity'] = null;
+            $data['hours_activity'] = null;
+            $data['date_activity'] = null;
+        }
+
+        // Criar o item no carrinho
+        $cart->cartItems()->create($data);
+
+        // Somar os valores do novo item com os existentes no carrinho
+        $newSubtotal = $cart->subtotal + $itemSubtotal;
+        $newTaxes = $cart->taxes + $taxes;
+        $newTotal = $cart->total + $itemTotal;
+
+        // Atualizar os valores do carrinho
+        $cart->subtotal = $newSubtotal;
+        $cart->taxes = $newTaxes;
+        $cart->total = $newTotal;
+        $cart->save();
+
+        // Exibir popup de sucesso
+        $popupSuccess = PopupHelper::showPopup(
+            'Success!',
+            'The item has been added to your cart',
+            'success',
+            'OK',
+            false,
+            '',
+            5000
+        );
+
+        // Redirecionar para a página do carrinho
+        return back()->with('popup', $popupSuccess);
     }
+
 
     public function removeFromCart(Request $request, $cartItemId)
     {
