@@ -223,5 +223,12 @@ return [
     '4 Hours' => '4 Horas',
     '5 Hours' => '5 Horas',
     '6 Hours' => '6 Horas',
-    'Language' => 'Linguagem'
+    'Language' => 'Linguagem',
+    'Payment' => 'Pagamento',
+    'Review' => 'Análise',
+    'Item Number' => 'Número do artigo',
+    'Type' => 'Tipo',
+    'Change' => 'Trocar',
+    'Pay' => 'Pagar',
+    'Selected Payment Method' => 'Método de pagamento selecionado'
 ];

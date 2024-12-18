@@ -223,5 +223,12 @@ return [
     '4 Hours' => '4 Hours',
     '5 Hours' => '5 Hours',
     '6 Hours' => '6 Hours',
-    'Language' => 'Language'
+    'Language' => 'Language',
+    'Payment' => 'Payment',
+    'Review' => 'Review',
+    'Item Number' => 'Item Number',
+    'Type' => 'Type',
+    'Change' => 'Change',
+    'Pay' => 'Pay',
+    'Selected Payment Method' => 'Selected Payment Method'
 ];
