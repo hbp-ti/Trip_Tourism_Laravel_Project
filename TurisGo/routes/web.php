@@ -66,7 +66,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         });
     });
     Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');
-    Route::get('/hotel/{id}', [HotelController::class, 'showHotelDetails'])->name('hotel.hotel');
+    Route::get('/hotel/{id}', [HotelController::class, 'showHotelDetails'])->name('hotels');
     Route::get('/tours', [TourController::class, 'showTours'])->name('tours');
     Route::get('/tour/{id}', [TourController::class, 'showTourDetails'])->name('tour.tour');
     
@@ -112,7 +112,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         return view('tourDetail.tourDetail');
     })->name("tourDetail");
 	
-	    Route::get('/hotelDetail', function () {
+	Route::get('/hotelDetail', function () {
         return view('hotelDetail.hotelDetail');
     })->name("hotelDetail");
 
