@@ -7,7 +7,9 @@
     <title>{{ $hotel->name }} - TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     @vite(['resources/css/hotel_details.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/hotel_details.js'])
+
 </head>
 
 <body>
@@ -191,6 +193,32 @@
         </div>
     </section>
 
+    <div class="popup-overlay" id="reviewPopup">
+        <div class="popup-content">
+            <button class="close-popup" id="closeReviewPopup">&times;</button>
+            <h2>{{ __('messages.Add a Review') }}</h2>
+
+            <form method="POST" action="{{ route('auth.reviews.add', ['item_id' => $hotel->id_item, 'locale' => app()->getLocale()]) }}">
+                @csrf
+                <div class="stars">
+                    <i class="fa-solid fa-star" data-rating="1"></i>
+                    <i class="fa-solid fa-star" data-rating="2"></i>
+                    <i class="fa-solid fa-star" data-rating="3"></i>
+                    <i class="fa-solid fa-star" data-rating="4"></i>
+                    <i class="fa-solid fa-star" data-rating="5"></i>
+                </div>
+                <input type="hidden" id="rating" name="rating" value="0">
+                <label for="title">{{ __('messages.Title') }}</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="description">{{ __('messages.Description') }}</label>
+                <textarea id="description" name="description" required></textarea>
+
+                <button type="submit">{{ __('messages.Submit') }}</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Guest Reviews -->
     <section class="reviews">
         <div class="title-line-container hotel-section">
@@ -202,8 +230,8 @@
                 <div class="review-box">
                     <div class="review-header">
                         <img src="{{ $review->user->image ?? asset('images/default_user_image.png') }}"
-                            alt="{{ $review->user->first_name . $review->user->last_name }}" class="review-img">
-                        <span class="user-name">{{ $review->user->first_name . $review->user->last_name }}</span>
+                            alt="User image" class="review-img">
+                        <span class="user-name">{{ $review->user->first_name . " " . $review->user->last_name }}</span>
                     </div>
                     <p class="review-text">"{{ $review->title }}"</p>
                     <p class="review-excerpt">{{ $review->description }}</p>
@@ -213,8 +241,9 @@
         </div>
         <div class="reviews-buttons">
             <button class="read-all-reviews">{{ __('messages.Read All Reviews') }}</button>
-            <button class="add-review"><span class="plus-icon">+</span> {{ __('messages.Add a Review') }}</button>
-            <x-review />
+            <button id="add-review-btn" class="add-review"><span class="plus-icon">+</span>
+                {{ __('messages.Add a Review') }}</button>
+
         </div>
     </section>
 

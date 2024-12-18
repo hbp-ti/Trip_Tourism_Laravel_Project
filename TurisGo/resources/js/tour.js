@@ -1,40 +1,53 @@
-// Adicionar evento em todos os contêineres de "sortby"
-document.querySelectorAll('.sortby-container').forEach(container => {
-    container.addEventListener('click', function (event) {
-        // Fechar todos os dropdowns antes de abrir o atual
-        document.querySelectorAll('.sortDropdown').forEach(dropdown => {
-            dropdown.classList.remove('show');
+$(document).ready(function () {
+
+    const $addReviewButton = $('#add-review-btn');
+    const $reviewPopup = $('#reviewPopup');
+    const $closePopupButton = $('#closeReviewPopup');
+  
+    if ($addReviewButton.length && $reviewPopup.length) {
+        // Exibir o popup quando o botão for clicado
+        $addReviewButton.on('click', function () {
+            $reviewPopup.show();
         });
-
-        // Abrir apenas o dropdown do container atual
-        const dropdown = this.querySelector('.sortDropdown');
-        dropdown.classList.toggle('show');
-
-        // Impedir o evento de fechar o dropdown ao clicar dentro dele
-        event.stopPropagation();
+  
+        // Fechar o popup ao clicar no botão de fechar
+        $closePopupButton.on('click', function () {
+            $reviewPopup.hide();
+        });
+  
+        // Fechar o popup ao clicar fora dele
+        $(window).on('click', function (e) {
+            if ($(e.target).is($reviewPopup)) {
+                $reviewPopup.hide();
+            }
+        });
+    }
+  });
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    const stars = document.querySelectorAll(".stars i");
+    const ratingInput = document.getElementById("rating"); // Campo oculto para armazenar o rating
+  
+    // Adicionar evento de clique em cada estrela
+    stars.forEach((star, index) => {
+        star.addEventListener("click", function () {
+            // Atualiza o valor do campo oculto com o número de estrelas selecionado
+            ratingInput.value = index + 1;
+  
+            // Atualiza a aparência das estrelas
+            updateStarAppearance(index);
+        });
     });
-});
-
-window.addEventListener('click', function () {
-    document.querySelectorAll('.sortDropdown').forEach(dropdown => {
-        dropdown.classList.remove('show');
-    });
-});
-
-
-// Funções para ordenar
-function sortByPriceAsc() {
-    // Lógica
-}
-
-function sortByPriceDesc() {
-    // Lógica
-}
-
-function sortAlphabetically() {
-    // Lógica
-}
-
-function sortByMostBooked() {
-    // Lógica
-}
+  
+    // Função para atualizar a aparência das estrelas
+    function updateStarAppearance(selectedIndex) {
+        stars.forEach((star, index) => {
+            if (index <= selectedIndex) {
+                star.classList.add("active"); // Adiciona a classe "active" para as estrelas até a selecionada
+            } else {
+                star.classList.remove("active"); // Remove a classe "active" para as estrelas acima da selecionada
+            }
+        });
+    }
+  });
+  

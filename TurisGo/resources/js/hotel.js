@@ -76,3 +76,74 @@ blurOverlay.addEventListener('click', () => {
     sidebar.classList.remove('active');
     blurOverlay.style.display = 'none'; // Oculta o desfoque
 });
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const openPopupButton = document.getElementById("openReviewPopup");
+    const closePopupButton = document.getElementById("closeReviewPopup");
+    const reviewPopup = document.getElementById("reviewPopup");
+  
+    if (openPopupButton && closePopupButton && reviewPopup) {
+      openPopupButton.addEventListener("click", function () {
+        reviewPopup.style.display = "block";
+      });
+  
+      closePopupButton.addEventListener("click", function () {
+        reviewPopup.style.display = "none";
+      });
+  
+      window.addEventListener("click", function (e) {
+        if (e.target === reviewPopup) {
+          reviewPopup.style.display = "none";
+        }
+      });
+    }
+  });
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    const stars = document.querySelectorAll(".stars i");
+    const ratingInput = document.getElementById("rating"); // Campo oculto para armazenar o rating
+  
+    // Adicionar evento de clique em cada estrela
+    stars.forEach((star, index) => {
+      star.addEventListener("click", function () {
+        // Atualiza o valor do campo oculto com o número de estrelas selecionado
+        ratingInput.value = index + 1;
+  
+        // Atualiza a aparência das estrelas
+        updateStarAppearance(index);
+      });
+
+      // Adicionar efeito de hover para as estrelas
+      star.addEventListener("mouseover", function() {
+        updateStarAppearance(index, true);
+      });
+
+      // Remover efeito de hover quando o mouse sair da estrela
+      star.addEventListener("mouseout", function() {
+        const currentRating = parseInt(ratingInput.value);
+        updateStarAppearance(currentRating - 1); // Mantém a aparência com a avaliação atual
+      });
+    });
+  
+    // Função para atualizar a aparência das estrelas
+    function updateStarAppearance(selectedIndex, hover = false) {
+      stars.forEach((star, index) => {
+        if (index <= selectedIndex) {
+          star.classList.add("active"); // Adiciona a classe "active" para as estrelas até a selecionada
+        } else {
+          star.classList.remove("active"); // Remove a classe "active" para as estrelas acima da selecionada
+        }
+
+        // Efeito de hover
+        if (hover) {
+          star.classList.add("hover");
+        } else {
+          star.classList.remove("hover");
+        }
+      });
+    }
+});
+
+  

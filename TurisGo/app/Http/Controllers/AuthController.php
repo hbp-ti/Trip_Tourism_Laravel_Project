@@ -708,7 +708,8 @@ class AuthController extends Controller
                 5000
             );
     
-            return back()->with('popup', $popupError);
+            return redirect()->route('auth.login.form', ['locale' => $locale])
+            ->with('popup', $popupError);
         }
     
         // Obtém o ID do usuário autenticado

@@ -7,7 +7,7 @@ use App\Http\Controllers\TrainController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TourController;
-
+use App\Http\Controllers\ReviewController;
 //Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
 //Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('upload.handle');
 
@@ -63,6 +63,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::get('/cart', [AuthController::class, 'showCart'])->name('cart.show');
             Route::post('/cart/{itemId}/add', [AuthController::class, 'addToCart'])->name('cart.add');
             Route::delete('/cart/{cartItem}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
+            Route::post('/review/{item_id}/add', [ReviewController::class, 'addReview'])->name('reviews.add');
         });
     });
     Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');
@@ -70,6 +71,8 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
     Route::get('/tours', [TourController::class, 'showTours'])->name('tours');
     Route::get('/tour/{id}', [TourController::class, 'showTourDetails'])->name('tour.tour');
     
+
+
     Route::get('/tour', function () {
         return view('tour.tour');
     })->name("tour");
@@ -118,6 +121,6 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
 
 });
 
-use App\Http\Controllers\ReviewController;
 
-Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+
