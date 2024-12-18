@@ -16,6 +16,8 @@ return new class extends Migration
             $table->date('reservation_date_hotel_checkout')->nullable();
             $table->smallInteger('numb_people_activity')->nullable();
             $table->time('hours_activity')->nullable();
+            $table->date('date_activity')->nullable();
+            $table->date('train_date')->nullable();
             $table->string('train_type', 20)->nullable();
             $table->smallInteger('train_people_count')->nullable();
             $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');

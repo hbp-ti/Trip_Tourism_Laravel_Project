@@ -189,11 +189,6 @@
                 </tbody>
             </table>
         </div>
-
-
-
-
-
     </section>
 
     <!-- Guest Reviews -->

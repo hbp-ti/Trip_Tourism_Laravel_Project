@@ -18,6 +18,8 @@ class CartItem extends Model
         'reservation_date_hotel_checkout',
         'numb_people_activity',
         'hours_activity',
+        'date_activity',
+        'train_date',
         'train_type',
         'train_people_count',
         'cart_id',

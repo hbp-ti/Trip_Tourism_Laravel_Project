@@ -14,9 +14,12 @@ class OrderItem extends Model
     protected $fillable = [
         'numb_people_hotel',
         'room_type_hotel',
-        'reservation_date_hotel',
+        'reservation_date_hotel_checkin',
+        'reservation_date_hotel_checkout',
         'numb_people_activity',
         'hours_activity',
+        'date_activity',
+        'train_date',
         'train_type',
         'train_people_count',
         'order_id',

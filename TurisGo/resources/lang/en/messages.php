@@ -214,5 +214,14 @@ return [
     'Enter new password' => 'Enter new password',
     'Confirm new password' => 'Confirm new password',
     'Bed Count' => 'Bed Count',
-    'Number of Guests' => 'Number of Guests'
+    'Tour Type' => 'Tour Type',
+    'Number of Hours' => 'Number of Hours',
+    'Number of Guests' => 'Number of Guests',
+    '1 Hour' => '1 Hour',
+    '2 Hours' => '2 Hours',
+    '3 Hours' => '3 Hours',
+    '4 Hours' => '4 Hours',
+    '5 Hours' => '5 Hours',
+    '6 Hours' => '6 Hours',
+    'Language' => 'Language'
 ];
