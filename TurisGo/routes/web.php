@@ -114,3 +114,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
     })->name("tourDetail");
 
 });
+
+use App\Http\Controllers\ReviewController;
+
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');

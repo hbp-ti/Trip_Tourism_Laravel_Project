@@ -181,10 +181,12 @@
         </div>
         <div class="reviews-buttons">
             <button class="read-all-reviews">{{ __('messages.Read All Reviews') }}</button>
-            <button class="add-review"><span class="plus-icon">+</span> {{ __('messages.Add a Review') }}</button>
+            <button class="add-review" id="openReviewPopup">
+    <span class="plus-icon">+</span> {{ __('messages.Add a Review') }}
+</button>
+<x-review />
         </div>
     </section>
-
     <x-footer />
 </body>
 
