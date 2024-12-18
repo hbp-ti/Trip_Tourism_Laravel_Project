@@ -28,11 +28,11 @@
                 @endforeach
             @else
                 {{-- Caso não haja imagens associadas, exibe as imagens padrão --}}
-                <img src="/images/darkhotel_image.png" alt="{{ __('messages.Default Hotel Image 1') }}"
+                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default Hotel Image 1') }}"
                     class="slider-image">
-                <img src="/images/darkhotel_image.png" alt="{{ __('messages.Default Hotel Image 2') }}"
+                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default Hotel Image 2') }}"
                     class="slider-image hidden">
-                <img src="/images/darkhotel_image.png" alt="{{ __('messages.Default Hotel Image 3') }}"
+                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default Hotel Image 3') }}"
                     class="slider-image hidden">
             @endif
         </div>
@@ -73,9 +73,9 @@
 
     <!-- Facilities Section -->
     <section class="facilities">
-        <div class="title-line-container">
-            <h2>{{ __('messages.Hotel details') }}</h2>
-            <hr class="title-line">
+        <div class="title-line-container hotel-section">
+            <h2>{{ __('messages.Facilities') }}</h2>
+            <hr class="title-line-blue">
         </div>
         <div class="facility-icons">
             <!-- Verificar se a instalação está disponível -->
@@ -119,7 +119,7 @@
 
     <!-- Availability Section -->
     <section class="availability">
-        <div class="title-line-container">
+        <div class="title-line-container hotel-section">
             <h2>{{ __('messages.Availability') }}</h2>
             <hr class="title-line-orange">
         </div>
@@ -193,9 +193,9 @@
 
     <!-- Guest Reviews -->
     <section class="reviews">
-        <div class="title-line-container">
+        <div class="title-line-container hotel-section">
             <h2>{{ __('messages.Guest Reviews') }}</h2>
-            <hr class="title-line">
+            <hr class="title-line-blue">
         </div>
         <div class="reviews-container">
             @foreach ($hotel->reviews as $review)
@@ -214,6 +214,7 @@
         <div class="reviews-buttons">
             <button class="read-all-reviews">{{ __('messages.Read All Reviews') }}</button>
             <button class="add-review"><span class="plus-icon">+</span> {{ __('messages.Add a Review') }}</button>
+            <x-review />
         </div>
     </section>
 

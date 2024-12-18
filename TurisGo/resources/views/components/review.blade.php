@@ -18,7 +18,6 @@
             <h2>{{ __('messages.Add a Review') }}</h2>
             <form method="POST" action="{{ route('reviews.store', ['locale' => app()->getLocale()]) }}">
                 @csrf
-                <label for="rating">{{ __('messages.Rating') }}</label>
                 <div class="stars">
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>

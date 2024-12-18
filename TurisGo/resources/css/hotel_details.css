@@ -16,7 +16,9 @@ body {
 }
 
 .header {
-  background-image: url('/public/images/tourDetailsJump.png');
+  background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
+        url('/public/images/hotelPageBackground.jpg');
   background-size: cover;
   background-position: center;
   height: 350px;
@@ -47,18 +49,14 @@ body {
   text-align: center;
   margin-top: 350px;
   margin-bottom: 50px;
-  width: 80%;
-  /* Ajuste a largura do slider */
+  max-width: 1200px;
   height: 600px;
-  /* Aumenta a altura do slider para tornar a imagem mais alta */
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   justify-content: center;
-  /* Centraliza a imagem dentro do contêiner */
   align-items: center;
-  /* Centraliza a imagem verticalmente */
   border-radius: 10px;
 }
 
@@ -66,61 +64,55 @@ body {
   display: flex;
   transition: transform 0.5s ease-in-out;
   width: 100%;
-  /* Garante que o contêiner de imagens ocupe toda a largura disponível */
+  height: 100%;
 }
 
 .slider-image {
   width: 100%;
-  /* Imagem ocupa 100% da largura do contêiner */
   height: 100%;
-  /* Garante que a altura da imagem seja 100% */
   border-radius: 10px;
   object-fit: cover;
   transition: opacity 0.5s ease-in-out;
   margin: 0 auto;
-  /* Centraliza as imagens dentro do slider */
 }
 
 .hidden {
-  opacity: 0;
+  display: none;
 }
 
 /* Navigation Arrows */
 .slider-controls {
   position: absolute;
-  top: 50%;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: space-between;
-  transform: translateY(-50%);
+  align-items: center;
   z-index: 10;
-  /* Garante que as setas fiquem acima das imagens */
 }
 
 .prev {
-  font-size: 30px;
+  font-size: 20px;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
   border: none;
   padding: 15px;
   cursor: pointer;
-  border-radius: 50%;
   position: absolute;
-  left: 10px;
-  /* A seta da esquerda vai ficar dentro da área da imagem */
+  left: 0;
+  transition: 0.43s all;
 }
 
 .next {
-  font-size: 30px;
+  font-size: 20px;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
   border: none;
   padding: 15px;
   cursor: pointer;
-  border-radius: 50%;
   position: absolute;
-  right: 10px;
-  /* Ajusta a seta da direita para ficar visível fora da área da imagem */
+  right: 0;
+  transition: 0.43s all;
 }
 
 .prev:hover,
@@ -150,7 +142,6 @@ body {
 
 .active-dot {
   background-color: #C76A37;
-  /* Mudando a cor para azul para evitar conflito */
 }
 
 
@@ -165,24 +156,13 @@ body {
   margin-right: 10px;
 }
 
-.title-line {
+.title-line-blue {
   flex-grow: 1;
   height: 3px !important;
   background-color: #2081A5;
   border: none;
   margin-bottom: 15px;
   opacity: 100% !important;
-}
-
-.title-line-container {
-  display: flex;
-  align-items: center;
-}
-
-.title-line-container h2 {
-  font-size: 1.8rem;
-  color: #1B1B1B;
-  margin-right: 10px;
 }
 
 .title-line-orange {
@@ -212,35 +192,27 @@ body {
 .facilities {
   margin: auto;
   max-width: 1000px;
-  padding: 20px;
-}
-
-.facilities h2 {
-  text-align: left;
-  font-size: 20px;
-  margin-bottom: 20px;
+  padding: 30px;
 }
 
 .facility-icons {
+  margin-top: 30px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   gap: 20px;
-  /* Espaço entre ícones */
 }
 
 .icon {
   display: flex;
-  flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
 .icon img {
   width: 1.5em;
-  /* Define o tamanho com base no texto */
   height: 1.5em;
   margin-bottom: 5px;
-  /* Espaço entre o ícone e o texto */
+  margin-right: 10px;
 }
 
 .icon span {
@@ -257,7 +229,7 @@ body {
   padding: 20px;
   background-color: #f9f9f9;
   margin: 20px auto;
-  max-width: 400px;
+  max-width: 1000px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -296,13 +268,6 @@ body {
   margin: auto;
   max-width: 1000px;
   padding: 30px;
-  background-color: #ffffff;
-}
-
-.availability h2 {
-  text-align: left;
-  font-size: 24px;
-  margin-bottom: 20px;
 }
 
 .availability-form {
@@ -360,9 +325,10 @@ body {
 
 
 .availability-table-container {
-  margin: 0 auto; /* Centraliza o container da tabela */
-  overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
-  width: 100%; /* O container ocupa toda a largura disponível */
+  margin: auto;
+  margin-top: 30px;
+  overflow-x: auto;
+  width: 100%;
 }
 
 /* Tabela */
@@ -454,7 +420,7 @@ body {
 .reviews {
   margin: auto;
   max-width: 1000px;
-  padding: 20px;
+  padding: 30px;
   background: white;
 }
 
@@ -545,15 +511,16 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: 0.43s all;
 }
 
 .read-all-reviews:hover {
-  background-color: #ff5900;
+  background-color: #b46033;
 }
 
 /* Button "Add a Review" */
 .add-review {
-  background-color: #007bff;
+  background-color: #2081A5;
   color: white;
   padding: 10px 20px;
   font-size: 14px;
@@ -562,6 +529,7 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
+  transition: 0.43s all;
 }
 
 .add-review .plus-icon {
@@ -569,16 +537,17 @@ body {
 }
 
 .add-review:hover {
-  background-color: #0056b3;
+  background-color: #207391;
 }
 
 
 /* Similar Hotels Section */
 .similar-hotels {
   margin-top: 40px;
+  margin-bottom: 150px !important;
   margin: auto;
   max-width: 1000px;
-  padding: 20px;
+  padding: 30px;
   background-color: white;
 }
 

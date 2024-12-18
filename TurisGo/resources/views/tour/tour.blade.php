@@ -27,10 +27,11 @@
                 @endforeach
             @else
                 {{-- Caso não haja imagens associadas, exibe as imagens padrão --}}
-                <img src="/images/escolhatour.png" alt="{{ __('messages.Default tour Image 1') }}" class="slider-image">
-                <img src="/images/escolhatour.png" alt="{{ __('messages.Default tour Image 2') }}"
+                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default tour Image 1') }}" 
+                    class="slider-image">
+                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default tour Image 2') }}"
                     class="slider-image hidden">
-                <img src="/images/escolhatour.png" alt="{{ __('messages.Default tour Image 3') }}"
+                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default tour Image 3') }}"
                     class="slider-image hidden">
             @endif
         </div>
@@ -53,7 +54,7 @@
     </section>
 
     <!-- Description Section -->
-    <section class="hotel-description">
+    <section class="tour-description">
         <p>{{ $tour->description }}</p>
         <br><br>
         <div class="location-info">
@@ -71,40 +72,40 @@
     <section class="facilities">
         <div class="title-line-container">
             <h2>{{ __('messages.Tour details') }}</h2>
-            <hr class="title-line">
+            <hr class="title-line-blue">
         </div>
         <div class="facility-icons">
             <!-- Verificar se a instalação está disponível -->
             @if ($tour->cancel_anytime)
                 <div class="icon">
-                    <img src="/images/cancel_anytime.png" alt="{{ __('messages.cancel_anytime') }}">
+                    <img src="/images/canceletour.png" alt="{{ __('messages.cancel_anytime') }}">
                     <span>{{ __('messages.cancel anytime') }}</span>
                 </div>
             @endif
 
             @if ($tour->guide)
                 <div class="icon">
-                    <img src="/images/guide.png" alt="{{ __('messages.guide') }}">
+                    <img src="/images/guidetour.png" alt="{{ __('messages.guide') }}">
                     <span>{{ __('messages.guide') }}</span>
                 </div>
             @endif
 
             @if ($tour->reserve_now_pay_later)
                 <div class="icon">
-                    <img src="/images/reserve_now_pay_later.png" alt="{{ __('messages.reserve_now_pay_later') }}">
+                    <img src="/images/reservetour.png" alt="{{ __('messages.reserve_now_pay_later') }}">
                     <span>{{ __('messages.reserve now pay later') }}</span>
                 </div>
             @endif
 
             @if ($tour->small_groups)
                 <div class="icon">
-                    <img src="/images/small_groups.png" alt="{{ __('messages.small_groups') }}">
+                    <img src="/images/grouptour.png" alt="{{ __('messages.small_groups') }}">
                     <span>{{ __('messages.small groups') }}</span>
                 </div>
             @endif
 
             <div class="icon">
-                <img src="/images/language.png" alt="{{ __('messages.language') }}">
+                <img src="/images/languagetour.png" alt="{{ __('messages.language') }}">
                 <span>{{ $tour->language }}</span>
             </div>
         </div>
@@ -186,7 +187,7 @@
     <section class="reviews">
         <div class="title-line-container">
             <h2>{{ __('messages.Guest Reviews') }}</h2>
-            <hr class="title-line">
+            <hr class="title-line-blue">
         </div>
         <div class="reviews-container">
             @foreach ($tour->reviews as $review)
@@ -205,9 +206,9 @@
         <div class="reviews-buttons">
             <button class="read-all-reviews">{{ __('messages.Read All Reviews') }}</button>
             <button class="add-review" id="openReviewPopup">
-    <span class="plus-icon">+</span> {{ __('messages.Add a Review') }}
-</button>
-<x-review />
+                <span class="plus-icon">+</span> {{ __('messages.Add a Review') }}
+            </button>
+            <x-review />
         </div>
     </section>
     <x-footer />
