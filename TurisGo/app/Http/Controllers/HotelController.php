@@ -65,6 +65,6 @@ class HotelController extends Controller
             }
         ]);
 
-        return view('hoteldetails.hotel', compact('hotel', 'similarHotels'));
+        return view('hotels.hotel', compact('hotel', 'similarHotels'));
     }
 }
