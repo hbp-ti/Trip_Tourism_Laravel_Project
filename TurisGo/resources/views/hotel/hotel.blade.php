@@ -4,253 +4,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TurisGo</title>
+    <title>{{ $hotel->name }} - TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    <!-- css e script  de mapa interativo -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <!-- SweetAlert para popups -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <!-- Flatpickr JS -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <!-- Flatpickr CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-    @vite(['resources/css/hotel.css', 'resources/css/pagination.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/hotel.js', 'resources/js/mapa.js', 'resources/js/searchBar.js'])
+    @vite(['resources/css/hotel_details.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/hotel_details.js'])
 </head>
 
 <body>
-
     <x-header />
+
     <!-- Header Section -->
     <section class="header">
-        <h1>{{ __('messages.Hotel') }}</h1>
-        <p>{{ __('messages.Discover the Best Hotels for Your Stay') }}</p>
+        <h1>{{ $hotel->name }}</h1>
     </section>
 
-    <div class="box">
-        <div class="search-home-page">
-            <div class="overlap-group">
-                <div class="search-field">
-                    <label for="location">{{ __('messages.Destination') }}</label>
-                    <input type="text" id="location" placeholder="{{ __('messages.Enter location') }}" />
-                </div>
-                <div class="search-field">
-                    <label for="checkin">{{ __('messages.Check-in Date') }}</label>
-                    <input type="text" id="checkin" placeholder="{{ __('messages.Check-in Date') }}" />
-                </div>
-                <div class="search-field">
-                    <label for="checkout">{{ __('messages.Checkout Date') }}</label>
-                    <input type="text" id="checkout" placeholder="{{ __('messages.Checkout Date') }}" />
-                </div>
-                <div class="search-field">
-                    <label for="people">{{ __('messages.People') }}</label>
-                    <select id="people">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                <div class="search-button">
-                    <button type="button">{{ __('messages.Search') }}</button>
-                </div>
-            </div>
+    <!-- Image Slider -->
+    <section class="image-slider">
+        <div class="slider-images">
+            @if ($hotel->images && $hotel->images->isNotEmpty())
+                @foreach ($hotel->images as $image)
+                    <img src="{{ asset($image->url) }}" alt="{{ $hotel->name }}"
+                        class="slider-image {{ $loop->first ? '' : 'hidden' }}">
+                @endforeach
+            @else
+                {{-- Caso não haja imagens associadas, exibe as imagens padrão --}}
+                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default Hotel Image 1') }}"
+                    class="slider-image">
+                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default Hotel Image 2') }}"
+                    class="slider-image hidden">
+                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default Hotel Image 3') }}"
+                    class="slider-image hidden">
+            @endif
         </div>
-    </div>
+        <div class="slider-controls">
+            <span class="prev">&#10094;</span>
+            <span class="next">&#10095;</span>
+        </div>
+        <div class="dots-container">
+            @if ($hotel->images && $hotel->images->isNotEmpty())
+                @foreach ($hotel->images as $image)
+                    <span class="dot {{ $loop->first ? 'active-dot' : '' }}"></span>
+                @endforeach
+            @else
+                {{-- Caso não haja imagens associadas, exibe os dots padrão --}}
+                <span class="dot active-dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            @endif
+        </div>
+    </section>
 
-    <div class="hotel">
-        <!-- Mapa Interativo com Hoteis -->
-        <div id="map"></div>
 
-        <!-- Lista de Hoteis -->
+    <!-- Description Section -->
+    <section class="hotel-description">
+        <p>{{ $hotel->description }}</p>
+        <br><br>
+        <div class="location-info">
+            <p><i class="fas fa-globe"></i> <strong>{{ __('messages.Country') }}:</strong> {{ $hotel->country }}</p>
+            <p><i class="fas fa-city"></i> <strong>{{ __('messages.City') }}:</strong> {{ $hotel->city }}</p>
+            <p><i class="fas fa-envelope"></i> <strong>{{ __('messages.Zip Code') }}:</strong> {{ $hotel->zip_code }}
+            </p>
+            <p><i class="fas fa-road"></i> <strong>{{ __('messages.Street') }}:</strong> {{ $hotel->street }}</p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>{{ __('messages.Coordinates') }}:</strong>
+                {{ __('messages.Lat') }}: {{ $hotel->lat }}, {{ __('messages.Lon') }}: {{ $hotel->lon }}</p>
+        </div>
+    </section>
+
+
+    <!-- Facilities Section -->
+    <section class="facilities">
         <div class="title-line-container hotel-section">
-            <h2>{{ __('messages.Hotel') }}</h2>
+            <h2>{{ __('messages.Facilities') }}</h2>
             <hr class="title-line-blue">
-            <div class="sortby-container">
-                <span>{{ __('messages.Sort By') }}</span>
-                <img src="{{ asset('images/sortbyIcon.png') }}" alt="{{ __('messages.Sort By') }}">
-                <div id="sortDropdown" class="dropdown-content">
-                    <a href="#" onclick="sortByPriceAsc()">{{ __('messages.Price: Low to High') }}</a>
-                    <a href="#" onclick="sortByPriceDesc()">{{ __('messages.Price: High to Low') }}</a>
-                    <a href="#" onclick="sortAlphabetically()">{{ __('messages.Alphabetically') }}</a>
-                    <a href="#" onclick="sortByMostBooked()">{{ __('messages.Most Booked') }}</a>
+        </div>
+        <div class="facility-icons">
+            <!-- Verificar se a instalação está disponível -->
+            @if ($hotel->free_wifi)
+                <div class="icon">
+                    <img src="/images/wifi_free_icon.png" alt="{{ __('messages.WiFi') }}">
+                    <span>{{ __('messages.Free WiFi') }}</span>
                 </div>
-            </div>
-            <div class="filter toggle-sidebar" id="toggle-sidebar">
-                <span>{{ __('messages.Filter') }}</span>
-                <img src="{{ asset('images/filterControl.png') }}" alt="{{ __('messages.Filter') }}">
-            </div>
+            @endif
+
+            @if ($hotel->pool)
+                <div class="icon">
+                    <img src="/images/pool_icon.png" alt="{{ __('messages.Pool') }}">
+                    <span>{{ __('messages.Pool') }}</span>
+                </div>
+            @endif
+
+            @if ($hotel->bar)
+                <div class="icon">
+                    <img src="/images/bar_icon.png" alt="{{ __('messages.Bar') }}">
+                    <span>{{ __('messages.Bar') }}</span>
+                </div>
+            @endif
+
+            @if ($hotel->parking)
+                <div class="icon">
+                    <img src="/images/parking_icon.png" alt="{{ __('messages.Parking') }}">
+                    <span>{{ __('messages.Free Parking') }}</span>
+                </div>
+            @endif
+
+            @if ($hotel->non_smoking_rooms)
+                <div class="icon">
+                    <img src="/images/no_smoking_icon.png" alt="{{ __('messages.Non-smoking rooms') }}">
+                    <span>{{ __('messages.Non-smoking rooms') }}</span>
+                </div>
+            @endif
+        </div>
+    </section>
+
+
+    <!-- Availability Section -->
+    <section class="availability">
+        <div class="title-line-container hotel-section">
+            <h2>{{ __('messages.Availability') }}</h2>
+            <hr class="title-line-orange">
         </div>
 
+        @if (session('popup'))
+            {!! session('popup') !!}
+        @endif
+        <div class="availability-table-container">
+            <table class="availability-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('messages.Accommodation Type') }}</th>
+                        <th>{{ __('messages.Bed Count') }}</th>
+                        <th>{{ __('messages.Price') }}</th>
+                        <th>{{ __('messages.Check-in Date') }}</th>
+                        <th>{{ __('messages.Checkout Date') }}</th>
+                        <th>{{ __('messages.Number of Guests') }}</th>
+                        <th>{{ __('messages.Reserve') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($hotel->rooms as $room)
+                        @php
+                            // Gerar hash combinando room_id e price_night
+                            $dataToHash = $room->id . '|' . $room->price_night;
+                            $hash = hash_hmac('sha256', $dataToHash, config('app.key'));
+                        @endphp
+                        <tr>
+                            <td>{{ $room->type }}</td>
+                            <td>{{ $room->bed_count }}</td>
+                            <td>€{{ $room->price_night }}</td>
+                            <td>
+                                <form
+                                    action="{{ route('auth.cart.add', ['itemId' => $hotel->id_item, 'locale' => app()->getLocale()]) }}"
+                                    method="POST">
+                                    @csrf
+                                    <input type="date" name="checkin_date[{{ $room->id }}]" class="custom-input"
+                                        required>
+                            </td>
+                            <td>
+                                <input type="date" name="checkout_date[{{ $room->id }}]" class="custom-input"
+                                    required>
+                            </td>
+                            <td>
+                                <select name="guests[{{ $room->id }}]" class="custom-select" required>
+                                    <option value="1">{{ __('messages.1 Adult') }}</option>
+                                    <option value="2">{{ __('messages.2 Adults') }}</option>
+                                    <option value="3">{{ __('messages.3 Adults') }}</option>
+                                </select>
+                            </td>
+                            <td>
+                                @if ($room->available)
+                                    <!-- Adiciona o hash e o room_id como inputs hidden -->
+                                    <input type="hidden" name="item_hash[{{ $room->id }}]"
+                                        value="{{ $hash }}">
+                                    <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                    <button type="submit" class="book-btn">
+                                        {{ __('messages.Reserve') }}
+                                    </button>
+                                @else
+                                    <button class="booked-btn" disabled>{{ __('messages.Reserved') }}</button>
+                                @endif
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-        <div class="single-column-container">
-            @foreach ($hotels as $hotel)
-            <a href="{{ route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}" class="hotel-card">
-                <div class="image-container-hotel">
-                    <img src="{{ $hotel->image_url ?? asset('images/default-hotel.jpg') }}" alt="{{ $hotel->name }}">
-
-                    @if ($hotel->rooms->isNotEmpty()) <!-- Verifica se o hotel tem quartos -->
-                    <div class="price-tag">
-                        {{ $hotel->rooms->first()->price_night }}€ <!-- Exibe o preço do quarto mais barato -->
-                        <span> /{{ __('messages.per night') }}</span>
+    <!-- Guest Reviews -->
+    <section class="reviews">
+        <div class="title-line-container hotel-section">
+            <h2>{{ __('messages.Guest Reviews') }}</h2>
+            <hr class="title-line-blue">
+        </div>
+        <div class="reviews-container">
+            @foreach ($hotel->reviews as $review)
+                <div class="review-box">
+                    <div class="review-header">
+                        <img src="{{ $review->user->image ?? asset('images/default_user_image.png') }}"
+                            alt="{{ $review->user->first_name . $review->user->last_name }}" class="review-img">
+                        <span class="user-name">{{ $review->user->first_name . $review->user->last_name }}</span>
                     </div>
-                    @else
-                    <div class="price-tag">
-                        {{ __('messages.No rooms available') }} <!-- Exibe mensagem se não houver quartos -->
-                    </div>
-                    @endif
+                    <p class="review-text">"{{ $review->title }}"</p>
+                    <p class="review-excerpt">{{ $review->description }}</p>
+                    <span class="read-more">{{ __('messages.Read More') }}</span>
                 </div>
-                <div class="text-container">
-                    <h2>{{ $hotel->name }}</h2>
-                    <p>{{ $hotel->description }}</p>
-                    <div class="location-info">
-                        <span><i class="fas fa-globe"></i> {{ $hotel->country }}</span>
-                        <span><i class="fas fa-city"></i> {{ $hotel->city }}</span>
-                        <span><i class="fas fa-road"></i> {{ $hotel->street }}</span>
-                    </div>
-                </div>
-            </a>
             @endforeach
         </div>
-
-
-        <div id="blur-overlay" class="blur-overlay"></div>
-        <!-- Barra lateral -->
-        <div id="sidebar" class="sidebar">
-                <h2>{{ __('messages.Hotel Filters') }}</h2>
-                <div class="filter-group">
-                    <h3><img src="{{ asset('images/sidebarPrice.png') }}" alt="Price Range Icon">
-                    {{ __('messages.Price Range') }}</h3>
-                    <select>
-                        <option value="50-100">50 - 100€</option>
-                        <option value="100-200">100 - 200€</option>
-                        <option value="200-300">200 - 300€</option>
-                        <option value="200-300">300 - 400€</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <h3><img src="{{ asset('images/sidebarCategory.png') }}" alt="Price Range Icon">
-                    {{ __('messages.Hotel Category') }}</h3>
-                    <select>
-                        <option value="typeOf">{{ __('messages.Type of hotel') }}</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <h3><img src="{{ asset('images/sidebarHotelStars.png') }}" alt="Hotel Stars">
-                    {{ __('messages.Hotel Stars') }}</h3>
-                    <select>
-                        <option value="1 star">{{ __('messages.1 star') }}</option>
-                        <option value="2 stars">{{ __('messages.2 stars') }}</option>
-                        <option value="3 stars">{{ __('messages.3 stars') }}</option>
-                        <option value="4 stars">{{ __('messages.4 stars') }}</option>
-                        <option value="5 stars">{{ __('messages.5 stars') }}</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <h3><img src="{{ asset('images/sidebarStar.png') }}" alt="Price Range Icon">
-                    {{ __('messages.Guest Ratings') }}</h3>
-                    <select>
-                        <option value="0-1">{{ __('0-1') }}</option>
-                        <option value="1-2">{{ __('1-2') }}</option>
-                        <option value="2-3">{{ __('2-3') }}</option>
-                        <option value="3-4">{{ __('3-4') }}</option>
-                        <option value="4-5">{{ __('4-5') }}</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <h3><img src="{{ asset('images/sidebarSettings.png') }}" alt="Price Range Icon">
-                    {{ __('messages.Facilities and Services') }}</h3>
-                    <div>
-                        <label>
-                            {{ __('messages.Breakfast included') }}
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </label>
-                        <label>
-                            {{ __('messages.Free Wi-Fi') }}
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </label>
-                        <label>
-                            {{ __('messages.Parking') }}
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </label>
-                        <label>
-                            {{ __('messages.Gym') }}
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </label>
-                        <label>
-                            {{ __('messages.Pool') }}
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </label>
-                        <label>
-                            {{ __('messages.Spa and wellness') }}
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </label>
-                        <label>
-                            {{ __('messages.Hotel restaurant') }}
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </label>
-                        <label>
-                            {{ __('messages.Bar') }}
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                            </label>
-                        </label>
-                    </div>
-                </div>
-                <div class="filter-group">
-                    <h3><img src="{{ asset('images/sidebarCancel.png') }}" alt="Price Range Icon">
-                    {{ __('messages.Cancellation Policy') }}</h3>
-                    <label>
-                        {{ __('messages.Free cancellation') }}
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </label>
-                    </label>
-                    <label>
-                        {{ __('messages.Refundable reservations') }}
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </label>
-                    </label>
-                </div>
-            </div>
+        <div class="reviews-buttons">
+            <button class="read-all-reviews">{{ __('messages.Read All Reviews') }}</button>
+            <button class="add-review"><span class="plus-icon">+</span> {{ __('messages.Add a Review') }}</button>
+            <x-review />
         </div>
+    </section>
 
-
-        <div class="pagination">
-            {{ $hotels->links('vendor.pagination.custom') }}
+    <!-- Similar Hotels Section -->
+    <section class="similar-hotels">
+        <div class="title-line-container">
+            <h2>{{ __('messages.Similar Hotels') }}</h2>
+            <hr class="title-line-orange">
         </div>
+        <div class="hotels">
+            @foreach ($similarHotels as $similarHotel)
+                <img src="{{ $similarHotel->image_url ?? asset('images/default-hotel.jpg') }}"
+                    alt="{{ $similarHotel->name }}">
+            @endforeach
+        </div>
+    </section>
 
-
-        <x-footer />
+    <x-footer />
 </body>
 
 </html>

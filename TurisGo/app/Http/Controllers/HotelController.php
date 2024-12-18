@@ -16,7 +16,7 @@ class HotelController extends Controller
                 ->limit(1);
         }])->paginate(5);
 
-        return view('hotel.hotel', compact('hotels'));
+        return view('hotels.hotels', compact('hotels'));
     }
 
     public function filterHotels(Request $request)
@@ -36,7 +36,7 @@ class HotelController extends Controller
 
         $hotels = $query->get();
 
-        return view('hotels.index', compact('hotels'));
+        return view('hotels.hotels', compact('hotels'));
     }
 
     public function showHotelDetails(Request $request)
@@ -65,6 +65,6 @@ class HotelController extends Controller
             }
         ]);
 
-        return view('hotels.hotel', compact('hotel', 'similarHotels'));
+        return view('hotel.hotel', compact('hotel', 'similarHotels'));
     }
 }
