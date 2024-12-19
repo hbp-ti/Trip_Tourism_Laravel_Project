@@ -230,5 +230,14 @@ return [
     'Type' => 'Tipo',
     'Change' => 'Trocar',
     'Pay' => 'Pagar',
-    'Selected Payment Method' => 'Método de pagamento selecionado'
+    'Selected Payment Method' => 'Método de pagamento selecionado',
+    'Multibanco (Purchase/Service Payment)' => 'Multibanco (Compra/Pagamento de Serviços)',
+    'Thank you for your order. We are providing you with the information necessary to proceed with the payment.' => 'Obrigado pela sua encomenda. Estamos a fornecer-lhe as informações necessárias para proceder ao pagamento.',
+    'You can complete the payment through your homebanking, Service Payments, or on the ATM Network. Insert the following details:' => 'Pode concluir o pagamento através do homebanking, Pagamentos de Serviços ou na Rede Multibanco. Insira os seguintes dados:',
+    'Entity' => 'Entidade',
+    'Reference' => 'Referência',
+    'Amount' => 'Montante',
+    'The receipt issued by the ATM serves as proof of payment. Please keep it for your records.' => 'O talão emitido pelo Multibanco serve como comprovativo de pagamento. Por favor, guarde-o para os seus registos.',
+    'Return to Home' => 'Voltar à Página Inicial',
+
 ];

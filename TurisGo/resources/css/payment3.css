@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Manrope', sans-serif;
+}
+
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/public/images/paymentBackground.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: white;
+}
+
+.title {
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0;
+}
+
+.payment-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 50px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.step {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #333;
+    border: 3px solid #333;
+    font-size: 20px;
+}
+
+.step.active {
+    background: #c76a37;
+    color: white;
+}
+
+.line {
+    width: 120px;
+    height: 3px;
+    background: #333;
+    margin: 0 10px;
+}
+
+.subtitle {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.overview-logo {
+    width: 200px;
+    margin: 20px auto;
+}
+
+.overview-text {
+    margin: 30px 0;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.payment-details {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 30px 0;
+    text-align: left;
+    color: #333;
+}
+
+.payment-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.payment-item:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.value {
+    color: #555;
+    font-size: 18px;
+}
+
+.info {
+    margin: 30px 0;
+    font-size: 16px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.info-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.button {
+    display: inline-block;
+    background: #c76a37;
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+}
+
+.button:hover {
+    background: #b7531d;
+}

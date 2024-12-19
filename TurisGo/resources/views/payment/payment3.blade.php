@@ -1,67 +1,58 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    @vite(['resources/css/payment.css'])
+    @vite(['resources/css/payment3.css'])
 </head>
 <body>
-   <x-header/>
+    <x-header/>
 
     <h1 class="title">{{ __('messages.Payment') }}</h1>
 
     <div class="main-content">
         <section class="payment-section">
-            
             <div class="steps">
-                <span class="step">1</span>
-                <span class="step">2</span>
-                <span class="step active">3</span>
+                <div class="step">1</div>
+                <div class="line"></div>
+                <div class="step">2</div>
+                <div class="line"></div>
+                <div class="step active">3</div>
             </div>
-			
-            <span class="subtitle">{{ __('messages.Overview') }}</span>
 
-            <form class="payment-form">
-			
-                <img class="overviewServiceLogo" src="/images/multibanco.png" alt="{{ __('messages.Payment Method Logo') }}">
-				
-                <div class="overviewText">
-                    <p>{{ __('messages.Thank you for your order. We are providing you with the information necessary to proceed with the payment:') }}</p>
-                    <p>{{ __('messages.You can complete the payment through your homebanking, Service Payments, or on the ATM Network, using either your VISA/MasterCard, Visa Electron, or Multibanco card. Enter your secret code and select the operation PAYMENTS / SERVICE PAYMENT. Insert the following details:') }}</p>
+            <div class="content-box">
+                <img class="overview-logo" src="/images/multibanco.png" alt="{{ __('messages.Multibanco Logo') }}">
+                <h2 class="subtitle">{{ __('messages.Multibanco (Purchase/Service Payment)') }}</h2>
+
+                <div class="overview-text">
+                    <p>{{ __('messages.Thank you for your order. We are providing you with the information necessary to proceed with the payment.') }}</p>
+                    <p>{{ __('messages.You can complete the payment through your homebanking, Service Payments, or on the ATM Network. Insert the following details:') }}</p>
                 </div>
-				
-                <div class="overviewPaymentDetails">
-					
-                    <div>
-                        <label for="entity">{{ __('messages.Entity') }}</label>
-                        <input readonly type="text" id="entity" name="entity" value="12129">
+
+                <div class="payment-details">
+                    <div class="payment-item">
+                        <span class="label">{{ __('messages.Entity') }}</span>
+                        <span class="value">12129</span>
                     </div>
-					
-                    <div>
-                        <label for="reference">{{ __('messages.Reference') }}</label>
-                        <input readonly type="text" id="reference" name="reference" value="123456789">
+                    <div class="payment-item">
+                        <span class="label">{{ __('messages.Reference') }}</span>
+                        <span class="value">123 456 789</span>
                     </div>
-					
-                    <div>
-                        <label for="amount">{{ __('messages.Amount') }}</label>
-                        <input readonly type="text" id="amount" name="amount" value="121,29€">
+                    <div class="payment-item">
+                        <span class="label">{{ __('messages.Amount') }}</span>
+                        <span class="value">123,67€</span>
                     </div>
-					
                 </div>
-				
-                <div class="overviewInfo">
-                    <p><span class="overviewInfoSymbol">&#x24D8</span>{{ __('messages.The receipt issued by the ATM serves as proof of payment. Please keep it for your records.') }}</p>
-                </div>
-				
-				<br>
-				
-                <a href="{{ route('homepage', ['locale' => app()->getLocale()]) }}" class="button buttonReturnHome">{{ __('messages.Return to Home') }}</a>
-				
-				<br><br>
-            </form>
+
+                <p class="info">
+                    <img src="/images/carepayment3.png" alt="{{ __('messages.Info Icon') }}" class="info-icon">
+                    {{ __('messages.The receipt issued by the ATM serves as proof of payment. Please keep it for your records.') }}
+                </p>
+            </div>
+
+            <a href="{{ route('homepage', ['locale' => app()->getLocale()]) }}" class="button">{{ __('messages.Return to Home') }}</a>
         </section>
     </div>
 

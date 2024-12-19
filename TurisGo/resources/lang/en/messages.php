@@ -230,5 +230,14 @@ return [
     'Type' => 'Type',
     'Change' => 'Change',
     'Pay' => 'Pay',
-    'Selected Payment Method' => 'Selected Payment Method'
+    'Selected Payment Method' => 'Selected Payment Method',
+    'Multibanco (Purchase/Service Payment)' => 'Multibanco (Purchase/Service Payment)',
+    'Thank you for your order. We are providing you with the information necessary to proceed with the payment.' => 'Thank you for your order. We are providing you with the information necessary to proceed with the payment.',
+    'You can complete the payment through your homebanking, Service Payments, or on the ATM Network. Insert the following details:' => 'You can complete the payment through your homebanking, Service Payments, or on the ATM Network. Insert the following details:',
+    'Entity' => 'Entity',
+    'Reference' => 'Reference',
+    'Amount' => 'Amount',
+    'The receipt issued by the ATM serves as proof of payment. Please keep it for your records.' => 'The receipt issued by the ATM serves as proof of payment. Please keep it for your records.',
+    'Return to Home' => 'Return to Home',
 ];
+
