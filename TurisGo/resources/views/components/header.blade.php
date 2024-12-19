@@ -52,11 +52,11 @@
             @auth
             <div class="profile-dropdown">
                 <div class="profile-circle">
-                    <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('images/default_user_image.png') }}" alt="{{ __('messages.Profile') }}" class="profile-img">
+                    <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="{{ __('messages.Profile') }}" class="profile-img">
                 </div>
                 <div class="dropdown-menu">
                     <div class="dropdown-header">
-                        <img src="{{ Auth::user()->image ? asset(Auth::user()->image) : asset('images/default_user_image.png') }}" alt="{{ __('messages.Profile') }}" class="dropdown-profile-img">
+                        <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="{{ __('messages.Profile') }}" class="dropdown-profile-img">
                         <span class="dropdown-username">{{ Auth::user()->first_name }}</span>
                         <a href="javascript:void(0);" id="notificationButton">
                             <img src="{{ asset('images/notification_icon.png') }}" alt="{{ __('messages.Notification') }}" class="notification-icon">

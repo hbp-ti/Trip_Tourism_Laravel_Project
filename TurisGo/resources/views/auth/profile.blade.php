@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <!-- Incluir o SweetAlert2 -->
@@ -19,11 +19,10 @@
     <div class="header">
         <!-- Container do Cabeçalho -->
         <div class="profile-pic-container">
-            <img src="{{ asset('images/profile.png') }}" class="profile-pic" alt="Profile Picture">
+            <img src="{{ asset('storage/' . Auth::user()->image) }}" class="profile-pic" alt="Profile Picture">
             <div class="button-overlay">
-                <form id="profileForm"
-                    action="{{ route('auth.profile.update.picture', ['locale' => app()->getLocale()]) }}" method="POST"
-                    enctype="multipart/form-data">
+                <form id="profileForm" action="{{ route('upload.handle', ['locale' => app()->getLocale()]) }}"
+                    method="POST" enctype="multipart/form-data">
                     @csrf
                     <!-- Input de imagem -->
                     <input type="file" name="profile_picture" id="uploadInput" accept="image/*"
@@ -34,9 +33,8 @@
                     </button>
                 </form>
             </div>
-
-            <input type="file" id="uploadInput" accept="image/*" style="display: none;">
         </div>
+
         <div class="header-text">
             <h1 class="header-title">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
             <p class="header-subtitle">{{ __('Profile') }}</p>
@@ -69,14 +67,14 @@
                 <label>{{ __('messages.Phone') }}</label>
                 <input type="text" name="phone" value="{{ Auth::user()->phone ?? __('messages.Not provided') }}">
             </div>
-            <div class="form-group" >
+            <div class="form-group">
                 <label>{{ __('messages.Submit') }}</label>
                 <button id="changeinfoButton" type="submit"
                     class="change-password-btn">{{ __('messages.Submit Changes') }}</button>
             </div>
         </form>
-        @if(session('popup'))
-        {!! session('popup') !!}
+        @if (session('popup'))
+            {!! session('popup') !!}
         @endif
         <div class="form-group right-align">
             <button id="changePasswordButton"

@@ -104,8 +104,8 @@
         <p>{{ __('messages.Your journey is almost ready! Add train or bus tickets for a convenient trip. Choose the best option and make the most of your journey!') }}
         </p>
         <div class="ticket-buttons">
-            <button class="train-btn">{{ __('messages.Buy Train Tickets') }}</button>
-            <button class="bus-btn">{{ __('messages.Buy Bus Tickets') }}</button>
+            <a href="{{ route('auth.tickets', ['locale' => app()->getLocale()]) }}"
+                class="ticket-btn">{{ __('messages.Buy Tickets') }}</a>
         </div>
     </section>
     @if (session('popup'))
