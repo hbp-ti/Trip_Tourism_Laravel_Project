@@ -9,6 +9,8 @@ use App\Models\CartItem;
 use App\Models\Room;
 use App\Models\OrderItem;
 use App\Models\Activity;
+use Illuminate\Support\Facades\Http;
+use App\Models\Ticket;
 use App\Models\Hotel;
 use App\Helpers\PopupHelper;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +24,13 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
+    protected $apiBaseUri;
+
+    public function __construct()
+    {
+        // Configura o URI base da API a partir do arquivo de configuração
+        $this->apiBaseUri = config('services.train_api.base_uri');
+    }
     public function showRegistrationForm(Request $request)
     {
         $locale = $request->route('locale');
@@ -543,7 +552,10 @@ class AuthController extends Controller
             $itemHash = $request->input('item_hash.' . $tour->id_item);
             $guestsCount = $request->input('guests.' . $itemId);  // Número de pessoas (para Hotel ou Tour)
             $checkinDate = $request->input('checkin_date.' . $tour->id_item);  // Check-in para Hotel ou Tour
+        } elseif ($item->item_type === 'Ticket') {
+            $ticket = Ticket::where('id_item', $item->id)->firstOrFail();
 
+            
         } else {
             // Caso não seja nem Hotel, nem Activity/Tour, retornamos um erro
             $popupError2 = PopupHelper::showPopup(
@@ -692,10 +704,10 @@ class AuthController extends Controller
     {
         $locale = $request->route('locale');
         $cartItemJson = $request->route('cartItem');  // Recebe o objeto JSON como string
-    
+
         // Decodifica o JSON de volta para um array ou objeto
         $cartItemOld = json_decode(urldecode($cartItemJson));
-    
+
         // Verifica se o usuário está autenticado
         if (!Auth::check()) {
             $popupError = PopupHelper::showPopup(
@@ -707,122 +719,122 @@ class AuthController extends Controller
                 '',
                 5000
             );
-    
+
             return redirect()->route('auth.login.form', ['locale' => $locale])
-            ->with('popup', $popupError);
+                ->with('popup', $popupError);
         }
-    
+
         // Obtém o ID do usuário autenticado
         $userId = Auth::id();
-    
+
         // Verifica se o CartItem pertence ao carrinho do usuário autenticado
         $cartItem = CartItem::where('id', $cartItemOld->id)  // Usando o id do objeto cartItem
             ->whereHas('cart', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })
             ->first();
-    
+
         if ($cartItem) {
             // Armazena o subtotal e total do item antes da remoção
             $itemSubtotal = 0;
             $itemTotalPrice = 0;
-            
+
             // Verifica o tipo do item (Hotel ou Activity) para calcular o subtotal e total
             $item = $cartItem->item;
-    
+
             if ($item->item_type === 'Hotel') {
                 // Buscar detalhes do hotel relacionado
                 $hotel = Hotel::where('id_item', $item->id)->first();
-    
+
                 // Buscar o quarto na tabela Room com base no tipo de quarto e ID do hotel
                 $room = Room::where('hotel_id', $hotel->id_item)
                     ->where('type', $cartItem->room_type_hotel)
                     ->first();
-    
+
                 if (!$room) {
                     throw new \Exception("Room not found for hotel ID {$hotel->id} and room type {$cartItem->room_type_hotel}");
                 }
-    
+
                 // Calcular preço total para Hotel
                 $checkin = \Carbon\Carbon::parse($cartItem->reservation_date_hotel_checkin);
                 $checkout = \Carbon\Carbon::parse($cartItem->reservation_date_hotel_checkout);
                 $daysDifference = $checkin->diffInDays($checkout);
-    
+
                 $itemSubtotal = $room->price_night * $daysDifference * $cartItem->numb_people_hotel;
             } elseif ($item->item_type === 'Activity') {
                 // Buscar detalhes da atividade relacionada
                 $activity = Activity::where('id_item', $item->id)->first();
-    
+
                 // Calcular preço total para Activity
                 $itemSubtotal = $activity->price_hour * $cartItem->numb_people_activity;
             }
-    
+
             // Aplica a taxa de 5% sobre o subtotal
             $taxRate = 0.05; // Taxa de 5%
             $taxes = $itemSubtotal * $taxRate; // Calcular o valor da taxa
             $itemTotalPrice = $itemSubtotal + $taxes; // Somar a taxa ao subtotal para obter o total
-    
+
             // Remover o item do carrinho
             $cartItem->delete();
-    
+
             // Atualizar o total do carrinho
             $cart = Cart::where('user_id', $userId)->first();
-    
+
             if ($cart) {
                 // Recalcular o subtotal, taxas e total do carrinho
                 $cartItems = $cart->cartItems;
-    
+
                 $subtotalCart = 0;
                 $taxesCart = 0;
                 $totalCart = 0;
-    
+
                 foreach ($cartItems as $item) {
                     // Para cada item, calcula a taxa
                     $itemSubtotal = 0;
                     $itemTotalPrice = 0;
-    
+
                     if ($item->item->item_type === 'Hotel') {
                         // Buscar detalhes do hotel relacionado
                         $hotel = Hotel::where('id_item', $item->item->id)->first();
                         $room = Room::where('hotel_id', $hotel->id_item)
                             ->where('type', $item->room_type_hotel)
                             ->first();
-    
+
                         if (!$room) {
                             throw new \Exception("Room not found for hotel ID {$hotel->id} and room type {$item->room_type_hotel}");
                         }
-    
+
                         // Calcular preço total para Hotel
                         $checkin = \Carbon\Carbon::parse($item->reservation_date_hotel_checkin);
                         $checkout = \Carbon\Carbon::parse($item->reservation_date_hotel_checkout);
                         $daysDifference = $checkin->diffInDays($checkout);
-    
+
                         $itemSubtotal = $room->price_night * $daysDifference * $item->numb_people_hotel;
                     } elseif ($item->item->item_type === 'Activity') {
                         // Buscar detalhes da atividade relacionada
                         $activity = Activity::where('id_item', $item->item->id)->first();
-    
+
                         // Calcular preço total para Activity
                         $itemSubtotal = $activity->price_hour * $item->numb_people_activity;
                     }
-    
+
                     // Aplica a taxa de 5% sobre o subtotal
                     $taxes = $itemSubtotal * $taxRate; // Calcular o valor da taxa
                     $itemTotalPrice = $itemSubtotal + $taxes; // Somar a taxa ao subtotal para obter o total
-    
+
                     // Atualiza o valor total do carrinho com os novos valores
                     $subtotalCart += $itemSubtotal;
                     $taxesCart += $taxes;
                     $totalCart += $itemTotalPrice;
                 }
-    
+
                 // Atualiza o carrinho com o novo subtotal, taxas e total
                 $cart->subtotal = $subtotalCart;
                 $cart->taxes = $taxesCart;
                 $cart->total = $totalCart;  // Novo total do carrinho com a taxa aplicada
                 $cart->save();
             }
-    
+
             // Retorna a mensagem de sucesso
             $popupSuccess = PopupHelper::showPopup(
                 'Success!',
@@ -833,11 +845,11 @@ class AuthController extends Controller
                 '',
                 5000
             );
-    
+
             return redirect()->route('auth.cart.show', ['locale' => $locale])
                 ->with('popup', $popupSuccess);
         }
-    
+
         // Caso não encontre o CartItem
         $popupError = PopupHelper::showPopup(
             'Error!',
@@ -848,8 +860,7 @@ class AuthController extends Controller
             '',
             5000
         );
-    
+
         return back()->with('popup', $popupError);
     }
-    
 }

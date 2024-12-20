@@ -35,6 +35,18 @@ class PaymentController extends Controller
 
         switch ($phase) {
             case 1:
+                $billingInfo = $request->session()->get('billingInfo');
+
+                if ($billingInfo && isset($billingInfo['expires_at']) && now()->lessThan($billingInfo['expires_at'])) {
+                    // Dados ainda são válidos
+                    $billingInfo = $billingInfo['data'];
+                } else {
+                    // Dados expiraram, limpar a sessão
+                    $request->session()->forget('billingInfo');
+                    $billingInfo = null;
+                }
+
+
                 return view('payment.payment1');
 
             case 2:
@@ -51,7 +63,11 @@ class PaymentController extends Controller
                     'zip' => $validatedData['zip'] ?? null,
                 ];
                 // Armazena as informações de faturação na sessão
-                $request->session()->put('billingInfo', $billingInfo);
+                $request->session()->put('billingInfo', [
+                    'data' => $billingInfo, // Suas informações de faturamento
+                    'expires_at' => now()->addMinutes(10), // Expiração
+                ]);
+
 
                 if (!Auth::check()) {
                     $popupError = PopupHelper::showPopup('Authentication!', 'You must be logged in to proceed with payment.', 'Error', 'OK', false, '', 5000);
@@ -137,12 +153,36 @@ class PaymentController extends Controller
                     return $cartItem;
                 });
 
+                $billingInfo = $request->session()->get('billingInfo');
+
+                if ($billingInfo && isset($billingInfo['expires_at']) && now()->lessThan($billingInfo['expires_at'])) {
+                    // Dados ainda são válidos
+                    $billingInfo = $billingInfo['data'];
+                } else {
+                    // Dados expiraram, limpar a sessão
+                    $request->session()->forget('billingInfo');
+                    $billingInfo = null;
+                }
+
+
                 return view('payment.payment2', compact('paymentMethod', 'cart', 'cartItems'));
 
             case 3:
                 // Recupera os valores armazenados na sessão
                 $paymentMethod = $request->session()->get('paymentMethod');
                 $billingInfo = $request->session()->get('billingInfo');
+
+                $billingInfo = $request->session()->get('billingInfo');
+
+                if ($billingInfo && isset($billingInfo['expires_at']) && now()->lessThan($billingInfo['expires_at'])) {
+                    // Dados ainda são válidos
+                    $billingInfo = $billingInfo['data'];
+                } else {
+                    // Dados expiraram, limpar a sessão
+                    $request->session()->forget('billingInfo');
+                    $billingInfo = null;
+                }
+
 
                 // Retorna a view com `compact`
                 return view('payment.payment3', compact('paymentMethod', 'billingInfo'));

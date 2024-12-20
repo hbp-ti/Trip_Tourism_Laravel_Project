@@ -9,14 +9,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\PaymentController;
-//Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
 
-
-//novo controlador de imagens
-//é preciso meter FILESYSTEM_DISK=public no .env e fazer php artisan storage:link
-use App\Http\Controllers\ImageController;
-
-Route::post('/uploadImage', [ImageController::class, 'upload']);
 
 Route::get('/imagem', function () {
     return view('imagem');
@@ -68,6 +61,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             // Página principal de compra de tickets
             Route::get('/buyTicketTrain', [TrainController::class, 'stations'])->name('tickets');
             Route::post('/payment', [PaymentController::class, 'paymentPhases'])->name('payment');
+            Route::post('/createTicket', [TrainController::class, 'createTicket'])->name('createTicket');
         });
     });
     Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');

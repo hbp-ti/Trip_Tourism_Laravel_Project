@@ -239,5 +239,7 @@ return [
     'Amount' => 'Amount',
     'The receipt issued by the ATM serves as proof of payment. Please keep it for your records.' => 'The receipt issued by the ATM serves as proof of payment. Please keep it for your records.',
     'Return to Home' => 'Return to Home',
+    'Action' => 'Action',
+    'Book Now' => 'Book Now',
 ];
 

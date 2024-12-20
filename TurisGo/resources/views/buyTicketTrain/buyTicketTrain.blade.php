@@ -81,42 +81,44 @@
                     <table class="timetable">
                         <thead>
                             <tr>
-                                <th></th>
                                 <th>{{ __('messages.Service') }}</th>
                                 <th>{{ __('messages.Departure') }}</th>
                                 <th>{{ __('messages.Arrival') }}</th>
                                 <th>{{ __('messages.Duration') }}</th>
                                 <th>{{ __('messages.Price') }}</th>
+                                <th>{{ __('messages.Action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($journeys as $journey)
                             @foreach($journey['legs'] as $leg)
                             <tr>
-                                <td><input type="checkbox" name="selected_journeys[]" value="{{ $journey['id'] }}"></td>
-                                <td>{{ $leg['line']['productCode'] . -  $leg['line']['id'] }}</td>
-                                <td>{{ \Carbon\Carbon::parse($leg['departure'])->format('H:i') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($leg['arrival'])->format('H:i') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($leg['departure'])->diff(\Carbon\Carbon::parse($leg['arrival']))->format('%H:%I') }}</td>
-                                <td>{{ $journey['price']['amount'] }} {{ $journey['price']['currency'] }}</td>
+                                <form action="{{ route('auth.createTicket', ['locale' => app()->getLocale()]) }}" method="POST">
+                                    @csrf
+                                    <td>{{ $leg['line']['productCode'] . ' - ' . $leg['line']['id'] }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($leg['departure'])->format('H:i') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($leg['arrival'])->format('H:i') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($leg['departure'])->diff(\Carbon\Carbon::parse($leg['arrival']))->format('%H:%I') }}</td>
+                                    <td>{{ $journey['price']['amount'] }} {{ $journey['price']['currency'] }}</td>
+                                    <td>
+                                        <button type="submit">{{ __('messages.Book Now') }}</button>
+                                        <input type="hidden" name="journey_id" value="{{ $journey['id'] }}">
+                                    </td>
+                                </form>
                             </tr>
                             @endforeach
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-
-                <div class="confirm">
-                    <label>
-                        <input type="checkbox" required>
-                        {{ __('messages.I declare that I don’t have less than 18 years.') }}
-                    </label>
-                    <button type="button">{{ __('messages.Continue') }}</button>
-                </div>
             </section>
             @endisset
         </section>
+        @if (session('popup'))
+        {!! session('popup') !!}
+        @endif
     </main>
+    <x-footer/>
 </body>
 
 </html>

@@ -239,5 +239,6 @@ return [
     'Amount' => 'Montante',
     'The receipt issued by the ATM serves as proof of payment. Please keep it for your records.' => 'O talão emitido pelo Multibanco serve como comprovativo de pagamento. Por favor, guarde-o para os seus registos.',
     'Return to Home' => 'Voltar à Página Inicial',
-
+    'Action' => 'Ações',
+    'Book Now' => 'Reserve agora',
 ];
