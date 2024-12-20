@@ -7,7 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <!-- css e script  de mapa interativo -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> @vite(['resources/css/hotelDetail.css', 'resources/js/hotelDetail.js', 'resources/js/mapa.js'])
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> 
+	@vite(['resources/js/jquery-3.7.1.min.js', 'resources/css/hotelDetail.css', 'resources/js/hotelDetail.js', 'resources/js/mapa.js', 'resources/js/popupTrainTicket.js', 'resources/css/popupTrainTicket.css'])
   </head>
   <body>
     <x-header />
@@ -141,7 +142,7 @@
 			<span class="trainBusTicketsDetailsTickets">&#x1F3AB;&#xFE0E;&nbsp;&nbsp;<b>2</b></span><span class="trainBusTicketsTime">&#x1F552;&#xFE0E;&nbsp;&nbsp;<b>12:32 - 14:02</b></span>
 			<br><br>
 			&#x1F4CD;&#xFE0E;&nbsp;&nbsp;Rua sao mamede nº291 1312-123
-			<button class="btn btn-primary">{{ __('messages.Open') }}</button>
+			<button id="show-popup" class="btn btn-primary">{{ __('messages.Open') }}</button>
 		</div>
 	  </div>
 	  <br><br>
@@ -152,7 +153,7 @@
       </div>
       <div class="activities">
 	    <div class="activitiesImage">
-			<img src="/images/tourDetailImage.jpg" alt="Ticket Image">
+			<img src="/images/hotelDetailImage.jpg" alt="Ticket Image">
 		</div>
 		<div class="activitiesDetails">
 			<span class="activitiesDetailsTitle">Ponte dos Mortos</span>
