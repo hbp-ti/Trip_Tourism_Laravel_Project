@@ -19,8 +19,19 @@ class PaymentController extends Controller
     public function paymentPhases(Request $request)
     {
         $locale = $request->route('locale');
-        $phase = $request->input('phase');
-        $paymentMethod = $request->input('paymentMethod');
+
+        $validatedData = $request->validate([
+            'phase' => 'required|integer|in:1,2,3',
+            'paymentMethod' => 'nullable|string|in:mbway,paypal,multibanco',
+            'address' => 'nullable|string|max:255',
+            'address2' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'zip' => 'nullable|string|max:20',
+        ]);
+
+        $phase = $validatedData['phase'];
+        $paymentMethod = $validatedData['paymentMethod'];
 
         switch ($phase) {
             case 1:
@@ -33,13 +44,12 @@ class PaymentController extends Controller
                 }
 
                 $billingInfo = [
-                    'address' => $request->input('address'),
-                    'address2' => $request->input('address2'),
-                    'country' => $request->input('country'),
-                    'city' => $request->input('city'),
-                    'zip' => $request->input('zip'),
+                    'address' => $validatedData['address'] ?? null,
+                    'address2' => $validatedData['address2'] ?? null,
+                    'country' => $validatedData['country'] ?? null,
+                    'city' => $validatedData['city'] ?? null,
+                    'zip' => $validatedData['zip'] ?? null,
                 ];
-
                 // Armazena as informações de faturação na sessão
                 $request->session()->put('billingInfo', $billingInfo);
 
