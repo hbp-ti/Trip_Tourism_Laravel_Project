@@ -45,33 +45,36 @@
                 </div>
                 <div class="reviewInformationLower">
                     @foreach ($cartItems as $it)
-                        @if ($cartItems->details->type === 'Hotel')
+                        @if ($it->details->type === 'Hotel')
                             <div>
-                                <span class="info-title">{{ $cartItems->details->name }} {{$cartItems->numb_people_hotel}}pax</span>
+                                <span class="info-title">{{ $it->details->name }}
+                                    {{ $it->numb_people_hotel }}pax</span>
                                 <hr>
-                                <span class="info-value">{{ $cartItems->details->total_price }}€</span>
+                                <span class="info-value">{{ $it->details->total_price }}€</span>
                             </div>
                             <div>
-                                <span>{{ __('messages.Lisboa') }}</span>
-                                <span>{{ __('messages.Checkin') }} - {{$cartItems->reservation_date_hotel_checkin}}</span>
-                                <span>{{ __('messages.Checkout') }} - {{$cartItems->reservation_date_hotel_checkout}}</span>
+                                <span>{{ $it->details->city }}</span>
+                                <span>{{ __('messages.Checkin') }} - {{ $it->reservation_date_hotel_checkin }}</span>
+                                <span>{{ __('messages.Checkout') }} -
+                                    {{ $it->reservation_date_hotel_checkout }}</span>
                             </div>
                             <div>
                                 <span>{{ __('messages.Accommodation Type') }} -
-                                    {{ $cartItems->details->room_type  }}</span>
+                                    {{ $it->details->room_type }}</span>
                             </div>
-                        @elseif($cartItems->details->type === 'Activity')
-                            <!-- <div>
-                                <span class="info-title">{{ $cartItems->details->name }} {{$cartItems->numb_people_activity}}pax</span>
+                        @elseif($it->details->type === 'Activity')
+                            <div>
+                                <span class="info-title">{{ $it->details->name }}
+                                    {{ $it->numb_people_activity }}pax</span>
                                 <hr>
-                                <span class="info-value">$cartItems->details->total_price€</span>
+                                <span class="info-value">{{$it->details->total_price}}€</span>
                             </div>
                             <div>
-                                <span>{{ __('messages.Coimbra') }}</span>
-                                <span>{{ __('messages.Date') }} - 05/03/2024</span>
-                                <span>{{ __('messages.Language') }} - {{ __('messages.Portuguese') }}</span>
-                                <span>{{ __('messages.Duration') }} - 8h</span>
-                            </div> -->
+                                <span>{{ $it->details->city }}</span>
+                                <span>{{ __('messages.Date') }} - {{ $it->details->checkin }}</span>
+                                <span>{{ __('messages.Language') }} - {{$it->details->language }}</span>
+                                <span>{{ __('messages.Duration') }} - {{ $it->details->numb_people }}</span>
+                            </div>
                         @endif
                     @endforeach
                 </div>

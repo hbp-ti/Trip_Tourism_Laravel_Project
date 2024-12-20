@@ -12,6 +12,7 @@ use App\Models\Room;
 use App\Models\OrderItem;
 use App\Models\Activity;
 use App\Models\Hotel;
+use App\Helpers\PopupHelper;
 
 class PaymentController extends Controller
 {
@@ -24,7 +25,6 @@ class PaymentController extends Controller
         switch ($phase) {
             case 1:
                 return view('payment.payment1');
-                break;
 
             case 2:
                 // Armazena o método de pagamento na sessão
@@ -115,6 +115,8 @@ class PaymentController extends Controller
                             'city' => $activity->city,
                             'zip_code' => $activity->zip_code,
                             'street' => $activity->street,
+                            'checkin' => $cartItem->date_activity,
+                            'language' => $activity->language,
                             'price_hour' => $activity->price_hour,
                             'numb_people' => $cartItem->numb_people_activity,
                             'subtotal' => $subtotal,
@@ -124,8 +126,8 @@ class PaymentController extends Controller
 
                     return $cartItem;
                 });
-                return view('payment.payment2', compact('paymentMethod', 'billingInfo', 'cart', 'cartItems'));
-                break;
+
+                return view('payment.payment2', compact('paymentMethod', 'cart', 'cartItems'));
 
             case 3:
                 // Recupera os valores armazenados na sessão
@@ -134,7 +136,6 @@ class PaymentController extends Controller
 
                 // Retorna a view com `compact`
                 return view('payment.payment3', compact('paymentMethod', 'billingInfo'));
-                break;
 
             default:
                 abort(404, 'Invalid payment phase');

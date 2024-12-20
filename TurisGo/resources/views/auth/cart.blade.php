@@ -90,7 +90,8 @@
                 <p class="taxes">{{ __('messages.Taxes') }}: <span>{{ $cart->taxes }}€</span></p>
                 <hr>
                 <p class="total-price">{{ __('messages.Total Price') }}: <span>{{ $cart->total }}€</span></p>
-                <form id="gotoPayment" action="{{ route('auth.payment', ['locale' => app()->getLocale()]) }}" method="POST" style="display: inline;">
+                <form id="gotoPayment" action="{{ route('auth.payment', ['locale' => app()->getLocale()]) }}"
+                    method="POST" style="display: inline;">
                     @csrf
                     <input type="hidden" name="phase" value="1">
                     <button type="submit" class="checkout-btn">{{ __('messages.Checkout') }}</button>
@@ -108,8 +109,8 @@
         <p>{{ __('messages.Your journey is almost ready! Add train or bus tickets for a convenient trip. Choose the best option and make the most of your journey!') }}
         </p>
         <div class="ticket-buttons">
-            <a href="{{ route('auth.tickets', ['locale' => app()->getLocale()]) }}"
-                class="ticket-btn">{{ __('messages.Buy Tickets') }}</a>
+            <a href="{{ route('auth.tickets', ['locale' => app()->getLocale()]) }}">
+                <button class="train-btn">{{ __('messages.Buy Train Tickets') }}</button></a>
         </div>
     </section>
     @if (session('popup'))
