@@ -23,9 +23,9 @@
     <!-- Image Slider -->
     <section class="image-slider">
         <div class="slider-images">
-            @if ($hotel->images && $hotel->images->isNotEmpty())
-                @foreach ($hotel->images as $image)
-                    <img src="{{ asset($image->url) }}" alt="{{ $hotel->name }}"
+            @if ($hotel->item->images)
+                @foreach ($hotel->item->images as $image)
+                    <img src="{{ $image->url }}" alt="{{ $hotel->name }}"
                         class="slider-image {{ $loop->first ? '' : 'hidden' }}">
                 @endforeach
             @else
@@ -44,7 +44,7 @@
         </div>
         <div class="dots-container">
             @if ($hotel->images && $hotel->images->isNotEmpty())
-                @foreach ($hotel->images as $image)
+                @foreach ($hotel->item->images as $image)
                     <span class="dot {{ $loop->first ? 'active-dot' : '' }}"></span>
                 @endforeach
             @else
@@ -198,7 +198,8 @@
             <button class="close-popup" id="closeReviewPopup">&times;</button>
             <h2>{{ __('messages.Add a Review') }}</h2>
 
-            <form method="POST" action="{{ route('auth.reviews.add', ['item_id' => $hotel->id_item, 'locale' => app()->getLocale()]) }}">
+            <form method="POST"
+                action="{{ route('auth.reviews.add', ['item_id' => $hotel->id_item, 'locale' => app()->getLocale()]) }}">
                 @csrf
                 <div class="stars">
                     <i class="fa-solid fa-star" data-rating="1"></i>
@@ -229,9 +230,10 @@
             @foreach ($hotel->reviews as $review)
                 <div class="review-box">
                     <div class="review-header">
-                        <img src="{{ $review->user->image ?? asset('images/default_user_image.png') }}"
+                        <img src="{{ asset('storage/' . Auth::user()->image) ?? asset('images/default_user_image.png') }}"
                             alt="User image" class="review-img">
-                        <span class="user-name">{{ $review->user->first_name . " " . $review->user->last_name }}</span>
+                        <span
+                            class="user-name">{{ $review->user->first_name . ' ' . $review->user->last_name }}</span>
                     </div>
                     <p class="review-text">"{{ $review->title }}"</p>
                     <p class="review-excerpt">{{ $review->description }}</p>
@@ -253,10 +255,15 @@
             <h2>{{ __('messages.Similar Hotels') }}</h2>
             <hr class="title-line-orange">
         </div>
+
         <div class="hotels">
             @foreach ($similarHotels as $similarHotel)
-                <img src="{{ $similarHotel->image_url ?? asset('images/default-hotel.jpg') }}"
-                    alt="{{ $similarHotel->name }}">
+                <a
+                    href="{{ route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $similarHotel->id_item]) }}">
+                    <img class="imgHotels"
+                        src="{{ $similarHotel->item->images[0]->url ?? asset('images/default-hotel.jpg') }}"
+                        alt="{{ $similarHotel->name }}">
+                </a>
             @endforeach
         </div>
     </section>

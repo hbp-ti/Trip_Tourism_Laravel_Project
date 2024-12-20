@@ -568,7 +568,7 @@ body {
 }
 
 /* Tamanho das imagens */
-.hotels img {
+.imgHotels {
   width: 22%;
   /* Faz com que cada imagem ocupe 22% da largura do contêiner */
   height: auto;

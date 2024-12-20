@@ -91,7 +91,7 @@
             @foreach ($hotels as $hotel)
             <a href="{{ route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}" class="hotel-card">
                 <div class="image-container-hotel">
-                    <img src="{{ $hotel->image_url ?? asset('images/default-hotel.jpg') }}" alt="{{ $hotel->name }}">
+                    <img src="{{ $hotel->item->images[0]->url ?? asset('images/default-hotel.jpg') }}" alt="{{ $hotel->name }}">
 
                     @if ($hotel->rooms->isNotEmpty()) <!-- Verifica se o hotel tem quartos -->
                     <div class="price-tag">

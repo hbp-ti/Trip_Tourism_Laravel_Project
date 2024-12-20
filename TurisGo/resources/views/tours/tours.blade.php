@@ -95,8 +95,8 @@
         <div class="single-column-container">
             @foreach ($tours as $tour)
             <a href="{{ route('tour.tour', ['locale' => app()->getLocale(), 'id' => $tour->id_item]) }}" class="tourActivity-card">
-                <div class="image-container-tourActivity">~
-                    <img src="{{ $tour->image_url ?? asset('images/default-hotel.jpg') }}" alt="{{ $tour->name }}">
+                <div class="image-container-tourActivity">
+                    <img src="{{ $tour->item->images[0]->url ?? asset('images/default-hotel.jpg') }}" alt="{{ $tour->name }}">
                     <div class="price-tag">{{ $tour->price_hour}}€<span> /{{ __('messages.per person') }}</span></div>
                 </div>
                 <div class="text-container">
