@@ -35,8 +35,7 @@ document.querySelector('.checkout-btn').addEventListener('click', function(event
         confirmButtonColor: '#C76A37'  // Cor personalizada para o botão de confirmação
     }).then((result) => {
         if (result.isConfirmed) {
-            // Se o usuário confirmar, você pode redirecionar para o pagamento ou enviar o formulário
-            window.location.href = '/payment1';  // Substitua '/payment' pela URL real do pagamento
+            $('#gotoPayment').submit();
         }
     });
 });

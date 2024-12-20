@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,9 @@
     @vite(['resources/css/payment2.css'])
 
 </head>
+
 <body>
-    <x-header/>
+    <x-header />
 
     <h1 class="title">{{ __('messages.Payment') }}</h1>
 
@@ -29,7 +31,7 @@
                 <div class="reviewInformationUpper">
                     <div class="info-item">
                         <div class="info-title">{{ __('messages.Item Number') }}</div>
-                        <div class="info-value">12</div>
+                        <div class="info-value">{{ $cart->id }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-title">{{ __('messages.Type') }}</div>
@@ -37,48 +39,75 @@
                     </div>
                     <div class="info-item">
                         <div class="info-title">{{ __('messages.Total Price') }}</div>
-                        <div class="info-value">159€</div>
+                        <div class="info-value">{{ $cart->total }}€</div>
                     </div>
                     <img src="/images/payment2log.png" alt="Payment Logo" class="payment-logo">
                 </div>
                 <div class="reviewInformationLower">
-                    <div>
-                        <span class="info-title">{{ __('messages.Hotel Condado Castro') }} 2pax</span>
-                        <hr>
-                        <span class="info-value">121€</span>
-                    </div>
-                    <div>
-                        <span>{{ __('messages.Lisboa') }}</span>
-                        <span>{{ __('messages.Checkin') }} - 12/01/2024</span>
-                        <span>{{ __('messages.Checkout') }} - 14/01/2024</span>
-                    </div>
-                    <div>
-                        <span>{{ __('messages.Accommodation Type') }} - {{ __('messages.Executive Double Room') }}</span>
-                    </div>
-                    <div>
-                        <span class="info-title">{{ __('messages.Full Day Tour in Coimbra') }} 1pax</span>
-                        <hr>
-                        <span class="info-value">38€</span>
-                    </div>
-                    <div>
-                        <span>{{ __('messages.Coimbra') }}</span>
-                        <span>{{ __('messages.Date') }} - 05/03/2024</span>
-                        <span>{{ __('messages.Language') }} - {{ __('messages.Portuguese') }}</span>
-                        <span>{{ __('messages.Duration') }} - 8h</span>
-                    </div>
+                    @foreach ($cartItems as $it)
+                        @if ($cartItems->details->type === 'Hotel')
+                            <div>
+                                <span class="info-title">{{ $cartItems->details->name }} {{$cartItems->numb_people_hotel}}pax</span>
+                                <hr>
+                                <span class="info-value">{{ $cartItems->details->total_price }}€</span>
+                            </div>
+                            <div>
+                                <span>{{ __('messages.Lisboa') }}</span>
+                                <span>{{ __('messages.Checkin') }} - {{$cartItems->reservation_date_hotel_checkin}}</span>
+                                <span>{{ __('messages.Checkout') }} - {{$cartItems->reservation_date_hotel_checkout}}</span>
+                            </div>
+                            <div>
+                                <span>{{ __('messages.Accommodation Type') }} -
+                                    {{ $cartItems->details->room_type  }}</span>
+                            </div>
+                        @elseif($cartItems->details->type === 'Activity')
+                            <!-- <div>
+                                <span class="info-title">{{ $cartItems->details->name }} {{$cartItems->numb_people_activity}}pax</span>
+                                <hr>
+                                <span class="info-value">$cartItems->details->total_price€</span>
+                            </div>
+                            <div>
+                                <span>{{ __('messages.Coimbra') }}</span>
+                                <span>{{ __('messages.Date') }} - 05/03/2024</span>
+                                <span>{{ __('messages.Language') }} - {{ __('messages.Portuguese') }}</span>
+                                <span>{{ __('messages.Duration') }} - 8h</span>
+                            </div> -->
+                        @endif
+                    @endforeach
                 </div>
             </div>
 
             <div class="subtitle1">{{ __('messages.Selected Payment Method') }}</div>
             <div class="selectedPaymentMethod">
-                <img src="/images/multibanco.png" alt="{{ __('messages.Multibanco') }}">
-                <button class="buttonChange">{{ __('messages.Change') }}</button>
-            </div>
+                @if ($paymentMethod)
+                    @if ($paymentMethod == 'mbway')
+                        <img src="/images/mbway.png" alt="{{ __('messages.Multibanco') }}">
+                    @elseif ($paymentMethod == 'paypal')
+                        <img src="/images/paypal.png" alt="{{ __('messages.Multibanco') }}">
+                    @elseif ($paymentMethod == 'multibanco')
+                        <img src="/images/multibanco.png" alt="{{ __('messages.Multibanco') }}">
+                    @endif
+                @endif
+                <form action="{{ route('auth.payment', ['locale' => app()->getLocale()]) }}" method="POST"
+                    style="display: inline;">
+                    @csrf
+                    <input type="hidden" name="phase" value="1">
+                    <button type="submit" class="buttonChange">{{ __('messages.Change') }}</button>
+                </form>
 
-            <a href="{{ route('payment3', ['locale' => app()->getLocale()]) }}" class="button">{{ __('messages.Pay') }}</a>
+
+            </div>
+            <form action="{{ route('auth.payment', ['locale' => app()->getLocale()]) }}" method="POST"
+                style="display: inline;">
+                @csrf
+                <input type="hidden" name="phase" value="3">
+                <button type="submit" class="button">{{ __('messages.Pay') }}</button>
+            </form>
+
         </section>
     </div>
 
-    <x-footer/>
+    <x-footer />
 </body>
+
 </html>

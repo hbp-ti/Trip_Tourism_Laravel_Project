@@ -8,6 +8,7 @@ use App\Http\Controllers\HotelController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\PaymentController;
 //Route::get('/upload', [ImageUploadController::class, 'showForm'])->name('upload.form');
 
 
@@ -66,6 +67,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::post('/review/{item_id}/add', [ReviewController::class, 'addReview'])->name('reviews.add');
             // Página principal de compra de tickets
             Route::get('/buyTicketTrain', [TrainController::class, 'stations'])->name('tickets');
+            Route::post('/payment', [PaymentController::class, 'paymentPhases'])->name('payment');
         });
     });
     Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');
@@ -95,22 +97,8 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         return view('contact.contact');
     })->name("contact");
 
-
-
     // Buscar jornadas
     Route::post('/search-journeys', [TrainController::class, 'journeys'])->name('search.journeys');
-
-    Route::get('/payment1', function () {
-        return view('payment.payment1');
-    })->name("payment1");
-
-    Route::get('/payment2', function () {
-        return view('payment.payment2');
-    })->name("payment2");
-
-    Route::get('/payment3', function () {
-        return view('payment.payment3');
-    })->name("payment3");
 
     Route::get('/tourDetail', function () {
         return view('tourDetail.tourDetail');

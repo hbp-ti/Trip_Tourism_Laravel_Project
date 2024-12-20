@@ -90,7 +90,11 @@
                 <p class="taxes">{{ __('messages.Taxes') }}: <span>{{ $cart->taxes }}€</span></p>
                 <hr>
                 <p class="total-price">{{ __('messages.Total Price') }}: <span>{{ $cart->total }}€</span></p>
-                <button class="checkout-btn">{{ __('messages.Checkout') }}</button>
+                <form id="gotoPayment" action="{{ route('auth.payment', ['locale' => app()->getLocale()]) }}" method="POST" style="display: inline;">
+                    @csrf
+                    <input type="hidden" name="phase" value="1">
+                    <button type="submit" class="checkout-btn">{{ __('messages.Checkout') }}</button>
+                </form>
             </div>
         </div>
     </section>

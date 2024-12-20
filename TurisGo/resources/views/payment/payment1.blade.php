@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    @vite(['resources/css/header.css', 'resources/css/payment.css', 'resources/js/payment.js'])
+    @vite(['resources/css/header.css', 'resources/css/payment.css','resources/js/jquery-3.7.1.min.js', 'resources/js/payment.js'])
 </head>
 <body>
    <x-header/>
@@ -15,90 +14,100 @@
 
     <div class="main-content">
         <section class="payment-section">
-        <div class="steps">
-    <div class="step active">
-        <span>1</span>
-    </div>
-    <div class="line"></div>
-    <div class="step">
-        <span>2</span>
-    </div>
-    <div class="line"></div>
-    <div class="step">
-        <span>3</span>
-    </div>
-</div>
+            <div class="steps">
+                <div class="step active"><span>1</span></div>
+                <div class="line"></div>
+                <div class="step"><span>2</span></div>
+                <div class="line"></div>
+                <div class="step"><span>3</span></div>
+            </div>
 
-
-			
             <h2 class="subtitle">{{ __('messages.Payment & Billing Info') }}</h2>
 
-            <form class="payment-form">
-				<div class="title-line-container">
-					<span class="titleWithHr">{{ __('messages.Payment Method') }}</span>
-					<hr class="title-line-orange">
-				</div>
-
+            <form class="payment-form" method="POST" action="{{ route('auth.payment', ['phase' => 2, 'locale' => app()->getLocale()]) }}">
+                @csrf
+                <div class="title-line-container">
+                    <span class="titleWithHr">{{ __('messages.Payment Method') }}</span>
+                    <hr class="title-line-orange">
+                </div>
+                <!-- Payment Methods -->    
                 <div class="payment-methods">
-                    <div class="method">
+                    <div class="method" id="mbway" >
                         <img class="mbway" src="/images/mbway.png" alt="{{ __('messages.MB Way') }}">
                     </div>
-                    <div class="method">
+                    <div class="method" id="multibanco">
                         <img class="multibanco" src="/images/multibanco.png" alt="{{ __('messages.Multibanco') }}">
                     </div>
-                    <div class="method">
+                    <div class="method" id="paypal">
                         <img class="paypal" src="/images/paypal.png" alt="{{ __('messages.PayPal') }}">
                     </div>
                 </div>
 
-				<div class="title-line-container">
-					<span class="titleWithHr">{{ __('messages.Billing Information') }}</span>
-					<hr class="title-line-blue">
-				</div>
+                <!-- Hidden Input for Selected Payment Method -->
+                <input type="hidden" name="payment_method" id="payment_method" value="">
+
+                <!-- Billing Information -->
+                <div class="title-line-container">
+                    <span class="titleWithHr">{{ __('messages.Billing Information') }}</span>
+                    <hr class="title-line-blue">
+                </div>
 
                 <div class="billing-info-container">
-    <!-- Primeira coluna: Payment Method -->
-    <div class="billing-column">
-        <label class="paymentTextInputs" for="address">{{ __('messages.Billing address') }}</label>
-        <input class="paymentTextInputs" type="text" id="address" placeholder="{{ __('messages.Enter your billing address') }}">
+                    <!-- First Column -->
+                    <div class="billing-column">
+                        <label for="address">{{ __('messages.Billing address') }}</label>
+                        <input type="text" name="address" id="address" placeholder="{{ __('messages.Enter your billing address') }}" value="{{ session('billingInfo.address', '') }}" required>
 
-        <label class="paymentTextInputs" for="address2">{{ __('messages.Billing address, line 2') }}</label>
-        <input class="paymentTextInputs" type="text" id="address2" placeholder="{{ __('messages.Additional address information') }}">
+                        <label for="address2">{{ __('messages.Billing address, line 2') }}</label>
+                        <input type="text" name="address2" id="address2" value="{{ session('billingInfo.address2', '') }}" placeholder="{{ __('messages.Additional address information') }}">
 
-        <label class="paymentTextInputs" for="country">{{ __('messages.Country') }}</label>
-        <select class="paymentTextInputs" id="country">
-            <option value="Portugal">{{ __('messages.Portugal') }}</option>
-            <option value="United Kingdom">{{ __('messages.United Kingdom') }}</option>
-        </select>
-    </div>
-
-    <!-- Segunda coluna: City e Zip -->
-    <div class="billing-column">
-        <label class="paymentTextInputs" for="city">{{ __('messages.City') }}</label>
-        <input class="paymentTextInputs" type="text" id="city" placeholder="{{ __('messages.Enter your city') }}">
-
-        <label class="paymentTextInputs" for="zip">{{ __('messages.Zip or postal code') }}</label>
-        <input class="paymentTextInputs" type="text" id="zip" placeholder="{{ __('messages.Enter your postal code') }}">
-    </div>
-</div>
-
-
-                    <div class="awareCheckBox">
-                        <label class="awareText">
-                            <label class="switch">
-                                <input type="checkbox" name="aware" id="aware">
-                                <span class="slider"></span>
-                            </label>
-                            <span>{{ __('messages.I declare I am aware of this purchase') }}</span>
-                        </label>
+                        <label for="country">{{ __('messages.Country') }}</label>
+                        <select name="country" id="country" required>
+                            <option value="Portugal" {{ session('billingInfo.country') == 'Portugal' ? 'selected' : '' }}>
+                                {{ __('messages.Portugal') }}
+                            </option>
+                            <option value="United Kingdom" {{ session('billingInfo.country') == 'United Kingdom' ? 'selected' : '' }}>
+                                {{ __('messages.United Kingdom') }}
+                            </option>
+                        </select>
+                        
                     </div>
-					
-					<a href="{{ route('payment2', ['locale' => app()->getLocale()]) }}" class="button buttonContinue">{{ __('messages.Continue') }}</a>
+
+                    <!-- Second Column -->
+                    <div class="billing-column">
+                        <label for="city">{{ __('messages.City') }}</label>
+                        <input type="text" name="city" id="city" value="{{ session('billingInfo.city', '') }}" placeholder="{{ __('messages.Enter your city') }}" required>
+
+                        <label for="zip">{{ __('messages.Zip or postal code') }}</label>
+                        <input type="text" name="zip" id="zip" value="{{ session('billingInfo.zip', '') }}" placeholder="{{ __('messages.Enter your postal code') }}" required>
+                    </div>
                 </div>
+
+                <!-- Awareness Checkbox -->
+                <div class="awareCheckBox">
+                    <label class="awareText">
+                        <label class="switch">
+                            <input type="checkbox" name="aware" id="aware" required>
+                            <span class="slider"></span>
+                        </label>
+                        <span>{{ __('messages.I declare I am aware of this purchase') }}</span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <input type="hidden" id="paymentMethod" name="paymentMethod" value="">
+
+                <button type="submit" class="button buttonContinue">{{ __('messages.Continue') }}</button>
             </form>
         </section>
     </div>
 
     <x-footer/>
+
+    <script>
+        function selectPaymentMethod(method) {
+            document.getElementById('payment_method').value = method;
+        }
+    </script>
 </body>
 </html>
