@@ -251,6 +251,10 @@
 
 
         <x-footer />
+
+        <script>
+            const hotels = @json($hotelCoordinates);
+        </script>
 </body>
 
 </html>

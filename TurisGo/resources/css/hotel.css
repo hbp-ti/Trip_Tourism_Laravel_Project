@@ -472,3 +472,16 @@ select {
 .blur-overlay.active {
     display: block;
 }
+
+.custom-button {
+    color: #207391;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.hotelPage {
+    width: 100%;
+    text-align: center;
+}

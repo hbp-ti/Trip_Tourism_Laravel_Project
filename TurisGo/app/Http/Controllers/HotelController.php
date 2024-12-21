@@ -17,7 +17,19 @@ class HotelController extends Controller
                 ->limit(1);
         }, 'item.images']) // Incluindo imagens associadas ao item
         ->paginate(5);
-        return view('hotels.hotels', compact('hotels'));
+
+        // Passar as coordenadas dos hotéis para a view
+        $hotelCoordinates = Hotel::all()->map(function($hotel) {
+            return [
+                'id' => $hotel->id_item,
+                'name' => $hotel->name,
+                'latitude' => $hotel->lat,
+                'longitude' => $hotel->lon,
+                'url' => route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item])
+            ];
+        });
+
+        return view('hotels.hotels', compact('hotels', 'hotelCoordinates'));
     }
     
 
