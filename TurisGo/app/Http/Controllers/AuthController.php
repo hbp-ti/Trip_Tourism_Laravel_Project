@@ -530,6 +530,10 @@ class AuthController extends Controller
                 ->with('popup', $popupError);
         }
 
+        if ($request->route('journey') !== null) {
+            $journey = urldecode(json_decode($request->route('journey'), true));
+            dd($journey);
+        }
         // Recuperar dados da requisição
         $itemId = $request->route('itemId');
 

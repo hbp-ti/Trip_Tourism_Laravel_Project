@@ -55,7 +55,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::post('/profile/update-picture', [AuthController::class, 'updateProfilePicture'])->name('profile.update.picture');
             Route::post('/passwordUpdate', [AuthController::class, 'updatePassword'])->name('profile.updatePassword');
             Route::get('/cart', [AuthController::class, 'showCart'])->name('cart.show');
-            Route::post('/cart/{itemId}/add', [AuthController::class, 'addToCart'])->name('cart.add');
+            /*
+            VER SE FUNCIONA COM O ? A FRENTE DO ITEMID
+            */
+            Route::post('/cart/{itemId?}/add', [AuthController::class, 'addToCart'])->name('cart.add');
             Route::delete('/cart/{cartItem}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
             Route::post('/review/{item_id}/add', [ReviewController::class, 'addReview'])->name('reviews.add');
             // Página principal de compra de tickets

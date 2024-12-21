@@ -93,7 +93,7 @@
                             @foreach($journeys as $journey)
                             @foreach($journey['legs'] as $leg)
                             <tr>
-                                <form action="{{ route('auth.createTicket', ['locale' => app()->getLocale()]) }}" method="POST">
+                                <form action="{{ route('auth.cart.add', ['journey' =>  $journey['id'], 'locale' => app()->getLocale()]) }}" method="POST">
                                     @csrf
                                     <td>{{ $leg['line']['productCode'] . ' - ' . $leg['line']['id'] }}</td>
                                     <td>{{ \Carbon\Carbon::parse($leg['departure'])->format('H:i') }}</td>
@@ -102,7 +102,6 @@
                                     <td>{{ $journey['price']['amount'] }} {{ $journey['price']['currency'] }}</td>
                                     <td>
                                         <button type="submit">{{ __('messages.Book Now') }}</button>
-                                        <input type="hidden" name="journey_id" value="{{ $journey['id'] }}">
                                     </td>
                                 </form>
                             </tr>
