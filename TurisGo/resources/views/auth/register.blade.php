@@ -11,13 +11,39 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
-    @vite(['resources/css/register.css', 'resources/css/terms.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/terms.js'])
+    @vite(['resources/css/register.css', 'resources/css/terms.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/terms.js','resources/js/register.js'])
     @include('auth.terms')
 </head>
 
 <body>
 
     <div class="container">
+        <div class="language-selector">
+            <a href="#" class="language-toggle" id="languageToggle">
+                <img src="{{ asset('images/languageSelection1.png') }}" alt="{{ __('messages.Globe') }}" class="language-img" />
+                {{ strtoupper(app()->getLocale()) }}
+            </a>
+            <div class="language-dropdown" id="languageDropdown">
+                <!-- Link para alterar para o inglês -->
+                <a href="{{ url('/'.(app()->getLocale() === 'en' ? 'pt' : 'en').substr(request()->getRequestUri(), 3)) }}" class="language-option">
+                    <img src="{{ asset('images/UK_flag.png') }}" alt="{{ __('English') }}" class="flag-icon" />
+                    {{ __('English') }}
+                    @if (app()->getLocale() === 'en')
+                    <span class="checkmark">✔️</span>
+                    @endif
+                </a>
+
+                <!-- Link para alterar para o português -->
+                <a href="{{ url('/'.(app()->getLocale() === 'pt' ? 'en' : 'pt').substr(request()->getRequestUri(), 3)) }}" class="language-option">
+                    <img src="{{ asset('images/PT_flag.png') }}" alt="{{ __('Portuguese') }}" class="flag-icon" />
+                    {{ __('Portuguese') }}
+                    @if (app()->getLocale() === 'pt')
+                    <span class="checkmark">✔️</span>
+                    @endif
+                </a>
+            </div>
+
+        </div>
         <div class="form-section">
             <div class="form-container">
                 <h2>{{ __('messages.Get Started Now') }}</h2>
