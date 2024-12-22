@@ -276,3 +276,82 @@ html {
         font-size: 10px;
     }
 }
+
+
+
+.language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px; /* Tamanho do texto */
+    cursor: pointer;
+}
+/* CSS para posicionar o seletor de idioma no canto superior direito */
+.language-selector {
+    position: absolute;
+    top: 20px; /* Distância do topo da página */
+    right: 20px; /* Distância do lado direito */
+    z-index: 1000; /* Garantir que esteja acima de outros elementos */
+}
+.language-img{
+    width: 30px;
+}
+
+.language-dropdown {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 150px;
+    z-index: 1000;
+}
+
+.language-option {
+    display: flex;
+    border-radius: 8px;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.language-option:hover {
+    background-color: #f0f0f0;
+}
+
+.flag-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.checkmark {
+    margin-left: auto;
+    color: #4CAF50;
+}
+
+
+.centralized-logo{
+    margin-bottom: 30px;
+}
+.centralized-logo a {
+    text-decoration: none;
+    font-family: 'Manrope', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: black;
+    transition: color 0.3s;
+    margin-left: 90px;
+
+}
+
+.centralized-logo a:hover {
+    color: #e67500;
+}
