@@ -508,13 +508,13 @@ class AuthController extends Controller
                 $ticket = Ticket::where('id_item', $item->id)->first();
 
                 // Calcular preço total para Activity
-                $subtotal = $ticket->priceTrain * $ticket->passengers;
+                $subtotal = $ticket->total_price * $ticket->quantity;
                 $taxes = $subtotal * $taxRate; // Calcular o valor da taxa
                 $totalPrice = $subtotal + $taxes; // Somar a taxa ao subtotal para obter o total
 
                 // Associar detalhes ao cartItem
                 $cartItem->details = (object) [
-                    'type' => 'Activity',
+                    'type' => 'Ticket',
                     'name' => $ticket->origin . '->' . $ticket->destination,
                     'train_type' => $ticket->train_type,
                     'train_class' => $ticket->train_class,
@@ -527,7 +527,6 @@ class AuthController extends Controller
                     'total_price' => $totalPrice,
                 ];
             }
-
             return $cartItem;
         });
 
@@ -858,7 +857,7 @@ class AuthController extends Controller
                 $ticket = Ticket::where('id_item', $item->id)->first();
 
                 // Calcular preço total para Activity
-                $itemSubtotal = $ticket->priceTrain * $ticket->passengers;
+                $itemSubtotal = $ticket->total_price * $ticket->quantity;
             }
 
             // Aplica a taxa de 5% sobre o subtotal

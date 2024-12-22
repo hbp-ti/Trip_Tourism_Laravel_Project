@@ -78,6 +78,7 @@ class Kernel implements KernelContract
      */
     protected $routeMiddleware = [
         'setlocale' => \App\Http\Middleware\SetLocale::class,
+        'auth.redirect' => \App\Http\Middleware\RedirectIfNotAuthenticated::class,
     ];
 
     /**

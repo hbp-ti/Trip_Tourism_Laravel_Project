@@ -30,7 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'updateNotification'])->name('update.notification');
     Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification'])->name('delete.notification');
     Route::delete('/notification/delete-all', [NotificationController::class, 'deleteAllNotifications'])->name('delete.notifications');
-    Route::post('/createTicket', [TrainController::class, 'createTicket'])->name('createTicket');
 });
 
 
@@ -50,7 +49,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         Route::post('forgot', [AuthController::class, 'sendResetLink'])->name('forgot.submit');
         Route::get('reset/{token}/{email}', [AuthController::class, 'showResetForm'])->name('reset.form');
         Route::post('reset', [AuthController::class, 'resetPassword'])->name('reset.submit');
-        Route::middleware('auth')->group(function () {
+        Route::middleware('auth.redirect')->group(function () {
             Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile.show');
             Route::post('/profileUpdate', [AuthController::class, 'updateProfile'])->name('profile.update');
             Route::post('/profile/update-picture', [AuthController::class, 'updateProfilePicture'])->name('profile.update.picture');

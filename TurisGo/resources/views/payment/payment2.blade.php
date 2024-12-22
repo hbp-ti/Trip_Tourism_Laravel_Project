@@ -35,7 +35,7 @@
                     </div>
                     <div class="info-item">
                         <div class="info-title">{{ __('messages.Type') }}</div>
-                        <div class="info-value">{{ __('messages.Hotel and Tour') }}</div>
+                        <div class="info-value">{{ __('messages.Hotel, Tour and Tickets') }}</div>
                     </div>
                     <div class="info-item">
                         <div class="info-title">{{ __('messages.Total Price') }}</div>
@@ -67,13 +67,26 @@
                                 <span class="info-title">{{ $it->details->name }}
                                     {{ $it->numb_people_activity }}pax</span>
                                 <hr>
-                                <span class="info-value">{{$it->details->total_price}}€</span>
+                                <span class="info-value">{{ $it->details->total_price }}€</span>
                             </div>
                             <div>
                                 <span>{{ $it->details->city }}</span>
                                 <span>{{ __('messages.Date') }} - {{ $it->details->checkin }}</span>
-                                <span>{{ __('messages.Language') }} - {{$it->details->language }}</span>
+                                <span>{{ __('messages.Language') }} - {{ $it->details->language }}</span>
                                 <span>{{ __('messages.Duration') }} - {{ $it->details->numb_people }}</span>
+                            </div>
+                        @elseif($it->details->type === 'Ticket')
+                            <div>
+                                <span class="info-title">{{ $it->details->name }}
+                                    {{ $it->details->quantity }}pax</span>
+                                <hr>
+                                <span class="info-value">{{ $it->details->total_price }}€</span>
+                            </div>
+                            <div>
+                                <span>{{ $it->details->origin . '-' . $it->details->destination }}</span>
+                                <span>{{ __('messages.Date') }} - {{ $it->details->departure_hour }}</span>
+                                <span>{{ __('messages.Train type') }} - {{ $it->details->train_type }}</span>
+                                <span>{{ __('messages.Train class') }} - {{ $it->details->train_class }}</span>
                             </div>
                         @endif
                     @endforeach
