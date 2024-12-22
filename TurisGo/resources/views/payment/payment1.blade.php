@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(['resources/css/header.css', 'resources/css/payment.css','resources/js/jquery-3.7.1.min.js', 'resources/js/payment.js'])
 </head>
 <body>
@@ -97,7 +98,7 @@
                 <!-- Submit Button -->
                 <input type="hidden" id="paymentMethod" name="paymentMethod" value="">
 
-                <button type="submit" class="button buttonContinue">{{ __('messages.Continue') }}</button>
+                <button id="buttonContinue" type="submit" class="button buttonContinue">{{ __('messages.Continue') }}</button>
             </form>
         </section>
     </div>
