@@ -10,10 +10,12 @@ class Ticket extends Model
     use HasFactory;
 
     protected $table = 'tickets';
+    protected $primaryKey = 'id_item';
 
     protected $fillable = [
         'id_item',
         'transport_type',
+        'train_type',
         'train_class',
         'departure_hour',
         'quantity',

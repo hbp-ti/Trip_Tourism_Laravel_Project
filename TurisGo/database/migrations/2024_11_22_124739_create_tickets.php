@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         DB::statement("ALTER TABLE tickets ADD CONSTRAINT transport_type_check CHECK (transport_type IN ('Train', 'Bus'))");
-        DB::statement("ALTER TABLE tickets ADD CONSTRAINT train_class_check CHECK (train_class IS NULL OR train_class IN ('first', 'second'))");
+        DB::statement("ALTER TABLE tickets ADD CONSTRAINT train_class_check CHECK (train_class IS NULL OR train_class IN ('Comfort', 'Tourist'))");
     }
 
     public function down(): void

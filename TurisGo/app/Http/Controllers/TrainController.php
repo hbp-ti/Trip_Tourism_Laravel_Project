@@ -51,100 +51,111 @@ class TrainController extends Controller
     // Método para buscar as jornadas (viagens)
     public function journeys(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'from' => 'required|regex:/^94-\d{5}$/',
-            'to' => 'required|regex:/^94-\d{5}$/',  
-            'date' => 'required|date|after:today',   // Verifica se a data é válida e está no futuro
-            'preference' => 'nullable|string|in:AP,IR,IC,U,R', // Verifica se a preferência de trem é válida
+            'to' => 'required|regex:/^94-\d{5}$/',
+            'date' => 'required|date|after:today',
+            'preference' => 'nullable|string|in:AP,IR,IC,U,R',
         ]);
-
-        // Se a validação falhar, retorna os erros para o usuário
+    
+        // Busca as estações
+        $stationsResponse = Http::get("{$this->apiBaseUri}/stations");
+        $stations = $stationsResponse->successful() ? $stationsResponse->json() : [];
+    
+        // Se a validação falhar, retorna os erros
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+            return back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('stations', $stations);
         }
-
-        // Recupera os parâmetros válidos
+    
+        // Recupera os parâmetros
         $from = $request->input('from');
         $to = $request->input('to');
         $date = $request->input('date');
         $train = $request->input('preference');
-
-        // Busca as estações novamente, caso não estejam carregadas
-        $stationsResponse = Http::get("{$this->apiBaseUri}/stations");
-
-        if ($stationsResponse->successful()) {
-            $stations = $stationsResponse->json();
-        } else {
-            $stations = [];
-        }
-
+        $class = $request->input('class');
+        $passengers = $request->input('passengers');
+    
         // Busca as jornadas
         $response = Http::get("{$this->apiBaseUri}/journeys", [
             'from' => $from,
             'to' => $to,
             'date' => $date,
-            'train' => $train
+            'train' => $train,
         ]);
-
+    
         if ($response->successful()) {
             $journeys = $response->json();
-
-            // Se não houver jornadas encontradas, cria um popup de erro e redireciona
+    
             if (empty($journeys)) {
                 $popup = PopupHelper::showPopup(
-                    'No Journeys Found', 
-                    'Sorry, no journeys were found for the selected route and date and train type.', 
-                    'error', 
-                    'OK', 
-                    false, 
-                    '', 
+                    'No Journeys Found',
+                    'Sorry, no journeys were found for the selected route and date and train type.',
+                    'error',
+                    'OK',
+                    false,
+                    '',
                     5000
                 );
-                return back()->with('popup', $popup);
+                return back()->with('popup', $popup)->withInput();
             }
-
-            // Buscar nome da estação de origem
-            $responseStationFrom = Http::get("{$this->apiBaseUri}/stationById", [
-                'id' => $from,
+    
+            // Buscar nome das estações
+            $stationFrom = Http::get("{$this->apiBaseUri}/stationById", ['id' => $from])->json();
+            $stationTo = Http::get("{$this->apiBaseUri}/stationById", ['id' => $to])->json();
+    
+            $from = $stationFrom[0]['name'] ?? $from;
+            $to = $stationTo[0]['name'] ?? $to;
+    
+            // Retorna a visualização com valores preenchidos
+            return view('buyTicketTrain.buyTicketTrain', [
+                'journeys' => $journeys,
+                'stations' => $stations,
+                'from' => $from,
+                'to' => $to,
+                'fromId' => $request->input('from'),
+                'toId' => $request->input('to'),
+                'date' => $date,
+                'train' => $train,
+                'class' => $class,
+                'passengers' => $passengers
             ]);
-
-            if ($responseStationFrom->successful()) {
-                $stationFrom = $responseStationFrom->json();
-                $from = $stationFrom[0]['name'];
-            }
-
-            // Buscar nome da estação de destino
-            $responseStationTo = Http::get("{$this->apiBaseUri}/stationById", [
-                'id' => $to,
-            ]);
-
-            if ($responseStationTo->successful()) {
-                $stationTo = $responseStationTo->json();
-                $to = $stationTo[0]['name'];  // Atualiza o nome da estação de destino
-            }
-
-            // Passando tanto as jornadas quanto as estações para a mesma view
-            return view('buyTicketTrain.buyTicketTrain', compact('journeys', 'stations', 'from', 'to'));
         }
-
-        // Caso ocorra um erro na requisição das jornadas
+    
         $popup = PopupHelper::showPopup(
-            'No Journeys Found', 
-            'Sorry, no journeys were found for the selected route and date and train type.', 
-            'error', 
-            'OK', 
-            false, 
-            '', 
+            'No Journeys Found',
+            'Sorry, no journeys were found for the selected route and date and train type.',
+            'error',
+            'OK',
+            false,
+            '',
             10000
         );
-        return back()->with('popup', $popup);
+        return back()->with('popup', $popup)->withInput();
     }
+    
+    
 
     public function createTicket(Request $request)
     {
+        dd($request->all());
+
         // Recebe o objeto JSON como string
-        $ticket = $request->route('journey_id');  
+        $journey = json_decode(urldecode($request->input('journey')), true);
+        $preference = $request->input('preference');
+        $passengers = $request->input('passengers');
+        $date = $request->input('date');
+        $class = $request->input('class'); 
+
+        dd([
+            'journey' => $journey,
+            'preference' => $preference,
+            'passengers' => $passengers,
+            'date' => $date,
+            'class' => $class,
+        ]);
 
         // Criação do item
         $item = Item::create([
@@ -156,7 +167,7 @@ class TrainController extends Controller
         $locale = app()->getLocale();
 
         // Construir a URL com parâmetros para a rota 'auth.cart.add'
-        $actionUrl = route('auth.cart.add', ['locale' => $locale, 'itemId' => $itemId, 'journeyId' => $ticket]);
+        /*$actionUrl = route('auth.cart.add', ['locale' => $locale, 'itemId' => $itemId, 'journeyId' => $ticket]);
     
         // Criar o HTML do formulário e enviar via POST
         $html = '<!DOCTYPE html>
@@ -180,8 +191,8 @@ class TrainController extends Controller
         </body>
         </html>';
     
-        // Retorna o HTML com o formulário para ser enviado via POST
-        return response($html);
+        // Retorna o HTML com o formulário para ser enviado via POST*/
+        return response("asd");
     }
     
     

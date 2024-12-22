@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'updateNotification'])->name('update.notification');
     Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification'])->name('delete.notification');
     Route::delete('/notification/delete-all', [NotificationController::class, 'deleteAllNotifications'])->name('delete.notifications');
+    Route::post('/createTicket', [TrainController::class, 'createTicket'])->name('createTicket');
 });
 
 
@@ -55,16 +56,11 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::post('/profile/update-picture', [AuthController::class, 'updateProfilePicture'])->name('profile.update.picture');
             Route::post('/passwordUpdate', [AuthController::class, 'updatePassword'])->name('profile.updatePassword');
             Route::get('/cart', [AuthController::class, 'showCart'])->name('cart.show');
-            /*
-            VER SE FUNCIONA COM O ? A FRENTE DO ITEMID
-            */
-            Route::post('/cart/{itemId?}/add', [AuthController::class, 'addToCart'])->name('cart.add');
+            Route::post('/cart/add', [AuthController::class, 'addToCart'])->name('cart.add');
             Route::delete('/cart/{cartItem}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
             Route::post('/review/{item_id}/add', [ReviewController::class, 'addReview'])->name('reviews.add');
-            // Página principal de compra de tickets
             Route::get('/buyTicketTrain', [TrainController::class, 'stations'])->name('tickets');
             Route::post('/payment', [PaymentController::class, 'paymentPhases'])->name('payment');
-            Route::post('/createTicket', [TrainController::class, 'createTicket'])->name('createTicket');
         });
     });
     Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');

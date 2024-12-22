@@ -503,6 +503,29 @@ class AuthController extends Controller
                     'subtotal' => $subtotal,
                     'total_price' => $totalPrice,
                 ];
+            } elseif ($item->item_type === 'Ticket') {
+                // Buscar detalhes da atividade relacionada
+                $ticket = Ticket::where('id_item', $item->id)->first();
+
+                // Calcular preço total para Activity
+                $subtotal = $ticket->priceTrain * $ticket->passengers;
+                $taxes = $subtotal * $taxRate; // Calcular o valor da taxa
+                $totalPrice = $subtotal + $taxes; // Somar a taxa ao subtotal para obter o total
+
+                // Associar detalhes ao cartItem
+                $cartItem->details = (object) [
+                    'type' => 'Activity',
+                    'name' => $ticket->origin . '->' . $ticket->destination,
+                    'train_type' => $ticket->train_type,
+                    'train_class' => $ticket->train_class,
+                    'departure_hour' => $ticket->departure_hour,
+                    'quantity' => $ticket->quantity,
+                    'is_used' => $ticket->is_used,
+                    'origin' => $ticket->origin,
+                    'destination' => $ticket->destination,
+                    'subtotal' => $subtotal,
+                    'total_price' => $totalPrice,
+                ];
             }
 
             return $cartItem;
@@ -513,6 +536,8 @@ class AuthController extends Controller
 
     public function addToCart(Request $request)
     {
+
+
         $locale = $request->route('locale');
         $popupError = PopupHelper::showPopup(
             'Authentication!',
@@ -530,12 +555,44 @@ class AuthController extends Controller
                 ->with('popup', $popupError);
         }
 
-        if ($request->route('journey') !== null) {
-            $journey = urldecode(json_decode($request->route('journey'), true));
-            dd($journey);
+        if ($request->has(['journey', 'preference', 'passengers', 'date', 'class', 'from', 'to'])) {
+            // Verifica se os parâmetros não estão vazios
+            $validated = $request->validate([
+                'journey' => 'required|string',
+                'leg' => 'required|string',  // Exemplo de validação para uma string
+                'preference' => 'required|string|max:255',
+                'passengers' => 'required|integer|min:1', // Valida que é um número inteiro, com no mínimo 1 passageiro
+                'date' => 'required|date', // Valida que a data é uma data válida
+                'class' => 'required|string|max:50', // Exemplo para validar a classe, com string
+                'from' => 'required|string|max:255', // Valida o local de origem
+                'to' => 'required|string|max:255', // Valida o local de destino
+            ]);
+
+            $journey = $validated['journey'];
+            $leg = $validated['leg'];
+            $journeyObject = json_decode(urldecode($journey), true);
+            $legObject = json_decode(urldecode($leg), true);
+            $preference = $validated['preference'];
+            $passengers = $validated['passengers'];
+            $date = $validated['date'];
+            $travelClass = $validated['class'];
+            $from = $validated['from'];
+            $to = $validated['to'];
+
+
+            if (!empty($journey) && !empty($leg) && !empty($preference) && !empty($passengers) && !empty($date) && !empty($travelClass) && !empty($from) && !empty($to)) {
+                // Criação do item
+                $item = Item::create([
+                    'item_type' => 'Ticket',
+                ]);
+
+                // Preparar os dados para a URL e o POST
+                $itemId = $item->id;
+                $request->merge(['itemId' => $itemId]);
+            }
         }
         // Recuperar dados da requisição
-        $itemId = $request->route('itemId');
+        $itemId = $request->input('itemId');
 
         $item = Item::findOrFail($itemId);
 
@@ -550,16 +607,15 @@ class AuthController extends Controller
             $checkoutDate = $request->input('checkout_date.' . $room->id);
             $checkinDate = $request->input('checkin_date.' . $room->id);  // Check-in para Hotel ou Tour
         } elseif ($item->item_type === 'Activity') {
-            // Para Tours/Activities, o hash será gerado com o price_hour
             $tour = Activity::where('id_item', $item->id)->firstOrFail();
             $dataToHash = $tour->id_item . '|' . $tour->price_hour;
             $itemHash = $request->input('item_hash.' . $tour->id_item);
             $guestsCount = $request->input('guests.' . $itemId);  // Número de pessoas (para Hotel ou Tour)
             $checkinDate = $request->input('checkin_date.' . $tour->id_item);  // Check-in para Hotel ou Tour
         } elseif ($item->item_type === 'Ticket') {
-            $ticket = Ticket::where('id_item', $item->id)->firstOrFail();
-
-            
+            $timestampTrain = \Carbon\Carbon::parse($legObject["departure"])->format('Y-m-d H:i:s');
+            $dateTrain = \Carbon\Carbon::parse($legObject["departure"])->format('Y-m-d');
+            $priceTrain = $journeyObject['price']['amount'];
         } else {
             // Caso não seja nem Hotel, nem Activity/Tour, retornamos um erro
             $popupError2 = PopupHelper::showPopup(
@@ -577,21 +633,23 @@ class AuthController extends Controller
 
 
 
-        // Gerar o hash esperado com base no tipo de item
-        $expectedHash = hash_hmac('sha256', $dataToHash, config('app.key'));
+        if ($item->item_type === 'Hotel' || $item->item_type === 'Activity') {
+            // Gerar o hash esperado com base no tipo de item
+            $expectedHash = hash_hmac('sha256', $dataToHash, config('app.key'));
 
-        // Verificar se o hash enviado é válido
-        if ($expectedHash !== $itemHash) {
-            $popupError2 = PopupHelper::showPopup(
-                'Error!',
-                'The ids do not match.',
-                'Error',
-                'OK',
-                false,
-                '',
-                5000
-            );
-            return back()->with('popup', $popupError2);
+            // Verificar se o hash enviado é válido
+            if ($expectedHash !== $itemHash) {
+                $popupError2 = PopupHelper::showPopup(
+                    'Error!',
+                    'The ids do not match.',
+                    'Error',
+                    'OK',
+                    false,
+                    '',
+                    5000
+                );
+                return back()->with('popup', $popupError2);
+            }
         }
 
         // Adicionar item ao carrinho
@@ -659,10 +717,30 @@ class AuthController extends Controller
             $data['train_people_count'] = null;
             $data['train_date'] = null;
         } else if ($item->item_type === 'Ticket') {
+
+            Ticket::create([
+                'id_item' => $itemId,
+                'transport_type' => 'Train',
+                'train_class' => $travelClass,
+                'train_type' => $preference,
+                'departure_hour' => $timestampTrain,
+                'quantity' => $passengers,
+                'total_price' => $priceTrain,
+                'origin' => $legObject['origin']['name'],
+                'destination' => $legObject['destination']['name'],
+                'is_used' => false,
+            ]);
+            
+        
+            $itemSubtotal = $priceTrain * $passengers;
+            $taxRate = 0.05; // Taxa fixa (ajustar conforme necessário)
+            $taxes = $itemSubtotal * $taxRate; // Calcular o valor da taxa
+            $itemTotal = $itemSubtotal + $taxes;
+
             // Para Tickets, o cálculo depende de "train_type" e "train_people_count"
-            $data['train_type'] = $request->input('train_type.' . $itemId);
-            $data['train_people_count'] = $request->input('train_people_count.' . $itemId);
-            $data['train_date'] = null;
+            $data['train_type'] = $preference;
+            $data['train_people_count'] = $passengers;
+            $data['train_date'] = $dateTrain;
 
             // Definir valores nulos para outros tipos de item
             $data['numb_people_hotel'] = null;
@@ -699,8 +777,12 @@ class AuthController extends Controller
             5000
         );
 
-        // Redirecionar para a página do carrinho
-        return back()->with('popup', $popupSuccess);
+
+        if ($item->item_type === 'Hotel' || $item->item_type === 'Activity') {
+            return back()->with('popup', $popupSuccess);
+        } elseif ($item->item_type === 'Ticket') {
+            return redirect()->route('auth.tickets', ['locale' => $locale])->with('popup', $popupSuccess);
+        }
     }
 
 
@@ -771,6 +853,12 @@ class AuthController extends Controller
 
                 // Calcular preço total para Activity
                 $itemSubtotal = $activity->price_hour * $cartItem->numb_people_activity;
+            } elseif ($item->item_type === 'Ticket') {
+                // Buscar detalhes da atividade relacionada
+                $ticket = Ticket::where('id_item', $item->id)->first();
+
+                // Calcular preço total para Activity
+                $itemSubtotal = $ticket->priceTrain * $ticket->passengers;
             }
 
             // Aplica a taxa de 5% sobre o subtotal
