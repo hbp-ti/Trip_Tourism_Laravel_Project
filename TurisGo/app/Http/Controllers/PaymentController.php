@@ -10,12 +10,13 @@ use App\Models\Ticket;
 use App\Models\Item;
 use App\Models\CartItem;
 use App\Models\Room;
+use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Activity;
 use App\Models\Hotel;
+use Illuminate\Support\Facades\DB;
 use App\Helpers\PopupHelper;
 
-use function Symfony\Component\String\b;
 
 class PaymentController extends Controller
 {
@@ -61,7 +62,7 @@ class PaymentController extends Controller
                     'city' => $validatedData['city'] ?? null,
                     'zip' => $validatedData['zip'] ?? null,
                 ];
-
+         
                 $request->session()->put('billingInfo', [
                     'data' => $billingInfo,
                     'expires_at' => now()->addMinutes(10),
@@ -188,29 +189,100 @@ class PaymentController extends Controller
                     $request->session()->forget('billingInfo');
                     $billingInfo = null;
                 }
-                dd($billingInfo);
-                // Limpar o carrinho do utilizador após o pagamento
-                if (Auth::check()) {
-                    $user = Auth::user();
-                    $cart = Cart::where('user_id', $user->id)->first();
-
-                    if ($cart) {
-                        // Apagar os itens do carrinho
-                        $cart->cartItems()->delete();
-
-                        // Reset aos valores do carrinho (opcional)
-                        $cart->update([
-                            'subtotal' => 0,
-                            'taxes' => 0,
-                            'total' => 0,
-                        ]);
-                    }
-                }
 
                 return view('payment.payment3', compact('paymentMethod', 'billingInfo'));
 
             default:
                 abort(404, 'Invalid payment phase');
+        }
+    }
+
+    public function processPayment(Request $request)
+    {   
+
+        if (!Auth::check()) {
+            return redirect()->route('auth.login.form')->with('error', 'You must be logged in to process the payment.');
+        }
+
+        $user = Auth::user();
+        $cart = Cart::where('user_id', $user->id)->first();
+
+        if (!$cart || $cart->cartItems()->count() === 0) {
+            return redirect()->route('auth.cart.show', ['locale' => app()->getLocale()])->with('error', 'Your cart is empty.');
+        }
+
+        // Iniciar transação para segurança
+        DB::beginTransaction();
+
+        try {
+
+            $order = Order::create([
+                'subtotal' => $cart->subtotal,
+                'taxes' => $cart->taxes,
+                'total' => $cart->total,
+                'date' => now()->toDateString(),
+                'payment_method' => $request->session()->get('paymentMethod') ?? 'unknown',
+                'billing_country' => $request->session()->get('billingInfo')['data']['country'] ?? null,
+                'billing_city' => $request->session()->get('billingInfo')['data']['city'] ?? null,
+                'billing_address' => $request->session()->get('billingInfo')['data']['address'] ?? null,
+                'billing_postal_code' => $request->session()->get('billingInfo')['data']['zip'] ?? null,
+                'user_id' => $user->id,
+            ]);
+
+            // Mover os itens do carrinho para os itens do pedido
+            foreach ($cart->cartItems as $cartItem) {
+                OrderItem::create([
+                    'numb_people_hotel' => $cartItem->numb_people_hotel,
+                    'room_type_hotel' => $cartItem->room_type_hotel,
+                    'reservation_date_hotel_checkin' => $cartItem->reservation_date_hotel_checkin,
+                    'reservation_date_hotel_checkout' => $cartItem->reservation_date_hotel_checkout,
+                    'numb_people_activity' => $cartItem->numb_people_activity,
+                    'hours_activity' => $cartItem->hours_activity,
+                    'date_activity' => $cartItem->date_activity,
+                    'train_date' => $cartItem->train_date,
+                    'train_type' => $cartItem->train_type,
+                    'train_people_count' => $cartItem->train_people_count,
+                    'order_id' => $order->id,
+                    'item_id' => $cartItem->item_id,
+                    'is_active' => true,
+                ]);
+            }
+
+            // Limpar o carrinho e os itens do carrinho
+            $cart->cartItems()->delete();
+            $cart->update([
+                'subtotal' => 0,
+                'taxes' => 0,
+                'total' => 0,
+            ]);
+
+            // Confirma a transação
+            DB::commit();
+
+            $popup = PopupHelper::showPopup(
+                'Your payment was successful!',
+                'Your order was successfully processed. Thank you for your purchase!',
+                'Success',
+                'OK',
+                false,
+                '',
+                10000
+            );
+
+            return redirect()->route('auth.cart.show', ['locale' => app()->getLocale()])->with('popup', $popup);
+        } catch (\Exception $e) {
+            $popupError = PopupHelper::showPopup(
+                'An error occurred!',
+                'An error occurred while processing your payment. Please try again later.',
+                'Error',
+                'OK',
+                false,
+                '',
+                5000
+            );
+            // Reverte a transação em caso de erro
+            DB::rollBack();
+            return back()->with('popup', $popupError);
         }
     }
 }

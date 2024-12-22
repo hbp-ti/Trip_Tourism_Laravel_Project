@@ -250,17 +250,207 @@ class AuthController extends Controller
 
         $user = Auth::user();
 
+        // Obtenção das reservas ativas
         $activeReservations = OrderItem::where('is_active', true)
             ->whereHas('order', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })
+            ->with(['item.images'])
             ->get();
 
+        // Obtenção das reservas expiradas
         $expiredReservations = OrderItem::where('is_active', false)
             ->whereHas('order', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })
+            ->with(['item.images'])
             ->get();
+
+        // Adicionar detalhes aos itens das reservas ativas
+        $activeReservationsWithDetails = $activeReservations->map(function ($reservationItem) {
+            $item = $reservationItem->item;
+            $taxRate = 0.05; // Taxa de 5%
+
+            // Processamento para o tipo de item Hotel
+            if ($item->item_type === 'Hotel') {
+                $hotel = Hotel::where('id_item', $item->id)->first();
+                $room = Room::where('hotel_id', $hotel->id_item)
+                    ->where('type', $reservationItem->room_type_hotel)
+                    ->first();
+
+                if (!$room) {
+                    throw new \Exception("Room not found for hotel ID {$hotel->id} and room type {$reservationItem->room_type_hotel}");
+                }
+
+                $checkin = \Carbon\Carbon::parse($reservationItem->reservation_date_hotel_checkin);
+                $checkout = \Carbon\Carbon::parse($reservationItem->reservation_date_hotel_checkout);
+                $daysDifference = $checkin->diffInDays($checkout);
+
+                $subtotal = $room->price_night * $daysDifference * $reservationItem->numb_people_hotel;
+                $taxes = $subtotal * $taxRate;
+                $totalPrice = $subtotal + $taxes;
+
+                // Associando detalhes ao item da reserva ativa
+                $reservationItem->details = (object) [
+                    'type' => 'Hotel',
+                    'name' => $hotel->name,
+                    'description' => $hotel->description,
+                    'country' => $hotel->country,
+                    'city' => $hotel->city,
+                    'zip_code' => $hotel->zip_code,
+                    'street' => $hotel->street,
+                    'room_type' => $room->type,
+                    'price_night' => $room->price_night,
+                    'days_difference' => $daysDifference,
+                    'numb_people' => $reservationItem->numb_people_hotel,
+                    'subtotal' => $subtotal,
+                    'total_price' => $totalPrice,
+                    'images' => $item->images
+                ];
+            }
+            // Processamento para o tipo de item Activity
+            elseif ($item->item_type === 'Activity') {
+                $activity = Activity::where('id_item', $item->id)->first();
+
+                $subtotal = $activity->price_hour * $reservationItem->numb_people_activity;
+                $taxes = $subtotal * $taxRate;
+                $totalPrice = $subtotal + $taxes;
+
+                // Associando detalhes ao item da reserva ativa
+                $reservationItem->details = (object) [
+                    'type' => 'Activity',
+                    'name' => $activity->name,
+                    'description' => $activity->description,
+                    'country' => $activity->country,
+                    'city' => $activity->city,
+                    'zip_code' => $activity->zip_code,
+                    'street' => $activity->street,
+                    'price_hour' => $activity->price_hour,
+                    'numb_people' => $reservationItem->numb_people_activity,
+                    'subtotal' => $subtotal,
+                    'total_price' => $totalPrice,
+                    'images' => $item->images
+                ];
+            }
+            // Processamento para o tipo de item Ticket
+            elseif ($item->item_type === 'Ticket') {
+                $ticket = Ticket::where('id_item', $item->id)->first();
+
+                $subtotal = $ticket->total_price * $ticket->quantity;
+                $taxes = $subtotal * $taxRate;
+                $totalPrice = $subtotal + $taxes;
+
+                // Associando detalhes ao item da reserva ativa
+                $reservationItem->details = (object) [
+                    'type' => 'Ticket',
+                    'name' => $ticket->origin . '->' . $ticket->destination,
+                    'train_type' => $ticket->train_type,
+                    'train_class' => $ticket->train_class,
+                    'departure_hour' => $ticket->departure_hour,
+                    'quantity' => $ticket->quantity,
+                    'is_used' => $ticket->is_used,
+                    'origin' => $ticket->origin,
+                    'destination' => $ticket->destination,
+                    'subtotal' => $subtotal,
+                    'total_price' => $totalPrice,
+                ];
+            }
+
+            return $reservationItem;
+        });
+
+        // Adicionar detalhes aos itens das reservas expiradas
+        $expiredReservationsWithDetails = $expiredReservations->map(function ($reservationItem) {
+            $item = $reservationItem->item;
+            $taxRate = 0.05; // Taxa de 5%
+
+            // Processamento para o tipo de item Hotel
+            if ($item->item_type === 'Hotel') {
+                $hotel = Hotel::where('id_item', $item->id)->first();
+                $room = Room::where('hotel_id', $hotel->id_item)
+                    ->where('type', $reservationItem->room_type_hotel)
+                    ->first();
+
+                if (!$room) {
+                    throw new \Exception("Room not found for hotel ID {$hotel->id} and room type {$reservationItem->room_type_hotel}");
+                }
+
+                $checkin = \Carbon\Carbon::parse($reservationItem->reservation_date_hotel_checkin);
+                $checkout = \Carbon\Carbon::parse($reservationItem->reservation_date_hotel_checkout);
+                $daysDifference = $checkin->diffInDays($checkout);
+
+                $subtotal = $room->price_night * $daysDifference * $reservationItem->numb_people_hotel;
+                $taxes = $subtotal * $taxRate;
+                $totalPrice = $subtotal + $taxes;
+
+                // Associando detalhes ao item da reserva expirada
+                $reservationItem->details = (object) [
+                    'type' => 'Hotel',
+                    'name' => $hotel->name,
+                    'description' => $hotel->description,
+                    'country' => $hotel->country,
+                    'city' => $hotel->city,
+                    'zip_code' => $hotel->zip_code,
+                    'street' => $hotel->street,
+                    'room_type' => $room->type,
+                    'price_night' => $room->price_night,
+                    'days_difference' => $daysDifference,
+                    'numb_people' => $reservationItem->numb_people_hotel,
+                    'subtotal' => $subtotal,
+                    'total_price' => $totalPrice,
+                    'images' => $item->images
+                ];
+            }
+            // Processamento para o tipo de item Activity
+            elseif ($item->item_type === 'Activity') {
+                $activity = Activity::where('id_item', $item->id)->first();
+
+                $subtotal = $activity->price_hour * $reservationItem->numb_people_activity;
+                $taxes = $subtotal * $taxRate;
+                $totalPrice = $subtotal + $taxes;
+
+                // Associando detalhes ao item da reserva expirada
+                $reservationItem->details = (object) [
+                    'type' => 'Activity',
+                    'name' => $activity->name,
+                    'description' => $activity->description,
+                    'country' => $activity->country,
+                    'city' => $activity->city,
+                    'zip_code' => $activity->zip_code,
+                    'street' => $activity->street,
+                    'price_hour' => $activity->price_hour,
+                    'numb_people' => $reservationItem->numb_people_activity,
+                    'subtotal' => $subtotal,
+                    'total_price' => $totalPrice,
+                    'images' => $item->images
+                ];
+            }
+            // Processamento para o tipo de item Ticket
+            elseif ($item->item_type === 'Ticket') {
+                $ticket = Ticket::where('id_item', $item->id)->first();
+
+                $subtotal = $ticket->total_price * $ticket->quantity;
+                $taxes = $subtotal * $taxRate;
+                $totalPrice = $subtotal + $taxes;
+
+                // Associando detalhes ao item da reserva expirada
+                $reservationItem->details = (object) [
+                    'type' => 'Ticket',
+                    'name' => $ticket->origin . '->' . $ticket->destination,
+                    'train_type' => $ticket->train_type,
+                    'train_class' => $ticket->train_class,
+                    'departure_hour' => $ticket->departure_hour,
+                    'quantity' => $ticket->quantity,
+                    'is_used' => $ticket->is_used,
+                    'origin' => $ticket->origin,
+                    'destination' => $ticket->destination,
+                    'subtotal' => $subtotal,
+                    'total_price' => $totalPrice,
+                ];
+            }
+
+            return $reservationItem;
+        });
 
         return view('auth.profile', compact('user', 'activeReservations', 'expiredReservations', 'locale'));
     }
@@ -729,8 +919,8 @@ class AuthController extends Controller
                 'destination' => $legObject['destination']['name'],
                 'is_used' => false,
             ]);
-            
-        
+
+
             $itemSubtotal = $priceTrain * $passengers;
             $taxRate = 0.05; // Taxa fixa (ajustar conforme necessário)
             $taxes = $itemSubtotal * $taxRate; // Calcular o valor da taxa

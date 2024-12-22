@@ -86,13 +86,20 @@
                     <img src="/images/carepayment3.png" alt="{{ __('messages.Info Icon') }}" class="info-icon">
                     {{ __('messages.The receipt issued by the ATM serves as proof of payment. Please keep it for your records.') }}
                 </p>
+
+                <form action="{{ route('auth.process_payment', ['locale' => app()->getLocale()]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="button">{{ __('messages.Confirm Payment') }}</button>
+                </form>
             </div>
 
             <a href="{{ route('homepage', ['locale' => app()->getLocale()]) }}"
                 class="button">{{ __('messages.Return to Home') }}</a>
         </section>
     </div>
-
+    @if (session('popup'))
+    {!! session('popup') !!}
+@endif
     <x-footer />
 
 </body>

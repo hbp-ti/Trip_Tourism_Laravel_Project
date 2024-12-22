@@ -122,7 +122,9 @@
 
         </section>
     </div>
-
+    @if (session('popup'))
+    {!! session('popup') !!}
+@endif
     <x-footer />
 </body>
 

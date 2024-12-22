@@ -14,6 +14,11 @@ return new class extends Migration
             $table->integer('taxes');
             $table->float('total');
             $table->date('date');
+            $table->string('payment_method');
+            $table->string('billing_country');
+            $table->string('billing_city');
+            $table->string('billing_address');
+            $table->string('billing_postal_code');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

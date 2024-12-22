@@ -129,22 +129,61 @@
                 <p>{{ __('messages.No active reservations at the moment.') }}</p>
             @else
                 @foreach ($activeReservations as $reservation)
-                    <div class="reservation-item">
-                        <img src="{{ asset('images/' . $reservation->hotel_image) }}"
-                            alt="{{ $reservation->hotel_name }}">
-                        <div class="reservation-info">
-                            <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
-                                {{ $reservation->hotel_name }}</h3>
-                            <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
-                                {{ $reservation->reservation_date_hotel }}</p>
-                            <button class="details-button">{{ __('messages.Details') }}</button>
-                            <button class="cancel-button">{{ __('messages.Cancel') }}</button>
-                            <button class="download1-button">
-                                {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                    class="Dicon">
-                            </button>
+                    @if ($reservation->details->type === 'Hotel')
+                        <div class="reservation-item">
+                            <img src="{{ $reservation->details->images[0]->url }}"
+                                alt="{{ $reservation->details->name }}">
+                            <div class="reservation-info">
+                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                    {{ $reservation->details->name }}</h3>
+                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                    {{ $reservation->reservation_date_hotel_checkin . '->' . $reservation->reservation_date_hotel_checkout }}
+                                </p>
+                                <button class="details-button">{{ __('messages.Details') }}</button>
+                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <button class="download1-button">
+                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
+                                        class="Dicon">
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    @elseif ($reservation->details->type === 'Activity')
+                        <div class="reservation-item">
+                            <img src="{{ $reservation->details->images[0]->url ?? asset('images/atividade1.png') }}"
+                                alt="{{ $reservation->details->name }}">
+                            <div class="reservation-info">
+                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                    {{ $reservation->details->name }}</h3>
+                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                    {{ $reservation->date_activity }}
+                                </p>
+                                <button class="details-button">{{ __('messages.Details') }}</button>
+                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <button class="download1-button">
+                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
+                                        class="Dicon">
+                                </button>
+                            </div>
+                        </div>
+                    @else
+                        <div class="reservation-item">
+                            <img src="{{ asset('images/trainTicket.jpg') }}"
+                                alt="{{ $reservation->details->name }}">
+                            <div class="reservation-info">
+                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                    {{ $reservation->details->name }}</h3>
+                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                    {{ $reservation->details->departure_hour }}
+                                </p>
+                                <button class="details-button">{{ __('messages.Details') }}</button>
+                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <button class="download1-button">
+                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
+                                        class="Dicon">
+                                </button>
+                            </div>
+                        </div>
+                    @endif
                 @endforeach
             @endif
         </div>
@@ -158,23 +197,62 @@
             @if ($expiredReservations->isEmpty())
                 <p>{{ __('messages.No past reservations available.') }}</p>
             @else
-                @foreach ($expiredReservations as $history)
-                    <div class="reservation-item">
-                        <img src="{{ asset('images/' . $history->activity_image) }}"
-                            alt="{{ $history->activity_name }}">
-                        <div class="reservation-info">
-                            <h3><img src="{{ asset('images/iconeatividade.png') }}" class="icon">
-                                {{ $history->activity_name }}</h3>
-                            <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
-                                {{ $history->reservation_date }}</p>
-                            <button class="details-button">{{ __('messages.Details') }}</button>
-                            <button class="book-again-button">{{ __('messages.Book Again') }}</button>
-                            <button class="download-button">
-                                {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                    class="Dicon">
-                            </button>
+                @foreach ($expiredReservations as $reservation)
+                    @if ($reservation->details->type === 'Hotel')
+                        <div class="reservation-item">
+                            <img src="{{ $reservation->details->images[0]->url }}"
+                                alt="{{ $reservation->details->name }}">
+                            <div class="reservation-info">
+                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                    {{ $reservation->details->name }}</h3>
+                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                    {{ $reservation->reservation_date_hotel_checkin . '->' . $reservation->reservation_date_hotel_checkout }}
+                                </p>
+                                <button class="details-button">{{ __('messages.Details') }}</button>
+                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <button class="download1-button">
+                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
+                                        class="Dicon">
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    @elseif ($reservation->details->type === 'Activity')
+                        <div class="reservation-item">
+                            <img src="{{ $reservation->details->images[0]->url ?? asset('images/atividade1.png') }}"
+                                alt="{{ $reservation->details->name }}">
+                            <div class="reservation-info">
+                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                    {{ $reservation->details->name }}</h3>
+                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                    {{ $reservation->date_activity }}
+                                </p>
+                                <button class="details-button">{{ __('messages.Details') }}</button>
+                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <button class="download1-button">
+                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
+                                        class="Dicon">
+                                </button>
+                            </div>
+                        </div>
+                    @else
+                        <div class="reservation-item">
+                            <img src="{{ asset('images/trainTicket.jpg') }}"
+                                alt="{{ $reservation->details->name }}">
+                            <div class="reservation-info">
+                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                    {{ $reservation->details->name }}</h3>
+                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                    {{ $reservation->details->departure_hour }}
+                                </p>
+                                <button class="details-button">{{ __('messages.Details') }}</button>
+                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <button class="download1-button">
+                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
+                                        class="Dicon">
+                                </button>
+                            </div>
+                        </div>
+                    @endif
                 @endforeach
             @endif
         </div>

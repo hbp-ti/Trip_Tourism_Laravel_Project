@@ -60,6 +60,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::post('/review/{item_id}/add', [ReviewController::class, 'addReview'])->name('reviews.add');
             Route::get('/buyTicketTrain', [TrainController::class, 'stations'])->name('tickets');
             Route::post('/payment', [PaymentController::class, 'paymentPhases'])->name('payment');
+            Route::post('/proccess_payment', [PaymentController::class, 'processPayment'])->name('process_payment');
         });
     });
     Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');

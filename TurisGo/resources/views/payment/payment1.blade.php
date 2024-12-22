@@ -57,17 +57,17 @@
                     <!-- First Column -->
                     <div class="billing-column">
                         <label for="address">{{ __('messages.Billing address') }}</label>
-                        <input type="text" name="address" id="address" placeholder="{{ __('messages.Enter your billing address') }}" value="{{ session('billingInfo.address', '') }}" required>
+                        <input type="text" name="address" id="address" placeholder="{{ __('messages.Enter your billing address') }}" value="{{ session('billingInfo.data.address', '') }}" required>
 
                         <label for="address2">{{ __('messages.Billing address, line 2') }}</label>
-                        <input type="text" name="address2" id="address2" value="{{ session('billingInfo.address2', '') }}" placeholder="{{ __('messages.Additional address information') }}">
+                        <input type="text" name="address2" id="address2" value="{{ session('billingInfo.data.address2', '') }}" placeholder="{{ __('messages.Additional address information') }}">
 
                         <label for="country">{{ __('messages.Country') }}</label>
                         <select name="country" id="country" required>
-                            <option value="Portugal" {{ session('billingInfo.country') == 'Portugal' ? 'selected' : '' }}>
+                            <option value="Portugal" {{ session('billingInfo.data.country') == 'Portugal' ? 'selected' : '' }}>
                                 {{ __('messages.Portugal') }}
                             </option>
-                            <option value="United Kingdom" {{ session('billingInfo.country') == 'United Kingdom' ? 'selected' : '' }}>
+                            <option value="United Kingdom" {{ session('billingInfo.data.country') == 'United Kingdom' ? 'selected' : '' }}>
                                 {{ __('messages.United Kingdom') }}
                             </option>
                         </select>
@@ -77,10 +77,10 @@
                     <!-- Second Column -->
                     <div class="billing-column">
                         <label for="city">{{ __('messages.City') }}</label>
-                        <input type="text" name="city" id="city" value="{{ session('billingInfo.city', '') }}" placeholder="{{ __('messages.Enter your city') }}" required>
+                        <input type="text" name="city" id="city" value="{{ session('billingInfo.data.city', '') }}" placeholder="{{ __('messages.Enter your city') }}" required>
 
                         <label for="zip">{{ __('messages.Zip or postal code') }}</label>
-                        <input type="text" name="zip" id="zip" value="{{ session('billingInfo.zip', '') }}" placeholder="{{ __('messages.Enter your postal code') }}" required>
+                        <input type="text" name="zip" id="zip" value="{{ session('billingInfo.data.zip', '') }}" placeholder="{{ __('messages.Enter your postal code') }}" required>
                     </div>
                 </div>
 
@@ -102,7 +102,9 @@
             </form>
         </section>
     </div>
-
+    @if (session('popup'))
+    {!! session('popup') !!}
+@endif
     <x-footer/>
 
     <script>
