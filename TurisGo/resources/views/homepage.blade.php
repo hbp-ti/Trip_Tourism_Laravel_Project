@@ -160,6 +160,9 @@
     <x-footer />
 
     <script>
+        const hotels = @json($hotelCoordinates);
+        const tours = @json($tourCoordinates);
+
         // Inicializa o flatpickr para os campos de data
         flatpickr("#checkin", {
             dateFormat: "Y-m-d", // formato da data

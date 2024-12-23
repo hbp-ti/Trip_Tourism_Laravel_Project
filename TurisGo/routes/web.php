@@ -9,6 +9,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\HomepageController;
 
 
 Route::get('/imagem', function () {
@@ -24,7 +25,6 @@ Route::get('/', function () {
     return redirect()->route('homepage', ['locale' => 'en']);
 });
 
-
 Route::middleware('auth')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'showNotifications'])->name('notifications');
     Route::post('/notifications/{id}/mark-as-read', [NotificationController::class, 'updateNotification'])->name('update.notification');
@@ -35,9 +35,7 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () {
 
-    Route::get('/', function () {
-        return view('homepage');
-    })->name("homepage");
+    Route::get('/', [HomepageController::class, 'showOnMap'])->name('homepage');
     Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('upload.handle');
     Route::prefix('auth')->name('auth.')->group(function () {
         Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
