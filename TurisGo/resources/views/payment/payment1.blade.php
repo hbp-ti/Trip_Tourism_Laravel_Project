@@ -91,7 +91,7 @@
                             <input type="checkbox" name="aware" id="aware" required>
                             <span class="slider"></span>
                         </label>
-                        <span>{{ __('messages.I declare I am aware of this purchase') }}</span>
+                        <span>{{ __('messages.I declare i am aware of this purchase') }}</span>
                     </label>
                 </div>
 
