@@ -43,3 +43,7 @@ $(document).ready(function () {
         }
     });
 });
+
+document.querySelector('input[type="number"]').addEventListener('input', function (e) {
+    this.value = this.value.replace(/[^0-9]/g, ''); // Remove caracteres não numéricos
+});

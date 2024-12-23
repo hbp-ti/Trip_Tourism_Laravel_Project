@@ -105,6 +105,11 @@ body {
     padding: 15px 0;
     border-bottom: 1px solid #ddd;
 }
+.payment-item .label {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px; /* Espaço entre o rótulo e o input */
+}
 
 .payment-item:last-child {
     border-bottom: none;
@@ -147,8 +152,45 @@ body {
     font-size: 18px;
     transition: background 0.3s ease;
     margin-top: 20px;
+    border: none;
 }
 
 .button:hover {
     background: #b7531d;
+}
+
+.payment-item1 .custom-input {
+    width: 50%; /* Define uma largura proporcional para o input */
+    padding: 10px;
+    text-align: center; /* Centraliza o texto dentro do input */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+.payment-item1 {
+    display: flex;
+    flex-direction: column; /* Organiza os itens em coluna */
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.payment-item1 .label {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px; /* Espaço entre o rótulo e o input */
+}
+
+.payment-item1 .custom-input {
+    width: 50%; /* Define uma largura proporcional para o input */
+    padding: 10px;
+    text-align: center; /* Centraliza o texto dentro do input */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
 }

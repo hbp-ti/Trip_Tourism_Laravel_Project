@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    @vite(['resources/css/payment3.css'])
+    @vite(['resources/css/payment3.css','resources/js/jquery-3.7.1.min.js','resources/js/payment.js'])
 </head>
 
 <body>
@@ -64,9 +64,16 @@
                     </div>
                 @elseif($paymentMethod == 'mbway')
                     <div class="payment-details">
-                        <div class="payment-item">
+                        <div class="payment-item1">
                             <span class="label">{{ __('messages.Number') }}</span>
-                            <span class="value"></span>
+                            <input 
+                                type="number" 
+                                name="mbway_number" 
+                                class="custom-input" 
+                                placeholder="Enter your number" 
+                                required 
+                                min="0" 
+                                step="1">
                         </div>
                     </div>
                 @elseif($paymentMethod == 'paypal')

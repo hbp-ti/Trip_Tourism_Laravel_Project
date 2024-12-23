@@ -555,6 +555,25 @@ body {
   text-align: left;
   margin-bottom: 10px;
 }
+.similar-hotels .hotels {
+  display: flex;
+  flex-wrap: nowrap; /* Itens em uma única linha */
+  gap: 20px; /* Espaçamento entre os itens */
+  overflow-x: auto; /* Permitir rolagem horizontal se os itens ultrapassarem a largura */
+}
+
+.similar-hotels .hotels a {
+  flex: 0 0 auto; /* Garante que cada item tenha largura fixa */
+  text-decoration: none;
+}
+
+.similar-hotels .imgHotels {
+  width: 200px; /* Define largura de cada imagem */
+  height: 150px; /* Define altura de cada imagem */
+  object-fit: cover; /* Garante que as imagens sejam ajustadas proporcionalmente */
+  border-radius: 10px;
+}
+
 
 /* Flexbox layout for the images */
 .hotels {

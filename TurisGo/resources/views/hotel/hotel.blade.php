@@ -11,7 +11,6 @@
     @vite(['resources/css/hotel_details.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/hotel_details.js'])
 
 </head>
-
 <body>
     <x-header />
 
