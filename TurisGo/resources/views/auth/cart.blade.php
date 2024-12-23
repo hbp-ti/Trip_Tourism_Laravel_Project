@@ -30,7 +30,8 @@
                 @foreach ($cartItems as $cartItem)
                     @if ($cartItem->details->type === 'Hotel')
                         <div class="cart-item">
-                            <img src="{{ $cartItem->item->image }}" alt="{{ $cartItem->item->name }}">
+
+                            <img src="{{ $cartItem->item->images[0]->url }}" alt="{{ $cartItem->item->name }}">
                             <div class="item-details">
                                 <h3>{{ $cartItem->details->name }}</h3>
                                 <p>{{ $cartItem->details->description }}</p>
@@ -83,9 +84,9 @@
                             <div class="item-details">
                                 <h3>{{ $cartItem->details->name }}</h3>
                                 <p>{{ $cartItem->details->train_type . '-' . $cartItem->details->train_class }}</p>
-                                <p><strong>{{ $cartItem->details->origin . '-' . $cartItem->details->destination . ', ' .  $cartItem->details->departure_hour}}</strong>
+                                <p><strong>{{ $cartItem->details->origin . '-' . $cartItem->details->destination . ', ' . $cartItem->details->departure_hour }}</strong>
                                     &nbsp&nbsp&nbsp
-                                    <p>{{ $cartItem->details->quantity }} {{ __('Guests') }}</p>
+                                <p>{{ $cartItem->details->quantity }} {{ __('Guests') }}</p>
                                 </p>
                             </div>
                             <p class="price">{{ $cartItem->details->subtotal }}€</p>
