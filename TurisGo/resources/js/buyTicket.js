@@ -38,9 +38,28 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'The item has been added to your cart!',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#2081A5'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    }
+                });
             },
             error: function (xhr) {
-
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'An error occurred while adding the item to your cart!',
+                    confirmButtonText: 'Ok',
+                    confirmButtonColor: '#2081A5'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    }
+                });
             }
         });
     });

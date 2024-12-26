@@ -970,6 +970,7 @@ class AuthController extends Controller
         if ($item->item_type === 'Hotel' || $item->item_type === 'Activity') {
             return back()->with('popup', $popupSuccess);
         } elseif ($item->item_type === 'Ticket') {
+
             return redirect()->route('auth.tickets', ['locale' => $locale])->with('popup', $popupSuccess);
         }
     }
