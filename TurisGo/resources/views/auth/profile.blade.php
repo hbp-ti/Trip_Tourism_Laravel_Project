@@ -19,7 +19,7 @@
     <div class="header">
         <!-- Container do Cabeçalho -->
         <div class="profile-pic-container">
-            <img src="{{ asset('storage/' . Auth::user()->image) }}" class="profile-pic" alt="Profile Picture">
+            <img src="{{ file_exists(public_path('storage/' . Auth::user()->image)) ? asset('storage/' . Auth::user()->image) : asset('images/default_user_image.png') }}" class="profile-pic" alt="Profile Picture">
             <div class="button-overlay">
                 <form id="profileForm" action="{{ route('upload.handle', ['locale' => app()->getLocale()]) }}"
                     method="POST" enctype="multipart/form-data">
@@ -70,13 +70,13 @@
             <div class="form-group">
                 <label>{{ __('messages.Submit') }}</label>
                 <button id="changeinfoButton" type="submit"
-                    class="change-password-btn">{{ __('messages.Submit Changes') }}</button>
+                    class="change-info-btn">{{ __('messages.Submit Changes') }}</button>
             </div>
         </form>
         @if (session('popup'))
             {!! session('popup') !!}
         @endif
-        <div class="form-group right-align">
+        <div class="right-align">
             <button id="changePasswordButton"
                 type="button"class="change-password-btn">{{ __('messages.Change Password') }}</button>
         </div>
@@ -119,11 +119,13 @@
         </div>
 
 
+        <div class="title-line-container profile-section">
+            <h2>{{ __('messages.Active Reservations') }}</h2>
+            <hr class="title-line-orange">
+        </div>
+
         <!-- Reservas Ativas -->
         <div class="reservations active-reservations">
-            <h2 class="reservations-title">
-                {{ __('messages.Active Reservations') }} <span class="title-line"></span>
-            </h2>
             <!-- Exibir reservas ativas -->
             @if ($activeReservations->isEmpty())
                 <p>{{ __('messages.No active reservations at the moment.') }}</p>
@@ -134,13 +136,20 @@
                             <img src="{{ $reservation->details->images[0]->url }}"
                                 alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
-                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
-                                    {{ $reservation->details->name }}</h3>
-                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
-                                    {{ $reservation->reservation_date_hotel_checkin . '->' . $reservation->reservation_date_hotel_checkout }}
-                                </p>
-                                <button class="details-button">{{ __('messages.Details') }}</button>
-                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <div>
+                                    <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                        {{ $reservation->details->name }}</h3>
+                                    <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                        {{ $reservation->reservation_date_hotel_checkin . '->' . $reservation->reservation_date_hotel_checkout }}
+                                    </p>
+                                </div>
+            
+                                <div class="buttons-placement">
+                                    <button class="details-button">{{ __('messages.Details') }}</button>
+                                    <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                </div>
+                            </div>
+                            <div class="download-placement">
                                 <button class="download1-button">
                                     {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
                                         class="Dicon">
@@ -152,13 +161,20 @@
                             <img src="{{ $reservation->details->images[0]->url ?? asset('images/atividade1.png') }}"
                                 alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
-                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
-                                    {{ $reservation->details->name }}</h3>
-                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
-                                    {{ $reservation->date_activity }}
-                                </p>
-                                <button class="details-button">{{ __('messages.Details') }}</button>
-                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <div>
+                                    <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                        {{ $reservation->details->name }}</h3>
+                                    <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                        {{ $reservation->date_activity }}
+                                    </p>
+                                </div>
+            
+                                <div class="buttons-placement">
+                                    <button class="details-button">{{ __('messages.Details') }}</button>
+                                    <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                </div>
+                            </div>
+                            <div class="download-placement">
                                 <button class="download1-button">
                                     {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
                                         class="Dicon">
@@ -170,13 +186,20 @@
                             <img src="{{ asset('images/trainTicket.jpg') }}"
                                 alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
-                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
-                                    {{ $reservation->details->name }}</h3>
-                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
-                                    {{ $reservation->details->departure_hour }}
-                                </p>
-                                <button class="details-button">{{ __('messages.Details') }}</button>
-                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <div>
+                                    <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                        {{ $reservation->details->name }}</h3>
+                                    <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                        {{ $reservation->details->departure_hour }}
+                                    </p>
+                                </div>
+                            
+                                <div class="buttons-placement">
+                                    <button class="details-button">{{ __('messages.Details') }}</button>
+                                    <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                </div>
+                            </div>
+                            <div class="download-placement">
                                 <button class="download1-button">
                                     {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
                                         class="Dicon">
@@ -188,11 +211,13 @@
             @endif
         </div>
 
+        <div class="title-line-container profile-section">
+            <h2>{{ __('messages.Reservation History') }}</h2>
+            <hr class="title-line-blue">
+        </div>
+
         <!-- Histórico de Reservas -->
         <div class="reservations history">
-            <h2 class="reservations-title">
-                {{ __('messages.Reservation History') }} <span class="title-line1"></span>
-            </h2>
             <!-- Exibir histórico de reservas -->
             @if ($expiredReservations->isEmpty())
                 <p>{{ __('messages.No past reservations available.') }}</p>
@@ -203,13 +228,20 @@
                             <img src="{{ $reservation->details->images[0]->url }}"
                                 alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
-                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
-                                    {{ $reservation->details->name }}</h3>
-                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
-                                    {{ $reservation->reservation_date_hotel_checkin . '->' . $reservation->reservation_date_hotel_checkout }}
-                                </p>
-                                <button class="details-button">{{ __('messages.Details') }}</button>
-                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <div>
+                                    <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                        {{ $reservation->details->name }}</h3>
+                                    <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                        {{ $reservation->reservation_date_hotel_checkin . '->' . $reservation->reservation_date_hotel_checkout }}
+                                    </p>
+                                </div>
+                        
+                                <div class="buttons-placement">
+                                    <button class="details-button">{{ __('messages.Details') }}</button>
+                                    <button class="book-again-button">{{ __('messages.Book Again') }}</button>
+                                </div>
+                            </div>
+                            <div class="download-placement">
                                 <button class="download1-button">
                                     {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
                                         class="Dicon">
@@ -221,13 +253,20 @@
                             <img src="{{ $reservation->details->images[0]->url ?? asset('images/atividade1.png') }}"
                                 alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
-                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
-                                    {{ $reservation->details->name }}</h3>
-                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
-                                    {{ $reservation->date_activity }}
-                                </p>
-                                <button class="details-button">{{ __('messages.Details') }}</button>
-                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <div>
+                                    <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                        {{ $reservation->details->name }}</h3>
+                                    <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                        {{ $reservation->date_activity }}
+                                    </p>
+                                </div>
+                    
+                                <div class="buttons-placement">
+                                    <button class="details-button">{{ __('messages.Details') }}</button>
+                                    <button class="book-again-button">{{ __('messages.Book Again') }}</button>
+                                </div>
+                            </div>
+                            <div class="download-placement">
                                 <button class="download1-button">
                                     {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
                                         class="Dicon">
@@ -239,13 +278,20 @@
                             <img src="{{ asset('images/trainTicket.jpg') }}"
                                 alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
-                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
-                                    {{ $reservation->details->name }}</h3>
-                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
-                                    {{ $reservation->details->departure_hour }}
-                                </p>
-                                <button class="details-button">{{ __('messages.Details') }}</button>
-                                <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                <div>
+                                    <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                        {{ $reservation->details->name }}</h3>
+                                    <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                        {{ $reservation->details->departure_hour }}
+                                    </p>
+                                </div>
+                                
+                                <div class="buttons-placement">
+                                    <button class="details-button">{{ __('messages.Details') }}</button>
+                                    <button class="book-again-button">{{ __('messages.Book Again') }}</button>
+                                </div>
+                            </div>
+                            <div class="download-placement">
                                 <button class="download1-button">
                                     {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
                                         class="Dicon">

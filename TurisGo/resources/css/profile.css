@@ -25,6 +25,43 @@
     padding: 20px;
 }
 
+.profile-section {
+    padding: 40px 20px;
+    background-color: #ffffff;
+    text-align: left;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto 20px;
+    background: none;
+}
+
+.title-line-container {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.title-line-container h2 {
+    font-size: 1.8rem;
+    color: #1B1B1B;
+    margin-right: 20px;
+}
+
+.title-line-orange {
+    width: 100%;
+    height: 3px !important;
+    background-color: #C76A37;
+    border: none;
+    opacity: 100% !important;
+}
+
+.title-line-blue {
+    width: 100%;
+    height: 3px !important;
+    background-color: #2081A5;
+    border: none;
+    opacity: 100% !important;
+}
 
 /* Profile Picture Styling */
 .profile-pic {
@@ -33,12 +70,11 @@
     border-radius: 50%;
     border: 3px solid white;
     margin-right: 20px;
-    /* Espaço entre a imagem e o texto */
+    object-fit: cover;
 }
 
 .profile-pic-container {
-    position: relative; /* Garante que os elementos filhos sejam posicionados relativamente a este container */
-    width: 150px;
+    position: relative;
     height: 150px;
     display: flex;
     justify-content: center;
@@ -92,26 +128,21 @@
 }
 
 
-/* Profile Content Styling */
 .profile-content {
-    position: relative;
-    margin-top: 300px; /* Ajuste para que o conteúdo fique abaixo do header */
-    padding: 30px;
+    margin-top: 350px;
+    margin-bottom: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 /* Profile Background Styling */
 .profile-background {
-    position: absolute; /* Faz a imagem se posicionar de forma absoluta dentro do container */
-    margin-top: 100px;
-    width: 1350px;
-    z-index: -1; /* Garante que a imagem fique atrás do conteúdo */
-    opacity: 0.8; /* Controle da opacidade */
+    position: absolute;
+    margin-top: 150px;
+    max-width: 1300px;
+    z-index: -1;
+    opacity: 0.8;
 }
 
 /* Profile Info Styling with Gray Background */
@@ -140,7 +171,7 @@ label {
 }
 
 input {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -166,92 +197,60 @@ input {
     background-color: #0056b3;
 }
 
-/* Reservations Styling */
-.reservations-title {
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.title-line {
-    flex-grow: 1;
-    height: 2px;
-    background-color: #C76A37;
-    margin-left: 10px;
-}
-
-.title-line1 {
-    flex-grow: 1;
-    height: 2px;
-    background-color: #2081A5;
-    margin-left: 10px;
-}
-
 /* Reservations Container */
 .reservations {
     background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
     margin-bottom: 40px;
     width: 100%;
+    max-width: 1000px;
 }
 
 /* Reservation Item Styling */
 .reservation-item {
     display: flex;
-    align-items: center;
     margin-bottom: 20px;
     padding: 15px;
     background-color: rgba(211, 211, 211, 0.85);
-    border: 1px solid #ddd;
     border-radius: 10px;
+    position: relative;
 }
 
 .reservation-item img {
     width: 120px;
-    height: 130px;
+    height: 120px;
     border-radius: 10px;
-    margin-right: 25px;
+    object-fit: cover;
+    margin-right: 20px;
 }
 
-/* Reservation Info Styling */
 .reservation-info {
-    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.download-placement {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+
+.buttons-placement {
+    position: absolute;
+    bottom: 15px;
 }
 
 .details-button,
 .cancel-button,
-.book-again-button {
-    font-size: 1.1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.download-button {
-    font-size: 1.1rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 300px;
-    transition: background-color 0.3s ease;
-    text-align: center;
-}
-
+.book-again-button,
 .download1-button {
     font-size: 1.1rem;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 342px;
-    transition: background-color 0.3s ease;
+    margin-right: 10px;
+    transition: 0.43s all;
 }
 
 .details-button {
@@ -265,7 +264,7 @@ input {
 }
 
 .book-again-button {
-    background-color: #28a745;
+    background-color: #298F67;
     color: white;
 }
 
@@ -292,14 +291,6 @@ input {
     margin-left: 5px;
 }
 
-.details-button:hover,
-.cancel-button:hover,
-.book-again-button:hover,
-.download-button,
-.download1-button:hover {
-    opacity: 0.9;
-}
-
 /* History Section Styling */
 .history {
     background-color: #ffffff;
@@ -323,10 +314,8 @@ input {
     vertical-align: middle;
 } 
 
-/* Botão de Mudança de Password */
 .change-password-btn {
-    float: right;
-    background-color: #2081A5;
+    background-color: #C76A37;
     color: white;
     font-size: 1rem;
     padding: 10px 20px;
@@ -339,13 +328,31 @@ input {
 }
 
 .change-password-btn:hover {
+    background-color: #b46033;
+}
+
+.change-info-btn {
+    background-color: #2081A5;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    right: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.change-info-btn:hover {
     background-color: #207391;
 }
 
 .right-align {
-    display: flex;          /* Define o container como flexbox */
-    justify-content: flex-end; /* Move o conteúdo para a direita */
-    margin-top: 20px;       /* Adiciona espaçamento ao topo, se necessário */
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 /* Popup Styling */
