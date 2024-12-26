@@ -81,40 +81,42 @@
                 type="button"class="change-password-btn">{{ __('messages.Change Password') }}</button>
         </div>
         <!-- Popup de Mudança de Password -->
-        <div id="passwordPopup" class="popup hidden">
-            <div class="popup-content">
-                <h2>{{ __('messages.Change Password') }}</h2>
+        <div class="popup-overlay">
+            <div id="passwordPopup" class="popup hidden">
+                <div class="popup-content">
+                    <h2>{{ __('messages.Change Password') }}</h2>
 
-                <form id="changePasswordForm" method="POST"
-                    action="{{ route('auth.profile.updatePassword', ['locale' => app()->getlocale()]) }}">
-                    @csrf
-                    <!-- Campo para senha antiga -->
-                    <div class="form-group">
-                        <label for="oldPassword">{{ __('messages.Current Password') }}</label>
-                        <input type="password" id="oldPassword" name="oldPassword"
-                            placeholder="{{ __('messages.Enter last password') }}" required>
-                    </div>
+                    <form id="changePasswordForm" method="POST"
+                        action="{{ route('auth.profile.updatePassword', ['locale' => app()->getlocale()]) }}">
+                        @csrf
+                        <!-- Campo para senha antiga -->
+                        <div class="form-group">
+                            <label for="oldPassword">{{ __('messages.Current Password') }}</label>
+                            <input type="password" id="oldPassword" name="oldPassword"
+                                placeholder="{{ __('messages.Enter last password') }}" required>
+                        </div>
 
-                    <!-- Campo para nova senha -->
-                    <div class="form-group">
-                        <label for="newPassword">{{ __('messages.New Password') }}</label>
-                        <input type="password" id="newPassword" name="newPassword"
-                            placeholder="{{ __('messages.Enter new password') }}" required>
-                    </div>
+                        <!-- Campo para nova senha -->
+                        <div class="form-group">
+                            <label for="newPassword">{{ __('messages.New Password') }}</label>
+                            <input type="password" id="newPassword" name="newPassword"
+                                placeholder="{{ __('messages.Enter new password') }}" required>
+                        </div>
 
-                    <!-- Campo para confirmação da nova senha -->
-                    <div class="form-group">
-                        <label for="confirmPassword">{{ __('messages.Confirm New Password') }}</label>
-                        <input type="password" id="confirmPassword" name="newPassword_confirmation"
-                            placeholder="{{ __('messages.Confirm new password') }}" required>
-                    </div>
+                        <!-- Campo para confirmação da nova senha -->
+                        <div class="form-group">
+                            <label for="confirmPassword">{{ __('messages.Confirm New Password') }}</label>
+                            <input type="password" id="confirmPassword" name="newPassword_confirmation"
+                                placeholder="{{ __('messages.Confirm new password') }}" required>
+                        </div>
 
-                    <!-- Botões -->
-                    <div class="popup-buttons">
-                        <button type="button" id="cancelChangePassword" class="cancel-btn">Cancel</button>
-                        <button type="submit" id="confirmChangePassword" class="confirm-btn">Confirm</button>
-                    </div>
-                </form>
+                        <!-- Botões -->
+                        <div class="popup-buttons">
+                            <button type="button" id="cancelChangePassword" class="cancel-btn">Cancel</button>
+                            <button type="submit" id="confirmChangePassword" class="confirm-btn">Confirm</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 

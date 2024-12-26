@@ -106,36 +106,64 @@ function updateProfilePicture(file) {
         }
     });
 }*/
-document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Botão para abrir o popup
     const changePasswordButton = document.getElementById('changePasswordButton');
     const passwordPopup = document.getElementById('passwordPopup');
     const cancelChangePassword = document.getElementById('cancelChangePassword');
-    const confirmChangePassword = document.getElementById('confirmChangePassword');
+    const popupOverlay = document.querySelector('.popup-overlay');
 
-    changePasswordButton.addEventListener('click', () => {
+    // Função para mostrar o popup
+    changePasswordButton.addEventListener('click', function () {
         passwordPopup.classList.remove('hidden');
+        popupOverlay.style.display = 'block';
     });
 
-    cancelChangePassword.addEventListener('click', () => {
+    // Função para fechar o popup ao clicar no botão "Cancelar"
+    cancelChangePassword.addEventListener('click', function () {
         passwordPopup.classList.add('hidden');
+        popupOverlay.style.display = 'none';
     });
 
-    confirmChangePassword.addEventListener('click', () => {
-        const oldPassword = document.getElementById('oldPassword').value;
-        const newPassword = document.getElementById('newPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+    // Função para fechar o popup ao clicar fora dele
+    popupOverlay.addEventListener('click', function (event) {
+        // Verifica se o clique foi fora do conteúdo do popup
+        if (!passwordPopup.contains(event.target)) {
+            passwordPopup.classList.add('hidden');
+            popupOverlay.style.display = 'none';
+        }
+    });
 
-        if (newPassword !== confirmPassword) {
+    // Evita fechar o popup ao clicar dentro dele
+    passwordPopup.addEventListener('click', function (event) {
+        event.stopPropagation();
+    });
+
+    // Validações do formulário de mudança de senha
+    const changePasswordForm = document.getElementById('changePasswordForm');
+    changePasswordForm.addEventListener('submit', function (event) {
+        const oldPassword = document.getElementById('oldPassword').value.trim();
+        const newPassword = document.getElementById('newPassword').value.trim();
+        const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+        if (!oldPassword || !newPassword || !confirmPassword) {
+            event.preventDefault();
             Swal.fire({
                 icon: 'error',
-                title: 'Passwords do not match!',
-                text: 'Please make sure the passwords match before submitting.',
-                confirmButtonText: 'Try again'
+                title: 'Erro',
+                text: 'Por favor, preencha todos os campos!',
             });
             return;
         }
 
-        passwordPopup.classList.add('hidden');
+        if (newPassword !== confirmPassword) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'A nova senha e a confirmação não coincidem!',
+            });
+        }
     });
 });
-
