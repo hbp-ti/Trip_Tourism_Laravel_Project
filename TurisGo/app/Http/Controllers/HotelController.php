@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\App;
 class HotelController extends Controller
 {
     public function showHotels()
-    {
+    {   
         // Carregar hotéis com quartos e imagens
         $hotels = Hotel::with(['rooms' => function ($query) {
             $query->orderBy('price_night', 'asc')
