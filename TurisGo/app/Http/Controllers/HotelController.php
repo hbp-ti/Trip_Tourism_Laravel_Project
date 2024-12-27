@@ -11,32 +11,45 @@ use App\Models\OrderItem;
 
 class HotelController extends Controller
 {
-    public function showHotels()
-    {
-        // Carregar hotéis com quartos e imagens
-        $hotels = Hotel::with(['rooms' => function ($query) {
-            $query->orderBy('price_night', 'asc')
-                ->limit(1);
-        }, 'item.images']) // Incluindo imagens associadas ao item
-            ->paginate(5);
+    public function showHotels(Request $request)
+{
+    $sortBy = $request->get('sort_by', 'price_asc');
+    
+    $sortOptions = [
+        'price_asc' => ['rooms.price_night', 'asc'],
+        'price_desc' => ['rooms.price_night', 'desc'],
+        'alphabetical' => ['hotels.name', 'asc'],
+        'most_booked' => ['orders_count', 'desc'],
+    ];
+    
+    $sort = $sortOptions[$sortBy] ?? $sortOptions['price_asc'];
 
-        // Obter todas as cidades distintas da tabela de hotéis
-        $cities = Hotel::distinct()->pluck('city');
+    $query = Hotel::join('rooms', 'rooms.hotel_id', '=', 'hotels.id_item')
+                  ->with(['item.images'])
+                  ->orderBy($sort[0], $sort[1]);
 
-        // Passar as coordenadas dos hotéis para a view
-        $hotelCoordinates = Hotel::all()->map(function ($hotel) {
-            return [
-                'id' => $hotel->id_item,
-                'name' => $hotel->name,
-                'latitude' => $hotel->lat,
-                'longitude' => $hotel->lon,
-                'url' => route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item])
-            ];
-        });
-
-        return view('hotels.hotels', compact('hotels', 'hotelCoordinates', 'cities'));
+    if ($sortBy === 'most_booked') {
+        $query->withCount('orders');
     }
 
+    $hotels = $query->paginate(5);
+
+    $cities = Hotel::distinct()->pluck('city');
+
+    $hotelCoordinates = Hotel::all()->map(function ($hotel) {
+        return [
+            'id' => $hotel->id_item,
+            'name' => $hotel->name,
+            'latitude' => $hotel->lat,
+            'longitude' => $hotel->lon,
+            'url' => route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item])
+        ];
+    });
+
+    return view('hotels.hotels', compact('hotels', 'hotelCoordinates', 'cities'));
+}
+
+   
 
     public function filterHotels(Request $request)
     {

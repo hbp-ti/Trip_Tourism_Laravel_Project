@@ -38,10 +38,11 @@ class Hotel extends Model
         return $this->belongsTo(Item::class, 'id_item');
     }
 
-    public function rooms()
-    {
-        return $this->hasMany(Room::class, 'hotel_id', 'id_item');
-    }
+// No modelo Hotel.php
+public function rooms()
+{
+    return $this->hasMany(Room::class, 'hotel_id');
+}
 
     public function reviews()
     {
