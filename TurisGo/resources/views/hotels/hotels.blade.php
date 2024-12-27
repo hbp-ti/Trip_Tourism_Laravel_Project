@@ -36,7 +36,11 @@
             <div class="overlap-group">
                 <div class="search-field">
                     <label for="location">{{ __('messages.Destination') }}</label>
-                    <input type="text" id="location" placeholder="{{ __('messages.Enter location') }}" />
+                    <select id="location">
+                        @foreach ($cities as $city)
+                            <option value="{{ $city }}">{{ $city }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="search-field">
                     <label for="checkin">{{ __('messages.Check-in Date') }}</label>

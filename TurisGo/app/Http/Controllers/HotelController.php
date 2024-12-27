@@ -20,6 +20,9 @@ class HotelController extends Controller
         }, 'item.images']) // Incluindo imagens associadas ao item
             ->paginate(5);
 
+        // Obter todas as cidades distintas da tabela de hotéis
+        $cities = Hotel::distinct()->pluck('city');
+
         // Passar as coordenadas dos hotéis para a view
         $hotelCoordinates = Hotel::all()->map(function ($hotel) {
             return [
@@ -31,7 +34,7 @@ class HotelController extends Controller
             ];
         });
 
-        return view('hotels.hotels', compact('hotels', 'hotelCoordinates'));
+        return view('hotels.hotels', compact('hotels', 'hotelCoordinates', 'cities'));
     }
 
 
@@ -48,6 +51,10 @@ class HotelController extends Controller
             $query->where('stars', $request->stars);
         }
 
+        if ($request->has('location') && $request->location != '') {
+            $query->where('city', $request->location);
+        }
+        
         // Adicione outros filtros aqui
 
         // Carregar hotéis com imagens associadas ao item
