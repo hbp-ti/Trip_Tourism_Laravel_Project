@@ -292,6 +292,7 @@ class AuthController extends Controller
 
                 // Associando detalhes ao item da reserva ativa
                 $reservationItem->details = (object) [
+                    'id' => $item->id,
                     'type' => 'Hotel',
                     'name' => $hotel->name,
                     'description' => $hotel->description,
@@ -318,6 +319,7 @@ class AuthController extends Controller
 
                 // Associando detalhes ao item da reserva ativa
                 $reservationItem->details = (object) [
+                    'id' => $item->id,
                     'type' => 'Activity',
                     'name' => $activity->name,
                     'description' => $activity->description,
@@ -342,6 +344,7 @@ class AuthController extends Controller
 
                 // Associando detalhes ao item da reserva ativa
                 $reservationItem->details = (object) [
+                    'id' => $item->id,
                     'type' => 'Ticket',
                     'name' => $ticket->origin . '->' . $ticket->destination,
                     'train_type' => $ticket->train_type,
@@ -385,6 +388,7 @@ class AuthController extends Controller
 
                 // Associando detalhes ao item da reserva expirada
                 $reservationItem->details = (object) [
+                    'id' => $item->id,
                     'type' => 'Hotel',
                     'name' => $hotel->name,
                     'description' => $hotel->description,
@@ -411,6 +415,7 @@ class AuthController extends Controller
 
                 // Associando detalhes ao item da reserva expirada
                 $reservationItem->details = (object) [
+                    'id' => $item->id,
                     'type' => 'Activity',
                     'name' => $activity->name,
                     'description' => $activity->description,
@@ -435,6 +440,7 @@ class AuthController extends Controller
 
                 // Associando detalhes ao item da reserva expirada
                 $reservationItem->details = (object) [
+                    'id' => $item->id,
                     'type' => 'Ticket',
                     'name' => $ticket->origin . '->' . $ticket->destination,
                     'train_type' => $ticket->train_type,

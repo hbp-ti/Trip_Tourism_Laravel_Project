@@ -290,4 +290,5 @@ return [
     'Paypal (Purchase/Service Payment)' => 'Paypal (Purchase/Service Payment)',
     'Mbway (Purchase/Service Payment)' => 'Mbway (Purchase/Service Payment)',
     'Confirm Payment' => 'Confirm Payment',
+    'Book Again' => 'Book Again',
 ];

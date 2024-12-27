@@ -19,7 +19,8 @@
     <div class="header">
         <!-- Container do Cabeçalho -->
         <div class="profile-pic-container">
-            <img src="{{ file_exists(public_path('storage/' . Auth::user()->image)) ? asset('storage/' . Auth::user()->image) : asset('images/default_user_image.png') }}" class="profile-pic" alt="Profile Picture">
+            <img src="{{ file_exists(public_path('storage/' . Auth::user()->image)) ? asset('storage/' . Auth::user()->image) : asset('images/default_user_image.png') }}"
+                class="profile-pic" alt="Profile Picture">
             <div class="button-overlay">
                 <form id="profileForm" action="{{ route('upload.handle', ['locale' => app()->getLocale()]) }}"
                     method="POST" enctype="multipart/form-data">
@@ -145,10 +146,21 @@
                                         {{ $reservation->reservation_date_hotel_checkin . '->' . $reservation->reservation_date_hotel_checkout }}
                                     </p>
                                 </div>
-            
+
                                 <div class="buttons-placement">
-                                    <button class="details-button">{{ __('messages.Details') }}</button>
-                                    <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                    <a href="{{ route('auth.hotelDetail', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        class="details-button">
+                                        {{ __('messages.Details') }}
+                                    </a>
+
+                                    <!-- Botão para cancelar a reserva -->
+                                    <form action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit" class="cancel-button">
+                                            {{ __('messages.Cancel') }}
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="download-placement">
@@ -170,10 +182,21 @@
                                         {{ $reservation->date_activity }}
                                     </p>
                                 </div>
-            
+
                                 <div class="buttons-placement">
-                                    <button class="details-button">{{ __('messages.Details') }}</button>
-                                    <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                    <a href="{{ route('auth.tourDetail', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        class="details-button">
+                                        {{ __('messages.Details') }}
+                                    </a>
+
+                                    <!-- Botão para cancelar a reserva -->
+                                    <form action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit" class="cancel-button">
+                                            {{ __('messages.Cancel') }}
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="download-placement">
@@ -195,10 +218,22 @@
                                         {{ $reservation->details->departure_hour }}
                                     </p>
                                 </div>
-                            
+
                                 <div class="buttons-placement">
-                                    <button class="details-button">{{ __('messages.Details') }}</button>
-                                    <button class="cancel-button">{{ __('messages.Cancel') }}</button>
+                                    <!-- Botão para detalhes da reserva -->
+                                    <a href="{{ route('auth.tourDetail', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        class="details-button">
+                                        {{ __('messages.Details') }}
+                                    </a>
+
+                                    <!-- Botão para cancelar a reserva -->
+                                    <form action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit" class="cancel-button">
+                                            {{ __('messages.Cancel') }}
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="download-placement">
@@ -237,10 +272,20 @@
                                         {{ $reservation->reservation_date_hotel_checkin . '->' . $reservation->reservation_date_hotel_checkout }}
                                     </p>
                                 </div>
-                        
+
                                 <div class="buttons-placement">
-                                    <button class="details-button">{{ __('messages.Details') }}</button>
-                                    <button class="book-again-button">{{ __('messages.Book Again') }}</button>
+                                    <a href="{{ route('auth.hotelDetail', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        class="details-button">
+                                        {{ __('messages.Details') }}
+                                    </a>
+                                    <form
+                                        action="{{ route('hotel.hotel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        method="GET">
+                                        @csrf
+                                        <button type="submit" class="book-again-button">
+                                            {{ __('messages.Book Again') }}
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="download-placement">
@@ -262,10 +307,20 @@
                                         {{ $reservation->date_activity }}
                                     </p>
                                 </div>
-                    
+
                                 <div class="buttons-placement">
-                                    <button class="details-button">{{ __('messages.Details') }}</button>
-                                    <button class="book-again-button">{{ __('messages.Book Again') }}</button>
+                                    <a href="{{ route('auth.tourDetail', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        class="details-button">
+                                        {{ __('messages.Details') }}
+                                    </a>
+                                    <form
+                                        action="{{ route('tour.tour', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        method="GET">
+                                        @csrf
+                                        <button type="submit" class="book-again-button">
+                                            {{ __('messages.Book Again') }}
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="download-placement">
@@ -287,10 +342,21 @@
                                         {{ $reservation->details->departure_hour }}
                                     </p>
                                 </div>
-                                
+
                                 <div class="buttons-placement">
-                                    <button class="details-button">{{ __('messages.Details') }}</button>
-                                    <button class="book-again-button">{{ __('messages.Book Again') }}</button>
+                                    <a href="{{ route('reservation.details', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        class="details-button">
+                                        {{ __('messages.Details') }}
+                                    </a>
+                                    <!-- Botão para reservar novamente -->
+                                    <form
+                                        action="{{ route('auth.hotel.hotel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        method="GET">
+                                        @csrf
+                                        <button type="submit" class="book-again-button">
+                                            {{ __('messages.Book Again') }}
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="download-placement">

@@ -290,4 +290,5 @@ return [
     'Paypal (Purchase/Service Payment)' => 'Paypal (Pagamento de Compra/Serviço)',
     'Mbway (Purchase/Service Payment)' => 'Mbway (Pagamento de Compra/Serviço)',
     'Confirm Payment' => 'Confirmar Pagamento',
+    'Book Again' => 'Reservar Novamente',
 ];

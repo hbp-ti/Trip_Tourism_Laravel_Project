@@ -59,6 +59,9 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::get('/buyTicketTrain', [TrainController::class, 'stations'])->name('tickets');
             Route::post('/payment', [PaymentController::class, 'paymentPhases'])->name('payment');
             Route::post('/proccess_payment', [PaymentController::class, 'processPayment'])->name('process_payment');
+            Route::post('/cancelReservation', [AuthController::class, 'cancelReservation'])->name('reservation.cancel');
+            Route::get('/hotelDetail', [HotelController::class, 'hotelDetail_reservation'])->name('hotelDetail');
+            Route::get('/tourDetail', [TourController::class, 'tourDetail_reservation'])->name('tourDetail');
         });
     });
     Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');
@@ -91,11 +94,5 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
     // Buscar jornadas
     Route::post('/search-journeys', [TrainController::class, 'journeys'])->name('search.journeys');
 
-    Route::get('/tourDetail', function () {
-        return view('tourDetail.tourDetail');
-    })->name("tourDetail");
 
-    Route::get('/hotelDetail', function () {
-        return view('hotelDetail.hotelDetail');
-    })->name("hotelDetail");
 });
