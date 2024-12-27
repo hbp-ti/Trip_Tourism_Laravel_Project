@@ -236,8 +236,14 @@ input {
 }
 
 .buttons-placement {
-    position: absolute;
-    bottom: 15px;
+    position: relative; /* Ou mantém absolute se necessário */
+    display: flex; /* Alinha os itens horizontalmente */
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 10px; /* Ajuste conforme necessário */
+}
+
+a {
+    text-decoration: none;
 }
 
 .details-button,

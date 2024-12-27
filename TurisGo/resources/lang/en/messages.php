@@ -291,4 +291,5 @@ return [
     'Mbway (Purchase/Service Payment)' => 'Mbway (Purchase/Service Payment)',
     'Confirm Payment' => 'Confirm Payment',
     'Book Again' => 'Book Again',
+    'Show Filters' => 'Show Filters',
 ];
