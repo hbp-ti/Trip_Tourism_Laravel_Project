@@ -14,11 +14,13 @@ return new class extends Migration
             $table->string('transport_type', 15);
             $table->string('train_class', 15)->nullable();
             $table->timestamp('departure_hour');
+            $table->timestamp('arrival_hour');
             $table->smallInteger('quantity');
             $table->float('total_price');
             $table->string('origin', 30);
             $table->string('destination', 30);
             $table->boolean('is_used');
+            $table->string('train_id', 10);
             $table->timestamps();
         });
 

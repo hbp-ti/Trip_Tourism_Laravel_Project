@@ -483,3 +483,132 @@ a {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+/* Popup */
+#popup {
+    width: 850px;  /* Aumenta a largura do popup */
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    padding: 20px;
+    max-width: 90%; /* Largura responsiva */
+    max-height: 80%; /* Altura máxima */
+    overflow: hidden; /* Impede o overflow */
+    box-sizing: border-box; /* Para que o padding não quebre o layout */
+}
+
+/* Sobreposição do popup */
+#popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
+
+/* Estilos do botão de fechar */
+.close-button {
+    width: 120px;
+    height: 50px;
+    background-color: #C76A37;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 8px;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.close-button:hover {
+    background-color: #b25d2e;
+}
+
+/* Layout do popup */
+.train-image {
+    width: 100%;
+    height: auto;
+    max-height: 300px;  /* Controla a altura da imagem do comboio */
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/* Flex container para a descrição e o QR Code */
+.flexbox-container {
+    display: flex;
+    gap: 20px;  /* Ajusta o espaçamento entre as caixas */
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-wrap: wrap; /* Permite que o conteúdo se reorganize em telas pequenas */
+}
+
+.box1 {
+    flex: 2;
+    min-width: 200px; /* Garante que a caixa de texto tenha largura mínima */
+}
+
+.box2 {
+    flex-shrink: 0;
+    max-width: 160px;  /* Ajusta a largura do QR Code */
+    height: auto;
+}
+
+.details {
+    font-size: 18px;
+    color: #333;
+}
+
+.details h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.details span {
+    display: block;
+    font-size: 18px;
+    margin: 5px 0;
+    color: #555;
+}
+
+.timetable-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.timetable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.timetable th, .timetable td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.timetable th {
+    background-color: #f2f2f2;
+}
+
+.timetable td {
+    background-color: #f9f9f9;
+}
+
+/* Ajustes para a imagem do QR Code */
+.qrCodeImage {
+    width: 100%;
+    max-width: 140px;  /* Ajusta o tamanho do QR Code */
+    height: auto;
+    margin-top: 10px;
+}

@@ -345,11 +345,13 @@ class AuthController extends Controller
                 // Associando detalhes ao item da reserva ativa
                 $reservationItem->details = (object) [
                     'id' => $item->id,
+                    'train_id' => $ticket->train_id,
                     'type' => 'Ticket',
                     'name' => $ticket->origin . '->' . $ticket->destination,
                     'train_type' => $ticket->train_type,
                     'train_class' => $ticket->train_class,
                     'departure_hour' => $ticket->departure_hour,
+                    'arrival_hour' => $ticket->arrival_hour,
                     'quantity' => $ticket->quantity,
                     'is_used' => $ticket->is_used,
                     'origin' => $ticket->origin,
@@ -810,7 +812,9 @@ class AuthController extends Controller
         } elseif ($item->item_type === 'Ticket') {
             $timestampTrain = \Carbon\Carbon::parse($legObject["departure"])->format('Y-m-d H:i:s');
             $dateTrain = \Carbon\Carbon::parse($legObject["departure"])->format('Y-m-d');
+            $timeArrival =  \Carbon\Carbon::parse($legObject["arrival"])->format('Y-m-d H:i:s');
             $priceTrain = $journeyObject['price']['amount'];
+            $train_id = $journeyObject['legs'][0]['line']['productCode'] . ' ' . $journeyObject['legs'][0]['line']['name'];
         } else {
             // Caso não seja nem Hotel, nem Activity/Tour, retornamos um erro
             $popupError2 = PopupHelper::showPopup(
@@ -912,17 +916,18 @@ class AuthController extends Controller
             $data['train_people_count'] = null;
             $data['train_date'] = null;
         } else if ($item->item_type === 'Ticket') {
-
             Ticket::create([
                 'id_item' => $itemId,
                 'transport_type' => 'Train',
                 'train_class' => $travelClass,
                 'train_type' => $preference,
                 'departure_hour' => $timestampTrain,
+                'arrival_hour' => $timeArrival,
                 'quantity' => $passengers,
                 'total_price' => $priceTrain,
                 'origin' => $legObject['origin']['name'],
                 'destination' => $legObject['destination']['name'],
+                'train_id' => $train_id,
                 'is_used' => false,
             ]);
 

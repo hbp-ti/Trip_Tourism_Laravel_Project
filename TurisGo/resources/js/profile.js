@@ -36,11 +36,11 @@ document.getElementById('changeprofilepic').addEventListener('click', function (
     }
 });
 
-document.getElementById('uploadInput').addEventListener('change', function(event) {
+document.getElementById('uploadInput').addEventListener('change', function (event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             // Atualiza visualmente a imagem com a nova antes de confirmar
             document.querySelector('.profile-pic').src = e.target.result;
 
@@ -70,42 +70,19 @@ document.getElementById('uploadInput').addEventListener('change', function(event
         reader.readAsDataURL(file);
     }
 });
+$(document).ready(function () {
 
-
-
-/*
-// Função para enviar a imagem ao servidor
-function updateProfilePicture(file) {
-    const locale = document.documentElement.lang;
-    const formData = new FormData();
-    formData.append('profile_picture', file);
-
-    // Exemplo de AJAX para enviar a imagem para o controlador
-    $.ajax({
-        url: '/' + locale + '/auth/profile/update-picture',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Profile Picture Updated!',
-                text: 'Your profile picture has been updated successfully.'
-            });
-        },
-        error: function () {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'There was an error updating your profile picture. Please try again.'
-            });
-        }
+    $('#show-popup').on('click', function () {
+        $('#popup-overlay').fadeIn();
+        $('#popup').fadeIn();
     });
-}*/
+
+    $('#close-popup').on('click', function () {
+        $('#popup').fadeOut();
+        $('#popup-overlay').fadeOut();
+    });
+});
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // Botão para abrir o popup

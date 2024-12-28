@@ -18,11 +18,13 @@ class Ticket extends Model
         'train_type',
         'train_class',
         'departure_hour',
+        'arrival_hour',
         'quantity',
         'total_price',
         'origin',
         'destination',
         'is_used',
+        'train_id'
     ];
 
     public function item()

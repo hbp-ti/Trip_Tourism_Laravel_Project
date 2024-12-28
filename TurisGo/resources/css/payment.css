@@ -121,6 +121,7 @@ body {
 	width: 114px;
 	height: 42px;
 	color: white;
+    border: none;
 	border-radius: 6px;
 	font-weight: 600;
 	font-size: 18px;

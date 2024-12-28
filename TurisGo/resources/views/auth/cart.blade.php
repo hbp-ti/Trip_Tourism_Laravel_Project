@@ -30,7 +30,6 @@
                 @foreach ($cartItems as $cartItem)
                     @if ($cartItem->details->type === 'Hotel')
                         <div class="cart-item">
-
                             <img src="{{ $cartItem->item->images[0]->url }}" alt="{{ $cartItem->item->name }}">
                             <div class="item-details">
                                 <h3>{{ $cartItem->details->name }}</h3>
@@ -56,7 +55,7 @@
                         </div>
                     @elseif ($cartItem->details->type === 'Activity')
                         <div class="cart-item">
-                            <img src="{{ $cartItem->item->image }}" alt="{{ $cartItem->item->name }}">
+                            <img src="{{ $cartItem->item->images[0]->url }}" alt="{{ $cartItem->item->name }}">
                             <div class="item-details">
                                 <h3>{{ $cartItem->details->name }}</h3>
                                 <p>{{ $cartItem->details->description }}</p>
