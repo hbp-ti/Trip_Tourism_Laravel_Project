@@ -385,8 +385,7 @@
                                 </div>
 
                                 <div class="buttons-placement">
-                                    <a href="{{ route('reservation.details', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
-                                        class="details-button">
+                                    <a class="details-button" id="show-popup">
                                         {{ __('messages.Details') }}
                                     </a>
                                     <!-- Botão para reservar novamente -->
@@ -407,6 +406,51 @@
                                 </button>
                             </div>
                         </div>
+
+                        <!-- Popup -->
+                    <div id="popup-overlay"></div>
+                    <div id="popup">
+                        <img src="/images/trainTicket.jpg" class="train-image" alt="Train Image">
+                        
+                        <div class="flexbox-container">
+                            <div class="box1">
+                                <div class="details">
+                                    <h1>{{$reservation->details->name}}</h1>
+                                    <span>&#x1F465;&#xFE0E;&nbsp;&nbsp;<b>{{$reservation->details->quantity}}</b></span>
+                                    <br>
+                                    <span>&#x1F552;&#xFE0E;&nbsp;&nbsp;<b>{{$reservation->details->departure_hour}} -> {{$reservation->details->arrival_hour}}</b></span>
+                                </div>
+                            </div>
+                            <div class="box2">
+                                <img src="/images/qrCode.png" class="qrCodeImage" alt="QR Code">
+                            </div>
+                        </div>
+                    
+                        <div class="timetable-container">
+                            <table class="timetable">
+                                <thead>
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Departure</th>
+                                        <th>Arrival</th>
+                                        <th>Train</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{$reservation->details->train_id}}</td>
+                                        <td>{{$reservation->details->departure_hour}}</td>
+                                        <td>{{$reservation->details->arrival_hour}}</td>
+                                        <td>{{$reservation->train_type}}</td>
+                                        <td>{{$reservation->details->total_price}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    
+                        <button id="close-popup" class="close-button">Close</button>
+                    </div>
                     @endif
                 @endforeach
             @endif
