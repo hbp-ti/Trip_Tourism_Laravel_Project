@@ -54,8 +54,6 @@ class HotelController extends Controller
         return view('hotels.hotels', compact('hotels', 'hotelCoordinates', 'cities'));
     }
     
-    
-    
 
     public function filterHotels(Request $request)
     {

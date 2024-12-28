@@ -43,7 +43,11 @@
             <div class="overlap-group">
                 <div class="search-field">
                     <label for="location">{{ __('messages.Destination') }}</label>
-                    <input type="text" id="location" placeholder="{{ __('messages.Enter location') }}" />
+                    <select id="location">
+                        @foreach ($cities as $city)
+                            <option value="{{ $city }}">{{ $city }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="search-field">
                     <label for="checkin">{{ __('messages.Check-in Date') }}</label>
@@ -76,11 +80,13 @@
         </div>
 
         <div class="popular-container">
-            <div class="popular-card"></div>
-            <div class="popular-card"></div>
-            <div class="popular-card"></div>
-            <div class="popular-card"></div>
+            @foreach($popularHotels as $hotel)
+                <div class="popular-card">
+                    <img src="{{ $hotel->item->images[0]->url }}" alt="Imagem do Hotel">
+                </div>
+            @endforeach
         </div>
+
 
         <div class="title-line-container home-section">
             <h2>{{ __('messages.Most Popular Tours') }}</h2>
@@ -88,10 +94,11 @@
         </div>
 
         <div class="popular-container">
-            <div class="popular-card"></div>
-            <div class="popular-card"></div>
-            <div class="popular-card"></div>
-            <div class="popular-card"></div>
+            @foreach($popularTours as $tour)
+                <div class="popular-card">
+                    <img src="{{ $tour->item->images[0]->url }}" alt="Imagem da Tour">
+                </div>
+            @endforeach
         </div>
 
         <div class="title-line-container home-section">
@@ -162,6 +169,7 @@
     <script>
         const hotels = @json($hotelCoordinates);
         const tours = @json($tourCoordinates);
+        
 
         // Inicializa o flatpickr para os campos de data
         flatpickr("#checkin", {

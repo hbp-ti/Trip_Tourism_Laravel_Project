@@ -12,15 +12,6 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\HomepageController;
 
 
-Route::get('/imagem', function () {
-    return view('imagem');
-})->name("imagem");
-
-
-Route::get('/exemploUpload', function () {
-    return view('exemploUpload');
-})->name("exemploUpload");
-
 Route::get('/', function () {
     return redirect()->route('homepage', ['locale' => 'en']);
 });
@@ -35,7 +26,7 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () {
 
-    Route::get('/', [HomepageController::class, 'showOnMap'])->name('homepage');
+    Route::get('/', [HomepageController::class, 'showIndex'])->name('homepage');
     Route::post('/upload', [ImageUploadController::class, 'handleUpload'])->name('upload.handle');
     Route::prefix('auth')->name('auth.')->group(function () {
         Route::get('register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
