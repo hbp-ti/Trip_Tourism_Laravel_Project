@@ -126,7 +126,7 @@ class TourController extends Controller
 
         $tourReservation->details = $tour;
 
-
+    
         return view('tourDetail.tourDetail', compact('tourReservation', 'locale'));
     }
     

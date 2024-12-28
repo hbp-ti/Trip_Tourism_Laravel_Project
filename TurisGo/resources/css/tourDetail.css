@@ -444,3 +444,93 @@
         width: 100%;
     }
     
+    /* Estilizando o contêiner de direções */
+.leaflet-routing-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Manrope', sans-serif;
+    padding: 20px;
+    position: fixed;  /* Alterado para 'fixed' para que ele fique no centro da tela */
+    z-index: 1000;
+    top: 50%; /* Centraliza verticalmente */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translate(-50%, -50%); /* Garante centralização perfeita */
+    max-width: 630px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+	line-height: 2;
+}
+
+/* Ajustando a exibição dos passos de direções */
+.leaflet-routing-container .leaflet-routing-steps {
+    margin-top: 10px;
+}
+
+/* Estilizando cada passo da rota */
+.leaflet-routing-container .leaflet-routing-step {
+    font-size: 16px;
+    color: #555;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.leaflet-routing-container .leaflet-routing-step:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Alterando a linha da rota */
+.leaflet-routing-container .leaflet-routing-line {
+    background-color: #C76A37;
+    height: 4px;
+    margin: 0;
+}
+
+/* Estilizando os botões */
+.leaflet-routing-container .leaflet-routing-button {
+    background-color: #C76A37;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.leaflet-routing-container .leaflet-routing-button:hover {
+    background-color: #a45a2e;
+}
+
+/* Melhorando os ícones de rota */
+.leaflet-routing-container .leaflet-routing-icon {
+    background-color: #C76A37;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+/* Estilo para o botão de fechar */
+.leaflet-routing-container .leaflet-routing-close-button {
+    background-color: transparent;
+    border: none;
+    color: #C76A37;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.leaflet-routing-container .leaflet-routing-close-button:hover {
+    color: #a45a2e;
+}
