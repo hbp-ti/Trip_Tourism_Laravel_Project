@@ -8,48 +8,54 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\PopupHelper;
 use App\Models\OrderItem;
+use Illuminate\Support\Facades\DB;
+
 
 class HotelController extends Controller
 {
     public function showHotels(Request $request)
-{
-    $sortBy = $request->get('sort_by', 'price_asc');
+    {
+        // Recupera o parâmetro de ordenação da requisição
+        $sortBy = $request->get('sort_by', 'price_asc');
     
-    $sortOptions = [
-        'price_asc' => ['rooms.price_night', 'asc'],
-        'price_desc' => ['rooms.price_night', 'desc'],
-        'alphabetical' => ['hotels.name', 'asc'],
-        'most_booked' => ['orders_count', 'desc'],
-    ];
-    
-    $sort = $sortOptions[$sortBy] ?? $sortOptions['price_asc'];
-
-    $query = Hotel::join('rooms', 'rooms.hotel_id', '=', 'hotels.id_item')
-                  ->with(['item.images'])
-                  ->orderBy($sort[0], $sort[1]);
-
-    if ($sortBy === 'most_booked') {
-        $query->withCount('orders');
-    }
-
-    $hotels = $query->paginate(5);
-
-    $cities = Hotel::distinct()->pluck('city');
-
-    $hotelCoordinates = Hotel::all()->map(function ($hotel) {
-        return [
-            'id' => $hotel->id_item,
-            'name' => $hotel->name,
-            'latitude' => $hotel->lat,
-            'longitude' => $hotel->lon,
-            'url' => route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item])
+        // Definindo as opções de ordenação
+        $sortOptions = [
+            'price_asc' => ['min_price', 'asc'],
+            'price_desc' => ['min_price', 'desc'],
+            'alphabetical' => ['hotels.name', 'asc'],
         ];
-    });
-
-    return view('hotels.hotels', compact('hotels', 'hotelCoordinates', 'cities'));
-}
-
-   
+    
+        // Determina a ordenação com base no parâmetro
+        $sort = $sortOptions[$sortBy] ?? $sortOptions['price_asc'];
+    
+        // Subconsulta para calcular o menor preço de quartos
+        $hotels = Hotel::query()
+            ->with(['item.images', 'rooms']) // Carrega imagens e quartos associados
+            ->select('hotels.*')
+            ->selectRaw('COALESCE((SELECT MIN(price_night) FROM rooms WHERE rooms.hotel_id = hotels.id_item), 0) as min_price')
+            ->orderBy($sort[0], $sort[1]) // Ordena conforme o parâmetro
+            ->paginate(5); // Paginação
+    
+        // Obter todas as cidades distintas
+        $cities = Hotel::distinct()->pluck('city');
+    
+        // Passar as coordenadas dos hotéis para a view
+        $hotelCoordinates = Hotel::all()->map(function ($hotel) {
+            return [
+                'id' => $hotel->id_item,
+                'name' => $hotel->name,
+                'latitude' => $hotel->lat,
+                'longitude' => $hotel->lon,
+                'url' => route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]),
+            ];
+        });
+    
+        // Retorna a view com os dados
+        return view('hotels.hotels', compact('hotels', 'hotelCoordinates', 'cities'));
+    }
+    
+    
+    
 
     public function filterHotels(Request $request)
     {
@@ -67,7 +73,7 @@ class HotelController extends Controller
         if ($request->has('location') && $request->location != '') {
             $query->where('city', $request->location);
         }
-        
+
         // Adicione outros filtros aqui
 
         // Carregar hotéis com imagens associadas ao item
@@ -151,11 +157,11 @@ class HotelController extends Controller
             return redirect()->route('profile.show', ['locale' => $locale])->with('popup', $popupError);
         }
         $hotelde = Hotel::where('id_item', $id)->firstOrFail();
-        
+
         $hotelde->load([
             'rooms' => function ($query) use ($hotel) {
                 $query->where('type', $hotel->room_type_hotel) // Filtra pelos quartos pelo tipo armazenado no `room_type_hotel`
-                      ->orderBy('price_night', 'asc'); // Ordena os quartos pelo preço
+                    ->orderBy('price_night', 'asc'); // Ordena os quartos pelo preço
             },
             'item.images', // Relacionamento para carregar imagens do Item
         ]);
