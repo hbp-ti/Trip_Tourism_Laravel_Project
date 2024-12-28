@@ -21,8 +21,8 @@
 
     <section class="image-slider">
         <div class="slider-images">
-            @if ($tour->images && $tour->images->isNotEmpty())
-                @foreach ($tour->images as $image)
+            @if ($tour->item->images)
+                @foreach ($tour->item->images as $image)
                     <img src="{{ asset($image->url) }}" alt="{{ $tour->name }}"
                         class="slider-image {{ $loop->first ? '' : 'hidden' }}">
                 @endforeach
@@ -41,8 +41,8 @@
             <span class="next">&#10095;</span>
         </div>
         <div class="dots-container">
-            @if ($tour->images && $tour->images->isNotEmpty())
-                @foreach ($tour->images as $image)
+            @if ($tour->item->images && $tour->item->images->isNotEmpty())
+                @foreach ($tour->item->images as $image)
                     <span class="dot {{ $loop->first ? 'active-dot' : '' }}"></span>
                 @endforeach
             @else

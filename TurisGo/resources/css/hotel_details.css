@@ -551,51 +551,36 @@ body {
   background-color: white;
 }
 
-.similar-hotels h2 {
-  text-align: left;
-  margin-bottom: 10px;
-}
-.similar-hotels .hotels {
-  display: flex;
-  flex-wrap: nowrap; /* Itens em uma única linha */
-  gap: 20px; /* Espaçamento entre os itens */
-  overflow-x: auto; /* Permitir rolagem horizontal se os itens ultrapassarem a largura */
-}
-
-.similar-hotels .hotels a {
-  flex: 0 0 auto; /* Garante que cada item tenha largura fixa */
-  text-decoration: none;
-}
-
-.similar-hotels .imgHotels {
-  width: 200px; /* Define largura de cada imagem */
-  height: 150px; /* Define altura de cada imagem */
-  object-fit: cover; /* Garante que as imagens sejam ajustadas proporcionalmente */
-  border-radius: 10px;
-}
-
-
 /* Flexbox layout for the images */
 .hotels {
-  display: flex;
-  justify-content: space-between;
-  /* Espaço uniforme entre as imagens */
-  gap: 10px;
-  /* Espaçamento entre as imagens */
-  flex-wrap: wrap;
-  /* Garante que a linha quebre se necessário */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 20px auto;
 }
 
 /* Tamanho das imagens */
 .imgHotels {
-  width: 22%;
-  /* Faz com que cada imagem ocupe 22% da largura do contêiner */
-  height: auto;
-  /* Mantém a proporção da imagem */
-  object-fit: cover;
-  /* Garante que as imagens cubram a área sem distorção */
-  border-radius: 8px;
-  /* Opcional: arredonda os cantos das imagens */
+  background-color: #f6f6f6;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imgHotels img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Efeito de hover */
+.imgHotels:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 }
 
 /* Fundo escurecido para o overlay */

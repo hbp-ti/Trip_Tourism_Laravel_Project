@@ -42,7 +42,7 @@
             <span class="next">&#10095;</span>
         </div>
         <div class="dots-container">
-            @if ($hotel->images && $hotel->images->isNotEmpty())
+            @if ($hotel->item->images && $hotel->item->images->isNotEmpty())
                 @foreach ($hotel->item->images as $image)
                     <span class="dot {{ $loop->first ? 'active-dot' : '' }}"></span>
                 @endforeach
@@ -257,11 +257,12 @@
 
         <div class="hotels">
             @foreach ($similarHotels as $similarHotel)
-                <a
-                    href="{{ route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $similarHotel->id_item]) }}">
-                    <img class="imgHotels"
-                        src="{{ $similarHotel->item->images[0]->url ?? asset('images/default-hotel.jpg') }}"
-                        alt="{{ $similarHotel->name }}">
+                <a href="{{ route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $similarHotel->id_item]) }}">
+                    <div class="imgHotels">
+                        <img
+                            src="{{ $similarHotel->item->images[0]->url ?? asset('images/default-hotel.jpg') }}"
+                            alt="{{ $similarHotel->name }}">
+                    </div>
                 </a>
             @endforeach
         </div>

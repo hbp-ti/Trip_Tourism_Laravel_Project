@@ -81,9 +81,11 @@
 
         <div class="popular-container">
             @foreach($popularHotels as $hotel)
+            <a href="{{ route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}">
                 <div class="popular-card">
                     <img src="{{ $hotel->item->images[0]->url }}" alt="Imagem do Hotel">
                 </div>
+            </a>
             @endforeach
         </div>
 
@@ -95,9 +97,11 @@
 
         <div class="popular-container">
             @foreach($popularTours as $tour)
+            <a href="{{ route('tour.tour', ['locale' => app()->getLocale(), 'id' => $tour->id_item]) }}">
                 <div class="popular-card">
                     <img src="{{ $tour->item->images[0]->url }}" alt="Imagem da Tour">
                 </div>
+            </a>
             @endforeach
         </div>
 
