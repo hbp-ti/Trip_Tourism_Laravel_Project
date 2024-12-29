@@ -47,7 +47,7 @@ class TrainController extends Controller
 
         return back()->withErrors(['message' => 'Erro ao obter a estação.']);
     }
-
+    
     // Método para buscar as jornadas (viagens)
     public function journeys(Request $request)
     {

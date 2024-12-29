@@ -48,26 +48,25 @@
             <button id="toggleFilters" class="btn btn-secondary">{{ __('messages.Show Filters') }}</button>
         </div>
 
-        <div class="section-title-container">
-        </div>
-        <div class="map-section" style="position: relative;">
-            <div id="hotel-map" style="height: 400px; position: relative;"></div>
-            <div id="mapInfoPanel" style="position: absolute; top: 10px; right: 10px; z-index: 1000; background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 10px; display: flex; align-items: center; flex-direction: column;">
-                <div id="timeInfo" style="display: flex; align-items: center; margin-bottom: 10px;">
-                    <img src="/images/tempo.png" alt="Tempo" style="width: 24px; height: 24px; margin-right: 17px;">
-                    <span id="timeText"></span>
-                </div>
-                <div id="distanceInfo" style="display: flex; align-items: center;">
-                    <img src="/images/distancia.png" alt="Distância" style="width: 24px; height: 24px; margin-right: 8px;">
-                    <span id="distanceText"></span>
-                </div>
-            </div>
+        <!-- Mapa Interativo -->
+        <div class="map-section">
+            <div id="hotel-map" style="height: 510px;"></div>
         </div>
 
         <button class="btn btn-secondary">{{ __('messages.Download') }}</button>
     </div>
 
-
+    <!-- Painel de Informações no canto superior direito -->
+    <div id="mapInfoPanel" style="position: absolute; top: 950px; right: 480px; z-index: 1000; background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 10px; display: flex; align-items: center; flex-direction: column;">
+        <div id="timeInfo" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <img src="/images/tempo.png" alt="Tempo" style="width: 24px; height: 24px; margin-right: 17px;">
+            <span id="timeText"></span> <!-- Valor de tempo que pode ser dinâmico -->
+        </div>
+        <div id="distanceInfo" style="display: flex; align-items: center;">
+            <img src="/images/distancia.png" alt="Distância" style="width: 24px; height: 24px; margin-right: 8px;">
+            <span id="distanceText"></span> <!-- Valor de distância que pode ser dinâmico -->
+        </div>
+    </div>
 
     @if (session('popup'))
     {!! session('popup') !!}
@@ -150,7 +149,14 @@
                 alert("Geolocalização não é suportada neste navegador.");
             }
 
-
+            // Funcionalidade para mostrar e ocultar o painel de detalhes
+            document.getElementById("detailsBtn").addEventListener("click", function() {
+                const routingContainer = document.querySelector('.leaflet-routing-container');
+                if (routingContainer) {
+                    // Alterna a exibição da div
+                    routingContainer.style.display = (routingContainer.style.display === 'none' || routingContainer.style.display === '') ? 'block' : 'none';
+                }
+            });
         });
     </script>
 </body>

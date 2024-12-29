@@ -597,6 +597,14 @@
 	margin-left: 38px;
 }
 
+
+/* Estilizando o contêiner de direções */
 .leaflet-routing-container {
-	display: none !important; /* Esconde a div do .leaflet-routing-container */
+DISPlay:none;
+}
+
+
+
+.hidden {
+    display: none;
 }

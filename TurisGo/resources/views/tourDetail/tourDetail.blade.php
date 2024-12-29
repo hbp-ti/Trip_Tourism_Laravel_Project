@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,17 +69,14 @@
                     <div class="line orange-line"></div>
                 </div>
 
-                <!-- Caixa de Informação do Comboio -->
-                <div id="trainInfo" class="train-info hidden train-box">
-                    <p><strong>São Bento → Aveiro</strong></p>
-                    <p>
-                        <img src="{{ asset('images/locmapa.png') }}" alt="Location Icon" style="width: 12px; vertical-align: middle;">
-                        <span class="small-text">Rua São Mamede nº291 1312-123</span>
-                    </p>
-                    <p>
-                        <img src="{{ asset('images/horamapa.png') }}" alt="Clock" style="width: 16px; margin-right: 5px;">
-                        <span class="hora-text">12:23 - 14:02</span>
-                    </p>
+                <!--
+                  Caixa de Informação do Comboio: vamos preencher dinamicamente
+                  com as informações da estação e os comboios disponíveis
+                -->
+                <div id="trainInfo" class="train-info hidden train-box" style="padding: 10px;">
+                    <!-- Conteúdo padrão (podes remover se quiseres) -->
+                    <p><strong>Estação / Comboios</strong></p>
+                    <div id="trainDetails"></div>
                 </div>
 
                 <!-- Options Section -->
@@ -125,7 +121,7 @@
 
             <!-- Mapa Interativo (Leaflet) -->
             <div class="map-section" style="position: relative;">
-                <div id="tour-map" style="height: 400px; position: relative;">
+                <div id="tour-map" style="height: 510px; position: relative;">
                     <!-- Painel de Informações dentro do mapa, canto superior direito -->
                     <div id="mapInfoPanel" style="
                         position: absolute;
@@ -153,7 +149,6 @@
         </div>
 
         <button class="btn btn-secondary">{{ __('messages.Download') }}</button>
-
         <br><br>
 
         <!-- Weather Section -->
@@ -261,83 +256,225 @@
 
     <!-- Script para inicializar e controlar o mapa Leaflet -->
     <script>
+        // Função de distância (Haversine) para encontrar estação mais próxima
+        function haversineDist(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Raio médio da Terra em metros
+            const toRad = x => x * Math.PI / 180;
+            const dLat = toRad(lat2 - lat1);
+            const dLon = toRad(lon2 - lon1);
+            const lat1Rad = toRad(lat1);
+            const lat2Rad = toRad(lat2);
+        
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.sin(dLon/2) * Math.sin(dLon/2) *
+                      Math.cos(lat1Rad) * Math.cos(lat2Rad);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c; // distância em metros
+        }
+        
         document.addEventListener("DOMContentLoaded", function () {
-            // Coletando as coordenadas do tour via PHP
             const latTour = {{ $tourReservation->details->lat }};
             const lonTour = {{ $tourReservation->details->lon }};
             const timeText = document.getElementById('timeText');
             const distanceText = document.getElementById('distanceText');
-
-            // Inicializando o mapa
-            const map = L.map('tour-map').setView([latTour, lonTour], 13); // Centro e zoom
-
-            // Adicionar camada do OpenStreetMap
+            let map;
+            let routeControl; // Para as rotas (carro, pé, etc.)
+        
+            // Inicializar mapa
+            map = L.map('tour-map').setView([latTour, lonTour], 13);
+        
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
-
-            // Adicionar marcador para o local do Tour
+        
+            // Marcador do Tour
             const tourMarker = L.marker([latTour, lonTour]).addTo(map)
                 .bindPopup('<b>{{ $tourReservation->details->name }}</b><br>{{ $tourReservation->details->description }}')
                 .openPopup();
-
-            // Ícone personalizado para a localização do usuário
+        
+            // Ícone para a localização do usuário
             const userIcon = L.icon({
-                iconUrl: "/images/seta.png", // Ajuste para o seu caminho de ícone
+                iconUrl: "/images/seta.png",
                 iconSize: [30, 30],
                 iconAnchor: [15, 30],
                 popupAnchor: [0, -30]
             });
-
-            // Variável para as direções (rota)
-            let routeControl;
-
-            // Obter geolocalização do usuário e traçar a rota
+        
+            // Obter geolocalização do usuário
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     const latUser = position.coords.latitude;
                     const lonUser = position.coords.longitude;
-
-                    // Marcador para a localização do usuário
-                    const userMarker = L.marker([latUser, lonUser], { icon: userIcon })
+        
+                    // Marcador da posição do usuário
+                    L.marker([latUser, lonUser], { icon: userIcon })
                         .addTo(map)
                         .bindPopup('Sua localização')
                         .openPopup()
                         .setZIndexOffset(1000);
-
-                    // Rota do usuário até o Tour sem exibir painel de direções
-                    routeControl = L.Routing.control({
-                        waypoints: [
-                            L.latLng(latUser, lonUser),
-                            L.latLng(latTour, lonTour)
-                        ],
-                        createMarker: function () { return null; }, // Sem marcadores intermediários
-                        routeWhileDragging: true,
-                        showAlternatives: false,
-                        lineOptions: { styles: [{ color: '#FFF100', weight: 4 }] },
-                        summaryDisplay: false,
-                        collapsible: false,
-                    }).addTo(map);
-
-                    // Quando a rota for calculada, capturar tempo e distância
-                    routeControl.on('routesfound', function (event) {
-                        const route = event.routes[0]; // Primeira rota
-                        const distance = route.summary.totalDistance / 1000; // Em km
-                        const time = route.summary.totalTime / 60; // Em minutos
-
-                        distanceText.textContent = `${distance.toFixed(1)} km`;
-                        timeText.textContent = `${Math.ceil(time)} min`;
-
+        
+                    // Função para criar rota de acordo com o perfil (carro, pé, etc.)
+                    function createRoute(profile) {
+                        // Se já existir rota, remove do mapa
+                        if (routeControl) {
+                            map.removeControl(routeControl);
+                        }
+                        
+                        routeControl = L.Routing.control({
+                            waypoints: [
+                                L.latLng(latUser, lonUser),
+                                L.latLng(latTour, lonTour)
+                            ],
+                            createMarker: function () { return null; },
+                            routeWhileDragging: true,
+                            showAlternatives: false,
+                            lineOptions: { styles: [{ color: '#FFF100', weight: 4 }] },
+                            summaryDisplay: false,
+                            collapsible: false,
+                            router: L.Routing.osrmv1({
+                                serviceUrl: 'https://router.project-osrm.org/route/v1',
+                                profile: profile 
+                            })
+                        }).addTo(map);
+        
+                        // Quando a rota for calculada, atualizar distância e tempo
+                        routeControl.on('routesfound', function (event) {
+                            const route = event.routes[0]; 
+                            const distance = route.summary.totalDistance / 1000;
+                            const time = route.summary.totalTime / 60;
+                            
+                            distanceText.textContent = `${distance.toFixed(1)} km`;
+                            timeText.textContent = `${Math.ceil(time)} min`;
+                        });
+                    }
+        
+                    // Rota inicial (carro)
+                    createRoute('driving');
+        
+                    // Botão carro
+                    document.getElementById('carButton').addEventListener('click', () => {
+                        createRoute('driving');
                     });
+        
+                    // Botão pé
+                    document.getElementById('walkButton').addEventListener('click', () => {
+                        createRoute('foot');
+                    });
+        
+                    // ============================
+                    //  BOTÃO COMBOIO (TRAIN)
+                    // ============================
+                    document.getElementById('trainButton').addEventListener('click', () => {
+                        // Vamos buscar estações numa área de 20km usando Overpass
+                        const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node["railway"="station"](around:20000,${latUser},${lonUser});out;`;
+        
+                        fetch(overpassUrl)
+                          .then(response => response.json())
+                          .then(data => {
+                            if (!data.elements || data.elements.length === 0) {
+                              alert("Não foi encontrada nenhuma estação de comboio num raio de 20km.");
+                              return;
+                            }
+        
+                            // Encontrar a estação mais próxima do utilizador
+                            let nearestStation = null;
+                            let minDist = Infinity;
+        
+                            data.elements.forEach(station => {
+                              const dist = haversineDist(
+                                latUser, lonUser,
+                                station.lat, station.lon
+                              );
+                              if (dist < minDist) {
+                                minDist = dist;
+                                nearestStation = station;
+                              }
+                            });
+        
+                            if (!nearestStation) {
+                              alert("Nenhuma estação encontrada.");
+                              return;
+                            }
+        
+                            // Colocar um marcador na estação mais próxima
+                            const stationName = nearestStation.tags.name || "Estação sem nome";
+                            const stationMarker = L.marker([nearestStation.lat, nearestStation.lon]).addTo(map)
+                              .bindPopup(`<b>${stationName}</b><br>Distância: ${(minDist/1000).toFixed(2)} km`)
+                              .openPopup();
+        
+                            // Criar rota do utilizador até a estação
+                            if (routeControl) {
+                              map.removeControl(routeControl);
+                            }
+                            routeControl = L.Routing.control({
+                                waypoints: [
+                                    L.latLng(latUser, lonUser),
+                                    L.latLng(nearestStation.lat, nearestStation.lon)
+                                ],
+                                createMarker: function () { return null; },
+                                routeWhileDragging: false,
+                                showAlternatives: false,
+                                lineOptions: { styles: [{ color: '#00c0ff', weight: 4 }] },
+                                summaryDisplay: false,
+                                collapsible: false,
+                                router: L.Routing.osrmv1({
+                                    serviceUrl: 'https://router.project-osrm.org/route/v1',
+                                    // podes usar 'foot' se o deslocamento for a pé
+                                    profile: 'driving'
+                                })
+                            }).addTo(map);
+        
+                            // Exibe a div com informações do comboio
+                            const trainInfoDiv = document.getElementById('trainInfo');
+                            trainInfoDiv.classList.remove('hidden');
+        
+                            // Exemplo de chamada para tua API de comboios:
+                            fetch('/train/station?nome=' + encodeURIComponent(stationName))
+                              .then(r => r.json())
+                              .then(stationData => {
+                                const trainDetailsDiv = document.getElementById('trainDetails');
+                                
+                                if (stationData.error) {
+                                  trainDetailsDiv.innerHTML = `<p style="color:red;">${stationData.error}</p>`;
+                                  return;
+                                }
+                                
+                                // Exemplo simples de HTML. Ajuste conforme a estrutura real do stationData
+                                let html = `<h4>${stationName}</h4>`;
+                                if (stationData.trains && stationData.trains.length > 0) {
+                                  html += `<ul>`;
+                                  stationData.trains.forEach(t => {
+                                    html += `<li>Comboio: ${t.id} — Horário: ${t.time}</li>`;
+                                  });
+                                  html += `</ul>`;
+                                } else {
+                                  html += `<p>Não há dados de comboios disponíveis.</p>`;
+                                }
+        
+                                trainDetailsDiv.innerHTML = html;
+                              })
+                              .catch(err => {
+                                console.error('Erro ao buscar dados da API interna:', err);
+                                document.getElementById('trainDetails').innerHTML =
+                                  `<p style="color:red;">Falha ao obter detalhes da estação.</p>`;
+                              });
+                          })
+                          .catch(err => {
+                            console.error(err);
+                            alert("Erro ao obter dados do Overpass API.");
+                          });
+                    });
+                    // ============================
+                    // FIM DO BOTÃO COMBOIO
+                    // ============================
+        
                 }, function () {
                     alert("Geolocalização falhou ou foi negada.");
                 });
             } else {
                 alert("Geolocalização não é suportada neste navegador.");
             }
-
-
         });
-    </script>
+        </script>
 </body>
 </html>

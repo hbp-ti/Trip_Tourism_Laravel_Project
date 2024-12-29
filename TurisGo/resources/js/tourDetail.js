@@ -1,12 +1,18 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     const toggleButton = document.getElementById("toggleFilters");
     const filtersContainer = document.getElementById("filtersContainer");
 
-    toggleButton.addEventListener("click", function () {
+    toggleButton.addEventListener("click", function() {
+        // Alterna a classe "hidden" (se estiver, remove; se não estiver, adiciona)
         filtersContainer.classList.toggle("hidden");
-        toggleButton.textContent = filtersContainer.classList.contains("hidden")
-            ? "Show Filters"
-            : "Hide Filters";
+
+        // Se estiver hidden depois de alternar, significa que escondemos. Então texto vira "Show Filters"
+        if (filtersContainer.classList.contains("hidden")) {
+            toggleButton.textContent = "Show Filters";
+        } else {
+            // Caso contrário, texto vira "Hide Filters"
+            toggleButton.textContent = "Hide Filters";
+        }
     });
 });
 

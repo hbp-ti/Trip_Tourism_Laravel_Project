@@ -444,6 +444,7 @@
         width: 100%;
     }
     
-    .leaflet-routing-container {
-        display: none !important; /* Esconde a div do .leaflet-routing-container */
-    }
+    /* Estilizando o contêiner de direções */
+.leaflet-routing-container {
+    display: none;
+}
