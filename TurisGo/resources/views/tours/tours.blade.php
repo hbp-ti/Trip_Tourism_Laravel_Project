@@ -19,62 +19,6 @@
     </section>
 
     <div class="tour">
-
-        <!-- Exclusive Tour Packages -->
-
-        <div class="title-line-container tour-section">
-            <h2>{{ __('messages.Exclusive Tour Packages') }}</h2>
-            <hr class="title-line-orange">
-        </div>
-
-        <div class="single-column-container">
-            <div class="exclusive-card">
-                <div class="image-container">
-                    <img src="" alt="{{ __('messages.Exclusive Image 1') }}">
-                </div>
-                <div class="text-container">
-                    <h2>{{ __('messages.Fátima and Coimbra Day Trip') }}</h2>
-                    <div class="info-banner">
-                        <div class="price-info"><span>$75</span> /per person</div>
-                        <div class="geral-info">
-                            <div><img src="/images/durationTime.png" style="width: 20px;" alt="Duration">8H</div>
-                            <div><img src="/images/numberOfPerson.png" style="width: 20px;" alt="People">People: <span>10</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="exclusive-card">
-                <div class="image-container">
-                    <img src="" alt="{{ __('messages.Exclusive Image 2') }}">
-                </div>
-                <div class="text-container">
-                    <h2>{{ __('messages.Sintra Full-Day Private Tour') }}</h2>
-                    <div class="info-banner">
-                        <div class="price-info"><span>$75</span> /per person</div>
-                        <div class="geral-info">
-                            <div><img src="/images/durationTime.png" style="width: 20px;" alt="Duration">8H</div>
-                            <div><img src="/images/numberOfPerson.png" style="width: 20px;" alt="People">People: <span>10</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="exclusive-card">
-                <div class="image-container">
-                    <img src="" alt="{{ __('messages.Exclusive Image 3') }}">
-                </div>
-                <div class="text-container">
-                    <h2>{{ __('messages.Authentic Douro Wine Tour') }}</h2>
-                    <div class="info-banner">
-                        <div class="price-info"><span>$75</span> /per person</div>
-                        <div class="geral-info">
-                            <div><img src="/images/durationTime.png" style="width: 20px;" alt="Duration">8H</div>
-                            <div><img src="/images/numberOfPerson.png" style="width: 20px;" alt="People">People: <span>10</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Tours -->
 
         <div class="title-line-container tour-section">
