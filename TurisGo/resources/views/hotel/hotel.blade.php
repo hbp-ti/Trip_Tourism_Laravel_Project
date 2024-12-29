@@ -229,7 +229,7 @@
             @foreach ($hotel->reviews as $review)
                 <div class="review-box">
                     <div class="review-header">
-                        <img src="{{ asset('storage/' . $review->user->image) ?? asset('images/default_user_image.png') }}"
+                        <img src="{{ file_exists(public_path('storage/' . $review->user->image)) ? asset('storage/' . $review->user->image) : asset('images/default_user_image.png') }}"
                             alt="User image" class="review-img">
                         <span
                             class="user-name">{{ $review->user->first_name . ' ' . $review->user->last_name }}</span>

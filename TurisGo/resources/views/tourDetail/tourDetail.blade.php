@@ -153,8 +153,6 @@
         </div>
 
         <button class="btn btn-secondary">{{ __('messages.Download') }}</button>
-        <!-- Botão para exibir/ocultar painel de rotas -->
-        <button id="detailsBtn" class="btn btn-secondary">{{ __('messages.Details') }}</button>
 
         <br><br>
 
@@ -338,16 +336,7 @@
                 alert("Geolocalização não é suportada neste navegador.");
             }
 
-            // Botão que mostra/oculta o painel de detalhes (rotas)
-            document.getElementById("detailsBtn").addEventListener("click", function() {
-                const routingContainer = document.querySelector('.leaflet-routing-container');
-                if (routingContainer) {
-                    routingContainer.style.display =
-                        (routingContainer.style.display === 'none' || routingContainer.style.display === '')
-                        ? 'block'
-                        : 'none';
-                }
-            });
+
         });
     </script>
 </body>
