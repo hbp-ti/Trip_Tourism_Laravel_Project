@@ -23,11 +23,11 @@ html, body {
 
 .payment-section {
     background-color: #D9D9D9;
-    opacity: 90%;
     padding: 30px;
     border-radius: 8px;
     max-width: 1000px;
     margin: 0 auto;
+    margin-bottom: 150px;
     text-align: center;
 }
 
@@ -116,10 +116,6 @@ html, body {
     color: #555;
 }
 
-.reviewInformationLower {
-    padding: 15px;
-}
-
 .paymentMethod {
     display: flex;
     justify-content: space-between;
@@ -171,7 +167,7 @@ html, body {
     margin-top: 15px;
 }
 .reviewInformationLower {
-    background-color: #D9D9D9;
+    background-color: #cacaca;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -204,6 +200,7 @@ html, body {
     justify-content: space-between;
     align-items: center;
     margin-top: 30px;
+    margin-bottom: 20px;
 }
 .selectedPaymentMethod img {
     width: 120px;

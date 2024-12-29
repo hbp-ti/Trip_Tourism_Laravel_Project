@@ -27,18 +27,22 @@ window.addEventListener('click', function () {
 // Funções para ordenar (placeholder)
 function sortByPriceAsc() {
   console.log("Sorting by Price: Low to High");
+  applySort('price_asc');
 }
 
 function sortByPriceDesc() {
   console.log("Sorting by Price: High to Low");
+  applySort('price_desc');
 }
 
 function sortAlphabetically() {
   console.log("Sorting Alphabetically");
+  applySort('alphabetical');
 }
 
 function sortByMostBooked() {
   console.log("Sorting by Most Booked");
+  applySort('most_booked');
 }
 
 // Selecione os elementos da sidebar, do blur e do botão de toggle
@@ -77,8 +81,6 @@ blurOverlay.addEventListener('click', () => {
   blurOverlay.style.display = 'none'; // Oculta o desfoque
 });
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
   const openPopupButton = document.getElementById("openReviewPopup");
   const closePopupButton = document.getElementById("closeReviewPopup");
@@ -99,9 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
-
-
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -146,30 +145,5 @@ document.addEventListener("DOMContentLoaded", function () {
         star.classList.remove("hover");
       }
     });
-  }
-});
-
-
-$(document).ready(function () {
-  $('#sortByPriceAsc').click(function () {
-    window.location.href = updateQueryString('sort_by', 'price_asc');
-  });
-
-  $('#sortByPriceDesc').click(function () {
-    window.location.href = updateQueryString('sort_by', 'price_desc');
-  });
-
-  $('#sortAlphabetically').click(function () {
-    window.location.href = updateQueryString('sort_by', 'alphabetical');
-  });
-
-  $('#sortByMostBooked').click(function () {
-    window.location.href = updateQueryString('sort_by', 'most_booked');
-  });
-
-  function updateQueryString(param, value) {
-    const url = new URL(window.location);
-    url.searchParams.set(param, value); // Atualiza o parâmetro da URL com o valor escolhido
-    return url.toString(); // Retorna a nova URL
   }
 });

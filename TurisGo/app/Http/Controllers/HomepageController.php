@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hotel;
 use App\Models\Activity;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,6 +62,10 @@ class HomepageController extends Controller
             ->get();
 
 
+        $reviews = Review::with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         // Retornar a visão com as informações necessárias
         return view('homepage', [
             'locale' => 'en',
@@ -69,7 +74,9 @@ class HomepageController extends Controller
             'cities' => $cities,
             'popularHotels' => $popularHotels,
             'popularTours' => $popularTours,
+            'reviews' => $reviews,
         ]);
+
     }
 
 }

@@ -32,39 +32,43 @@
     </section>
 
     <div class="box">
-        <div class="search-home-page">
-            <div class="overlap-group">
-                <div class="search-field">
-                    <label for="location">{{ __('messages.Destination') }}</label>
-                    <select id="location">
-                        @foreach ($cities as $city)
-                            <option value="{{ $city }}">{{ $city }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="search-field">
-                    <label for="checkin">{{ __('messages.Check-in Date') }}</label>
-                    <input type="text" id="checkin" placeholder="{{ __('messages.Check-in Date') }}" />
-                </div>
-                <div class="search-field">
-                    <label for="checkout">{{ __('messages.Checkout Date') }}</label>
-                    <input type="text" id="checkout" placeholder="{{ __('messages.Checkout Date') }}" />
-                </div>
-                <div class="search-field">
-                    <label for="people">{{ __('messages.People') }}</label>
-                    <select id="people">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                <div class="search-button">
-                    <button type="button">{{ __('messages.Search') }}</button>
+        <form>
+            <div class="search-home-page">
+                <!-- Filtro de pesquisa -->
+                <div class="overlap-group">
+                    <div class="search-field">
+                        <label for="location">{{ __('messages.Destination') }}</label>
+                        <select name="location" id="location">
+                            @foreach ($cities as $city)
+                                <option value="{{ $city }}">{{ $city }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="search-field">
+                        <label for="checkin">{{ __('messages.Check-in Date') }}</label>
+                        <input type="text" name="checkin" id="checkin" placeholder="{{ __('messages.Check-in Date') }}" />
+                    </div>
+                    <div class="search-field">
+                        <label for="checkout">{{ __('messages.Checkout Date') }}</label>
+                        <input type="text" name="checkout" id="checkout" placeholder="{{ __('messages.Checkout Date') }}" />
+                    </div>
+                    <div class="search-field">
+                        <label for="people">{{ __('messages.People') }}</label>
+                        <select name="people" id="people">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="search-button">
+                        <button type="submit" id="searchButton">{{ __('messages.Search') }}</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
+
 
     <div class="hotel">
         <!-- Mapa Interativo com Hoteis -->

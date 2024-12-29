@@ -68,6 +68,10 @@ select {
     color: #8c8c8c;
 }
 
+.flatpickr-input[readonly] {
+    color: #8c8c8c;
+}
+
 .box {
   max-width: 100%;
   margin: 0 auto;

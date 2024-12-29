@@ -25,7 +25,7 @@
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
     <!-- Linha modificada com o caminho atualizado do footer.css -->
-    @vite(['resources/css/homepage.css', 'resources/js/app.js', 'resources/js/mapa.js', 'resources/js/jquery-3.7.1.min.js', 'resources/js/searchBar.js'])
+    @vite(['resources/css/homepage.css', 'resources/js/app.js', 'resources/js/mapa.js', 'resources/js/jquery-3.7.1.min.js', 'resources/js/searchBar.js', 'resources/js/homepage.js'])
     @endif
 
 </head>
@@ -39,38 +39,41 @@
     </section>
 
     <div class="box">
-        <div class="search-home-page">
-            <div class="overlap-group">
-                <div class="search-field">
-                    <label for="location">{{ __('messages.Destination') }}</label>
-                    <select id="location">
-                        @foreach ($cities as $city)
-                            <option value="{{ $city }}">{{ $city }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="search-field">
-                    <label for="checkin">{{ __('messages.Check-in Date') }}</label>
-                    <input type="text" id="checkin" placeholder="{{ __('messages.Check-in Date') }}" />
-                </div>
-                <div class="search-field">
-                    <label for="checkout">{{ __('messages.Checkout Date') }}</label>
-                    <input type="text" id="checkout" placeholder="{{ __('messages.Checkout Date') }}" />
-                </div>
-                <div class="search-field">
-                    <label for="people">{{ __('messages.People') }}</label>
-                    <select id="people">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                <div class="search-button">
-                    <button type="button">{{ __('messages.Search') }}</button>
+    <form>
+            <div class="search-home-page">
+                <!-- Filtro de pesquisa -->
+                <div class="overlap-group">
+                    <div class="search-field">
+                        <label for="location">{{ __('messages.Destination') }}</label>
+                        <select name="location" id="location">
+                            @foreach ($cities as $city)
+                                <option value="{{ $city }}">{{ $city }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="search-field">
+                        <label for="checkin">{{ __('messages.Check-in Date') }}</label>
+                        <input type="text" name="checkin" id="checkin" placeholder="{{ __('messages.Check-in Date') }}" />
+                    </div>
+                    <div class="search-field">
+                        <label for="checkout">{{ __('messages.Checkout Date') }}</label>
+                        <input type="text" name="checkout" id="checkout" placeholder="{{ __('messages.Checkout Date') }}" />
+                    </div>
+                    <div class="search-field">
+                        <label for="people">{{ __('messages.People') }}</label>
+                        <select name="people" id="people">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="search-button">
+                        <button type="submit" id="searchButton">{{ __('messages.Search') }}</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <div class="home">
@@ -114,58 +117,32 @@
         <div id="map"></div>
 
         <div class="title-line-container home-section">
-            <h2>{{ __('messages.Promotional Packages') }}</h2>
-            <hr class="title-line-blue">
+            <h2>{{ __('User Reviews') }}</h2>
+            <hr class="title-line-orange">
         </div>
 
-        <div class="promo-card-wrapper">
-            <div class="promo-card-container">
-                <div class="promo-card">
-                    <img src="" alt="Promo Image 1">
-                    <div class="price-tag">$75<span> /{{ __('messages.per person') }}</span></div>
-                    <div class="content-tag">
-                        <div class="icon-tag"><img src="{{ asset('images/durationTime.png') }}" alt="duration">8H</div>
-                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">{{ __('messages.People') }}: <span>8</span></div>
+        <div class="reviews-carousel">
+            <h2>What our users say</h2>
+            <div class="carousel-slider">
+                @foreach ($reviews as $review)
+                <div class="review-card">
+                    <div class="review-image">
+                        <img 
+                            src="{{ file_exists(public_path('storage/' . $review->user->image)) ? asset('storage/' . $review->user->image) : asset('images/default_user_image.png') }}" 
+                            alt="{{ $review->user->name }}" 
+                            class="user-avatar">
                     </div>
-                    <div class="promo-card-content">
-                        <p>{{ __('messages.Promotion') }} 1</p>
-                    </div>
-                    <div class="rating">
-                        <img src="{{ asset('images/rating.png') }}" alt="rating">
-                    </div>
-                </div>
-                <div class="promo-card">
-                    <img src="" alt="Promo Image 1">
-                    <div class="price-tag">$75<span> /{{ __('messages.per person') }}</span></div>
-                    <div class="content-tag">
-                        <div class="icon-tag"><img src="{{ asset('images/durationTime.png') }}" alt="duration">8H</div>
-                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">{{ __('messages.People') }}: <span>8</span></div>
-                    </div>
-                    <div class="promo-card-content">
-                        <p>{{ __('messages.Promotion') }} 1</p>
-                    </div>
-                    <div class="rating">
-                        <img src="{{ asset('images/rating.png') }}" alt="rating">
+                    <div class="review-content">
+                        <h3>{{ $review->user->first_name . ' ' . $review->user->last_name }}</h3>
+                        <p class="review-description">{{ $review->description }}</p>
+                        <span class="rating">Rating: {{ $review->rating }} / 5</span>
                     </div>
                 </div>
-                <div class="promo-card">
-                    <img src="" alt="Promo Image 1">
-                    <div class="price-tag">$75<span> /{{ __('messages.per person') }}</span></div>
-                    <div class="content-tag">
-                        <div class="icon-tag"><img src="{{ asset('images/durationTime.png') }}" alt="duration">8H</div>
-                        <div class="icon-tag"><img src="{{ asset('images/numberOfPerson.png') }}" alt="people">{{ __('messages.People') }}: <span>8</span></div>
-                    </div>
-                    <div class="promo-card-content">
-                        <p>{{ __('messages.Promotion') }} 1</p>
-                    </div>
-                    <div class="rating">
-                        <img src="{{ asset('images/rating.png') }}" alt="rating">
-                    </div>
-                </div>  
-                <!-- Repeat promo-card as needed -->
+                @endforeach
             </div>
         </div>
-        
+
+
     </div>
 
     <x-footer />

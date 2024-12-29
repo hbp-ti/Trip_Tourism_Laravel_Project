@@ -66,6 +66,10 @@ select {
     color: #8c8c8c;
 }
 
+.flatpickr-input[readonly] {
+  color: #8c8c8c;
+}
+
 .box {
   max-width: 100%;
   margin: 0 auto;
@@ -246,152 +250,6 @@ select {
   }
 }
 
-/* Wrapper com a imagem de fundo */
-.promo-card-wrapper {
-  width: 100%;
-  min-height: 100vh;
-  background-image: url('/public/images/imagemFundoHomepage.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-}
-
-/* Container para os cartões promocionais */
-.promo-card-container {
-  width: 100%;
-  max-width: 1000px;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 20px auto;
-  display: grid;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  z-index: 2;
-  flex-wrap: wrap;
-}
-
-/* Cartões promocionais */
-.promo-card {
-  cursor: pointer;
-  position: relative;
-  flex: 1;
-  height: 450px;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.promo-card img {
-  width: 100%;
-  height: 65%;
-  object-fit: cover;
-  background-color: #cdcdcd;
-}
-
-.promo-card-content {
-  width: 100%;
-  height: 35%;
-  padding: 40px;
-  text-align: center;
-  position: relative;
-}
-
-.promo-card-content p {
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-/* Novo estilo para o rating dentro do conteúdo */
-.promo-card .rating {
-  position: absolute;
-  bottom: 0;
-  left: 25px;
-  z-index: 2;
-}
-
-.promo-card .rating img {
-  width: 80px;
-  background-color: transparent;
-}
-
-/* Mini div para o preço no canto superior direito */
-.promo-card .price-tag {
-  position: absolute;
-  top: 15px;
-  right: 0;
-  background-color: #C76A37;
-  color: white;
-  padding: 8px 12px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  z-index: 2;
-}
-
-.promo-card .price-tag span {
-  font-size: 0.9rem;
-  font-weight: normal;
-}
-
-.promo-card .content-tag {
-  position: absolute;
-  align-items: center;
-  bottom: 30%;
-  display: flex;
-  justify-content: space-between;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #2081A5;
-  color: white;
-  width: 85%;
-  padding: 8px 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  z-index: 1;
-}
-
-.promo-card .content-tag .icon-tag {
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-}
-
-.promo-card .content-tag .icon-tag img {
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-  background-color: transparent;
-}
-
-.promo-card .content-tag .icon-tag span {
-  font-size: 1rem;
-  margin-left: 5px;
-}
-
-/* Efeito hover nos cartões */
-.promo-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Quando a tela tem no máximo 992px (exibe 2 colunas) */
-@media (max-width: 992px) {
-  .promo-card-container {
-      grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Quando a tela tem no máximo 576px (exibe 1 coluna) */
-@media (max-width: 576px) {
-  .promo-card-container {
-      grid-template-columns: 1fr;
-  }
-}
-
 .custom-button {
   color: #207391;
   font-weight: bold;
@@ -403,4 +261,65 @@ select {
 .hotelPage {
   width: 100%;
   text-align: center;
+}
+
+.reviews-carousel {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 30px;
+  margin-bottom: 100px;
+  background: #e7e6e6;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .reviews-carousel {
+      margin: 0 15px;
+  }
+}
+
+.reviews-carousel h2 {
+  margin-bottom: 50px;
+}
+
+.carousel-slider {
+  display: flex;
+  transition: transform 1s ease-in-out;
+}
+
+.review-card {
+  min-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.review-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.review-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.review-description {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.rating {
+  font-size: 14px;
+  color:#C76A37;
 }

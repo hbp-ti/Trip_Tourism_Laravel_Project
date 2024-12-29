@@ -15,30 +15,38 @@ class HotelController extends Controller
 {
     public function showHotels(Request $request)
     {
-        // Recupera o parâmetro de ordenação da requisição
+        // Recupera os parâmetros da requisição
+        $location = $request->get('location');
         $sortBy = $request->get('sort_by', 'price_asc');
-    
+
         // Definindo as opções de ordenação
         $sortOptions = [
             'price_asc' => ['min_price', 'asc'],
             'price_desc' => ['min_price', 'desc'],
             'alphabetical' => ['hotels.name', 'asc'],
         ];
-    
+
         // Determina a ordenação com base no parâmetro
         $sort = $sortOptions[$sortBy] ?? $sortOptions['price_asc'];
-    
-        // Subconsulta para calcular o menor preço de quartos
-        $hotels = Hotel::query()
+
+        // Inicia a query para buscar os hotéis
+        $query = Hotel::query()
             ->with(['item.images', 'rooms']) // Carrega imagens e quartos associados
             ->select('hotels.*')
-            ->selectRaw('COALESCE((SELECT MIN(price_night) FROM rooms WHERE rooms.hotel_id = hotels.id_item), 0) as min_price')
-            ->orderBy($sort[0], $sort[1]) // Ordena conforme o parâmetro
+            ->selectRaw('COALESCE((SELECT MIN(price_night) FROM rooms WHERE rooms.hotel_id = hotels.id_item), 0) as min_price');
+
+        // Aplica o filtro de localização, se fornecido
+        if ($location) {
+            $query->where('city', $location);
+        }
+
+        // Ordena conforme a opção de ordenação selecionada
+        $hotels = $query->orderBy($sort[0], $sort[1])
             ->paginate(5); // Paginação
-    
+
         // Obter todas as cidades distintas
         $cities = Hotel::distinct()->pluck('city');
-    
+
         // Passar as coordenadas dos hotéis para a view
         $hotelCoordinates = Hotel::all()->map(function ($hotel) {
             return [
@@ -49,10 +57,10 @@ class HotelController extends Controller
                 'url' => route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]),
             ];
         });
-    
-        // Retorna a view com os dados
-        return view('hotels.hotels', compact('hotels', 'hotelCoordinates', 'cities'));
+
+        return view('hotels.hotels', compact('hotels', 'cities', 'hotelCoordinates'));
     }
+
     
 
     public function filterHotels(Request $request)
