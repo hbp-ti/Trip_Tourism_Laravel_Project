@@ -30,7 +30,7 @@
                         style="display: none;">
                     <!-- Botão de enviar imagem -->
                     <button type="button" class="edit-profile-pic" id="changeprofilepic">
-                        <img src="{{ asset('images/changetour.png') }}" alt="Edit Icon">
+                        <img src="{{ asset('images/changeImage.png') }}" alt="Edit Icon">
                     </button>
                 </form>
             </div>
