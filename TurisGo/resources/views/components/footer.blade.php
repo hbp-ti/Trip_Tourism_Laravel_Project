@@ -20,7 +20,7 @@
         </a>
         <a href="tel:+351910529936" class="contact-item">
             <img src="{{ asset('images/phone.png') }}" alt="{{ __('messages.Phone Icon') }}" class="icon">
-            <span>{{ __('messages.+351 910529936') }}</span>
+            <span>+351 910 529 936</span>
         </a>
     </div>
     
