@@ -17,6 +17,41 @@ document.querySelectorAll('.sortby-container').forEach(container => {
   });
 });
 
+$(document).on('click', '.load-more', function(e) {
+  e.preventDefault();
+
+  // Obter os parâmetros de pesquisa (location, checkin, checkout, people)
+  var location = $('select[name="location"]').val();
+  var checkin = $('input[name="checkin"]').val();
+  var checkout = $('input[name="checkout"]').val();
+  var people = $('select[name="people"]').val();
+  var sortBy = $('select[name="sort_by"]').val();  // Caso haja um campo para ordenação
+
+  var url = $(this).attr('href').split('?')[0] + '?' +
+            'location=' + location +
+            '&checkin=' + checkin +
+            '&checkout=' + checkout +
+            '&people=' + people +
+            '&sort_by=' + sortBy;
+
+  $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+      success: function(response) {
+          // Adiciona os novos hotéis ao final da lista existente
+          $('.hotel-list').append(response.html);
+
+          // Atualiza o link para carregar mais, caso exista
+          if (response.next_page) {
+              $('.load-more').attr('href', response.next_page);
+          } else {
+              $('.load-more').remove(); // Se não houver mais páginas, remove o botão
+          }
+      }
+  });
+});
+
 // Fechar todos os dropdowns ao clicar fora
 window.addEventListener('click', function () {
   document.querySelectorAll('.dropdown-content').forEach(dropdown => {
@@ -45,6 +80,7 @@ function sortByMostBooked() {
   applySort('most_booked');
 }
 
+
 // Selecione os elementos da sidebar, do blur e do botão de toggle
 const sidebar = document.getElementById('sidebar');
 const toggleSidebar = document.getElementById('toggle-sidebar');
@@ -71,6 +107,7 @@ window.addEventListener('click', () => {
     blurOverlay.style.display = 'none'; // Oculta o desfoque
   }
 });
+
 // Impedir que o clique na sidebar feche ela
 sidebar.addEventListener('click', (event) => {
   event.stopPropagation();

@@ -33,12 +33,14 @@
 
     <div class="box">
         <form>
+            @csrf
             <div class="search-home-page">
                 <!-- Filtro de pesquisa -->
                 <div class="overlap-group">
                     <div class="search-field">
                         <label for="location">{{ __('messages.Destination') }}</label>
                         <select name="location" id="location">
+                        <option value="All">{{ __('messages.All') }}</option>
                             @foreach ($cities as $city)
                                 <option value="{{ $city }}">{{ $city }}</option>
                             @endforeach

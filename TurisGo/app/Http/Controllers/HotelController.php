@@ -15,34 +15,35 @@ class HotelController extends Controller
 {
     public function showHotels(Request $request)
     {
-        // Recupera os parâmetros da requisição
-        $location = $request->get('location');
-        $sortBy = $request->get('sort_by', 'price_asc');
+        // Recupera os parâmetros enviados pelo POST
+        $location = $request->input('location', 'All');
+        $checkin = $request->input('checkin');
+        $checkout = $request->input('checkout');
+        $people = $request->input('people', 1); // Valor padrão para 'people' é 1
 
         // Definindo as opções de ordenação
+        $sortBy = $request->input('sort_by', 'price_asc');
         $sortOptions = [
             'price_asc' => ['min_price', 'asc'],
             'price_desc' => ['min_price', 'desc'],
             'alphabetical' => ['hotels.name', 'asc'],
         ];
-
-        // Determina a ordenação com base no parâmetro
         $sort = $sortOptions[$sortBy] ?? $sortOptions['price_asc'];
 
         // Inicia a query para buscar os hotéis
         $query = Hotel::query()
-            ->with(['item.images', 'rooms']) // Carrega imagens e quartos associados
+            ->with(['item.images', 'rooms'])
             ->select('hotels.*')
             ->selectRaw('COALESCE((SELECT MIN(price_night) FROM rooms WHERE rooms.hotel_id = hotels.id_item), 0) as min_price');
 
-        // Aplica o filtro de localização, se fornecido
-        if ($location) {
+        // Aplica o filtro de localização, se fornecido e não for "All"
+        if ($location && $location !== 'All') {
             $query->where('city', $location);
         }
 
         // Ordena conforme a opção de ordenação selecionada
         $hotels = $query->orderBy($sort[0], $sort[1])
-            ->paginate(5); // Paginação
+            ->paginate(5);
 
         // Obter todas as cidades distintas
         $cities = Hotel::distinct()->pluck('city');
@@ -58,9 +59,18 @@ class HotelController extends Controller
             ];
         });
 
-        return view('hotels.hotels', compact('hotels', 'cities', 'hotelCoordinates'));
-    }
+        // Verifica se a requisição é via AJAX
+        if ($request->ajax()) {
+            // Retorna apenas os hotéis paginados em formato JSON
+            return response()->json([
+                'html' => view('hotels._hotel_list', compact('hotels'))->render(),
+                'next_page' => $hotels->nextPageUrl(),
+            ]);
+        }
 
+        // Caso contrário, retorna a view completa
+        return view('hotels.hotels', compact('hotels', 'cities', 'hotelCoordinates', 'location', 'checkin', 'checkout', 'people', 'sortBy'));
+    }
     
 
     public function filterHotels(Request $request)

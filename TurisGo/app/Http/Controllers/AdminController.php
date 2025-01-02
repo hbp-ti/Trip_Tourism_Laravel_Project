@@ -4,13 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hotel;
-use App\Models\Tour;
+use App\Models\Activity;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        // Obter os hotéis com as informações necessárias
+        $hotels = Hotel::query()
+            ->with(['item.images'])
+            ->select('hotels.*')
+            ->paginate(5);
+
+        // Obter os tours com as informações necessárias
+        $tours = Activity::query()
+            ->with(['item.images'])
+            ->select('activities.*')
+            ->paginate(5);
+
+        return view('admin.dashboard', compact('hotels', 'tours'));
+
     }
 
     // Adicionar um hotel

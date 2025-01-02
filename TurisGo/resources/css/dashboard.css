@@ -1,0 +1,536 @@
+/* General Reset */
+* {
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body {
+    color: #1B1B1B;
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f6f6;
+}
+
+.x-header {
+    position: relative; /* Cria o contexto de posicionamento */
+    z-index: 10; /* Coloca o x-header acima do .header */
+}
+
+.header {
+    background-image: url('/public/images/dashboardHeader.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 350px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute; /* Faz a .header ser posicionada de forma absoluta */
+    top: 0%; /* Posiciona abaixo do x-header */
+    left: 0;
+    right: 0;
+    z-index: -1; /* Coloca a .header atrás de x-header */
+}
+
+.header h1 {
+    font-size: 4.5rem;
+}
+
+.header p {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.dashboard {
+    width: 100%;
+    max-width: 1400px;
+    border-radius: 8px;
+    margin: 0 auto;
+    margin-top: 350px;
+    margin-bottom: 150px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.dashboard-title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dashboard-title img {
+    vertical-align: middle;
+    width: 35px;
+}
+
+
+.dashboard .left-dashboard-options {
+    color: white;
+    width: 20%;
+    padding: 30px;
+    background-color: rgb(84, 84, 84);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.dashboard .left-dashboard-options h2 {
+    margin-bottom: 20px;
+}
+
+.dashboard .left-dashboard-options a {
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    transition: 0.43s all;
+    font-size: 20px;
+}
+
+
+.dashboard .left-dashboard-options ul {
+    list-style: none;
+}
+
+/* Estilos para o menu da barra lateral */
+.left-dashboard-options ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.left-dashboard-options li {
+    margin: 20px 0; /* Espaçamento entre os itens */
+}
+
+.left-dashboard-options a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    width: 100%;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: 0.43s all;
+}
+
+/* Efeito de hover */
+.left-dashboard-options a:hover {
+    background-color: #444;
+}
+
+.left-dashboard-options .left-dashboard {
+    margin-top: 50px;
+}
+
+.left-dashboard ul li a {
+    text-decoration: none; /* Remove o sublinhado do link */
+    color: #333; /* Cor do texto */
+    font-size: 16px; /* Tamanho da fonte */
+    display: flex; /* Torna os itens da lista flexíveis */
+    align-items: center; /* Alinha o ícone e o texto verticalmente */
+}
+
+.left-dashboard ul li a img {
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+}
+
+.dashboard .right-dashboard {
+    color: #1B1B1B;
+    width: 80%;
+    padding: 30px;
+    background-color: #d9d9d9;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 1200px) {
+    .dashboard {
+        flex-direction: column;
+    }
+
+    .dashboard .left-dashboard-options {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .dashboard .right-dashboard {
+        width: 100%;
+    }
+}
+
+/* Para dispositivos móveis (telas menores que 768px) */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2.5rem; /* Reduz o tamanho da fonte */
+    }
+
+    .header p {
+        font-size: 1.2rem; /* Ajuste o tamanho da fonte */
+    }
+    
+    .dashboard .right-dashboard {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .search-field input,
+    .search-field select,
+    .search-field textarea {
+        width: 100%;
+    }
+
+    .flex-container {
+        flex-direction: column;
+    }
+
+    .coordinates input {
+        margin-bottom: 10px;
+    }
+}
+
+/* Para dispositivos ainda menores (telas abaixo de 480px) */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .header p {
+        font-size: 1rem;
+    }
+
+    .dashboard .right-dashboard {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .add-button button {
+        padding: 12px 20px; /* Ajuste o tamanho do botão */
+    }
+}
+
+.right-dashboard .form-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.flex-container.bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.search-field {
+    flex: 1 1 calc(25% - 15px);
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.search-field #lat {
+    margin-bottom: 10px;
+}
+
+.search-field label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #1B1B1B;
+}
+
+.search-field input,
+.search-field select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+.search-field textarea {
+    min-height: 100px;
+    width: 100%;
+    resize: vertical;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    transition: 0.43s all;
+}
+
+.add-button {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.add-button button {
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2081A5;
+    color: white;
+    cursor: pointer;
+    transition: 0.43s all;
+}
+
+.add-button button:hover {
+    background-color: #207391;
+}
+
+/* Container para o formulário de upload */
+.file-upload-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+/* Estilo da área de drag-and-drop */
+.file-upload-area {
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;  /* Torna a área clicável */
+}
+
+/* Estilo da área quando o usuário arrasta um arquivo para ela */
+.file-upload-area.dragging {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+/* Estilo da mensagem de arraste */
+.drag-message {
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 10px;
+}
+
+/* Preview dos arquivos */
+.file-preview {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+/* Estilo de cada miniatura de arquivo */
+.file-thumbnail {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.file-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Botão de remover */
+.remove-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #ffffff;
+    border: 2px solid #ddd; /* Adiciona uma borda suave */
+    border-radius: 50%; /* Torna o botão circular */
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    width: 30px;
+    height: 30px;
+    transition: background-color 0.43s ease, border-color 0.43s ease;
+}
+
+.remove-button:hover {
+    background-color: #f2f2f2;
+    border-color: #bbb; /* Tornando a borda mais suave no hover */
+}
+
+/* Estilo do ícone */
+.remove-icon {
+    width: 16px; /* Ajuste o tamanho do ícone */
+    height: 16px;
+    color: #1B1B1B;
+    stroke: #1B1B1B; /* Cor do ícone */
+}
+
+.hotel-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* Estilos para o Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 8px;
+    /* Espaço entre o switch e o texto */
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(174, 174, 174);
+    transition: background-color 0.43s;
+    border-radius: 34px;
+}
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: transform 0.43s;
+    border-radius: 50%;
+}
+.switch input:checked+.slider {
+    background-color: #2081A5;
+}
+.switch input:checked+.slider::before {
+    transform: translateX(26px);
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 1rem;
+    text-align: left;
+    border-radius: 8px;
+}
+
+.styled-table th, .styled-table td {
+    padding: 1rem;
+    border-bottom: 2px solid #c4c4c4;
+}
+
+.styled-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.styled-table tbody tr {
+    transition: background-color 0.43s;
+    border: 2px solid #c4c4c4;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.styled-table td img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.styled-table td button {
+    padding: 0.5rem 1rem;
+    background-color: #C76A37;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.43s;
+}
+
+.styled-table td button:hover {
+    background-color: #9a4f29;
+}
+
+.item-type-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2081A5;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.43s all;
+}
+
+.item-type-button:hover {
+    background-color: #207391;
+}
+
+.table-container {
+    margin-top: 30px;
+}
