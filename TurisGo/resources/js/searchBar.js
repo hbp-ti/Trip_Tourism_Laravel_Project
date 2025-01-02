@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!checkin || !checkout || !people || !location) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Informação em falta',
-                text: 'Por favor, preencha todos os campos obrigatórios antes de procurar!',
+                title: 'Missing Information',
+                text: 'Please fill in all the required fields before searching.',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#207391'
             });

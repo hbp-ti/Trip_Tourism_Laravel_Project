@@ -50,8 +50,8 @@ $(document).ready(function () {
 
     // 3. Notification Popup
     const notifications = [
-        { id: 1, title: "New Tour Added", description: "A new tour is available now!", isRead: false },
-        { id: 2, title: "Booking Confirmation", description: "Your booking has been confirmed.", isRead: true }
+        { id: 1, title: translate("New Tour Added"), description: translate("A new tour is available now!"), isRead: false },
+        { id: 2, title: translate("Booking Confirmation"), description: translate("Your booking has been confirmed."), isRead: true }
     ];
 
     const notificationButton = $('#notificationButton');
@@ -270,6 +270,3 @@ $(document).ready(function () {
         });
     });
 });
-
-
-

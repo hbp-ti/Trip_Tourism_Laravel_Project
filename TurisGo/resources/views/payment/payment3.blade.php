@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    @vite(['resources/css/payment3.css','resources/js/jquery-3.7.1.min.js','resources/js/payment.js'])
+    @vite(['resources/css/payment3.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/translations.js', 'resources/js/payment.js'])
 </head>
 
 <body>

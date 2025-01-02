@@ -25,7 +25,7 @@
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
     <!-- Linha modificada com o caminho atualizado do footer.css -->
-    @vite(['resources/css/homepage.css', 'resources/js/app.js', 'resources/js/mapa.js', 'resources/js/jquery-3.7.1.min.js', 'resources/js/searchBar.js', 'resources/js/homepage.js'])
+    @vite(['resources/css/homepage.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/translations.js', 'resources/js/app.js', 'resources/js/mapa.js', 'resources/js/searchBar.js', 'resources/js/homepage.js'])
     @endif
 
 </head>

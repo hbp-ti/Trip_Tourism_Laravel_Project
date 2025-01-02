@@ -12,7 +12,7 @@
     <!-- Leaflet Routing Machine -->
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 
-    @vite(['resources/css/tourDetail.css', 'resources/js/tourDetail.js', 'resources/js/mapa.js'])
+    @vite(['resources/css/tourDetail.css', 'resources/js/translations.js', 'resources/js/tourDetail.js', 'resources/js/mapa.js'])
 </head>
 
 <body>

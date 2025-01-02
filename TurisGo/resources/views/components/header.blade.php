@@ -6,7 +6,7 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@vite(['resources/css/header.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/header.js'])
+@vite(['resources/css/header.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/translations.js', 'resources/js/header.js'])
 
 <nav class="navbar">
     <div class="container">

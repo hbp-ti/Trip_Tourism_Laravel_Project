@@ -34,10 +34,10 @@ $(document).ready(function () {
         if (!$('#aware').is(':checked')) { // se #aware não estiver ativado
             e.preventDefault();
             Swal.fire({
-                title: 'Error',
-                text: 'You have to accept the disclaimer.',
+                title: translate('Error!'),
+                text: translate('You have to accept the disclaimer.'),
                 icon: 'warning',
-                confirmButtonText: 'OK',
+                confirmButtonText: translate('OK'),
                 confirmButtonColor: '#C76A37'
             });
         }

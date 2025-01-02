@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         Swal.fire({
             icon: 'success',
-            title: 'Message Sent',
-            text: 'Your support message has been sent successfully. We will get back to you soon!',
-            confirmButtonText: 'Ok',
+            title: translate('Message Sent'),
+            text: translate('Your support message has been sent successfully. We will get back to you soon!'),
+            confirmButtonText: translate('OK'),
             confirmButtonColor: '#2081A5'
         }).then((result) => {
             if (result.isConfirmed) {

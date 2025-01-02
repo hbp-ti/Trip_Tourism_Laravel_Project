@@ -6,7 +6,7 @@
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @vite(['resources/css/header.css', 'resources/css/payment.css','resources/js/jquery-3.7.1.min.js', 'resources/js/payment.js'])
+    @vite(['resources/css/header.css', 'resources/css/payment.css','resources/js/jquery-3.7.1.min.js', 'resources/js/translations.js', 'resources/js/payment.js'])
 </head>
 <body>
    <x-header/>

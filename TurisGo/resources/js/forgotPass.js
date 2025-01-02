@@ -48,7 +48,6 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
-    
 // 4. Sticky Navbar and Language Image Swap
 document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', function () {
@@ -64,11 +63,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-
-
-
-
-
-
-

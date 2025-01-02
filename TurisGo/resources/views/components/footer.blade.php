@@ -1,6 +1,6 @@
 <html lang="{{ app()->getLocale() }}">
 
-@vite(['resources/css/footer.css'])
+@vite(['resources/js/translations.js', 'resources/css/footer.css'])
 
 <footer class="footer">
     <div class="footer-section about-travel">

@@ -40,9 +40,9 @@ $(document).ready(function () {
             success: function () {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Success!',
-                    text: 'The item has been added to your cart!',
-                    confirmButtonText: 'Ok',
+                    title: translate('Success!'),
+                    text: translate('The item has been added to your cart!'),
+                    confirmButtonText: translate('OK'),
                     confirmButtonColor: '#2081A5'
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -52,9 +52,9 @@ $(document).ready(function () {
             error: function (xhr) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error!',
-                    text: 'An error occurred while adding the item to your cart!',
-                    confirmButtonText: 'Ok',
+                    title: translate('Error!'),
+                    text: translate('An error occurred while adding the item to your cart!'),
+                    confirmButtonText: translate('OK'),
                     confirmButtonColor: '#2081A5'
                 }).then((result) => {
                     if (result.isConfirmed) {

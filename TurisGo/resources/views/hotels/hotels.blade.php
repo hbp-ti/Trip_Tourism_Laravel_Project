@@ -19,7 +19,7 @@
     <!-- Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-    @vite(['resources/css/hotels.css', 'resources/css/pagination.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/hotels.js', 'resources/js/mapa.js', 'resources/js/searchBar.js'])
+    @vite(['resources/css/hotels.css', 'resources/css/pagination.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/translations.js', 'resources/js/hotels.js', 'resources/js/mapa.js', 'resources/js/searchBar.js'])
 </head>
 
 <body>

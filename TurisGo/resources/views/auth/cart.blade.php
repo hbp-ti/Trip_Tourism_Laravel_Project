@@ -10,7 +10,7 @@
     <!-- Incluir o SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    @vite(['resources/css/cart.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/cart.js'])
+    @vite(['resources/js/jquery-3.7.1.min.js', 'resources/js/translations.js', 'resources/js/cart.js', 'resources/css/cart.css'])
 </head>
 
 <body>

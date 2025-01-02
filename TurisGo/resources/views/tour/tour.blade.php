@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-    @vite(['resources/css/tour.css', 'resources/js/jquery-3.7.1.min.js','resources/js/tour.js'])
+    @vite(['resources/css/tour.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/translations.js', 'resources/js/tour.js'])
 </head>
 
 <body>

@@ -5,12 +5,12 @@ $(document).ready(function () {
 
         // Exibe o popup de confirmação usando SweetAlert2
         Swal.fire({
-            title: 'Are you sure you want to update your information?',
-            text: 'If you confirm, your profile information will be updated.',
+            title: translate('Are you sure you want to update your information?'),
+            text: translate('If you confirm, your profile information will be updated.'),
             icon: 'question',
             showCancelButton: true,
-            confirmButtonText: 'Yes, update it!',
-            cancelButtonText: 'No, keep it',
+            confirmButtonText: translate('Yes, update it!'),
+            cancelButtonText: translate('No, keep it'),
             confirmButtonColor: '#ff8000',
             cancelButtonColor: '#2081A5'
         }).then((result) => {
@@ -22,7 +22,6 @@ $(document).ready(function () {
         });
     });
 });
-
 
 document.getElementById('changeprofilepic').addEventListener('click', function (event) {
     // Previne o envio padrão do formulário
@@ -46,12 +45,12 @@ document.getElementById('uploadInput').addEventListener('change', function (even
 
             // Exibe o popup de confirmação com SweetAlert2
             Swal.fire({
-                title: 'Do you want to change your profile picture?',
-                text: 'If you confirm, your profile picture will be updated.',
+                title: translate('Do you want to change your profile picture?'),
+                text: translate('If you confirm, your profile picture will be updated.'),
                 icon: 'question',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, change it!',
-                cancelButtonText: 'No, keep it',
+                confirmButtonText: translate('Yes, change it!'),
+                cancelButtonText: translate('No, keep it'),
                 confirmButtonColor: '#ff8000',
                 cancelButtonColor: '#2081A5'
             }).then((result) => {
@@ -81,10 +80,7 @@ $(document).ready(function () {
         $('#popup').fadeOut();
         $('#popup-overlay').fadeOut();
     });
-});
 
-
-document.addEventListener('DOMContentLoaded', function () {
     // Botão para abrir o popup
     const changePasswordButton = document.getElementById('changePasswordButton');
     const passwordPopup = document.getElementById('passwordPopup');
@@ -128,8 +124,8 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             Swal.fire({
                 icon: 'error',
-                title: 'Erro',
-                text: 'Por favor, preencha todos os campos!',
+                title: translate('Error!'),
+                text: translate('Please fill in all the fields.'),
             });
             return;
         }
@@ -138,8 +134,8 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             Swal.fire({
                 icon: 'error',
-                title: 'Erro',
-                text: 'A nova senha e a confirmação não coincidem!',
+                title: translate('Error!'),
+                text: translate('The new password and confirmation do not match!'),
             });
         }
     });
