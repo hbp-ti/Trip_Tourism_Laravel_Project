@@ -39,7 +39,7 @@
         <div class="section-title-container">
             <h3 class="section-title">{{ __('messages.Direction') }}</h3>
             <hr class="section-divider" style="background-color: #C76A37;">
-            <button id="toggleFilters" class="btn btn-secondary">Show Filters</button>
+            <button id="toggleFilters" class="btn btn-filters">Show Filters</button>
         </div>
 
         <!-- Container que agrupa o Mapa e as Opções -->
@@ -121,7 +121,7 @@
 
             <!-- Mapa Interativo (Leaflet) -->
             <div class="map-section" style="position: relative;">
-                <div id="tour-map" style="height: 510px; position: relative;">
+                <div id="tour-map" style="height: 500px; position: relative;">
                     <!-- Painel de Informações dentro do mapa, canto superior direito -->
                     <div id="mapInfoPanel" style="
                         position: absolute;
@@ -148,112 +148,8 @@
             </div>
         </div>
 
-        <div class="popup-container">
-            <!-- Opções de transporte e adicionais -->
-            <div id="filtersContainer" class="options-section hidden">
-                <!-- Transportes com linha azul -->
-                <div class="transport-title">
-                    <h4>{{ __('messages.Transport') }}</h4>
-                    <div class="line blue-line"></div>
-                </div>
-                <div class="buttons">
-                    <button id="carButton" class="transport-button">
-                        <img src="{{ asset('images/popupmapacarro.png') }}" alt="Car">
-                    </button>
-                    <button id="trainButton" class="transport-button">
-                        <img src="{{ asset('images/popupmapacomboio.png') }}" alt="Train">
-                    </button>
-                    <button id="walkButton" class="transport-button">
-                        <img src="{{ asset('images/popupmapape.png') }}" alt="Walk">
-                    </button>
-                </div>
 
-                <!-- Options com linha à frente -->
-                <div class="options-title">
-                    <h4>{{ __('messages.Options') }}</h4>
-                    <div class="line orange-line"></div>
-                </div>
-
-                <!--
-                  Caixa de Informação do Comboio: vamos preencher dinamicamente
-                  com as informações da estação e os comboios disponíveis
-                -->
-                <div id="trainInfo" class="train-info hidden train-box" style="padding: 10px;">
-                    <!-- Conteúdo padrão (podes remover se quiseres) -->
-                    <p><strong>Estação / Comboios</strong></p>
-                    <div id="trainDetails"></div>
-                </div>
-
-                <!-- Options Section -->
-                <div id="optionsContainer" class="options">
-                    <div class="toggle-switch">
-                        <label for="tolls">{{ __('messages.Tolls') }}</label>
-                        <label class="toggle">
-                            <input type="checkbox" id="tolls" class="toggle-option">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="toggle-switch">
-                        <label for="radars">{{ __('messages.Radars') }}</label>
-                        <label class="toggle">
-                            <input type="checkbox" id="radars" class="toggle-option">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="toggle-switch">
-                        <label for="urbanAreas">{{ __('messages.Urban areas') }}</label>
-                        <label class="toggle">
-                            <input type="checkbox" id="urbanAreas" class="toggle-option">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="toggle-switch">
-                        <label for="customs">{{ __('messages.Customs') }}</label>
-                        <label class="toggle">
-                            <input type="checkbox" id="customs" class="toggle-option">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="toggle-switch">
-                        <label for="motorway">{{ __('messages.Motorway') }}</label>
-                        <label class="toggle">
-                            <input type="checkbox" id="motorway" class="toggle-option">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mapa Interativo (Leaflet) -->
-            <div class="map-section" style="position: relative;">
-                <div id="tour-map" style="height: 510px; position: relative;">
-                    <!-- Painel de Informações dentro do mapa, canto superior direito -->
-                    <div id="mapInfoPanel" style="
-                        position: absolute;
-                        top: 10px; 
-                        right: 10px;
-                        z-index: 1000;
-                        background-color: rgba(255, 255, 255, 0.7);
-                        padding: 10px;
-                        border-radius: 10px;
-                        display: flex;
-                        align-items: center;
-                        flex-direction: column;
-                    ">
-                        <div id="timeInfo" style="display: flex; align-items: center; margin-bottom: 10px;">
-                            <img src="/images/tempo.png" alt="Tempo" style="width: 24px; height: 24px; margin-right: 10px;">
-                            <span id="timeText"></span>
-                        </div>
-                        <div id="distanceInfo" style="display: flex; align-items: center;">
-                            <img src="/images/distancia.png" alt="Distância" style="width: 24px; height: 24px; margin-right: 8px;">
-                            <span id="distanceText"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button class="btn btn-secondary">{{ __('messages.Download') }}</button>
+        <button class="btn btn-download">{{ __('messages.Download') }}</button>
         <br><br>
 
         <!-- Weather Section -->

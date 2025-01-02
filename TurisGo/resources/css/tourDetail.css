@@ -49,6 +49,7 @@
     }
 
     .image-slider {
+        width: 100%;
         margin: 0 auto;
         margin-top: 50px;
         margin-bottom: 50px;
@@ -57,7 +58,6 @@
 
     .image-slider img {
         width: 100%;
-        max-width: 800px;
         border-radius: 8px;
     }
 
@@ -76,12 +76,6 @@
         font-weight: bold;
         color: #1B1B1B;
         margin: 0; /* Eliminar margens padrão */
-    }
-    .filters-container {
-        background-color: #f0f0f0; /* Cinzento claro */
-        padding: 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
     }
 
     /* Linha divisória */
@@ -127,20 +121,15 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .btn:hover {
-        transform: scale(1.02);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .btn-primary {
-        background-color: #298F67;
-        width: 150px;
-    }
-
-    .btn-secondary {
+    .btn-download,
+    .btn-filters {
         background-color: #2081A5;
         width: 150px;
-        margin-top: 15px;
+    }
+
+    .btn-download {
+        margin-top: 20px;
+        margin-bottom: 30px;
     }
 
     /* Paragraph Styling */
@@ -262,11 +251,6 @@
         width: 20px;
     }
 
-
-
-
-
-
     /* Estrutura do conteúdo */
     .popup-container {
         display: flex;
@@ -276,7 +260,6 @@
         background-color: #f0f0f0; }
 
     .options-section {
-        flex: 1;
         padding: 20px;
         display: flex;
         flex-direction: column;
@@ -290,6 +273,7 @@
         flex: 3;
         background-color: #f9f9f9;
         height: 500px;
+        z-index: 1;
     }
 
     .buttons {
@@ -407,12 +391,6 @@
         background-color: #C76A37;
     }
 
-
-
-
-    .btn-secondary {
-        margin-left: 60px;
-    }
     .hidden {
         display: none; /* Esconde o container */
     }
