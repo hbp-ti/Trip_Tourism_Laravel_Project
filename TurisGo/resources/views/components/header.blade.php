@@ -101,6 +101,15 @@
                                     <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
                                 </a>
                             </li>
+                            @if (Auth::user()->is_admin)
+                            <li>
+                                <a href="{{ route('auth.admin.dashboard', ['locale' => app()->getLocale()]) }}">
+                                    <img src="{{ asset('images/dashboard_icon.png') }}" class="icon">
+                                    {{ __('Dashboard') }}
+                                    <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
+                                </a>
+                            </li>
+                            @endif
                             <li>
                                 <form action="{{ route('auth.logout', ['locale' => app()->getLocale()]) }}" method="POST"
                                     class="dropdown-form">

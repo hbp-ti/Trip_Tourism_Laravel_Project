@@ -10,6 +10,7 @@ use App\Http\Controllers\TourController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', function () {
@@ -53,6 +54,9 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::post('/cancelReservation', [AuthController::class, 'cancelReservation'])->name('reservation.cancel');
             Route::get('/hotelDetail', [HotelController::class, 'hotelDetail_reservation'])->name('hotelDetail');
             Route::get('/tourDetail', [TourController::class, 'tourDetail_reservation'])->name('tourDetail');
+            Route::middleware('admin')->group(function () {
+                Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+            });
         });
     });
     Route::get('/hotels', [HotelController::class, 'showHotels'])->name('hotels');

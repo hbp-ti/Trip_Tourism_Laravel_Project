@@ -70,6 +70,7 @@ class AuthController extends Controller
                 'phone' => $validatedData['phone'],
                 'password' => Hash::make($validatedData['password']),
                 'image' => 'images/default_user_image.png',
+                'is_admin' => false,
             ]);
 
             // Popup de sucesso

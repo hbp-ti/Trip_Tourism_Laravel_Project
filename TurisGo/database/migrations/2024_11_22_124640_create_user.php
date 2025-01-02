@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone');
             $table->text('password');
             $table->text('image');
+            $table->boolean('is_admin')->default('false');
             $table->timestamps();
             $table->rememberToken();
         });

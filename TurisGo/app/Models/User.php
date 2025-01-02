@@ -26,6 +26,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'image',
+        'is_admin',
     ];
 
     public function notifications()
