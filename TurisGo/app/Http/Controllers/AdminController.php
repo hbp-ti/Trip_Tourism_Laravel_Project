@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hotel;
+use App\Models\Item;
 use App\Models\Activity;
 use App\Models\User;
+use App\Models\Image;
+use Illuminate\Support\Facades\Storage;
 use Cloudinary\Uploader;
 use Cloudinary\Api\Upload\UploadApi;
-use Storage;
+
 
 class AdminController extends Controller
 {
@@ -47,10 +50,9 @@ class AdminController extends Controller
         $user->save();
 
         // Redirecionar de volta com sucesso
-        return redirect()->route('auth.admin.dashboard', ['locale'=>app()->getLocale()])->with('success', 'Utilizador promovido a administrador com sucesso!');
+        return redirect()->route('auth.admin.dashboard', ['locale' => app()->getLocale()])->with('success', 'Utilizador promovido a administrador com sucesso!');
     }
 
-    // Adicionar um hotel
     public function addHotel(Request $request)
     {
         $validated = $request->validate([
@@ -89,10 +91,10 @@ class AdminController extends Controller
         if ($request->has('images')) {
             foreach ($request->file('images') as $image) {
                 // Upload da imagem para o Cloudinary
-                $uploadedFile = Storage::disk('cloudinary')->put('hotels/images', $image);
+                $uploadedFilePath = Storage::disk('cloudinary')->put('hotels/images', $image);
 
-                // Obter a URL pública do arquivo
-                $url = Storage::disk('cloudinary')->url($uploadedFile);
+                // Construir a URL pública manualmente
+                $url = "https://res.cloudinary.com/" . env('CLOUDINARY_CLOUD_NAME') . "/image/upload/" . $uploadedFilePath;
 
                 // Salvar a URL da imagem no banco de dados
                 Image::create([
@@ -102,11 +104,18 @@ class AdminController extends Controller
             }
         }
 
-        return redirect()->route('auth.admin.dashboard', ['locale'=>app()->getLocale()])->with('success', 'Hotel adicionado com sucesso!');
+        return redirect()->route('auth.admin.dashboard', ['locale' => app()->getLocale()])->with('success', 'Hotel adicionado com sucesso!');
     }
 
     public function addActivity(Request $request)
     {
+        $request->merge([
+            'cancel_anytime' => filter_var($request->input('cancel_anytime'), FILTER_VALIDATE_BOOLEAN),
+            'reserve_now_pay_later' => filter_var($request->input('reserve_now_pay_later'), FILTER_VALIDATE_BOOLEAN),
+            'guide' => filter_var($request->input('guide'), FILTER_VALIDATE_BOOLEAN),
+            'small_groups' => filter_var($request->input('small_groups'), FILTER_VALIDATE_BOOLEAN),
+        ]);
+
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'description' => 'required|string|max:1000',
@@ -122,7 +131,7 @@ class AdminController extends Controller
             'street' => 'required|string|max:60',
             'lat' => 'nullable|numeric',
             'lon' => 'nullable|numeric',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tour_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Criar o item pai
@@ -130,19 +139,36 @@ class AdminController extends Controller
             'item_type' => 'Activity',
         ]);
 
-        // Criar a atividade
-        $activity = new Activity($validated);
-        $activity->id_item = $item->id;
-        $activity->save();
+        // Criar a nova atividade usando os dados validados
+        $activity = Activity::create([
+            'id_item' => $item->id,  // ID do item associado à atividade
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'price_hour' => $validated['price_hour'],
+            'cancel_anytime' => $validated['cancel_anytime'],
+            'reserve_now_pay_later' => $validated['reserve_now_pay_later'],
+            'guide' => $validated['guide'],
+            'small_groups' => $validated['small_groups'],
+            'language' => $validated['language'],
+            'country' => $validated['country'],
+            'zip_code' => $validated['zip_code'],
+            'city' => $validated['city'],
+            'street' => $validated['street'],
+            'lat' => $validated['lat'],
+            'lon' => $validated['lon']
+        ]);
+
+        // Agora, a atividade foi criada com os dados validados
 
         // Adicionar imagens
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                // Upload da imagem para o Cloudinary
-                $uploadedFile = Storage::disk('cloudinary')->put('hotels/images', $image);
+        if ($request->has('tour_images')) {
 
-                // Obter a URL pública do arquivo
-                $url = Storage::disk('cloudinary')->url($uploadedFile);
+            foreach ($request->file('tour_images') as $image) {
+                // Upload da imagem para o Cloudinary
+                $uploadedFilePath = Storage::disk('cloudinary')->put('activities/images', $image);
+
+                // Construir a URL pública manualmente
+                $url = "https://res.cloudinary.com/" . env('CLOUDINARY_CLOUD_NAME') . "/image/upload/" . $uploadedFilePath;
 
                 // Salvar a URL da imagem no banco de dados
                 Image::create([
@@ -158,10 +184,11 @@ class AdminController extends Controller
         ]);
     }
 
+
     // Remover um item
     public function removeItem(Request $request)
     {
-        $id = $request->route('item_id');
+        $id = $request->route('id');
         $item = Item::findOrFail($id);
 
         // Remover imagens associadas
@@ -176,7 +203,7 @@ class AdminController extends Controller
 
         // Remover o item pai
         $item->delete();
-        return redirect()->route('auth.admin.dashboard', ['locale'=>app()->getLocale()])->with('success', 'Item removido com sucesso!');
+        return redirect()->route('auth.admin.dashboard', ['locale' => app()->getLocale()])->with('success', 'Item removido com sucesso!');
     }
 
     // Alterar um hotel ou atividade

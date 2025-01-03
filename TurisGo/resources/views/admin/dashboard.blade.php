@@ -244,13 +244,13 @@
                         </div>
                         <div class="search-field">
                             <label for="zip">Zip-Code</label>
-                            <input type="text" id="zip" name="zip" placeholder="Zip-Code" required>
+                            <input type="text" id="zip" name="zip_code" placeholder="Zip-Code" required>
                         </div>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
                             <label for="price">Price</label>
-                            <input type="number" id="price" name="price" placeholder="Price" required>
+                            <input type="number" id="price" name="price_hour" placeholder="Price" required>
                         </div>
                         <div class="search-field">
                             <label for="language">Language</label>
@@ -298,6 +298,7 @@
                             </label>
                         </div>
                     </div>
+                    
 
                     <!-- Drag and Drop Upload Section -->
                     <div class="search-field images">
@@ -505,6 +506,10 @@
         </div>
     </div>
 
+        <!-- Train/Bus Tickets Section -->
+        @if (session('popup'))
+            {!! session('popup') !!}
+        @endif
     <x-footer/>
 
     <script>

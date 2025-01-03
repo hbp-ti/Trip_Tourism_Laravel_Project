@@ -37,5 +37,11 @@ return [
     'train_api' => [
         'base_uri' => env('API_TRAIN_BASE_URL'),
     ],
+    'cloudinary' => [
+        'driver' => 'cloudinary',
+        'cloud_name' => env('CLOUD_NAME'),
+        'api_key' => env('CLOUDINARY_API_KEY'),
+        'api_secret' => env('CLOUDINARY_API_SECRET'),
+    ],
 
 ];
