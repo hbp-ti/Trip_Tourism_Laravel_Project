@@ -12,9 +12,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(['resources/css/dashboard.css', 'resources/css/pagination.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/dashboard.js'])
 </head>
+
 <body>
-    <x-header/>
-    
+    <x-header />
+
     <!-- Header Section -->
     <section class="header">
         <h1>{{ __('messages.Dashboard') }}</h1>
@@ -31,11 +32,14 @@
             </h2>
             <div class="left-dashboard">
                 <ul>
-                    <li><a href="#" id="add-hotel-link"><img src="{{ asset('images/addHotel_icon.png') }} " alt="Add Hotel">Add Hotel</a></li>
-                    <li><a href="#" id="add-tour-link"><img src="{{ asset('images/addTour_icon.png') }} " alt="Add Tour">Add Tour</a></li>
-                    <li><a href="#" id="edit-item-link"><img src="{{ asset('images/editItem_icon.png') }} " alt="Edit Item">Edit Item</a></li>
-                    <li><a href="#" id="delete-item-link"><img src="{{ asset('images/deleteItem_icon.png') }} " alt="Delete Item">Delete Item</a></li>
-                    <li><a href="#" id="admin-link"><img src="{{ asset('images/admin_icon.png') }} " alt="Manage Admins">List Admins</a></li>
+                    <li><a href="#" id="add-hotel-link"><img src="{{ asset('images/addHotel_icon.png') }} "
+                                alt="Add Hotel">Add Hotel</a></li>
+                    <li><a href="#" id="add-tour-link"><img src="{{ asset('images/addTour_icon.png') }} "
+                                alt="Add Tour">Add Tour</a></li>
+                    <li><a href="#" id="delete-item-link"><img src="{{ asset('images/deleteItem_icon.png') }} "
+                                alt="Delete Item">Delete Item</a></li>
+                    <li><a href="#" id="admin-link"><img src="{{ asset('images/admin_icon.png') }} "
+                                alt="Manage Admins">List Admins</a></li>
                 </ul>
             </div>
         </div>
@@ -44,33 +48,34 @@
             <div id="add-hotel" class="form-section" style="display: none;">
                 <h2>Add New Hotel</h2>
                 @csrf
-                <form action="{{ route('auth.admin.addHotel', ['locale' => app()->getLocale()]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('auth.admin.addHotel', ['locale' => app()->getLocale()]) }}" method="POST"
+                    enctype="multipart/form-data">
                     <div class="search-field">
                         <label for="name">Hotel Name</label>
-                        <input type="text" placeholder="Hotel Name" required>
+                        <input type="text" placeholder="Hotel Name" name="name" required>
                     </div>
                     <div class="search-field">
                         <label for="description">Description</label>
-                        <textarea placeholder="Description" required></textarea>
+                        <textarea placeholder="Description" name="description" required></textarea>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
                             <label for="Country">Country</label>
-                            <input type="text" placeholder="Country" required>
+                            <input type="text" name="country" placeholder="Country" required>
                         </div>
                         <div class="search-field">
                             <label for="City">City</label>
-                            <input type="text" placeholder="City" required>
+                            <input type="text" name="city" placeholder="City" required>
                         </div>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
                             <label for="Street">Street</label>
-                            <input type="text" placeholder="Street" required>
+                            <input type="text" name="street" placeholder="Street" required>
                         </div>
                         <div class="search-field">
                             <label for="zip">Zip-Code</label>
-                            <input type="text" placeholder="zip" required>
+                            <input type="text" name="zip_code" placeholder="Zip" required>
                         </div>
                     </div>
                     <div class="flex-container">
@@ -91,77 +96,78 @@
                     </div>
                     <div class="search-field">
                         <label for="rating">Guest Rating</label>
-                        <input type="number" id="rating" name="rating" min="1" max="5" step="0.5" placeholder="Guest Rating" required>
+                        <input type="number" id="rating" name="average_guest_rating" min="1" max="5" step="0.5"
+                            placeholder="Guest Rating" required>
                     </div>
 
                     <div class="flex-container bottom">
                         <div class="coordinates">
                             <div class="search-field">
                                 <label for="coordinates">Coordinates</label>
-                                <input type="text" id="lat" name="lat"placeholder="Lat" required>
-                                <input type="text" id="lon" name="lon"placeholder="Lon" required>
+                                <input type="text" id="lat" name="lat" placeholder="Lat" required>
+                                <input type="text" id="lon" name="lon" placeholder="Lon" required>
                             </div>
                         </div>
                         <div class="hotel-filters">
                             <div class="search-field"><label for="Filters">Filters</label></div>
 
-                            <div class="hotel-filters-top">
+                            <div class="hotel-filters-top">                                
                                 <label>
-                                {{ __('messages.Breakfast included') }}
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider"></span>
-                                </label>
+                                    {{ __('messages.Non smoking rooms') }}
+                                    <label class="switch">
+                                        <input type="checkbox" name="non_smoking_rooms">
+                                        <span class="slider"></span>
+                                    </label>
                                 </label>
                                 <label>
                                     {{ __('messages.Free Wi-Fi') }}
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="free_wifi">
                                         <span class="slider"></span>
                                     </label>
                                 </label>
                                 <label>
                                     {{ __('messages.Parking') }}
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="parking">
                                         <span class="slider"></span>
                                     </label>
                                 </label>
                                 <label>
                                     {{ __('messages.Gym') }}
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="gym">
                                         <span class="slider"></span>
                                     </label>
                                 </label>
                             </div>
-                        
+
                             <div class="hotel-filters-bottom">
                                 <label>
                                     {{ __('messages.Pool') }}
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="pool">
                                         <span class="slider"></span>
                                     </label>
                                 </label>
                                 <label>
                                     {{ __('messages.Refundable reservations') }}
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="refundable_reservations">
                                         <span class="slider"></span>
                                     </label>
                                 </label>
                                 <label>
                                     {{ __('messages.Hotel restaurant') }}
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="hotel_restaurant">
                                         <span class="slider"></span>
                                     </label>
                                 </label>
                                 <label>
                                     {{ __('messages.Bar') }}
                                     <label class="switch">
-                                        <input type="checkbox">
+                                        <input type="checkbox" name="bar">
                                         <span class="slider"></span>
                                     </label>
                                 </label>
@@ -174,27 +180,32 @@
                         <label for="hotel-images">Upload Hotel Images</label>
                         <div x-data="dataFileDnD()" class="file-upload-area">
                             <div x-ref="dnd" class="drop-area" @click="$refs.fileInput.click()">
-                                <!-- O campo de input é ativado ao clicar em qualquer lugar da área -->
-                                <input accept="*" type="file" multiple class="file-input" @change="addFiles($event)" 
-                                    @dragover="$refs.dnd.classList.add('dragging');" 
-                                    @dragleave="$refs.dnd.classList.remove('dragging');" style="display:none;" x-ref="fileInput" />
+                                <input accept="*" type="file" multiple class="file-input"
+                                    @change="addFiles($event)" @dragover="$refs.dnd.classList.add('dragging');"
+                                    @dragleave="$refs.dnd.classList.remove('dragging');" style="display:none;"
+                                    x-ref="fileInput" />
 
-                                <!-- Mensagem de drag-and-drop -->
                                 <div class="drag-message">
-                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                     <p class="message">Click here to add your files.</p>
                                 </div>
                             </div>
-                            
+
                             <template x-if="files.length > 0">
                                 <div class="file-preview">
                                     <template x-for="(_, index) in Array.from({ length: files.length })">
-                                        <div class="file-thumbnail" :class="{'dragging': fileDragging == index}" draggable="true" :data-index="index">
+                                        <div class="file-thumbnail" :class="{ 'dragging': fileDragging == index }"
+                                            draggable="true" :data-index="index">
                                             <button class="remove-button" type="button" @click="remove(index)">
-                                                <svg class="remove-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                <svg class="remove-icon" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
                                             </button>
                                             <template x-if="files[index].type.includes('image/')">
@@ -207,6 +218,41 @@
                         </div>
                     </div>
 
+                    <div class="rooms-section">
+                        <h3>Rooms</h3>
+                        <div id="room-container">
+                            <!-- Room 1 (Preenchido inicialmente) -->
+                            <div class="room-item">
+                                <h4>Room 1</h4>
+                                <div class="search-field">
+                                    <label for="room_type">Room Type</label>
+                                    <input type="text" name="rooms[0][type]" placeholder="Room Type" required>
+                                </div>
+                                <div class="search-field">
+                                    <label for="bed_type">Bed Type</label>
+                                    <input type="text" name="rooms[0][bed_type]" placeholder="Bed Type" required>
+                                </div>
+                                <div class="search-field">
+                                    <label for="bed_count">Bed Count</label>
+                                    <input type="number" name="rooms[0][bed_count]" placeholder="Number of Beds"
+                                        required>
+                                </div>
+                                <div class="search-field">
+                                    <label for="price_night">Price per Night</label>
+                                    <input type="number" name="rooms[0][price_night]" placeholder="Price per Night"
+                                        required>
+                                </div>
+                                <div class="search-field">
+                                    <label for="available">Available</label>
+                                    <label class="switch">
+                                        <input type="checkbox" name="rooms[0][available]" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" id="add-room-btn">Add Another Room</button>
+                    </div>
 
                     <div class="add-button">
                         <button type="submit">Add Hotel</button>
@@ -215,9 +261,11 @@
             </div>
 
 
+
             <div id="add-tour" class="form-section" style="display: none;">
                 <h2>Add New Tour</h2>
-                <form action="{{ route('auth.admin.addActivity', ['locale' => app()->getLocale()]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('auth.admin.addActivity', ['locale' => app()->getLocale()]) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="search-field">
                         <label for="name">Tour Name</label>
@@ -298,7 +346,7 @@
                             </label>
                         </div>
                     </div>
-                    
+
 
                     <!-- Drag and Drop Upload Section -->
                     <div class="search-field images">
@@ -306,26 +354,33 @@
                         <div x-data="dataFileDnD()" class="file-upload-area">
                             <div x-ref="dnd" class="drop-area" @click="$refs.fileInput.click()">
                                 <!-- O campo de input é ativado ao clicar em qualquer lugar da área -->
-                                <input accept="*" type="file" multiple class="file-input" @change="addFiles($event)" 
-                                    @dragover="$refs.dnd.classList.add('dragging');" 
-                                    @dragleave="$refs.dnd.classList.remove('dragging');" style="display:none;" x-ref="fileInput" />
+                                <input accept="*" type="file" multiple class="file-input"
+                                    @change="addFiles($event)" @dragover="$refs.dnd.classList.add('dragging');"
+                                    @dragleave="$refs.dnd.classList.remove('dragging');" style="display:none;"
+                                    x-ref="fileInput" />
 
                                 <!-- Mensagem de drag-and-drop -->
                                 <div class="drag-message">
-                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                     <p class="message">Click here to add your files.</p>
                                 </div>
                             </div>
-                            
+
                             <template x-if="files.length > 0">
                                 <div class="file-preview">
                                     <template x-for="(_, index) in Array.from({ length: files.length })">
-                                        <div class="file-thumbnail" :class="{'dragging': fileDragging == index}" draggable="true" :data-index="index">
+                                        <div class="file-thumbnail" :class="{ 'dragging': fileDragging == index }"
+                                            draggable="true" :data-index="index">
                                             <button class="remove-button" type="button" @click="remove(index)">
-                                                <svg class="remove-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                <svg class="remove-icon" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
                                             </button>
                                             <template x-if="files[index].type.includes('image/')">
@@ -344,55 +399,12 @@
                     </div>
                 </form>
             </div>
-            
+
             <div id="delete-item" style="display: none;">
 
                 <div id="hotels-section" class="form-section">
                     <h2>Delete Hotels</h2>
 
-                    <div class="table-container">
-                    <table class="styled-table">
-                        <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="hotels-table-body">
-                            @foreach ($hotels as $hotel)
-                            <tr>
-                                <td>
-                                    <img src="{{ $hotel->item->images[0]->url ?? asset('images/default-hotel.jpg') }}" 
-                                        alt="{{ $hotel->name }}">
-                                </td>
-                                <td>{{ $hotel->name }}</td>
-                                <td>
-                                    @if ($hotel->rooms->isNotEmpty())
-                                        {{ $hotel->rooms->first()->price_night }}€
-                                    @else
-                                        {{ __('messages.No rooms available') }}
-                                    @endif
-                                </td>
-                                <td>
-                                    <form action="{{ route('auth.admin.removeItem', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="delete-button" data-id="{{ $hotel->id_item }}">Delete</button>
-                                    </form>
-
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div id="hotels-pagination" class="pagination">
-                        {{ $hotels->links('vendor.pagination.custom') }}
-                    </div>
-                </div>
-
-                <div id="tours-section" class="form-section">
-                    <h2>Delete Tours</h2>
                     <div class="table-container">
                         <table class="styled-table">
                             <thead>
@@ -403,34 +415,83 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="tours-table-body">
-                                @foreach ($tours as $tour)
-                                <tr>
-                                    <td>
-                                        <img src="{{ $tour->item->images[0]->url ?? asset('images/default-tour.jpg') }}" 
-                                            alt="{{ $tour->name }}">
-                                    </td>
-                                    <td>{{ $tour->name }}</td>
-                                    <td>
-                                        {{ $tour->price_hour }}€/hour
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('auth.admin.removeItem', ['id' => $tour->id_item, 'locale' => app()->getLocale()]) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="delete-button" data-id="{{ $tour->id_item }}">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                            <tbody id="hotels-table-body">
+                                @foreach ($hotels as $hotel)
+                                    <tr>
+                                        <td>
+                                            <img src="{{ $hotel->item->images[0]->url ?? asset('images/default-hotel.jpg') }}"
+                                                alt="{{ $hotel->name }}">
+                                        </td>
+                                        <td>{{ $hotel->name }}</td>
+                                        <td>
+                                            @if ($hotel->rooms->isNotEmpty())
+                                                {{ $hotel->rooms->first()->price_night }}€
+                                            @else
+                                                {{ __('messages.No rooms available') }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <form
+                                                action="{{ route('auth.admin.removeItem', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}"
+                                                method="POST">
+                                                @csrf
+                                                <button type="submit" class="delete-button"
+                                                    data-id="{{ $hotel->id_item }}">Delete</button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        <div id="tours-pagination" class="pagination">
-                            {{ $tours->links('vendor.pagination.custom') }}
+                        <div id="hotels-pagination" class="pagination">
+                            {{ $hotels->links('vendor.pagination.custom') }}
+                        </div>
+                    </div>
+
+                    <div id="tours-section" class="form-section">
+                        <h2>Delete Tours</h2>
+                        <div class="table-container">
+                            <table class="styled-table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tours-table-body">
+                                    @foreach ($tours as $tour)
+                                        <tr>
+                                            <td>
+                                                <img src="{{ $tour->item->images[0]->url ?? asset('images/default-tour.jpg') }}"
+                                                    alt="{{ $tour->name }}">
+                                            </td>
+                                            <td>{{ $tour->name }}</td>
+                                            <td>
+                                                {{ $tour->price_hour }}€/hour
+                                            </td>
+                                            <td>
+                                                <form
+                                                    action="{{ route('auth.admin.removeItem', ['id' => $tour->id_item, 'locale' => app()->getLocale()]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="delete-button"
+                                                        data-id="{{ $tour->id_item }}">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div id="tours-pagination" class="pagination">
+                                {{ $tours->links('vendor.pagination.custom') }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
+
             </div>
 
             <div id="list-admins">
@@ -452,7 +513,8 @@
                                     <tr>
                                         <td class="user-image">
                                             <div class="image-container">
-                                                <img src="{{ file_exists(public_path('storage/' . $admin->image)) ? asset('storage/' . $admin->image) : asset('images/default_user_image.png') }}" alt="{{ $admin->first_name }}">
+                                                <img src="{{ file_exists(public_path('storage/' . $admin->image)) ? asset('storage/' . $admin->image) : asset('images/default_user_image.png') }}"
+                                                    alt="{{ $admin->first_name }}">
                                             </div>
                                         </td>
                                         <td>{{ $admin->first_name }} {{ $admin->last_name }}</td>
@@ -484,16 +546,20 @@
                                     <tr>
                                         <td class="user-image">
                                             <div class="image-container">
-                                                <img src="{{ file_exists(public_path('storage/' . $user->image)) ? asset('storage/' . $user->image) : asset('images/default_user_image.png') }}" alt="{{ $user->first_name }}">
+                                                <img src="{{ file_exists(public_path('storage/' . $user->image)) ? asset('storage/' . $user->image) : asset('images/default_user_image.png') }}"
+                                                    alt="{{ $user->first_name }}">
                                             </div>
                                         </td>
                                         <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            <form action="{{ route('auth.admin.promoteToAdmin', ['id' => $user->id, 'locale' => app()->getLocale()]) }}" method="POST" id="promote-form-{{ $user->id }}">
+                                            <form
+                                                action="{{ route('auth.admin.promoteToAdmin', ['id' => $user->id, 'locale' => app()->getLocale()]) }}"
+                                                method="POST" id="promote-form-{{ $user->id }}">
                                                 @csrf
-                                                <button type="submit" class="btn btn-primary" id="promote-button-{{ $user->id }}">Promote</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    id="promote-button-{{ $user->id }}">Promote</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -506,79 +572,114 @@
         </div>
     </div>
 
-        <!-- Train/Bus Tickets Section -->
-        @if (session('popup'))
-            {!! session('popup') !!}
-        @endif
-    <x-footer/>
+    <!-- Train/Bus Tickets Section -->
+    @if (session('popup'))
+        {!! session('popup') !!}
+    @endif
+    <x-footer />
 
     <script>
-    function dataFileDnD() {
-        return {
-            files: [],
-            fileDragging: null,
-            fileDropping: null,
-            humanFileSize(size) {
-                const i = Math.floor(Math.log(size) / Math.log(1024));
-                return (
-                    (size / Math.pow(1024, i)).toFixed(2) * 1 +
-                    " " +
-                    ["B", "kB", "MB", "GB", "TB"][i]
-                );
-            },
-            remove(index) {
-                let files = [...this.files];
-                files.splice(index, 1);
+        function dataFileDnD() {
+            return {
+                files: [],
+                fileDragging: null,
+                fileDropping: null,
+                humanFileSize(size) {
+                    const i = Math.floor(Math.log(size) / Math.log(1024));
+                    return (
+                        (size / Math.pow(1024, i)).toFixed(2) * 1 +
+                        " " + ["B", "kB", "MB", "GB", "TB"][i]
+                    );
+                },
+                remove(index) {
+                    let files = [...this.files];
+                    files.splice(index, 1);
 
-                this.files = createFileList(files);
-            },
-            drop(e) {
-                let removed, add;
-                let files = [...this.files];
+                    this.files = createFileList(files);
+                },
+                drop(e) {
+                    let removed, add;
+                    let files = [...this.files];
 
-                removed = files.splice(this.fileDragging, 1);
-                files.splice(this.fileDropping, 0, ...removed);
+                    removed = files.splice(this.fileDragging, 1);
+                    files.splice(this.fileDropping, 0, ...removed);
 
-                this.files = createFileList(files);
+                    this.files = createFileList(files);
 
-                this.fileDropping = null;
-                this.fileDragging = null;
-            },
-            dragenter(e) {
-                let targetElem = e.target.closest("[draggable]");
+                    this.fileDropping = null;
+                    this.fileDragging = null;
+                },
+                dragenter(e) {
+                    let targetElem = e.target.closest("[draggable]");
 
-                this.fileDropping = targetElem.getAttribute("data-index");
-            },
-            dragstart(e) {
-                this.fileDragging = e.target
-                    .closest("[draggable]")
-                    .getAttribute("data-index");
-                e.dataTransfer.effectAllowed = "move";
-            },
-            loadFile(file) {
-                const preview = document.querySelectorAll(".preview");
-                const blobUrl = URL.createObjectURL(file);
+                    this.fileDropping = targetElem.getAttribute("data-index");
+                },
+                dragstart(e) {
+                    this.fileDragging = e.target
+                        .closest("[draggable]")
+                        .getAttribute("data-index");
+                    e.dataTransfer.effectAllowed = "move";
+                },
+                loadFile(file) {
+                    const preview = document.querySelectorAll(".preview");
+                    const blobUrl = URL.createObjectURL(file);
 
-                preview.forEach(elem => {
-                    elem.onload = () => {
-                        URL.revokeObjectURL(elem.src); // free memory
-                    };
-                });
+                    preview.forEach(elem => {
+                        elem.onload = () => {
+                            URL.revokeObjectURL(elem.src); // free memory
+                        };
+                    });
 
-                return blobUrl;
-            },
-            addFiles(e) {
-                const files = createFileList([...this.files], [...e.target.files]);
-                this.files = files;
-                this.formData = new FormData();
+                    return blobUrl;
+                },
+                addFiles(e) {
+                    const files = createFileList([...this.files], [...e.target.files]);
+                    this.files = files;
+                    this.formData = new FormData();
 
-                for (let i = 0; i < this.files.length; i++) {
-                    this.formData.append("files[]", this.files[i]);
+                    for (let i = 0; i < this.files.length; i++) {
+                        this.formData.append("files[]", this.files[i]);
+                    }
                 }
-            }
-        };
-    }
+            };
+        }
+
+        let roomIndex = 1;
+        document.getElementById('add-room-btn').addEventListener('click', function() {
+            const roomContainer = document.getElementById('room-container');
+            const newRoom = document.createElement('div');
+            newRoom.classList.add('room-item');
+            newRoom.innerHTML = `
+        <h4>Room ${roomIndex + 1}</h4>
+        <div class="search-field">
+            <label for="room_type">Room Type</label>
+            <input type="text" name="rooms[${roomIndex}][type]" placeholder="Room Type" required>
+        </div>
+        <div class="search-field">
+            <label for="bed_type">Bed Type</label>
+            <input type="text" name="rooms[${roomIndex}][bed_type]" placeholder="Bed Type" required>
+        </div>
+        <div class="search-field">
+            <label for="bed_count">Bed Count</label>
+            <input type="number" name="rooms[${roomIndex}][bed_count]" placeholder="Number of Beds" required>
+        </div>
+        <div class="search-field">
+            <label for="price_night">Price per Night</label>
+            <input type="number" name="rooms[${roomIndex}][price_night]" placeholder="Price per Night" required>
+        </div>
+        <div class="search-field">
+            <label for="available">Available</label>
+            <label class="switch">
+                <input type="checkbox" name="rooms[${roomIndex}][available]" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    `;
+            roomContainer.appendChild(newRoom);
+            roomIndex++;
+        });
     </script>
 
 </body>
+
 </html>

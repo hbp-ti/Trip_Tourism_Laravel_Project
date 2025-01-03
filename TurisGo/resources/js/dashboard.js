@@ -35,6 +35,20 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Adiciona os valores dos checkboxes de filtros para o hotel
+        const hotelCheckboxes = ['non_smoking_rooms', 'free_wifi', 'parking', 'gym', 'pool', 'refundable_reservations', 'hotel_restaurant', 'bar'];
+        hotelCheckboxes.forEach(id => {
+            const checkbox = document.querySelector(`input[name='${id}']`);
+            formData.append(id, checkbox.checked ? true : false); // Se marcado, envia true, caso contrário, envia false
+        });
+
+        // Adiciona os valores dos checkboxes para os quartos
+        const rooms = document.querySelectorAll('.room-item');
+        rooms.forEach((room, index) => {
+            const availableCheckbox = room.querySelector(`input[name='rooms[${index}][available]']`);
+            formData.append(`rooms[${index}][available]`, availableCheckbox.checked ? true : false); // Se marcado, envia true
+        });
+
         // Envia os dados para o controlador usando fetch
         fetch(addHotelForm.action, {
             method: "POST",
@@ -60,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 Swal.fire('Error', 'An error occurred. Please try again.', 'error');
             });
     });
+
 
     addTourForm.addEventListener("submit", function (event) {
         event.preventDefault(); // Impede o envio padrão do formulário

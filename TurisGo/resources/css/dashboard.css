@@ -551,3 +551,137 @@ body {
     height: 100%;
     object-fit: cover;
 }
+
+/* Estilo para o Checkbox */
+input[type="checkbox"] {
+    display: none; /* Esconde o checkbox original, mas o slider será mostrado */
+}
+
+input[type="checkbox"] + .slider {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 50px;
+    transition: 0.4s;
+}
+
+input[type="checkbox"]:checked + .slider {
+    background-color: #4CAF50; /* Cor verde quando selecionado */
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input[type="checkbox"]:checked + .slider:before {
+    transform: translateX(14px); /* Move o botão para a direita quando selecionado */
+}
+
+/* Para garantir que o checkbox de todos os "rooms" tenha o estilo correto */
+.room-item .search-field input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Estilo para o Botão "Add Another Room" */
+#add-room-btn {
+    background-color: #007BFF; /* Cor de fundo azul */
+    color: white; /* Cor do texto */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#add-room-btn:hover {
+    background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+}
+
+#add-room-btn:focus {
+    outline: none; /* Remove o contorno ao clicar */
+}
+
+#add-room-btn:active {
+    background-color: #004085; /* Cor de fundo ao clicar */
+}
+
+/* Estilo para os campos dentro da seção de quartos */
+.room-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.room-item h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.room-item .search-field {
+    margin-bottom: 10px;
+}
+
+.room-item .search-field label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.room-item .search-field input[type="text"],
+.room-item .search-field input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.room-item .search-field input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+/* Estilo para o contêiner de quartos */
+#room-container {
+    margin-top: 20px;
+}
+
+/* Estilo geral da seção de quartos */
+.rooms-section h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.rooms-section .room-item {
+    margin-bottom: 15px;
+}
+
+.rooms-section .search-field {
+    margin-bottom: 15px;
+}
+
+.rooms-section .search-field input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.rooms-section .search-field label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
