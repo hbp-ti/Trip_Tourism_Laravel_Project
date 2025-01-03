@@ -341,5 +341,7 @@ return [
     'Billing City' => 'Billing City',
     'Billing Address' => 'Billing Address',
     'Postal Code' => 'Postal Code',
+    'Error' => 'Error',
+    'Page not found' => 'Page not found',
 ];
 

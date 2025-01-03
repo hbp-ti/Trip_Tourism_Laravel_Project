@@ -341,4 +341,6 @@ return [
     'Billing City' => 'Cidade de Faturação',
     'Billing Address' => 'Morada de Faturação',
     'Postal Code' => 'Código Postal',
+    'Error' => 'Erro',
+    'Page not found' => 'Página não encontrada',
 ];
