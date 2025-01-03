@@ -86,12 +86,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         return view('contact.contact');
     })->name("contact");
 
-    Route::get('/error', function () {
+    Route::get('/notFound', function () {
         return view('error.error');
-    })->name("error");
+    })->name("error404");
 
     // Buscar jornadas
     Route::post('/search-journeys', [TrainController::class, 'journeys'])->name('search.journeys');
-
-
 });

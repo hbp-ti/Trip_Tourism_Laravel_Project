@@ -56,6 +56,7 @@ class Kernel implements KernelContract
      */
     protected $middleware = [
         \App\Http\Middleware\SetLocale::class,
+
     ];
 
     /**

@@ -173,19 +173,14 @@ class AuthController extends Controller
 
         $request->validate(['email' => 'required|email']);
         $user = User::where('email', $request->email)->first();
-
-        if (!$user) {
-            $popup = PopupHelper::showPopup('Error', 'No account found with this email.', 'error', 'Try Again', false, '', 0);
-            return back()->with('popup', $popup);
-        }
-
+        
         $token = Str::random(60);
         DB::table('password_reset_tokens')->updateOrInsert(['email' => $request->email], ['token' => $token, 'created_at' => now()]);
         $resetLink = url(route('auth.reset.form', ['locale' => $locale, 'token' => $token, 'email' => $request->email], false));
 
         Mail::to($request->email)->send(new PasswordResetMail($resetLink));
 
-        $popup = PopupHelper::showPopup('Success!', 'A reset link has been sent to your email.', 'success', 'OK', false, '', 5000);
+        $popup = PopupHelper::showPopup('Success!', 'If your account exists you will receive a reset link to your email.', 'success', 'OK', false, '', 5000);
         return back()->with('popup', $popup);
     }
 
