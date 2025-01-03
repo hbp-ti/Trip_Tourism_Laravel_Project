@@ -59,7 +59,7 @@
                         </div>
                         <div class="payment-item">
                             <span class="label">{{ __('messages.Amount') }}</span>
-                            <span class="value">123,67€</span>
+                            <span class="value">{{$cart->total}}€</span>
                         </div>
                     </div>
                 @elseif($paymentMethod == 'mbway')

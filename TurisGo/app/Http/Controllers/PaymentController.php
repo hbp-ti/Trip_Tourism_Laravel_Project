@@ -179,6 +179,17 @@ class PaymentController extends Controller
                 return view('payment.payment2', compact('paymentMethod', 'cart', 'cartItems'));
 
             case 3:
+
+                if (!Auth::check()) {
+                    $popupError = PopupHelper::showPopup('Authentication!', 'You must be logged in to proceed with payment.', 'Error', 'OK', false, '', 5000);
+                    return redirect()
+                        ->route('auth.login.form', ['locale' => $locale])
+                        ->with('popup', $popupError);
+                }
+
+                $user = Auth::user();
+                $cart = Cart::firstOrCreate(['user_id' => $user->id], ['subtotal' => 0, 'taxes' => 0, 'total' => 0]);
+                
                 // Recupera os valores armazenados na sessão
                 $paymentMethod = $request->session()->get('paymentMethod') ?? 'unknown';
                 $billingInfo = $request->session()->get('billingInfo');
@@ -190,7 +201,7 @@ class PaymentController extends Controller
                     $billingInfo = null;
                 }
 
-                return view('payment.payment3', compact('paymentMethod', 'billingInfo'));
+                return view('payment.payment3', compact('paymentMethod', 'billingInfo', 'cart'));
 
             default:
                 abort(404, 'Invalid payment phase');

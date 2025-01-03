@@ -161,6 +161,34 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    // Ao clicar no botão de cancelamento
+    $('.cancel-button').click(function(e) {
+        e.preventDefault(); // Impede o envio do formulário por padrão
+
+        // Seleciona o formulário mais próximo do botão clicado
+        let form = $(this).closest('form');
+
+        // Exibe o SweetAlert para confirmar o cancelamento
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to cancel the reservation?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, cancel it!',
+            cancelButtonText: 'No, keep the reservation',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Se o usuário confirmar, submete o formulário
+                form.submit();
+            } else {
+                // Caso contrário, não faz nada (formulário não é enviado)
+                return false;
+            }
+        });
+    });
+});
 
 
 

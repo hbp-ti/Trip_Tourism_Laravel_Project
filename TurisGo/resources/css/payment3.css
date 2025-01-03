@@ -143,6 +143,7 @@ body {
 }
 
 .button {
+    cursor: pointer;
     display: inline-block;
     background: #c76a37;
     color: white;

@@ -136,7 +136,9 @@
                     method="POST" style="display: inline;">
                     @csrf
                     <input type="hidden" name="phase" value="1">
-                    <button type="submit" class="checkout-btn">{{ __('messages.Checkout') }}</button>
+                    @if($cart->total > 0)
+                        <button class="checkout-btn">{{ __('messages.Proceed to Payment') }}</button>   
+                    @endif
                 </form>
             </div>
         </div>

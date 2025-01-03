@@ -329,5 +329,7 @@ return [
     'The page you are looking for might have been removed or is temporarily unavailable.' => 'The page you are looking for might have been removed or is temporarily unavailable.',
     'Please return to the homepage.' => 'Please return to the homepage.',
     'Invoices' => 'Invoices',
+    'Proceed to Payment' => 'Proceed to Payment',
+    'No active orders at the moment.' => 'No active orders at the moment.',
 ];
 
