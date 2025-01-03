@@ -26,5 +26,7 @@
     "Please fill in all the fields.": "Please fill in all the fields.",
     "Missing Information": "Missing Information",
     "Please fill in all the required fields before searching.": "Please fill in all the required fields before searching.",
-    "You have to accept the disclaimer.": "You have to accept the disclaimer."
+    "You have to accept the disclaimer.": "You have to accept the disclaimer.",
+    "Notification not found.": "Notification not found.",
+    "Failed to get notifications.": "Failed to get notifications."
 }

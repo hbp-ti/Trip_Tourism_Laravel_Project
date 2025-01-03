@@ -26,5 +26,7 @@
     "Please fill in all the fields.": "Por favor, preencha todos os campos.",
     "Missing Information": "Informação em falta",
     "Please fill in all the required fields before searching.": "Por favor, preencha todos os campos obrigatórios antes de procurar.",
-    "You have to accept the disclaimer.": "Você tem que aceitar o aviso."
+    "You have to accept the disclaimer.": "Você tem que aceitar o aviso.",
+    "Notification not found.": "Notificação não encontrada.",
+    "Failed to get notifications.": "Erro ao obter notificações."
 }

@@ -238,11 +238,11 @@ $(document).ready(function () {
                         });
                     });
                 } else {
-                    $toastAccordion.append("<div class='notification-item'>{{__('messages.Notification not found.')}}</div>");
+                    $toastAccordion.append("<div class='notification-item'>" + translate('Notification not found.') + "</div>");
                 }
             },
             error: function () {
-                $toastAccordion.append("<div class='notification-item'>{{__('messages.Error getting notifications.')}}</div>");
+                $toastAccordion.append("<div class='notification-item'>" + translate('Failed to get notifications.') + "</div>");
             }
         });
     }
