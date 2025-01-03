@@ -204,7 +204,7 @@
 
                                     <!-- Botão para cancelar a reserva -->
                                     <form
-                                        action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        action="{{ route('auth.reservation.cancel', ['order_id' => $reservation->order->id, 'item_id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
                                         method="POST">
                                         @csrf
                                         <button type="submit" class="cancel-button">
@@ -235,7 +235,7 @@
 
                                     <!-- Botão para cancelar a reserva -->
                                     <form
-                                        action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        action="{{ route('auth.reservation.cancel', ['order_id' => $reservation->order->id, 'item_id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
                                         method="POST">
                                         @csrf
                                         <button type="submit" class="cancel-button">
@@ -265,7 +265,7 @@
 
                                     <!-- Botão para cancelar a reserva -->
                                     <form
-                                        action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        action="{{ route('auth.reservation.cancel', ['order_id' => $reservation->order->id, 'item_id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
                                         method="POST">
                                         @csrf
                                         <button type="submit" class="cancel-button">
