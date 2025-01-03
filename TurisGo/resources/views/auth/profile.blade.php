@@ -121,6 +121,55 @@
             </div>
         </div>
 
+        <div class="title-line-container profile-section">
+            <h2>{{ __('messages.Invoices') }}</h2>
+            <hr class="title-line-blue">
+        </div>
+
+        <!-- Orders Ativos -->
+        <div class="reservations active-reservations">
+            @if ($orders->isEmpty())
+                <p>{{ __('messages.No active orders at the moment.') }}</p>
+            @else
+                @foreach ($orders as $order)
+                    <div class="reservation-item">
+                        <img src="{{ $order->image_url ?? asset('images/defaultOrder.png') }}"
+                            alt="Order {{ $order->id }}">
+                        <div class="reservation-info">
+                            <div>
+                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                    {{ __('Date') }}: {{ $order->date }}</p>
+                                <p><img src="{{ asset('images/payment.png') }}" class="icon">
+                                    {{ __('Payment Method') }}: {{ $order->payment_method }}</p>
+                                <p><img src="{{ asset('images/total.png') }}" class="icon">
+                                    {{ __('Total') }}: ${{ $order->total }}</p>
+                            </div>
+
+                            <div class="buttons-placement">
+                                <!-- Botão para detalhes do pedido -->
+                                <a href="{{ route('auth.orderDetail', ['id' => $order->id, 'locale' => app()->getLocale()]) }}"
+                                    class="details-button">
+                                    {{ __('messages.Details') }}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="download-placement">
+                            <form
+                                action="{{ route('auth.orderDownload', ['id' => $order->id, 'locale' => app()->getLocale()]) }}"
+                                method="POST">
+                                @csrf
+                                <button class="download1-button">
+                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
+                                        class="Dicon">
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                @endforeach
+            @endif
+        </div>
+
 
         <div class="title-line-container profile-section">
             <h2>{{ __('messages.Active Reservations') }}</h2>
@@ -154,7 +203,8 @@
                                     </a>
 
                                     <!-- Botão para cancelar a reserva -->
-                                    <form action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                    <form
+                                        action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
                                         method="POST">
                                         @csrf
                                         <button type="submit" class="cancel-button">
@@ -162,12 +212,6 @@
                                         </button>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="download-placement">
-                                <button class="download1-button">
-                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                        class="Dicon">
-                                </button>
                             </div>
                         </div>
                     @elseif ($reservation->details->type === 'Activity')
@@ -190,7 +234,8 @@
                                     </a>
 
                                     <!-- Botão para cancelar a reserva -->
-                                    <form action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                    <form
+                                        action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
                                         method="POST">
                                         @csrf
                                         <button type="submit" class="cancel-button">
@@ -199,91 +244,83 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="download-placement">
-                                <button class="download1-button">
-                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                        class="Dicon">
-                                </button>
-                            </div>
                         </div>
                     @else
-                    <div class="reservation-item">
-                        <img src="{{ asset('images/trainTicket.jpg') }}" alt="{{ $reservation->details->name }}">
-                        <div class="reservation-info">
-                            <div>
-                                <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
-                                    {{ $reservation->details->name }}</h3>
-                                <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
-                                    {{ $reservation->details->departure_hour }}</p>
-                            </div>
-                    
-                            <div class="buttons-placement">
-                                <!-- Botão para detalhes da reserva -->
-                                <a class="details-button" id="show-popup">
-                                    {{ __('messages.Details') }}
-                                </a>
-                    
-                                <!-- Botão para cancelar a reserva -->
-                                <form action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="cancel-button">
-                                        {{ __('messages.Cancel') }}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    
-                        <div class="download-placement">
-                            <button class="download1-button">
-                                {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}" class="Dicon">
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Popup -->
-                    <div id="popup-overlay"></div>
-                    <div id="popup">
-                        <img src="/images/trainTicket.jpg" class="train-image" alt="Train Image">
-                        
-                        <div class="flexbox-container">
-                            <div class="box1">
-                                <div class="details">
-                                    <h1>{{$reservation->details->name}}</h1>
-                                    <span>&#x1F465;&#xFE0E;&nbsp;&nbsp;<b>{{$reservation->details->quantity}}</b></span>
-                                    <br>
-                                    <span>&#x1F552;&#xFE0E;&nbsp;&nbsp;<b>{{$reservation->details->departure_hour}} -> {{$reservation->details->arrival_hour}}</b></span>
+                        <div class="reservation-item">
+                            <img src="{{ asset('images/trainTicket.jpg') }}"
+                                alt="{{ $reservation->details->name }}">
+                            <div class="reservation-info">
+                                <div>
+                                    <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
+                                        {{ $reservation->details->name }}</h3>
+                                    <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
+                                        {{ $reservation->details->departure_hour }}</p>
+                                </div>
+
+                                <div class="buttons-placement">
+                                    <!-- Botão para detalhes da reserva -->
+                                    <a class="details-button" id="show-popup">
+                                        {{ __('messages.Details') }}
+                                    </a>
+
+                                    <!-- Botão para cancelar a reserva -->
+                                    <form
+                                        action="{{ route('auth.reservation.cancel', ['id' => $reservation->details->id, 'locale' => app()->getLocale()]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit" class="cancel-button">
+                                            {{ __('messages.Cancel') }}
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="box2">
-                                <img src="/images/qrCode.png" class="qrCodeImage" alt="QR Code">
+                        </div>
+
+                        <!-- Popup -->
+                        <div id="popup-overlay"></div>
+                        <div id="popup">
+                            <img src="/images/trainTicket.jpg" class="train-image" alt="Train Image">
+
+                            <div class="flexbox-container">
+                                <div class="box1">
+                                    <div class="details">
+                                        <h1>{{ $reservation->details->name }}</h1>
+                                        <span>&#x1F465;&#xFE0E;&nbsp;&nbsp;<b>{{ $reservation->details->quantity }}</b></span>
+                                        <br>
+                                        <span>&#x1F552;&#xFE0E;&nbsp;&nbsp;<b>{{ $reservation->details->departure_hour }}
+                                                -> {{ $reservation->details->arrival_hour }}</b></span>
+                                    </div>
+                                </div>
+                                <div class="box2">
+                                    <img src="/images/qrCode.png" class="qrCodeImage" alt="QR Code">
+                                </div>
                             </div>
+
+                            <div class="timetable-container">
+                                <table class="timetable">
+                                    <thead>
+                                        <tr>
+                                            <th>Service</th>
+                                            <th>Departure</th>
+                                            <th>Arrival</th>
+                                            <th>Train</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $reservation->details->train_id }}</td>
+                                            <td>{{ $reservation->details->departure_hour }}</td>
+                                            <td>{{ $reservation->details->arrival_hour }}</td>
+                                            <td>{{ $reservation->train_type }}</td>
+                                            <td>{{ $reservation->details->total_price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <button id="close-popup" class="close-button">Close</button>
                         </div>
-                    
-                        <div class="timetable-container">
-                            <table class="timetable">
-                                <thead>
-                                    <tr>
-                                        <th>Service</th>
-                                        <th>Departure</th>
-                                        <th>Arrival</th>
-                                        <th>Train</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{$reservation->details->train_id}}</td>
-                                        <td>{{$reservation->details->departure_hour}}</td>
-                                        <td>{{$reservation->details->arrival_hour}}</td>
-                                        <td>{{$reservation->train_type}}</td>
-                                        <td>{{$reservation->details->total_price}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                        <button id="close-popup" class="close-button">Close</button>
-                    </div>
                     @endif
                 @endforeach
             @endif
@@ -329,12 +366,6 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="download-placement">
-                                <button class="download1-button">
-                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                        class="Dicon">
-                                </button>
-                            </div>
                         </div>
                     @elseif ($reservation->details->type === 'Activity')
                         <div class="reservation-item">
@@ -364,12 +395,6 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="download-placement">
-                                <button class="download1-button">
-                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                        class="Dicon">
-                                </button>
-                            </div>
                         </div>
                     @else
                         <div class="reservation-item">
@@ -398,59 +423,53 @@
                                         </button>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="download-placement">
-                                <button class="download1-button">
-                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                        class="Dicon">
-                                </button>
-                            </div>
                         </div>
 
                         <!-- Popup -->
-                    <div id="popup-overlay"></div>
-                    <div id="popup">
-                        <img src="/images/trainTicket.jpg" class="train-image" alt="Train Image">
-                        
-                        <div class="flexbox-container">
-                            <div class="box1">
-                                <div class="details">
-                                    <h1>{{$reservation->details->name}}</h1>
-                                    <span>&#x1F465;&#xFE0E;&nbsp;&nbsp;<b>{{$reservation->details->quantity}}</b></span>
-                                    <br>
-                                    <span>&#x1F552;&#xFE0E;&nbsp;&nbsp;<b>{{$reservation->details->departure_hour}} -> {{$reservation->details->arrival_hour}}</b></span>
+                        <div id="popup-overlay"></div>
+                        <div id="popup">
+                            <img src="/images/trainTicket.jpg" class="train-image" alt="Train Image">
+
+                            <div class="flexbox-container">
+                                <div class="box1">
+                                    <div class="details">
+                                        <h1>{{ $reservation->details->name }}</h1>
+                                        <span>&#x1F465;&#xFE0E;&nbsp;&nbsp;<b>{{ $reservation->details->quantity }}</b></span>
+                                        <br>
+                                        <span>&#x1F552;&#xFE0E;&nbsp;&nbsp;<b>{{ $reservation->details->departure_hour }}
+                                                -> {{ $reservation->details->arrival_hour }}</b></span>
+                                    </div>
+                                </div>
+                                <div class="box2">
+                                    <img src="/images/qrCode.png" class="qrCodeImage" alt="QR Code">
                                 </div>
                             </div>
-                            <div class="box2">
-                                <img src="/images/qrCode.png" class="qrCodeImage" alt="QR Code">
+
+                            <div class="timetable-container">
+                                <table class="timetable">
+                                    <thead>
+                                        <tr>
+                                            <th>Service</th>
+                                            <th>Departure</th>
+                                            <th>Arrival</th>
+                                            <th>Train</th>
+                                            <th>Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ $reservation->details->train_id }}</td>
+                                            <td>{{ $reservation->details->departure_hour }}</td>
+                                            <td>{{ $reservation->details->arrival_hour }}</td>
+                                            <td>{{ $reservation->train_type }}</td>
+                                            <td>{{ $reservation->details->total_price }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+
+                            <button id="close-popup" class="close-button">Close</button>
                         </div>
-                    
-                        <div class="timetable-container">
-                            <table class="timetable">
-                                <thead>
-                                    <tr>
-                                        <th>Service</th>
-                                        <th>Departure</th>
-                                        <th>Arrival</th>
-                                        <th>Train</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{$reservation->details->train_id}}</td>
-                                        <td>{{$reservation->details->departure_hour}}</td>
-                                        <td>{{$reservation->details->arrival_hour}}</td>
-                                        <td>{{$reservation->train_type}}</td>
-                                        <td>{{$reservation->details->total_price}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    
-                        <button id="close-popup" class="close-button">Close</button>
-                    </div>
                     @endif
                 @endforeach
             @endif

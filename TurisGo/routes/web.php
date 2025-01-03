@@ -11,6 +11,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 
 
 Route::get('/', function () {
@@ -40,6 +41,8 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         Route::get('reset/{token}/{email}', [AuthController::class, 'showResetForm'])->name('reset.form');
         Route::post('reset', [AuthController::class, 'resetPassword'])->name('reset.submit');
         Route::middleware('auth.redirect')->group(function () {
+            Route::get('/orderDetail', [OrderController::class, 'getOrderDetail'])->name('orderDetail');
+            Route::post('/orderDownload', [OrderController::class, 'downloadOrder'])->name('orderDownload');
             Route::get('/profile', [AuthController::class, 'showProfile'])->name('profile.show');
             Route::post('/profileUpdate', [AuthController::class, 'updateProfile'])->name('profile.update');
             Route::post('/profile/update-picture', [AuthController::class, 'updateProfilePicture'])->name('profile.update.picture');

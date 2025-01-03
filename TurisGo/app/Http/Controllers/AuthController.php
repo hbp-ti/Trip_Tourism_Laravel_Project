@@ -11,6 +11,7 @@ use App\Models\OrderItem;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Http;
 use App\Models\Ticket;
+use App\Models\Order;
 use App\Models\Hotel;
 use App\Helpers\PopupHelper;
 use Illuminate\Support\Facades\Auth;
@@ -456,7 +457,10 @@ class AuthController extends Controller
             return $reservationItem;
         });
 
-        return view('auth.profile', compact('user', 'activeReservations', 'expiredReservations', 'locale'));
+        $orders = Order::where('user_id', $user->id)
+        ->get();
+
+        return view('auth.profile', compact('user', 'activeReservations', 'expiredReservations', 'locale', 'orders'));
     }
 
     public function updateProfile(Request $request)
