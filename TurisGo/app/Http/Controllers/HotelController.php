@@ -43,7 +43,8 @@ class HotelController extends Controller
 
         // Ordena conforme a opção de ordenação selecionada
         $hotels = $query->orderBy($sort[0], $sort[1])
-            ->paginate(5);
+            ->paginate(5)
+            ->appends($request->query()); // Preserva os parâmetros da URL na paginação
 
         // Obter todas as cidades distintas
         $cities = Hotel::distinct()->pluck('city');

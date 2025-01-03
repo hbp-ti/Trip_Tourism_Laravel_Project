@@ -329,4 +329,6 @@ return [
     'The page you are looking for might have been removed or is temporarily unavailable.' => 'A página que stás a tentar acessar foi removida ou está temporariamente inacessível.',
     'Please return to the homepage.' => 'Volte para a página inicial por favor.',
     'Invoices' => 'Faturas',
+    'Proceed to Payment' => 'Proceder ao Pagamento',
+    'No active orders at the moment.' => 'Não há reservas ativas no momento.',
 ];

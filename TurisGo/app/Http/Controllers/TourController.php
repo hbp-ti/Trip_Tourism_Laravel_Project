@@ -12,6 +12,7 @@ class TourController extends Controller
 {
     public function showTours(Request $request)
     {
+<<<<<<< HEAD
         $query = Activity::with('item.images'); // Inclui as imagens associadas
         
         // Ordenação
@@ -51,19 +52,51 @@ class TourController extends Controller
     
     
     
+=======
+        $tours = Activity::with('item.images') // Inclui as imagens associadas ao item da atividade
+            ->paginate(5);
+
+        return view('tours.tours', compact('tours'));
+    }
+
+
+    public function filterTours(Request $request)
+    {
+        $query = Activity::query();
+
+        if ($request->has('price_range')) {
+            $priceRange = explode('-', $request->price_range);
+            $query->whereBetween('price', $priceRange);
+        }
+
+        if ($request->has('stars')) {
+            $query->where('stars', $request->stars);
+        }
+
+        // Adicione outros filtros aqui
+
+        // Carregar as atividades com imagens associadas
+        $tours = $query->with('item.images') // Incluindo as imagens
+            ->get();
+
+        return view('tour.tour', compact('tours'));
+    }
+
+
+>>>>>>> 8f3b3217c93740ae22ef80939a6856019b96e5df
     public function showTourDetails(Request $request)
     {
         $id = $request->route('id');
-    
+
         // Busca a atividade pelo ID
         $tour = Activity::where('id_item', $id)->firstOrFail();
-    
+
         // Hotéis semelhantes na mesma cidade
         $similarTours = Activity::where('city', $tour->city)
             ->where('id_item', '!=', $tour->id_item)
             ->limit(4)
             ->get();
-    
+
         // Carregar as imagens, avaliações e outros dados relacionados
         $tour->load([
             'item.images', // Carregar as imagens associadas ao Item
@@ -71,7 +104,7 @@ class TourController extends Controller
                 $query->latest(); // Ordena as avaliações pela mais recente
             }
         ]);
-    
+
         return view('tour.tour', compact('tour', 'similarTours'));
     }
 
@@ -116,7 +149,7 @@ class TourController extends Controller
             return redirect()->route('profile.show', ['locale' => $locale])->with('popup', $popupError);
         }
         $tour = Activity::where('id_item', $id)->firstOrFail();
-        
+
         $tour->load([
             'item.images', // Relacionamento para carregar imagens do Item
         ]);

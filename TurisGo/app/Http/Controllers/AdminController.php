@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\Activity;
+use App\Models\User;
+use Cloudinary\Uploader;
+use Cloudinary\Api\Upload\UploadApi;
+use Storage;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Obter os hotéis com as informações necessárias
         $hotels = Hotel::query()
@@ -22,8 +26,28 @@ class AdminController extends Controller
             ->select('activities.*')
             ->paginate(5);
 
-        return view('admin.dashboard', compact('hotels', 'tours'));
+        // Obter a lista de admins
+        $admins = User::where('is_admin', true)->paginate(5);
 
+        // Obter a lista de utilizadores não admins
+        $users = User::where('is_admin', false)->paginate(5);
+
+        $locale = $request->route('locale');
+        return view('admin.dashboard', compact('hotels', 'tours', 'admins', 'users', 'locale'));
+    }
+
+    public function promoteToAdmin(Request $request)
+    {
+        $userId = $request->route('id');
+        // Encontrar o utilizador pelo ID
+        $user = User::findOrFail($userId);
+
+        // Promover o utilizador para administrador
+        $user->is_admin = true;
+        $user->save();
+
+        // Redirecionar de volta com sucesso
+        return redirect()->route('auth.admin.dashboard', ['locale'=>app()->getLocale()])->with('success', 'Utilizador promovido a administrador com sucesso!');
     }
 
     // Adicionar um hotel
@@ -64,18 +88,23 @@ class AdminController extends Controller
         // Adicionar imagens
         if ($request->has('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('images');
+                // Upload da imagem para o Cloudinary
+                $uploadedFile = Storage::disk('cloudinary')->put('hotels/images', $image);
+
+                // Obter a URL pública do arquivo
+                $url = Storage::disk('cloudinary')->url($uploadedFile);
+
+                // Salvar a URL da imagem no banco de dados
                 Image::create([
-                    'url' => $path,
+                    'url' => $url,
                     'item_id' => $item->id,
                 ]);
             }
         }
 
-        return redirect()->route('admin.dashboard')->with('success', 'Hotel adicionado com sucesso!');
+        return redirect()->route('auth.admin.dashboard', ['locale'=>app()->getLocale()])->with('success', 'Hotel adicionado com sucesso!');
     }
 
-    // Adicionar uma atividade
     public function addActivity(Request $request)
     {
         $validated = $request->validate([
@@ -109,20 +138,30 @@ class AdminController extends Controller
         // Adicionar imagens
         if ($request->has('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('images');
+                // Upload da imagem para o Cloudinary
+                $uploadedFile = Storage::disk('cloudinary')->put('hotels/images', $image);
+
+                // Obter a URL pública do arquivo
+                $url = Storage::disk('cloudinary')->url($uploadedFile);
+
+                // Salvar a URL da imagem no banco de dados
                 Image::create([
-                    'url' => $path,
+                    'url' => $url,
                     'item_id' => $item->id,
                 ]);
             }
         }
 
-        return redirect()->route('admin.dashboard')->with('success', 'Atividade adicionada com sucesso!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Atividade adicionada com sucesso!',
+        ]);
     }
 
     // Remover um item
-    public function removeItem($id)
+    public function removeItem(Request $request)
     {
+        $id = $request->route('item_id');
         $item = Item::findOrFail($id);
 
         // Remover imagens associadas
@@ -137,8 +176,7 @@ class AdminController extends Controller
 
         // Remover o item pai
         $item->delete();
-
-        return redirect()->route('admin.dashboard')->with('success', 'Item removido com sucesso!');
+        return redirect()->route('auth.admin.dashboard', ['locale'=>app()->getLocale()])->with('success', 'Item removido com sucesso!');
     }
 
     // Alterar um hotel ou atividade
@@ -189,7 +227,8 @@ class AdminController extends Controller
             ]);
             $activity->update($validated);
         }
+        $locale = $request->route('locale');
 
-        return redirect()->route('admin.dashboard')->with('success', 'Item atualizado com sucesso!');
+        return redirect()->route('auth.admin.dashboard')->with('success', 'Item atualizado com sucesso!');
     }
 }

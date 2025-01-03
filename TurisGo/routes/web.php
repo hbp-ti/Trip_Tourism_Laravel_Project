@@ -59,6 +59,11 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::get('/tourDetail', [TourController::class, 'tourDetail_reservation'])->name('tourDetail');
             Route::middleware('admin')->group(function () {
                 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+                Route::post('admin/addHotel', [AdminController::class, 'addHotel'])->name('admin.addHotel');
+                Route::post('admin/addActivity', [AdminController::class, 'addActivity'])->name('admin.addActivity');
+                Route::post('admin/removeItem/{id}', [AdminController::class, 'removeItem'])->name('admin.removeItem');
+                Route::post('admin/updateItem/{id}', [AdminController::class, 'updateItem'])->name('admin.updateItem');
+                Route::post('admin/promoteToAdmin/{id}', [AdminController::class, 'promoteToAdmin'])->name('admin.promoteToAdmin');
             });
         });
     });

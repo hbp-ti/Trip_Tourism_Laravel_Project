@@ -88,7 +88,6 @@ class OrderController extends Controller
             $taxRate = 0.05; // Taxa de 5%
             $taxes = $itemSubtotal * $taxRate; // Calcular o valor da taxa
             $itemTotalPrice = $itemSubtotal + $taxes; // Somar a taxa ao subtotal para obter o total
-
             // Remover o item do pedido
             $orderItem->delete(); // Excluir o item
 
@@ -96,6 +95,15 @@ class OrderController extends Controller
             $subtotalOrder = 0;
             $taxesOrder = 0;
             $totalOrder = 0;
+
+            $order = Order::where('id', $orderId)
+                ->where('user_id', Auth::id()) // Garantir que o pedido pertence ao usuário autenticado
+                ->with('orderItems')
+                ->first();
+
+            if (!$order) {
+                return redirect()->back()->with('error', 'Pedido não encontrado!');
+            }
 
             // Recalcular os totais dos itens restantes
             foreach ($order->orderItems as $remainingItem) {
@@ -119,6 +127,7 @@ class OrderController extends Controller
                     $daysDifference = $checkin->diffInDays($checkout);
 
                     $itemSubtotal = $room->price_night * $daysDifference * $remainingItem->numb_people_hotel;
+                    dd($itemSubtotal);
                 } elseif ($remainingItem->item->item_type === 'Activity') {
                     // Buscar detalhes da atividade relacionada
                     $activity = Activity::where('id_item', $remainingItem->item->id)->first();
@@ -148,6 +157,7 @@ class OrderController extends Controller
             $order->total = $totalOrder;  // Novo total do pedido com a taxa aplicada
             $order->save();
 
+            dd($subtotalOrder);
 
             $popup = PopupHelper::showPopup(
                 'Success!',
