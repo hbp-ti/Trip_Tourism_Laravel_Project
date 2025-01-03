@@ -1,428 +1,464 @@
-    /* Reset básico */
-    * {
-        font-family: 'Manrope', sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+/* Reset básico */
+* {
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    /* Header Section */
-    .header {
-        background-image: url('/public/images/tourDetailsheader.png');
-        background-size: cover;
-        background-position: center;
-        height: 350px;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: -1;
-        transition: all 0.42s ease;
-    }
-    .header h1 {
-        font-size: 48px;
-        font-weight: bold;
-    }
-    .header p {
-        font-size: 24px;
-        color: white;
-    }
+/* Header Section */
+.header {
+    background-image: url('/public/images/tourDetailsheader.png');
+    background-size: cover;
+    background-position: center;
+    height: 350px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    transition: all 0.42s ease;
+}
 
-    .map-container {
-        margin-top: -400px;
-    }
+.header h1 {
+    font-size: 48px;
+    font-weight: bold;
+}
 
-    /* Tour Details Section */
-    .tour-details {
-        margin-top: 350px !important;
-        padding: 20px;
-        max-width: 1000px;
-        margin: 0 auto;
-        font-size: 1.1rem;
-        color: #1b1b1b;
-    }
+.header p {
+    font-size: 24px;
+    color: white;
+}
 
-    .image-slider {
-        width: 100%;
-        margin: 0 auto;
-        margin-top: 50px;
-        margin-bottom: 50px;
-        text-align: center;
-    }
+.map-container {
+    margin-top: -400px;
+}
 
-    .image-slider img {
-        width: 100%;
-        border-radius: 8px;
-    }
+/* Tour Details Section */
+.tour-details {
+    margin-top: 350px !important;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: #1b1b1b;
+}
 
-    /* Container do título e linha */
-    .section-title-container {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start; /* Alinhamento à esquerda */
-        gap: 15px; /* Espaço entre o título e a linha */
-        margin-bottom: 20px; /* Espaçamento uniforme abaixo */
-    }
+.image-slider {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+}
 
-    /* Título */
-    .section-title {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #1B1B1B;
-        margin: 0; /* Eliminar margens padrão */
-    }
+.image-slider img {
+    width: 100%;
+    border-radius: 8px;
+}
 
-    /* Linha divisória */
-    .section-divider {
-        border: none;
-        height: 2px;
-        background-color: #C76A37; /* Cor específica usada em Direction */
-        flex-grow: 1; /* Ocupa o espaço restante */
-        margin: 0; /* Remover margens extras */
-    }
+/* Container do título e linha */
+.section-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* Alinhamento à esquerda */
+    gap: 15px;
+    /* Espaço entre o título e a linha */
+    margin-bottom: 20px;
+    /* Espaçamento uniforme abaixo */
+}
+
+/* Título */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1B1B1B;
+    margin: 0;
+    /* Eliminar margens padrão */
+}
+
+/* Linha divisória */
+.section-divider {
+    border: none;
+    height: 2px;
+    background-color: #C76A37;
+    /* Cor específica usada em Direction */
+    flex-grow: 1;
+    /* Ocupa o espaço restante */
+    margin: 0;
+    /* Remover margens extras */
+}
+
+#map {
+    height: 400px;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
     #map {
-        height: 400px;
-        max-width: 1000px;
-        margin: 0 auto;
-        margin-bottom: 30px;
-        border: 2px solid #ddd;
-        border-radius: 8px;
-        z-index: 1;
+        margin: 0 15px;
     }
-    
-    @media (max-width: 768px) {
-        #map {
-            margin: 0 15px;
-        }
-    }
+}
 
-    /* Button Group */
-    .button-group {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 30px;
-    }
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
 
-    .btn {
-        padding: 10px 20px;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 4px;
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.btn {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .btn-download,
-    .btn-filters {
-        background-color: #2081A5;
-        width: 150px;
-    }
+.btn-download,
+.btn-filters {
+    background-color: #2081A5;
+    width: 150px;
+}
 
-    .btn-download {
-        margin-top: 20px;
-        margin-bottom: 30px;
-    }
+.btn-download {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
 
-    /* Paragraph Styling */
-    .tour-details-text {
-        margin: 10px 0 20px;
-        line-height: 1.6;
-        font-size: 1rem;
-        color: #1B1B1B;
-    }
+/* Paragraph Styling */
+.tour-details-text {
+    margin: 10px 0 20px;
+    line-height: 1.6;
+    font-size: 1rem;
+    color: #1B1B1B;
+}
 
-    .weather-section {
-        margin: 50px auto;
-        width: 100%;
-        max-width: 1000px;
-        height: 250px;
-        background-color: #f1f1f1;
-        border-radius: 8px;
-        display: flex;
-        flex-wrap: nowrap;
-    }
+.weather-section {
+    margin: 50px auto;
+    width: 100%;
+    max-width: 1000px;
+    height: 250px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: nowrap;
+}
 
-    .weather-head-today {
-        line-height: 30px;
-        display: flex;
-        text-align: center;
-        justify-content: space-between;
-        padding: 15px;
-        width: 100%;
-        background-color: #2081A5;
-        color: white;
-    }
+.weather-head-today {
+    line-height: 30px;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    padding: 15px;
+    width: 100%;
+    background-color: #2081A5;
+    color: white;
+}
 
-    .weather-head-today {
-        border-top-left-radius: 8px;
-    }
+.weather-head-today {
+    border-top-left-radius: 8px;
+}
 
-    .weather-head {
-        text-align: center;
-        justify-content: center;
-        background-color: #2081A5;
-        color: white;
-        width: 100%;
-        line-height: 30px;
-        padding: 15px;
-    }
+.weather-head {
+    text-align: center;
+    justify-content: center;
+    background-color: #2081A5;
+    color: white;
+    width: 100%;
+    line-height: 30px;
+    padding: 15px;
+}
 
-    .weather-card:last-child .weather-head {
-        border-top-right-radius: 8px;
-    }
+.weather-card:last-child .weather-head {
+    border-top-right-radius: 8px;
+}
 
-    .weather-card-today {
-        width: 280px;
-    }
+.weather-card-today {
+    width: 280px;
+}
 
-    .weather-card {
-        position: relative;
-        width: 120px;
-        text-align: center;
-        justify-content: center;
-        background-color: #f1f1f1;
-    }
+.weather-card {
+    position: relative;
+    width: 120px;
+    text-align: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+}
 
-    .weather-card .weather-content {
-        margin-top: 25px;
-    }
+.weather-card .weather-content {
+    margin-top: 25px;
+}
 
-    .weather-card:nth-child(even)::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.1);
-        z-index: 1;
-        pointer-events: none;
-    }
+.weather-card:nth-child(even)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    pointer-events: none;
+}
 
-    .weather-content {
-        padding: 15px;
-    }
+.weather-content {
+    padding: 15px;
+}
 
-    .weather-content .temp {
-        font-size: 50px;
-    }
+.weather-content .temp {
+    font-size: 50px;
+}
 
-    .weather-content .temp-today {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+.weather-content .temp-today {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    .weather-content .temp-today img {
-        width: 60px;
-    }
+.weather-content .temp-today img {
+    width: 64px;
+}
 
-    .weather-content img {
-        width: 40px;
-    }
+.weather-content img {
+    width: 40px;
+}
 
-    .weather-status {
-        margin-top: 35px;
-    }
+.weather-status {
+    margin-top: 35px;
+}
 
-    .weather-content .weather-status {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+.weather-content .weather-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    .weather-content .weather-status .weather-individual-status {
-        display: flex;
-        gap: 5px;
-        justify-content: space-between;
-        align-items: center;
-    }
+.weather-content .weather-status .weather-individual-status {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    .weather-individual-status img {
-        width: 20px;
-    }
+.weather-individual-status img {
+    width: 20px;
+}
 
-    /* Estrutura do conteúdo */
-    .popup-container {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        height: 100%;
-        background-color: #f0f0f0; }
+/* Estrutura do conteúdo */
+.popup-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+}
 
-    .options-section {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        position: relative;
-        right: -100 !important;
-    }
+.options-section {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    right: -100 !important;
+}
 
-    /* Mapa no lado direito */
-    .map-section {
-        flex: 3;
-        background-color: #f9f9f9;
-        height: 500px;
-        z-index: 1;
-    }
+/* Mapa no lado direito */
+.map-section {
+    flex: 3;
+    background-color: #f9f9f9;
+    height: 500px;
+    z-index: 1;
+}
 
-    .buttons {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 botões por linha */
-        gap: 10px;
-        margin-top: 10px;
-        margin-left: 30px;
-    }
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 botões por linha */
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 30px;
+}
 
-    .transport-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #f5f5f5;
-        border: 2px solid #ccc;
-        border-radius: 8px;
-        width: 80px;
-        height: 80px;
-        cursor: pointer;
-        transition: background-color 0.3s, border-color 0.3s;
-    }
+.transport-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f5f5;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
 
-    .transport-button img {
-        width: 80px;
-        height: 80px;
-    }
+.transport-button img {
+    width: 80px;
+    height: 80px;
+}
 
 
-    .transport-button.active {
-        border: 2px solid #2081A5; /* Cor da borda */
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Sombra opcional */
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
+.transport-button.active {
+    border: 2px solid #2081A5;
+    /* Cor da borda */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    /* Sombra opcional */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
 
 
 
 
 
-    .transport-title, .options-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: 5px;
-    }
 
-    .blue-line {
-        width: 100%;
-        height: 3px;
-        background-color: #2081A5; /* Blue for transport */
-        margin-top: 5px;
-    }
+.transport-title,
+.options-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+}
 
-    .orange-line {
-        width: 100%;
-        height: 3px;
-        background-color: #C76A37; /* Blue for transport */
-        margin-top: 5px;
-    }
+.blue-line {
+    width: 100%;
+    height: 3px;
+    background-color: #2081A5;
+    /* Blue for transport */
+    margin-top: 5px;
+}
 
-    .options {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
+.orange-line {
+    width: 100%;
+    height: 3px;
+    background-color: #C76A37;
+    /* Blue for transport */
+    margin-top: 5px;
+}
 
-    .toggle-switch {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 10px;
-    }
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-    /* Toggle principal */
-    .toggle {
-        position: relative;
-        width: 40px;
-        height: 20px;
-        background-color: #ccc; /* Fundo cinzento por padrão */
-        border-radius: 20px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        background-color: #C76A37;
-    }
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
 
-    /* Esconde o input checkbox */
-    .toggle input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
+/* Toggle principal */
+.toggle {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    /* Fundo cinzento por padrão */
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #C76A37;
+}
 
-    /* Bola (slider) da toggle */
-    .slider {
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        width: 14px;
-        height: 14px;
-        background-color: white;
-        border-radius: 50%;
-        transition: transform 0.3s ease;
-    }
+/* Esconde o input checkbox */
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
 
-    /* Estado ativado da toggle */
-    .toggle input:checked + .slider {
-        transform: translateX(20px); /* Move a bola para a direita */
-    }
+/* Bola (slider) da toggle */
+.slider {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
 
-    /* Mudar o fundo da toggle quando ativada */
-    .toggle input:checked ~ .toggle {
-        background-color: #C76A37;
-    }
+/* Estado ativado da toggle */
+.toggle input:checked+.slider {
+    transform: translateX(20px);
+    /* Move a bola para a direita */
+}
 
-    .hidden {
-        display: none; /* Esconde o container */
-    }
+/* Mudar o fundo da toggle quando ativada */
+.toggle input:checked~.toggle {
+    background-color: #C76A37;
+}
+
+.hidden {
+    display: none;
+    /* Esconde o container */
+}
 
 
-    .small-text {
-        font-size: 10px; /* Tamanho da letra */
-        color: #555; /* Opcional: cor mais suave */
-        margin: 0; /* Remove margens padrão */
-        line-height: 1.2; /* Opcional: ajuste do espaçamento */
-    }
-    .hora-text {
-        font-size: 13px;
-        color: #555; /* Opcional: cor mais suave */
-        margin: 0; /* Remove margens padrão */
-        line-height: 1.2; /* Opcional: ajuste do espaçamento */
-        margin-top: 5px;
-    }
+.small-text {
+    font-size: 10px;
+    /* Tamanho da letra */
+    color: #555;
+    /* Opcional: cor mais suave */
+    margin: 0;
+    /* Remove margens padrão */
+    line-height: 1.2;
+    /* Opcional: ajuste do espaçamento */
+}
 
-    .train-box {
-        background-color: #F1F1F1; /* Fundo cinza claro */
-        border: 1px solid #ddd;   /* Borda leve */
-        border-radius: 10px;       /* Bordas arredondadas */
-        padding: 15px;            /* Espaçamento interno */
-        margin-bottom: 100px !important;         /* Espaçamento superior */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave opcional */
-        font-size: 14px;          /* Tamanho do texto */
-        color: #333;              /* Cor padrão do texto */
-        width: 100%;
-    }
-    
-    /* Estilizando o contêiner de direções */
+.hora-text {
+    font-size: 13px;
+    color: #555;
+    /* Opcional: cor mais suave */
+    margin: 0;
+    /* Remove margens padrão */
+    line-height: 1.2;
+    /* Opcional: ajuste do espaçamento */
+    margin-top: 5px;
+}
+
+.train-box {
+    background-color: #F1F1F1;
+    /* Fundo cinza claro */
+    border: 1px solid #ddd;
+    /* Borda leve */
+    border-radius: 10px;
+    /* Bordas arredondadas */
+    padding: 15px;
+    /* Espaçamento interno */
+    margin-bottom: 100px !important;
+    /* Espaçamento superior */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra suave opcional */
+    font-size: 14px;
+    /* Tamanho do texto */
+    color: #333;
+    /* Cor padrão do texto */
+    width: 100%;
+}
+
+/* Estilizando o contêiner de direções */
 .leaflet-routing-container {
     display: none;
 }
