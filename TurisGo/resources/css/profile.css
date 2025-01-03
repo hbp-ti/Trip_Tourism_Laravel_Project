@@ -612,19 +612,20 @@ a {
     height: auto;
     margin-top: 10px;
 }
-
 .popupInvoiceDetails {
-    position: absolute;
-    left: 50%;
+    position: fixed; /* Usamos fixed para que ele permaneça centralizado na tela */
     top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    left: 50%;
+    transform: translate(-50%, -50%); /* Garante o alinhamento perfeito no centro */
     width: 800px;
     height: 670px;
     background-color: #f9f9f9;
     border-radius: 8px;
     text-align: center;
-    z-index: 1;
+    z-index: 1000; /* Aumenta o z-index para garantir que o popup fique sobre outros elementos */
+    display: none; /* Inicialmente, o popup estará oculto */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Adiciona sombra para dar profundidade */
+    overflow: auto; /* Caso o conteúdo do popup seja maior que a altura, permita rolagem */
 }
 
 .popupInvoiceDetailsTitle {
@@ -648,12 +649,6 @@ a {
     transform: translateX(-95%);
     cursor: pointer;
 }
-
-/*
-.popupInvoiceDetailsButton:hover {
-    background-color: #C76A37; 
-}
-*/
 
 .popupInvoiceDetailsText {
     margin-left: 26px;

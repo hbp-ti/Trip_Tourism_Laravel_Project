@@ -174,7 +174,7 @@ class AuthController extends Controller
 
         $request->validate(['email' => 'required|email']);
         $user = User::where('email', $request->email)->first();
-        
+
         $token = Str::random(60);
         DB::table('password_reset_tokens')->updateOrInsert(['email' => $request->email], ['token' => $token, 'created_at' => now()]);
         $resetLink = url(route('auth.reset.form', ['locale' => $locale, 'token' => $token, 'email' => $request->email], false));
@@ -458,7 +458,78 @@ class AuthController extends Controller
         });
 
         $orders = Order::where('user_id', $user->id)
-        ->get();
+            ->get();
+
+        // Iterando por cada pedido
+        $orders->map(function ($order) {
+            // Para cada item de pedido, aplicamos o mapeamento
+            $orderItems = $order->orderItems->map(function ($orderItem) {
+                $item = $orderItem->item;
+                $taxRate = 0.05;
+
+                // Verificar o tipo de item e buscar as informações correspondentes
+                switch ($item->item_type) {
+                    case 'Ticket':
+                        $ticket = Ticket::where('id_item', $item->id)->first();
+
+                        $subtotal = $ticket->total_price * $ticket->quantity;
+                        $taxes = $subtotal * $taxRate;
+                        $totalPrice = $subtotal + $taxes;
+                        $orderItem->details = (object) [
+                            'name' => $ticket->origin . '->' . $ticket->destination,
+                            'subtotal' => $subtotal,
+                            'total_price' => $totalPrice,
+                        ];
+                        break;
+
+                    case 'Activity':
+                        // Buscar dados da atividade
+                        $activity = Activity::where('id_item', $item->id)->first();
+
+                        $subtotal = $activity->price_hour * $orderItem->numb_people_activity;
+                        $taxes = $subtotal * $taxRate;
+                        $totalPrice = $subtotal + $taxes;
+                        $orderItem->details = (object) [
+                            'name' => $activity->name,
+                            'subtotal' => $subtotal,
+                            'total_price' => $totalPrice,
+                        ];
+                        break;
+
+                    case 'Hotel':
+                        // Buscar dados do hotel
+                        $hotel = Hotel::where('id_item', $item->id)->first();
+                        $room = Room::where('hotel_id', $hotel->id_item)
+                            ->where('type', $orderItem->room_type_hotel)
+                            ->first();
+
+                        $checkin = \Carbon\Carbon::parse($orderItem->reservation_date_hotel_checkin);
+                        $checkout = \Carbon\Carbon::parse($orderItem->reservation_date_hotel_checkout);
+                        $daysDifference = $checkin->diffInDays($checkout);
+
+                        $subtotal = $room->price_night * $daysDifference * $orderItem->numb_people_hotel;
+                        $taxes = $subtotal * $taxRate;
+                        $totalPrice = $subtotal + $taxes;
+                        $orderItem->details = (object) [
+                            'name' => $hotel->name,
+                            'subtotal' => $subtotal,
+                            'total_price' => $totalPrice,
+                        ];
+                        break;
+
+                    default:
+                        $orderItem->details = null; // Caso não seja um tipo reconhecido
+                        break;
+                }
+                return $orderItem;
+            });
+
+            // Atribui os itens atualizados ao pedido
+            $order->orderItems = $orderItems;
+
+            return $order;
+        });
+
 
         return view('auth.profile', compact('user', 'activeReservations', 'expiredReservations', 'locale', 'orders'));
     }
