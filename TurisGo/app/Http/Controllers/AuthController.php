@@ -177,7 +177,7 @@ class AuthController extends Controller
 
         $token = Str::random(60);
         DB::table('password_reset_tokens')->updateOrInsert(['email' => $request->email], ['token' => $token, 'created_at' => now()]);
-        $resetLink = url(route('auth.reset.form', ['locale' => $locale, 'token' => $token, 'email' => $request->email], false));
+        $resetLink = url(route('reset.form', ['locale' => $locale, 'token' => $token, 'email' => $request->email], false));
 
         Mail::to($request->email)->send(new PasswordResetMail($resetLink));
 
