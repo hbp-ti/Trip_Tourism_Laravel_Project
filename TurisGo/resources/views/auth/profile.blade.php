@@ -26,8 +26,7 @@
                     method="POST" enctype="multipart/form-data">
                     @csrf
                     <!-- Input de imagem -->
-                    <input type="file" name="profile_picture" id="uploadInput" accept="image/*"
-                        style="display: none;">
+                    <input type="file" name="profile_picture" id="uploadInput" accept="image/*" style="display: none;">
                     <!-- Botão de enviar imagem -->
                     <button type="button" class="edit-profile-pic" id="changeprofilepic">
                         <img src="{{ asset('images/changeImage.png') }}" alt="Edit Icon">
@@ -78,8 +77,8 @@
             {!! session('popup') !!}
         @endif
         <div class="right-align">
-            <button id="changePasswordButton"
-                type="button"class="change-password-btn">{{ __('messages.Change Password') }}</button>
+            <button id="changePasswordButton" type="button"
+                class="change-password-btn">{{ __('messages.Change Password') }}</button>
         </div>
         <!-- Popup de Mudança de Password -->
         <div class="popup-overlay">
@@ -133,8 +132,7 @@
             @else
                 @foreach ($orders as $order)
                     <div class="reservation-item">
-                        <img src="{{ $order->image_url ?? asset('images/defaultOrder.png') }}"
-                            alt="Order {{ $order->id }}">
+                        <img src="{{ $order->image_url ?? asset('images/defaultOrder.png') }}" alt="Order {{ $order->id }}">
                         <div class="reservation-info">
                             <div>
                                 <p><img src="{{ asset('images/datahotel.png') }}" class="icon">
@@ -159,8 +157,7 @@
                                 method="POST">
                                 @csrf
                                 <button class="download1-button">
-                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                        class="Dicon">
+                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}" class="Dicon">
                                 </button>
                             </form>
 
@@ -185,8 +182,7 @@
                 @foreach ($activeReservations as $reservation)
                     @if ($reservation->details->type === 'Hotel')
                         <div class="reservation-item">
-                            <img src="{{ $reservation->details->images[0]->url }}"
-                                alt="{{ $reservation->details->name }}">
+                            <img src="{{ $reservation->details->images[0]->url }}" alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
                                 <div>
                                     <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
@@ -247,8 +243,7 @@
                         </div>
                     @else
                         <div class="reservation-item">
-                            <img src="{{ asset('images/trainTicket.jpg') }}"
-                                alt="{{ $reservation->details->name }}">
+                            <img src="{{ asset('images/trainTicket.jpg') }}" alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
                                 <div>
                                     <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
@@ -340,8 +335,7 @@
                 @foreach ($expiredReservations as $reservation)
                     @if ($reservation->details->type === 'Hotel')
                         <div class="reservation-item">
-                            <img src="{{ $reservation->details->images[0]->url }}"
-                                alt="{{ $reservation->details->name }}">
+                            <img src="{{ $reservation->details->images[0]->url }}" alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
                                 <div>
                                     <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
@@ -398,8 +392,7 @@
                         </div>
                     @else
                         <div class="reservation-item">
-                            <img src="{{ asset('images/trainTicket.jpg') }}"
-                                alt="{{ $reservation->details->name }}">
+                            <img src="{{ asset('images/trainTicket.jpg') }}" alt="{{ $reservation->details->name }}">
                             <div class="reservation-info">
                                 <div>
                                     <h3><img src="{{ asset('images/iconehotel.png') }}" class="icon">
@@ -423,60 +416,109 @@
                                         </button>
                                     </form>
                                 </div>
-                        </div>
+                            </div>
 
-                        <!-- Popup -->
-                        <div id="popup-overlay"></div>
-                        <div id="popup">
-                            <img src="/images/trainTicket.jpg" class="train-image" alt="Train Image">
+                            <!-- Popup -->
+                            <div id="popup-overlay"></div>
+                            <div id="popup">
+                                <img src="/images/trainTicket.jpg" class="train-image" alt="Train Image">
 
-                            <div class="flexbox-container">
-                                <div class="box1">
-                                    <div class="details">
-                                        <h1>{{ $reservation->details->name }}</h1>
-                                        <span>&#x1F465;&#xFE0E;&nbsp;&nbsp;<b>{{ $reservation->details->quantity }}</b></span>
-                                        <br>
-                                        <span>&#x1F552;&#xFE0E;&nbsp;&nbsp;<b>{{ $reservation->details->departure_hour }}
-                                                -> {{ $reservation->details->arrival_hour }}</b></span>
+                                <div class="flexbox-container">
+                                    <div class="box1">
+                                        <div class="details">
+                                            <h1>{{ $reservation->details->name }}</h1>
+                                            <span>&#x1F465;&#xFE0E;&nbsp;&nbsp;<b>{{ $reservation->details->quantity }}</b></span>
+                                            <br>
+                                            <span>&#x1F552;&#xFE0E;&nbsp;&nbsp;<b>{{ $reservation->details->departure_hour }}
+                                                    -> {{ $reservation->details->arrival_hour }}</b></span>
+                                        </div>
+                                    </div>
+                                    <div class="box2">
+                                        <img src="/images/qrCode.png" class="qrCodeImage" alt="QR Code">
                                     </div>
                                 </div>
-                                <div class="box2">
-                                    <img src="/images/qrCode.png" class="qrCodeImage" alt="QR Code">
+
+                                <div class="timetable-container">
+                                    <table class="timetable">
+                                        <thead>
+                                            <tr>
+                                                <th>Service</th>
+                                                <th>Departure</th>
+                                                <th>Arrival</th>
+                                                <th>Train</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{ $reservation->details->train_id }}</td>
+                                                <td>{{ $reservation->details->departure_hour }}</td>
+                                                <td>{{ $reservation->details->arrival_hour }}</td>
+                                                <td>{{ $reservation->train_type }}</td>
+                                                <td>{{ $reservation->details->total_price }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </div>
 
-                            <div class="timetable-container">
-                                <table class="timetable">
-                                    <thead>
-                                        <tr>
-                                            <th>Service</th>
-                                            <th>Departure</th>
-                                            <th>Arrival</th>
-                                            <th>Train</th>
-                                            <th>Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{ $reservation->details->train_id }}</td>
-                                            <td>{{ $reservation->details->departure_hour }}</td>
-                                            <td>{{ $reservation->details->arrival_hour }}</td>
-                                            <td>{{ $reservation->train_type }}</td>
-                                            <td>{{ $reservation->details->total_price }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <button id="close-popup" class="close-button">Close</button>
                             </div>
-
-                            <button id="close-popup" class="close-button">Close</button>
-                        </div>
                     @endif
                 @endforeach
             @endif
+            </div>
         </div>
-    </div>
 
-    <x-footer /> <!-- Componente de Rodapé -->
+        <!-- popup invoices details -->
+        <div class="popupInvoiceDetails">
+            <br>
+            <span class="popupInvoiceDetailsTitle">Details</span>
+            <div class="popupInvoiceDetailsText">
+                <p><b>Order ID:</b> 5</p>
+                <p><b>Date:</b> 03-01-2025</p>
+                <p><b>Customer Name:</b> Hugo Pereira</p>
+                <p><b>Email:</b> hbp@ua.pt</p>
+                <br>
+                <table class="popupInvoiceDetailsTable">
+                    <tr>
+                        <th>Item</th>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                    <tr>
+                        <td>Aveiro &#x2192; Águeda </td>
+                        <td>Ticket</td>
+                        <td>4</td>
+                        <td>$9.66</td>
+                    </tr>
+                    <tr>
+                        <td>Vila Portuguesa</td>
+                        <td>Hotel</td>
+                        <td>2</td>
+                        <td>$84.08</td>
+                    </tr>
+                    <tr>
+                        <td>Casa de Santa Zita</td>
+                        <td>Activity</td>
+                        <td>2</td>
+                        <td>$105.00</td>
+                    </tr>
+                </table>
+                <br>
+                <p class="popupInvoiceDetailsSubtitle"><b>Payment Information</b></p>
+                <p><b>Method</b>: MB WAY</p>
+                <br>
+                <p class="popupInvoiceDetailsSubtitle"><b>Billing Information</b></p>
+                <p><b>Billing Country:</b> Portugal</p>
+                <p><b>Billing City:</b> dasdadsdas</p>
+                <p><b>Billing Address:</b> sdasdasdasda</p>
+                <p><b>Postal Code:</b> 4500-111</p>
+            </div>
+            <div class="popupInvoiceDetailsButton">Close</div>
+        </div>
+
+        <x-footer /> <!-- Componente de Rodapé -->
 </body>
 
 </html>
