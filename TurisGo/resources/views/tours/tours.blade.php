@@ -27,11 +27,11 @@
                 <span>{{ __('messages.Sort By') }}</span>
                 <img src="{{ asset('images/sortbyIcon.png') }}" alt="{{ __('messages.Sort Icon') }}">
                 <div id="sortDropdown" class="sortDropdown dropdown-content">
-                    <a href="{{ route('tours.show', ['locale' => app()->getLocale(), 'sort' => 'price_asc']) }}">{{ __('messages.Price: Low to High') }}</a>
-                    <a href="{{ route('tours.show', ['locale' => app()->getLocale(), 'sort' => 'price_desc']) }}">{{ __('messages.Price: High to Low') }}</a>
-                    <a href="{{ route('tours.show', ['locale' => app()->getLocale(), 'sort' => 'alphabetical']) }}">{{ __('messages.Alphabetically') }}</a>
+                    <a href="{{ route('tours', ['locale' => app()->getLocale(), 'sort' => 'price_asc']) }}">{{ __('messages.Price: Low to High') }}</a>
+                    <a href="{{ route('tours', ['locale' => app()->getLocale(), 'sort' => 'price_desc']) }}">{{ __('messages.Price: High to Low') }}</a>
+                    <a href="{{ route('tours', ['locale' => app()->getLocale(), 'sort' => 'alphabetical']) }}">{{ __('messages.Alphabetically') }}</a>
                     
-                    <a href="{{ route('tours.show', ['locale' => app()->getLocale(), 'sort' => 'most_booked']) }}">{{ __('messages.Most Booked') }}</a>
+                    <a href="{{ route('tours', ['locale' => app()->getLocale(), 'sort' => 'most_booked']) }}">{{ __('messages.Most Booked') }}</a>
                 </div>                
                 
             </div>
