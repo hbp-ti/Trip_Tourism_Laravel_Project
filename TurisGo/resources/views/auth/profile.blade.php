@@ -131,78 +131,83 @@
                 <p>{{ __('messages.No active orders at the moment.') }}</p>
             @else
                 @foreach ($orders as $order)
-                <div class="reservation-item">
-                    <img src="{{ $order->image_url ?? asset('images/defaultOrder.png') }}" alt="Order {{ $order->id }}">
-                    <div class="reservation-info">
-                        <div>
-                            <p><img src="{{ asset('images/datahotel.png') }}" class="icon">{{ __('Date') }}: {{ $order->date }}</p>
-                            <p><img src="{{ asset('images/payment.png') }}" class="icon">{{ __('Payment Method') }}: {{ $order->payment_method }}</p>
-                            <p><img src="{{ asset('images/total.png') }}" class="icon">{{ __('Total') }}: ${{ $order->total }}</p>
+                    <div class="reservation-item">
+                        <img src="{{ $order->image_url ?? asset('images/defaultOrder.png') }}"
+                            alt="Order {{ $order->id }}">
+                        <div class="reservation-info">
+                            <div>
+                                <p><img src="{{ asset('images/datahotel.png') }}"
+                                        class="icon">{{ __('Date') }}: {{ $order->date }}</p>
+                                <p><img src="{{ asset('images/payment.png') }}"
+                                        class="icon">{{ __('Payment Method') }}: {{ $order->payment_method }}</p>
+                                <p><img src="{{ asset('images/total.png') }}" class="icon">{{ __('Total') }}:
+                                    ${{ $order->total }}</p>
+                            </div>
+                            <div class="buttons-placement">
+                                <!-- Botão para exibir os detalhes do pedido -->
+                                <button class="details-button-order">
+                                    {{ __('messages.Details') }}
+                                </button>
+                            </div>
                         </div>
-                        <div class="buttons-placement">
-                            <!-- Botão para exibir os detalhes do pedido -->
-                            <button class="details-button-order">
-                                {{ __('messages.Details') }}
-                            </button>
+                        <div class="download-placement">
+                            <form
+                                action="{{ route('auth.orderDownload', ['id' => $order->id, 'locale' => app()->getLocale()]) }}"
+                                method="POST">
+                                @csrf
+                                <button class="download1-button">
+                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
+                                        class="Dicon">
+                                </button>
+                            </form>
                         </div>
-                    </div>
-                    <div class="download-placement">
-                        <form
-                            action="{{ route('auth.orderDownload', ['id' => $order->id, 'locale' => app()->getLocale()]) }}"
-                            method="POST">
-                            @csrf
-                            <button class="download1-button">
-                                {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                    class="Dicon">
-                            </button>
-                        </form>
-                    </div>
-                    <!-- Popup de detalhes da fatura -->
-                    <div class="popupInvoiceDetails" style="display: none;">
-                        <br>
-                        <span class="popupInvoiceDetailsTitle">{{ __('messages.Details') }}</span>
-                        <div class="popupInvoiceDetailsText">
-                            <p><b>{{ __('messages.Order ID') }}:</b> {{ $order->id }}</p>
-                            <p><b>{{ __('messages.Date') }}:</b> {{ $order->date }}</p>
-                            <p><b>{{ __('messages.Customer Name') }}:</b> {{ $order->user->first_name }} {{ $order->user->last_name }}</p>
-                            <p><b>{{ __('messages.Email') }}:</b> {{ $order->user->email }}</p>
+                        <!-- Popup de detalhes da fatura -->
+                        <div class="popupInvoiceDetails" style="display: none;">
                             <br>
-                            <table class="popupInvoiceDetailsTable">
-                                <tr>
-                                    <th>{{ __('messages.Item') }}</th>
-                                    <th>{{ __('messages.Type') }}</th>
-                                    <th>{{ __('messages.Quantity') }}</th>
-                                    <th>{{ __('messages.Price') }}</th>
-                                </tr>
-                                @foreach ($order->orderItems as $item)
+                            <span class="popupInvoiceDetailsTitle">{{ __('messages.Details') }}</span>
+                            <div class="popupInvoiceDetailsText">
+                                <p><b>{{ __('messages.Order ID') }}:</b> {{ $order->id }}</p>
+                                <p><b>{{ __('messages.Date') }}:</b> {{ $order->date }}</p>
+                                <p><b>{{ __('messages.Customer Name') }}:</b> {{ $order->user->first_name }}
+                                    {{ $order->user->last_name }}</p>
+                                <p><b>{{ __('messages.Email') }}:</b> {{ $order->user->email }}</p>
+                                <br>
+                                <table class="popupInvoiceDetailsTable">
                                     <tr>
-                                        <td>{{ $item->details->name }}</td>
-                                        <td>{{ $item->item->item_type }}</td>
-                                        @if ($item->item->item_type === 'Ticket')
-                                            <td>{{ $item->train_people_count }}</td>
-                                        @elseif ($item->item->item_type === 'Activity')
-                                            <td>{{ $item->numb_people_activity }}</td>
-                                        @elseif ($item->item->item_type === 'Hotel')
-                                            <td>{{ $item->numb_people_hotel }}</td>
-                                        @endif
-                                        <td>${{ number_format($item->details->total_price, 2) }}</td>
+                                        <th>{{ __('messages.Item') }}</th>
+                                        <th>{{ __('messages.Type') }}</th>
+                                        <th>{{ __('messages.Quantity') }}</th>
+                                        <th>{{ __('messages.Price') }}</th>
                                     </tr>
-                                @endforeach
-                            </table>
-                            <br>
-                            <p class="popupInvoiceDetailsSubtitle"><b>{{ __('messages.Payment Information') }}</b></p>
-                            <p><b>{{ __('messages.Method') }}</b>: {{ $order->payment_method }}</p>
-                            <br>
-                            <p class="popupInvoiceDetailsSubtitle"><b>{{ __('messages.Billing Information') }}</b></p>
-                            <p><b>{{ __('messages.Billing Country') }}:</b> {{ $order->billing_country }}</p>
-                            <p><b>{{ __('messages.Billing City') }}:</b> {{ $order->billing_city }}</p>
-                            <p><b>{{ __('messages.Billing Address') }}:</b> {{ $order->billing_address }}</p>
-                            <p><b>{{ __('messages.Postal Code') }}:</b> {{ $order->billing_postal_code }}</p>
+                                    @foreach ($order->orderItems as $item)
+                                        <tr>
+                                            <td>{{ $item->details->name }}</td>
+                                            <td>{{ $item->item->item_type }}</td>
+                                            @if ($item->item->item_type === 'Ticket')
+                                                <td>{{ $item->train_people_count }}</td>
+                                            @elseif ($item->item->item_type === 'Activity')
+                                                <td>{{ $item->numb_people_activity }}</td>
+                                            @elseif ($item->item->item_type === 'Hotel')
+                                                <td>{{ $item->numb_people_hotel }}</td>
+                                            @endif
+                                            <td>${{ number_format($item->details->total_price, 2) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                                <br>
+                                <p class="popupInvoiceDetailsSubtitle"><b>{{ __('messages.Payment Information') }}</b>
+                                </p>
+                                <p><b>{{ __('messages.Method') }}</b>: {{ $order->payment_method }}</p>
+                                <br>
+                                <p class="popupInvoiceDetailsSubtitle"><b>{{ __('messages.Billing Information') }}</b>
+                                </p>
+                                <p><b>{{ __('messages.Billing Country') }}:</b> {{ $order->billing_country }}</p>
+                                <p><b>{{ __('messages.Billing City') }}:</b> {{ $order->billing_city }}</p>
+                                <p><b>{{ __('messages.Billing Address') }}:</b> {{ $order->billing_address }}</p>
+                                <p><b>{{ __('messages.Postal Code') }}:</b> {{ $order->billing_postal_code }}</p>
+                            </div>
+                            <div class="popupInvoiceDetailsButton">{{ __('messages.Close') }}</div>
                         </div>
-                        <div class="popupInvoiceDetailsButton">{{ __('messages.Close') }}</div>
-                    </div>
-                    
-                
                 @endforeach
             @endif
         </div>
@@ -511,7 +516,7 @@
             @endif
         </div>
     </div>
-
+    </div>
 
 
     <x-footer /> <!-- Componente de Rodapé -->
