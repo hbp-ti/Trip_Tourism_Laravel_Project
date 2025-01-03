@@ -20,7 +20,6 @@
 
     <div class="tour">
         <!-- Tours -->
-
         <div class="title-line-container tour-section">
             <h2>{{ __('messages.Tours') }}</h2>
             <hr class="title-line-blue">
@@ -28,39 +27,42 @@
                 <span>{{ __('messages.Sort By') }}</span>
                 <img src="{{ asset('images/sortbyIcon.png') }}" alt="{{ __('messages.Sort Icon') }}">
                 <div id="sortDropdown" class="sortDropdown dropdown-content">
-                    <a href="#" onclick="sortByPriceAsc()">{{ __('messages.Price: Low to High') }}</a>
-                    <a href="#" onclick="sortByPriceDesc()">{{ __('messages.Price: High to Low') }}</a>
-                    <a href="#" onclick="sortAlphabetically()">{{ __('messages.Alphabetically') }}</a>
-                    <a href="#" onclick="sortByMostBooked()">{{ __('messages.Most Booked') }}</a>
-                </div>
+                    <a href="{{ route('tours.show', ['locale' => app()->getLocale(), 'sort' => 'price_asc']) }}">{{ __('messages.Price: Low to High') }}</a>
+                    <a href="{{ route('tours.show', ['locale' => app()->getLocale(), 'sort' => 'price_desc']) }}">{{ __('messages.Price: High to Low') }}</a>
+                    <a href="{{ route('tours.show', ['locale' => app()->getLocale(), 'sort' => 'alphabetical']) }}">{{ __('messages.Alphabetically') }}</a>
+                    
+                    <a href="{{ route('tours.show', ['locale' => app()->getLocale(), 'sort' => 'most_booked']) }}">{{ __('messages.Most Booked') }}</a>
+                </div>                
+                
             </div>
         </div>
+    </div>
 
-        <div class="single-column-container">
-            @foreach ($tours as $tour)
-            <a href="{{ route('tour.tour', ['locale' => app()->getLocale(), 'id' => $tour->id_item]) }}" class="tourActivity-card">
-                <div class="image-container-tourActivity">
-                    <img src="{{ $tour->item->images[0]->url ?? asset('images/default-hotel.jpg') }}" alt="{{ $tour->name }}">
-                    <div class="price-tag">{{ $tour->price_hour}}€<span> /{{ __('messages.per person') }}</span></div>
+    <div class="single-column-container">
+        @foreach ($tours as $tour)
+        <a href="{{ route('tour.tour', ['locale' => app()->getLocale(), 'id' => $tour->id_item]) }}" class="tourActivity-card" data-bookings="{{ $tour->bookings }}">
+            <div class="image-container-tourActivity">
+                <img src="{{ $tour->item->images[0]->url ?? asset('images/default-hotel.jpg') }}" alt="{{ $tour->name }}">
+                <div class="price-tag">{{ $tour->price_hour }}€<span> /{{ __('messages.per person') }}</span></div>
+            </div>
+            <div class="text-container">
+                <h2>{{ $tour->name }}</h2>
+                <p>{{ $tour->description }}</p>
+                <div class="location-info">
+                    <span><i class="fas fa-globe"></i> {{ $tour->country }}</span>
+                    <span><i class="fas fa-city"></i> {{ $tour->city }}</span>
+                    <span><i class="fas fa-road"></i> {{ $tour->street }}</span>
                 </div>
-                <div class="text-container">
-                    <h2>{{ $tour->name}}</h2>
-                    <p>{{ $tour->description}}</p>
-                    <div class="location-info">
-                        <span><i class="fas fa-globe"></i> {{ $tour->country }}</span>
-                        <span><i class="fas fa-city"></i> {{ $tour->city }}</span>
-                        <span><i class="fas fa-road"></i> {{ $tour->street }}</span>
-                    </div>
-                </div>
-            </a>
-            @endforeach
-        </div>
+            </div>
+        </a>
+        @endforeach
     </div>
 
     <!-- Adicionando os links de paginação -->
     <div class="pagination">
-        {{ $tours->links('vendor.pagination.custom') }}
+        {{ $tours->appends(request()->except('page'))->links('vendor.pagination.custom') }}  <!-- Preserva a paginação com os filtros aplicados -->
     </div>
+
     <x-footer />
 </body>
 

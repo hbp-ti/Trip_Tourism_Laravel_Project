@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hotel;
+use App\Models\Item;
 use App\Models\Activity;
 use App\Models\User;
+use App\Models\Room;
+use App\Models\Image;
+use Illuminate\Support\Facades\Storage;
 use Cloudinary\Uploader;
 use Cloudinary\Api\Upload\UploadApi;
-use Storage;
+
 
 class AdminController extends Controller
 {
@@ -47,18 +51,36 @@ class AdminController extends Controller
         $user->save();
 
         // Redirecionar de volta com sucesso
-        return redirect()->route('auth.admin.dashboard', ['locale'=>app()->getLocale()])->with('success', 'Utilizador promovido a administrador com sucesso!');
+        return redirect()->route('auth.admin.dashboard', ['locale' => app()->getLocale()])->with('success', 'Utilizador promovido a administrador com sucesso!');
     }
 
-    // Adicionar um hotel
     public function addHotel(Request $request)
     {
+
+
+        $request->merge(input: [
+            'free_wifi' => filter_var($request->input('free_wifi'), FILTER_VALIDATE_BOOLEAN),
+            'parking' => filter_var($request->input('parking'), FILTER_VALIDATE_BOOLEAN),
+            'gym' => filter_var($request->input('gym'), FILTER_VALIDATE_BOOLEAN),
+            'pool' => filter_var($request->input('pool'), FILTER_VALIDATE_BOOLEAN),
+            'non_smoking_rooms' => filter_var($request->input('non_smoking_rooms'), FILTER_VALIDATE_BOOLEAN),
+            'hotel_restaurant' => filter_var($request->input('hotel_restaurant'), FILTER_VALIDATE_BOOLEAN),
+            'bar' => filter_var($request->input('bar'), FILTER_VALIDATE_BOOLEAN),
+            'refundable_reservations' => filter_var($request->input('refundable_reservations'), FILTER_VALIDATE_BOOLEAN),
+            // Para os quartos, também aplicamos a conversão nos campos `available` de cada quarto
+            'rooms' => collect($request->input('rooms'))->map(function ($room) {
+                $room['available'] = filter_var($room['available'], FILTER_VALIDATE_BOOLEAN);
+                return $room;
+            })->toArray(),
+        ]);
+
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'description' => 'required|string|max:1000',
             'stars' => 'required|integer|min:0|max:5',
-            'average_guest_rating' => 'nullable|numeric|min:0|max:5',
+            'average_guest_rating' => 'required|integer|min:0|max:5',
             'free_wifi' => 'required|boolean',
+
             'parking' => 'required|boolean',
             'gym' => 'required|boolean',
             'pool' => 'required|boolean',
@@ -72,7 +94,15 @@ class AdminController extends Controller
             'street' => 'required|string|max:60',
             'lat' => 'nullable|numeric',
             'lon' => 'nullable|numeric',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'hotel_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+            // Validação dos quartos
+            'rooms' => 'required|array',
+            'rooms.*.type' => 'required|string|max:255',
+            'rooms.*.bed_type' => 'required|string|max:255',
+            'rooms.*.bed_count' => 'required|integer|min:1',
+            'rooms.*.price_night' => 'required|numeric|min:0',
+            'rooms.*.available' => 'required|boolean',
         ]);
 
         // Criar o item pai
@@ -81,18 +111,35 @@ class AdminController extends Controller
         ]);
 
         // Criar o hotel
-        $hotel = new Hotel($validated);
-        $hotel->id_item = $item->id;
-        $hotel->save();
-
+        $hotel = Hotel::create([
+            'id_item' => $item->id,
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'stars' => $validated['stars'],
+            'average_guest_rating' => $validated['average_guest_rating'],
+            'free_wifi' => $validated['free_wifi'],
+            'parking' => $validated['parking'],
+            'gym' => $validated['gym'],
+            'pool' => $validated['pool'],
+            'non_smoking_rooms' => $validated['non_smoking_rooms'],
+            'hotel_restaurant' => $validated['hotel_restaurant'],
+            'bar' => $validated['bar'],
+            'refundable_reservations' => $validated['refundable_reservations'],
+            'country' => $validated['country'],
+            'zip_code' => $validated['zip_code'],
+            'city' => $validated['city'],
+            'street' => $validated['street'],
+            'lat' => $validated['lat'],
+            'lon' => $validated['lon'],
+        ]);
         // Adicionar imagens
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
+        if ($request->has('hotel_images_asdasdsa')) {
+            foreach ($request->file('hotel_images') as $image) {
                 // Upload da imagem para o Cloudinary
-                $uploadedFile = Storage::disk('cloudinary')->put('hotels/images', $image);
+                $uploadedFilePath = Storage::disk('cloudinary')->put('hotels/images', $image);
 
-                // Obter a URL pública do arquivo
-                $url = Storage::disk('cloudinary')->url($uploadedFile);
+                // Construir a URL pública manualmente
+                $url = "https://res.cloudinary.com/" . env('CLOUDINARY_CLOUD_NAME') . "/image/upload/" . $uploadedFilePath;
 
                 // Salvar a URL da imagem no banco de dados
                 Image::create([
@@ -102,11 +149,36 @@ class AdminController extends Controller
             }
         }
 
-        return redirect()->route('auth.admin.dashboard', ['locale'=>app()->getLocale()])->with('success', 'Hotel adicionado com sucesso!');
+        // Adicionar os quartos
+        if ($request->has('rooms')) {
+            foreach ($request->input('rooms') as $roomData) {
+                $room = Room::create([
+                    'hotel_id' => $hotel->id_item,
+                    'type' => $roomData['type'],
+                    'bed_type' => $roomData['bed_type'],
+                    'bed_count' => $roomData['bed_count'],
+                    'price_night' => $roomData['price_night'],
+                    'available' => $roomData['available'],
+                ]);
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Hotel adicionado com sucesso!',
+        ]);
     }
+
 
     public function addActivity(Request $request)
     {
+        $request->merge([
+            'cancel_anytime' => filter_var($request->input('cancel_anytime'), FILTER_VALIDATE_BOOLEAN),
+            'reserve_now_pay_later' => filter_var($request->input('reserve_now_pay_later'), FILTER_VALIDATE_BOOLEAN),
+            'guide' => filter_var($request->input('guide'), FILTER_VALIDATE_BOOLEAN),
+            'small_groups' => filter_var($request->input('small_groups'), FILTER_VALIDATE_BOOLEAN),
+        ]);
+
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'description' => 'required|string|max:1000',
@@ -122,7 +194,7 @@ class AdminController extends Controller
             'street' => 'required|string|max:60',
             'lat' => 'nullable|numeric',
             'lon' => 'nullable|numeric',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tour_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // Criar o item pai
@@ -130,19 +202,36 @@ class AdminController extends Controller
             'item_type' => 'Activity',
         ]);
 
-        // Criar a atividade
-        $activity = new Activity($validated);
-        $activity->id_item = $item->id;
-        $activity->save();
+        // Criar a nova atividade usando os dados validados
+        $activity = Activity::create([
+            'id_item' => $item->id,  // ID do item associado à atividade
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'price_hour' => $validated['price_hour'],
+            'cancel_anytime' => $validated['cancel_anytime'],
+            'reserve_now_pay_later' => $validated['reserve_now_pay_later'],
+            'guide' => $validated['guide'],
+            'small_groups' => $validated['small_groups'],
+            'language' => $validated['language'],
+            'country' => $validated['country'],
+            'zip_code' => $validated['zip_code'],
+            'city' => $validated['city'],
+            'street' => $validated['street'],
+            'lat' => $validated['lat'],
+            'lon' => $validated['lon']
+        ]);
+
+        // Agora, a atividade foi criada com os dados validados
 
         // Adicionar imagens
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                // Upload da imagem para o Cloudinary
-                $uploadedFile = Storage::disk('cloudinary')->put('hotels/images', $image);
+        if ($request->has('tour_images')) {
 
-                // Obter a URL pública do arquivo
-                $url = Storage::disk('cloudinary')->url($uploadedFile);
+            foreach ($request->file('tour_images') as $image) {
+                // Upload da imagem para o Cloudinary
+                $uploadedFilePath = Storage::disk('cloudinary')->put('activities/images', $image);
+
+                // Construir a URL pública manualmente
+                $url = "https://res.cloudinary.com/" . env('CLOUDINARY_CLOUD_NAME') . "/image/upload/" . $uploadedFilePath;
 
                 // Salvar a URL da imagem no banco de dados
                 Image::create([
@@ -158,10 +247,11 @@ class AdminController extends Controller
         ]);
     }
 
+
     // Remover um item
     public function removeItem(Request $request)
     {
-        $id = $request->route('item_id');
+        $id = $request->route('id');
         $item = Item::findOrFail($id);
 
         // Remover imagens associadas
@@ -176,7 +266,7 @@ class AdminController extends Controller
 
         // Remover o item pai
         $item->delete();
-        return redirect()->route('auth.admin.dashboard', ['locale'=>app()->getLocale()])->with('success', 'Item removido com sucesso!');
+        return redirect()->route('auth.admin.dashboard', ['locale' => app()->getLocale()])->with('success', 'Item removido com sucesso!');
     }
 
     // Alterar um hotel ou atividade

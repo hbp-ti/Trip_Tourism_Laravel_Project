@@ -10,6 +10,7 @@ class Hotel extends Model
     use HasFactory;
 
     protected $table = 'hotels';
+    protected $primaryKey = 'id_item';
 
     protected $fillable = [
         'id_item',

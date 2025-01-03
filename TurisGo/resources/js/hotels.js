@@ -21,6 +21,7 @@ $(document).on('click', '.load-more', function(e) {
   e.preventDefault();
 
   // Obter os parâmetros de pesquisa (location, checkin, checkout, people)
+<<<<<<< HEAD
   var location = $('select[name="location"]').val();
   var checkin = $('input[name="checkin"]').val();
   var checkout = $('input[name="checkout"]').val();
@@ -33,6 +34,24 @@ $(document).on('click', '.load-more', function(e) {
             '&checkout=' + checkout +
             '&people=' + people +
             '&sort_by=' + sortBy;
+=======
+  let location = $('select[name="location"]').val();
+  let checkin = $('input[name="checkin"]').val();
+  let checkout = $('input[name="checkout"]').val();
+  let people = $('select[name="people"]').val();
+  let sortBy = $('select[name="sort_by"]').val(); // Caso haja um campo para ordenação
+
+  // Construir a URL com os parâmetros de pesquisa
+  let url = new URL($(this).attr('href'));
+  url.searchParams.set('location', location || '');
+  url.searchParams.set('checkin', checkin || '');
+  url.searchParams.set('checkout', checkout || '');
+  url.searchParams.set('people', people || '');
+  url.searchParams.set('sort_by', sortBy || '');
+
+  // Atualizar a URL do botão para preservar os parâmetros
+  $(this).attr('href', url.toString());
+>>>>>>> 6c68885ba32fa26ee2aabb062094bc52b5797f92
 
   $.ajax({
       url: url,

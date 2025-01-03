@@ -100,4 +100,6 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
 
     // Buscar jornadas
     Route::post('/search-journeys', [TrainController::class, 'journeys'])->name('search.journeys');
+
+    Route::get('/tours/{locale?}', [TourController::class, 'showTours'])->name('tours.show');
 });
