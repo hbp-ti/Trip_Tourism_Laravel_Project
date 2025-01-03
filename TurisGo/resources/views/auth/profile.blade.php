@@ -131,43 +131,34 @@
                 <p>{{ __('messages.No active orders at the moment.') }}</p>
             @else
                 @foreach ($orders as $order)
-                    <div class="reservation-item">
-                        <img src="{{ $order->image_url ?? asset('images/defaultOrder.png') }}"
-                            alt="Order {{ $order->id }}">
-                        <div class="reservation-info">
-                            <div>
-                                <p><img src="{{ asset('images/datahotel.png') }}"
-                                        class="icon">{{ __('Date') }}: {{ $order->date }}</p>
-                                <p><img src="{{ asset('images/payment.png') }}"
-                                        class="icon">{{ __('Payment Method') }}: {{ $order->payment_method }}</p>
-                                <p><img src="{{ asset('images/total.png') }}" class="icon">{{ __('Total') }}:
-                                    ${{ $order->total }}</p>
-                            </div>
-
-                            <div class="buttons-placement">
-                                <!-- Botão para detalhes do pedido -->
-                                <button class="details-button">
-                                    {{ __('messages.Details') }}
-                                </button>
-
-                            </div>
+                <div class="reservation-item">
+                    <img src="{{ $order->image_url ?? asset('images/defaultOrder.png') }}" alt="Order {{ $order->id }}">
+                    <div class="reservation-info">
+                        <div>
+                            <p><img src="{{ asset('images/datahotel.png') }}" class="icon">{{ __('Date') }}: {{ $order->date }}</p>
+                            <p><img src="{{ asset('images/payment.png') }}" class="icon">{{ __('Payment Method') }}: {{ $order->payment_method }}</p>
+                            <p><img src="{{ asset('images/total.png') }}" class="icon">{{ __('Total') }}: ${{ $order->total }}</p>
                         </div>
-
-                        <div class="download-placement">
-                            <form
-                                action="{{ route('auth.orderDownload', ['id' => $order->id, 'locale' => app()->getLocale()]) }}"
-                                method="POST">
-                                @csrf
-                                <button class="download1-button">
-                                    {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
-                                        class="Dicon">
-                                </button>
-                            </form>
+                        <div class="buttons-placement">
+                            <!-- Botão para exibir os detalhes do pedido -->
+                            <button class="details-button-order">
+                                {{ __('messages.Details') }}
+                            </button>
                         </div>
                     </div>
-
-                    <!-- popup invoices details -->
-                    <div class="popupInvoiceDetails">
+                    <div class="download-placement">
+                        <form
+                            action="{{ route('auth.orderDownload', ['id' => $order->id, 'locale' => app()->getLocale()]) }}"
+                            method="POST">
+                            @csrf
+                            <button class="download1-button">
+                                {{ __('messages.Download') }} <img src="{{ asset('images/download.png') }}"
+                                    class="Dicon">
+                            </button>
+                        </form>
+                    </div>
+                    <!-- Popup de detalhes da fatura -->
+                    <div class="popupInvoiceDetails" style="display: none;">
                         <br>
                         <span class="popupInvoiceDetailsTitle">Details</span>
                         <div class="popupInvoiceDetailsText">
@@ -210,6 +201,8 @@
                         </div>
                         <div class="popupInvoiceDetailsButton">Close</div>
                     </div>
+                </div>
+                
                 @endforeach
             @endif
         </div>

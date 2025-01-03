@@ -143,20 +143,52 @@ $(document).ready(function () {
 
 $(document).ready(function() {
     // Quando o botão "Details" for clicado, exibe o popup
-    $('.details-button').click(function(event) {
+    $('.details-button-order').on('click', function(event) {
         event.preventDefault(); // Impede o comportamento padrão do botão
-        let popup = $(this).closest('.reservation-item').find('.popupInvoiceDetails');
-        
-        // Antes de aplicar fadeIn, altere o display para block
-        popup.css('display', 'block').hide().fadeIn(); // Exibe com animação, garantindo que o display seja block
+        var popup = $(this).closest('.reservation-item').find('.popupInvoiceDetails');
+
+        // Exibe o popup com animação
+        popup.css('display', 'block').hide().fadeIn(); 
     });
 
-    // Quando o botão "Close" for clicado, esconde o popup
-    $('.popupInvoiceDetailsButton').click(function() {
-        let popup = $(this).closest('.popupInvoiceDetails');
+    // Quando o botão "Close" do popup for clicado, esconde o popup
+    $('.popupInvoiceDetailsButton').on('click', function() {
+        var popup = $(this).closest('.popupInvoiceDetails');
         popup.fadeOut(function() {
-            // Quando a animação de fadeOut terminar, definimos display como 'none'
+            // Após a animação de fadeOut, oculta o popup
             popup.css('display', 'none');
         });
     });
 });
+
+$(document).ready(function() {
+    // Ao clicar no botão de cancelamento
+    $('.cancel-button').click(function(e) {
+        e.preventDefault(); // Impede o envio do formulário por padrão
+
+        // Seleciona o formulário mais próximo do botão clicado
+        let form = $(this).closest('form');
+
+        // Exibe o SweetAlert para confirmar o cancelamento
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to cancel the reservation?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, cancel it!',
+            cancelButtonText: 'No, keep the reservation',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Se o usuário confirmar, submete o formulário
+                form.submit();
+            } else {
+                // Caso contrário, não faz nada (formulário não é enviado)
+                return false;
+            }
+        });
+    });
+});
+
+
+

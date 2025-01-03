@@ -245,7 +245,7 @@ input {
 a {
     text-decoration: none;
 }
-
+.details-button-order,
 .details-button,
 .cancel-button,
 .book-again-button,
@@ -258,7 +258,7 @@ a {
     margin-right: 10px;
     transition: 0.43s all;
 }
-
+.details-button-order,
 .details-button {
     background-color: #2081A5;
     color: white;
