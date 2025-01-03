@@ -12,7 +12,6 @@ class TourController extends Controller
 {
     public function showTours(Request $request)
     {
-<<<<<<< HEAD
         $query = Activity::with('item.images'); // Inclui as imagens associadas
         
         // Ordenação
@@ -49,41 +48,30 @@ class TourController extends Controller
     
         return view('tours.tours', compact('tours'));
     }
-    
-    
-    
-=======
-        $tours = Activity::with('item.images') // Inclui as imagens associadas ao item da atividade
-            ->paginate(5);
-
-        return view('tours.tours', compact('tours'));
-    }
-
 
     public function filterTours(Request $request)
     {
         $query = Activity::query();
 
+        // Filtragem por intervalo de preço
         if ($request->has('price_range')) {
             $priceRange = explode('-', $request->price_range);
-            $query->whereBetween('price', $priceRange);
+            $query->whereBetween('price_hour', $priceRange);
         }
 
+        // Filtragem por estrelas
         if ($request->has('stars')) {
             $query->where('stars', $request->stars);
         }
 
-        // Adicione outros filtros aqui
+        // Adicionar outros filtros, caso necessário
 
         // Carregar as atividades com imagens associadas
-        $tours = $query->with('item.images') // Incluindo as imagens
-            ->get();
+        $tours = $query->with('item.images')->get();
 
-        return view('tour.tour', compact('tours'));
+        return view('tours.tours', compact('tours'));
     }
 
-
->>>>>>> 8f3b3217c93740ae22ef80939a6856019b96e5df
     public function showTourDetails(Request $request)
     {
         $id = $request->route('id');
@@ -126,6 +114,7 @@ class TourController extends Controller
             return redirect()->route('auth.login.form', ['locale' => $locale])
                 ->with('popup', $popupError);
         }
+        
         $id = $request->input('id');
 
         // Verifica se o hotel está no carrinho do usuário autenticado
@@ -148,8 +137,9 @@ class TourController extends Controller
 
             return redirect()->route('profile.show', ['locale' => $locale])->with('popup', $popupError);
         }
+        
         $tour = Activity::where('id_item', $id)->firstOrFail();
-
+        
         $tour->load([
             'item.images', // Relacionamento para carregar imagens do Item
         ]);
@@ -168,5 +158,3 @@ class TourController extends Controller
         return view('tourDetail.tourDetail', compact('tourReservation', 'locale'));
     }
 }
-
-
