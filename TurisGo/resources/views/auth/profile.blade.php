@@ -135,9 +135,14 @@
                     <img src="{{ $order->image_url ?? asset('images/defaultOrder.png') }}" alt="Order {{ $order->id }}">
                     <div class="reservation-info">
                         <div>
+                            <!-- Icone e data -->
                             <p><img src="{{ asset('images/datahotel.png') }}" class="icon">{{ __('Date') }}: {{ $order->date }}</p>
-                            <p><img src="{{ asset('images/payment.png') }}" class="icon">{{ __('Payment Method') }}: {{ $order->payment_method }}</p>
-                            <p><img src="{{ asset('images/total.png') }}" class="icon">{{ __('Total') }}: ${{ $order->total }}</p>
+                    
+                            <!-- Icone e Payment Method -->
+                            <p><img src="{{ asset('images/profilepagamento.png') }}" class="icon">{{ __('Payment Method') }}: {{ $order->payment_method }}</p>
+                    
+                            <!-- Icone e Total -->
+                            <p><img src="{{ asset('images/totalprofile.png') }}" class="icon">{{ __('Total') }}: ${{ $order->total }}</p>
                         </div>
                         <div class="buttons-placement">
                             <!-- Botão para exibir os detalhes do pedido -->
