@@ -324,5 +324,8 @@ return [
     'reserve_now_pay_later' => 'reserve_agora_pague_depois',  
     'small groups' => 'pequenos grupos',  
     'small_groups' => 'pequenos_grupos',  
-    'terms & policies' => 'termos e políticas'
+    'terms & policies' => 'termos e políticas',
+    'Not Found Error 404' => 'Página não encontrada erro 404',
+    'The page you are looking for might have been removed or is temporarily unavailable.' => 'A página que stás a tentar acessar foi removida ou está temporariamente inacessível.',
+    'Please return to the homepage.' => 'Volte para a página inicial por favor.'
 ];

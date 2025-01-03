@@ -325,4 +325,8 @@ return [
     'small groups' => 'small groups',
     'small_groups' => 'small_groups',
     'terms & policies' => 'terms & policies',
+    'Not Found Error 404' => 'Not Found Error 404',
+    'The page you are looking for might have been removed or is temporarily unavailable.' => 'The page you are looking for might have been removed or is temporarily unavailable.',
+    'Please return to the homepage.' => 'Please return to the homepage.'
 ];
+
