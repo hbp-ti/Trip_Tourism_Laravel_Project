@@ -83,11 +83,12 @@
             <div id="sortBy" class="sortby-container">
                 <span>{{ __('messages.Sort By') }}</span>
                 <img src="{{ asset('images/sortbyIcon.png') }}" alt="{{ __('messages.Sort By') }}">
-                <div id="sortDropdown" class="dropdown-content">
-                    <a href="#" id="sortByPriceAsc">{{ __('messages.Price: Low to High') }}</a>
-                    <a href="#" id="sortByPriceDesc">{{ __('messages.Price: High to Low') }}</a>
-                    <a href="#" id="sortAlphabetically">{{ __('messages.Alphabetically') }}</a>
-                    <a href="#" id="sortByMostBooked">{{ __('messages.Most Booked') }}</a>
+                <div id="sortDropdown" class="sortDropdown dropdown-content">
+                    <a href="{{ route('hotels', ['locale' => app()->getLocale(), 'sort' => 'price_asc']) }}">{{ __('messages.Price: Low to High') }}</a>
+                    <a href="{{ route('hotels', ['locale' => app()->getLocale(), 'sort' => 'price_desc']) }}">{{ __('messages.Price: High to Low') }}</a>
+                    <a href="{{ route('hotels', ['locale' => app()->getLocale(), 'sort' => 'alphabetical']) }}">{{ __('messages.Alphabetically') }}</a>
+                    
+                    <a href="{{ route('hotels', ['locale' => app()->getLocale(), 'sort' => 'most_booked']) }}">{{ __('messages.Most Booked') }}</a>
                 </div>
             </div>
 
@@ -102,19 +103,17 @@
         <div class="single-column-container">
             @foreach ($hotels as $hotel)
                 <a href="{{ route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}"
-                    class="hotel-card">
+                    class="hotel-card" data-bookings="{{ $hotel->rooms->count() }}">
                     <div class="image-container-hotel">
-                        <img src="{{ $hotel->item->images[0]->url ?? asset('images/default-hotel.jpg') }}"
-                            alt="{{ $hotel->name }}">
-
+                        <img src="{{ $hotel->item->images[0]->url ?? asset('images/default-hotel.jpg') }}" alt="{{ $hotel->name }}">
+                        
                         @if ($hotel->rooms->isNotEmpty()) <!-- Verifica se o hotel tem quartos -->
                             <div class="price-tag">
-                                {{ $hotel->rooms->first()->price_night }}€ <!-- Exibe o preço do quarto mais barato -->
-                                <span> /{{ __('messages.per night') }}</span>
+                                {{ $hotel->rooms->first()->price_night }}€<span> /{{ __('messages.per night') }}</span>
                             </div>
                         @else
                             <div class="price-tag">
-                                {{ __('messages.No rooms available') }} <!-- Exibe mensagem se não houver quartos -->
+                                {{ __('messages.No rooms available') }}
                             </div>
                         @endif
                     </div>

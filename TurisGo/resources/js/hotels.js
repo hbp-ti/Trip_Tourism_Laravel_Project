@@ -21,7 +21,6 @@ $(document).on('click', '.load-more', function(e) {
   e.preventDefault();
 
   // Obter os parâmetros de pesquisa (location, checkin, checkout, people)
-<<<<<<< HEAD
   var location = $('select[name="location"]').val();
   var checkin = $('input[name="checkin"]').val();
   var checkout = $('input[name="checkout"]').val();
@@ -34,24 +33,6 @@ $(document).on('click', '.load-more', function(e) {
             '&checkout=' + checkout +
             '&people=' + people +
             '&sort_by=' + sortBy;
-=======
-  let location = $('select[name="location"]').val();
-  let checkin = $('input[name="checkin"]').val();
-  let checkout = $('input[name="checkout"]').val();
-  let people = $('select[name="people"]').val();
-  let sortBy = $('select[name="sort_by"]').val(); // Caso haja um campo para ordenação
-
-  // Construir a URL com os parâmetros de pesquisa
-  let url = new URL($(this).attr('href'));
-  url.searchParams.set('location', location || '');
-  url.searchParams.set('checkin', checkin || '');
-  url.searchParams.set('checkout', checkout || '');
-  url.searchParams.set('people', people || '');
-  url.searchParams.set('sort_by', sortBy || '');
-
-  // Atualizar a URL do botão para preservar os parâmetros
-  $(this).attr('href', url.toString());
->>>>>>> 6c68885ba32fa26ee2aabb062094bc52b5797f92
 
   $.ajax({
       url: url,
@@ -78,26 +59,78 @@ window.addEventListener('click', function () {
   });
 });
 
-// Funções para ordenar (placeholder)
+
+// Alterando o comportamento de clique nos links do dropdown
+const sortLinks = document.querySelectorAll('.sortDropdown a');
+sortLinks.forEach(link => {
+    link.addEventListener('click', function(event) {
+        const sortType = this.getAttribute('href').split('sort=')[1]; // Pegando o valor do 'sort' da URL
+        if (sortType === 'price_asc') {
+            sortByPriceAsc();
+        } else if (sortType === 'price_desc') {
+            sortByPriceDesc();
+        } else if (sortType === 'alphabetical') {
+            sortAlphabetically();
+        } else if (sortType === 'most_booked') {
+            sortByMostBooked();
+        }
+    });
+});
+
+// Funções para ordenar
 function sortByPriceAsc() {
-  console.log("Sorting by Price: Low to High");
-  applySort('price_asc');
+    const tours = document.querySelectorAll('.hotel-card');
+    const sortedTours = Array.from(tours).sort((a, b) => {
+        const priceA = parseFloat(a.querySelector('.price-tag').textContent.replace('€', '').trim());
+        const priceB = parseFloat(b.querySelector('.price-tag').textContent.replace('€', '').trim());
+        return priceA - priceB;
+    });
+
+    const container = document.querySelector('.single-column-container');
+    sortedTours.forEach(tour => container.appendChild(tour));
 }
 
 function sortByPriceDesc() {
-  console.log("Sorting by Price: High to Low");
-  applySort('price_desc');
+    const tours = document.querySelectorAll('.hotel-card');
+    const sortedTours = Array.from(tours).sort((a, b) => {
+        const priceA = parseFloat(a.querySelector('.price-tag').textContent.replace('€', '').trim());
+        const priceB = parseFloat(b.querySelector('.price-tag').textContent.replace('€', '').trim());
+        return priceB - priceA;
+    });
+
+    const container = document.querySelector('.single-column-container');
+    sortedTours.forEach(tour => container.appendChild(tour));
 }
 
 function sortAlphabetically() {
-  console.log("Sorting Alphabetically");
-  applySort('alphabetical');
+    const tours = document.querySelectorAll('.hotel-card');
+    const sortedTours = Array.from(tours).sort((a, b) => {
+        const nameA = a.querySelector('h2').textContent.trim().toLowerCase();
+        const nameB = b.querySelector('h2').textContent.trim().toLowerCase();
+        return nameA.localeCompare(nameB);
+    });
+
+    const container = document.querySelector('.single-column-container');
+    sortedTours.forEach(tour => container.appendChild(tour));
 }
 
 function sortByMostBooked() {
-  console.log("Sorting by Most Booked");
-  applySort('most_booked');
+    const tours = document.querySelectorAll('.hotel-card');
+    const sortedTours = Array.from(tours).sort((a, b) => {
+        const bookingsA = parseInt(a.getAttribute('data-bookings')); 
+        const bookingsB = parseInt(b.getAttribute('data-bookings'));
+        return bookingsB - bookingsA;
+    });
+
+    const container = document.querySelector('.single-column-container');
+    sortedTours.forEach(tour => container.appendChild(tour));
 }
+
+// Expondo as funções globalmente para os eventos onclick
+window.sortByPriceAsc = sortByPriceAsc;
+window.sortByPriceDesc = sortByPriceDesc;
+window.sortAlphabetically = sortAlphabetically;
+window.sortByMostBooked = sortByMostBooked;
 
 
 // Selecione os elementos da sidebar, do blur e do botão de toggle
