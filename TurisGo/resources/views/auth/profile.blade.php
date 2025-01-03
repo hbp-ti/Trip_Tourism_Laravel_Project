@@ -160,19 +160,19 @@
                     <!-- Popup de detalhes da fatura -->
                     <div class="popupInvoiceDetails" style="display: none;">
                         <br>
-                        <span class="popupInvoiceDetailsTitle">Details</span>
+                        <span class="popupInvoiceDetailsTitle">{{ __('messages.Details') }}</span>
                         <div class="popupInvoiceDetailsText">
-                            <p><b>Order ID:</b> {{ $order->id }}</p>
-                            <p><b>Date:</b> {{ $order->date }}</p>
-                            <p><b>Customer Name:</b> {{ $order->user->first_name }} {{ $order->user->last_name }}</p>
-                            <p><b>Email:</b> {{ $order->user->email }}</p>
+                            <p><b>{{ __('messages.Order ID') }}:</b> {{ $order->id }}</p>
+                            <p><b>{{ __('messages.Date') }}:</b> {{ $order->date }}</p>
+                            <p><b>{{ __('messages.Customer Name') }}:</b> {{ $order->user->first_name }} {{ $order->user->last_name }}</p>
+                            <p><b>{{ __('messages.Email') }}:</b> {{ $order->user->email }}</p>
                             <br>
                             <table class="popupInvoiceDetailsTable">
                                 <tr>
-                                    <th>Item</th>
-                                    <th>Type</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th>{{ __('messages.Item') }}</th>
+                                    <th>{{ __('messages.Type') }}</th>
+                                    <th>{{ __('messages.Quantity') }}</th>
+                                    <th>{{ __('messages.Price') }}</th>
                                 </tr>
                                 @foreach ($order->orderItems as $item)
                                     <tr>
@@ -190,18 +190,18 @@
                                 @endforeach
                             </table>
                             <br>
-                            <p class="popupInvoiceDetailsSubtitle"><b>Payment Information</b></p>
-                            <p><b>Method</b>: {{ $order->payment_method }}</p>
+                            <p class="popupInvoiceDetailsSubtitle"><b>{{ __('messages.Payment Information') }}</b></p>
+                            <p><b>{{ __('messages.Method') }}</b>: {{ $order->payment_method }}</p>
                             <br>
-                            <p class="popupInvoiceDetailsSubtitle"><b>Billing Information</b></p>
-                            <p><b>Billing Country:</b> {{ $order->billing_country }}</p>
-                            <p><b>Billing City:</b> {{ $order->billing_city }}</p>
-                            <p><b>Billing Address:</b> {{ $order->billing_address }}</p>
-                            <p><b>Postal Code:</b> {{ $order->billing_postal_code }}</p>
+                            <p class="popupInvoiceDetailsSubtitle"><b>{{ __('messages.Billing Information') }}</b></p>
+                            <p><b>{{ __('messages.Billing Country') }}:</b> {{ $order->billing_country }}</p>
+                            <p><b>{{ __('messages.Billing City') }}:</b> {{ $order->billing_city }}</p>
+                            <p><b>{{ __('messages.Billing Address') }}:</b> {{ $order->billing_address }}</p>
+                            <p><b>{{ __('messages.Postal Code') }}:</b> {{ $order->billing_postal_code }}</p>
                         </div>
-                        <div class="popupInvoiceDetailsButton">Close</div>
+                        <div class="popupInvoiceDetailsButton">{{ __('messages.Close') }}</div>
                     </div>
-                </div>
+                    
                 
                 @endforeach
             @endif
