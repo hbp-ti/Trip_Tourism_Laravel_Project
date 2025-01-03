@@ -3,11 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TurisGo</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="https://unpkg.com/create-file-list"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(['resources/css/dashboard.css', 'resources/css/pagination.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/dashboard.js'])
 </head>
 <body>
@@ -41,7 +43,8 @@
         <div class="right-dashboard">
             <div id="add-hotel" class="form-section" style="display: none;">
                 <h2>Add New Hotel</h2>
-                <form action="#" method="POST">
+                @csrf
+                <form action="{{ route('auth.admin.addHotel', ['locale' => app()->getLocale()]) }}" method="POST" enctype="multipart/form-data">
                     <div class="search-field">
                         <label for="name">Hotel Name</label>
                         <input type="text" placeholder="Hotel Name" required>
@@ -78,6 +81,7 @@
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
+                                <option value="5">5</option>
                             </select>
                         </div>
                         <div class="search-field">
@@ -180,7 +184,7 @@
                                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <p class="message">Click here or drag your files.</p>
+                                    <p class="message">Click here to add your files.</p>
                                 </div>
                             </div>
                             
@@ -213,43 +217,44 @@
 
             <div id="add-tour" class="form-section" style="display: none;">
                 <h2>Add New Tour</h2>
-                <form action="#" method="POST">
+                <form action="{{ route('auth.admin.addActivity', ['locale' => app()->getLocale()]) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="search-field">
                         <label for="name">Tour Name</label>
-                        <input type="text" placeholder="Tour Name" required>
+                        <input type="text" id="name" name="name" placeholder="Tour Name" required>
                     </div>
                     <div class="search-field">
                         <label for="description">Description</label>
-                        <textarea placeholder="Description" required></textarea>
+                        <textarea id="description" name="description" placeholder="Description" required></textarea>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
-                            <label for="Country">Country</label>
-                            <input type="text" placeholder="Country" required>
+                            <label for="country">Country</label>
+                            <input type="text" id="country" name="country" placeholder="Country" required>
                         </div>
                         <div class="search-field">
-                            <label for="City">City</label>
-                            <input type="text" placeholder="City" required>
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" placeholder="City" required>
                         </div>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
-                            <label for="Street">Street</label>
-                            <input type="text" placeholder="Street" required>
+                            <label for="street">Street</label>
+                            <input type="text" id="street" name="street" placeholder="Street" required>
                         </div>
                         <div class="search-field">
                             <label for="zip">Zip-Code</label>
-                            <input type="text" placeholder="zip" required>
+                            <input type="text" id="zip" name="zip" placeholder="Zip-Code" required>
                         </div>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
-                            <label for="Price">Price</label>
-                            <input type="number" placeholder="Price" required>
+                            <label for="price">Price</label>
+                            <input type="number" id="price" name="price" placeholder="Price" required>
                         </div>
                         <div class="search-field">
-                            <label for="Language">Language</label>
-                            <input type="text" placeholder="Language" required>
+                            <label for="language">Language</label>
+                            <input type="text" id="language" name="language" placeholder="Language" required>
                         </div>
                     </div>
 
@@ -257,40 +262,40 @@
                         <div class="coordinates">
                             <div class="search-field">
                                 <label for="coordinates">Coordinates</label>
-                                <input type="text" id="lat" name="lat"placeholder="Lat" required>
-                                <input type="text" id="lon" name="lon"placeholder="Lon" required>
+                                <input type="text" id="lat" name="lat" placeholder="Lat" required>
+                                <input type="text" id="lon" name="lon" placeholder="Lon" required>
                             </div>
                         </div>
                         <div class="tour-filters">
-                            <div class="search-field"><label for="Filters">Filters</label></div>
-                                <label>
+                            <div class="search-field"><label for="filters">Filters</label></div>
+                            <label>
                                 {{ __('Cancel anytime') }}
                                 <label class="switch">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="cancel_anytime" name="cancel_anytime">
                                     <span class="slider"></span>
                                 </label>
+                            </label>
+                            <label>
+                                {{ __('Reserve now pay later') }}
+                                <label class="switch">
+                                    <input type="checkbox" id="reserve_now_pay_later" name="reserve_now_pay_later">
+                                    <span class="slider"></span>
                                 </label>
-                                <label>
-                                    {{ __('Reserve now pay later') }}
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider"></span>
-                                    </label>
+                            </label>
+                            <label>
+                                {{ __('Guide') }}
+                                <label class="switch">
+                                    <input type="checkbox" id="guide" name="guide">
+                                    <span class="slider"></span>
                                 </label>
-                                <label>
-                                    {{ __('Guide') }}
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider"></span>
-                                    </label>
+                            </label>
+                            <label>
+                                {{ __('Small Groups') }}
+                                <label class="switch">
+                                    <input type="checkbox" id="small_groups" name="small_groups">
+                                    <span class="slider"></span>
                                 </label>
-                                <label>
-                                    {{ __('Small Groups') }}
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider"></span>
-                                    </label>
-                                </label>
+                            </label>
                         </div>
                     </div>
 
@@ -309,7 +314,7 @@
                                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <p class="message">Click here or drag your files.</p>
+                                    <p class="message">Click here to add your files.</p>
                                 </div>
                             </div>
                             
@@ -339,10 +344,10 @@
                 </form>
             </div>
             
-            <div id="delete-item">
+            <div id="delete-item" style="display: none;">
 
                 <div id="hotels-section" class="form-section">
-                    <h2>Delete Items</h2>
+                    <h2>Delete Hotels</h2>
 
                     <div class="table-container">
                     <table class="styled-table">
@@ -370,11 +375,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <form>
+                                    <form action="{{ route('auth.admin.removeItem', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]) }}" method="POST">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="delete-button">Delete</button>
+                                        <button type="submit" class="delete-button" data-id="{{ $hotel->id_item }}">Delete</button>
                                     </form>
+
                                 </td>
                             </tr>
                             @endforeach
@@ -409,10 +414,9 @@
                                         {{ $tour->price_hour }}€/hour
                                     </td>
                                     <td>
-                                        <form>
+                                        <form action="{{ route('auth.admin.removeItem', ['id' => $tour->id_item, 'locale' => app()->getLocale()]) }}" method="POST">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="delete-button">Delete</button>
+                                            <button type="submit" class="delete-button" data-id="{{ $tour->id_item }}">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -426,6 +430,77 @@
                 </div>
             </div>
             
+            </div>
+
+            <div id="list-admins">
+                <div id="admins" class="form-section">
+                    <h2>Admins</h2>
+                    <div class="table-container">
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($admins as $admin)
+                                    <tr>
+                                        <td class="user-image">
+                                            <div class="image-container">
+                                                <img src="{{ file_exists(public_path('storage/' . $admin->image)) ? asset('storage/' . $admin->image) : asset('images/default_user_image.png') }}" alt="{{ $admin->first_name }}">
+                                            </div>
+                                        </td>
+                                        <td>{{ $admin->first_name }} {{ $admin->last_name }}</td>
+                                        <td>{{ $admin->username }}</td>
+                                        <td>{{ $admin->email }}</td>
+                                        <td>Admin</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="users" class="form-section">
+                    <h2>Users</h2>
+                    <div class="table-container">
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td class="user-image">
+                                            <div class="image-container">
+                                                <img src="{{ file_exists(public_path('storage/' . $user->image)) ? asset('storage/' . $user->image) : asset('images/default_user_image.png') }}" alt="{{ $user->first_name }}">
+                                            </div>
+                                        </td>
+                                        <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>
+                                            <form action="{{ route('auth.admin.promoteToAdmin', ['id' => $user->id, 'locale' => app()->getLocale()]) }}" method="POST" id="promote-form-{{ $user->id }}">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary" id="promote-button-{{ $user->id }}">Promote</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

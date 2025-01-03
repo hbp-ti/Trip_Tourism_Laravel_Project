@@ -7,6 +7,8 @@
     "require": {
         "php": "^8.2",
         "barryvdh/laravel-dompdf": "^3.0",
+        "cloudinary-labs/cloudinary-laravel": "^2.2",
+        "cloudinary/cloudinary_php": "^2.14",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9"
     },
