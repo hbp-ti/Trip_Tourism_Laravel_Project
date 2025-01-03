@@ -21,14 +21,14 @@ $(document).on('click', '.load-more', function(e) {
   e.preventDefault();
 
   // Obter os parâmetros de pesquisa (location, checkin, checkout, people)
-  var location = $('select[name="location"]').val();
-  var checkin = $('input[name="checkin"]').val();
-  var checkout = $('input[name="checkout"]').val();
-  var people = $('select[name="people"]').val();
-  var sortBy = $('select[name="sort_by"]').val(); // Caso haja um campo para ordenação
+  let location = $('select[name="location"]').val();
+  let checkin = $('input[name="checkin"]').val();
+  let checkout = $('input[name="checkout"]').val();
+  let people = $('select[name="people"]').val();
+  let sortBy = $('select[name="sort_by"]').val(); // Caso haja um campo para ordenação
 
   // Construir a URL com os parâmetros de pesquisa
-  var url = new URL($(this).attr('href'));
+  let url = new URL($(this).attr('href'));
   url.searchParams.set('location', location || '');
   url.searchParams.set('checkin', checkin || '');
   url.searchParams.set('checkout', checkout || '');
