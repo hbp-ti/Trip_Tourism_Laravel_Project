@@ -212,3 +212,21 @@ label {
 .confirm button {
     order: 2;
 }
+
+html, body {
+    height: 100%; /* Garantir que o body ocupe 100% da altura da tela */
+    margin: 0; /* Remover qualquer margem padrão do navegador */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Organiza os itens na vertical */
+}
+
+main {
+    flex: 1; /* Faz o conteúdo principal ocupar o espaço restante */
+}
+
+footer {
+    margin-top: auto; /* Faz o footer "empurrar" para o fim da página */
+}
