@@ -1,8 +1,10 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    //getWeather();    
+
     const toggleButton = document.getElementById("toggleFilters");
     const filtersContainer = document.getElementById("filtersContainer");
 
-    toggleButton.addEventListener("click", function() {
+    toggleButton.addEventListener("click", function () {
         // Alterna a classe "hidden" (se estiver, remove; se não estiver, adiciona)
         filtersContainer.classList.toggle("hidden");
 
@@ -14,9 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
             toggleButton.textContent = "Hide Filters";
         }
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
     const buttons = document.querySelectorAll(".transport-button");
 
     buttons.forEach(button => {
@@ -27,9 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
             button.classList.add("active");
         });
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
     const carButton = document.getElementById("carButton");
     const trainButton = document.getElementById("trainButton");
     const walkButton = document.getElementById("walkButton");

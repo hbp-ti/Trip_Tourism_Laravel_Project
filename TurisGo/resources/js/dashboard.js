@@ -35,6 +35,20 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+        // Adiciona os valores dos checkboxes de filtros para o hotel
+        const hotelCheckboxes = ['non_smoking_rooms', 'free_wifi', 'parking', 'gym', 'pool', 'refundable_reservations', 'hotel_restaurant', 'bar'];
+        hotelCheckboxes.forEach(id => {
+            const checkbox = document.querySelector(`input[name='${id}']`);
+            formData.append(id, checkbox.checked ? true : false); // Se marcado, envia true, caso contrário, envia false
+        });
+
+        // Adiciona os valores dos checkboxes para os quartos
+        const rooms = document.querySelectorAll('.room-item');
+        rooms.forEach((room, index) => {
+            const availableCheckbox = room.querySelector(`input[name='rooms[${index}][available]']`);
+            formData.append(`rooms[${index}][available]`, availableCheckbox.checked ? true : false); // Se marcado, envia true
+        });
+
         // Envia os dados para o controlador usando fetch
         fetch(addHotelForm.action, {
             method: "POST",
@@ -43,42 +57,50 @@ document.addEventListener("DOMContentLoaded", () => {
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
             },
         })
-        .then(response => {
-            console.log(response); // Verifica a resposta para depuração
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                Swal.fire('Success!', 'Hotel added successfully!', 'success');
-                addHotelForm.reset();
-            } else {
-                Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire('Error', 'An error occurred. Please try again.', 'error');
-        });        
+            .then(response => {
+                console.log(response); // Verifica a resposta para depuração
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('Success!', 'Hotel added successfully!', 'success');
+                    addHotelForm.reset();
+                } else {
+                    Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Error', 'An error occurred. Please try again.', 'error');
+            });
     });
+
 
     addTourForm.addEventListener("submit", function (event) {
         event.preventDefault(); // Impede o envio padrão do formulário
-    
+
         const formData = new FormData(addTourForm); // Captura os dados do formulário
-    
+
         // Adiciona arquivos ao FormData, caso existam
         if (tourFileInput.files.length > 0) {
             Array.from(tourFileInput.files).forEach(file => {
                 formData.append("tour_images[]", file); // Adiciona os arquivos ao FormData
             });
         }
-    
+
+        // Verifica o estado dos checkboxes e adiciona ao FormData
+        const filterCheckboxes = ['cancel_anytime', 'reserve_now_pay_later', 'guide', 'small_groups'];
+        filterCheckboxes.forEach(id => {
+            const checkbox = document.getElementById(id);
+            formData.append(id, checkbox.checked ? true : false); // Se marcado, envia true, caso contrário, envia false
+        });
+
         // Imprime os dados enviados para o controlador
         console.log("Dados enviados para o controlador:");
         for (let pair of formData.entries()) {
             console.log(pair[0], pair[1]);
         }
-    
+
         // Envia os dados ao controlador
         fetch(addTourForm.action, {
             method: "POST",
@@ -87,20 +109,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
             },
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire('Success!', 'Tour added successfully!', 'success');
-                addTourForm.reset();
-            } else {
-                Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire('Error', 'An error occurred. Please try again.', 'error');
-        });
-    });       
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('Success!', 'Tour added successfully!', 'success');
+                    addTourForm.reset();
+                } else {
+                    Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Error', 'An error occurred. Please try again.', 'error');
+            });
+    });
+
 
 
     // Evento de paginação para hotéis
@@ -168,14 +191,38 @@ document.addEventListener("DOMContentLoaded", () => {
                     e.preventDefault();
                     const itemId = button.getAttribute("data-id");
 
-                    if (confirm("Tem certeza que deseja deletar este item?")) {
-                        deleteItemFromServer(itemId).then(() => {
-                            button.closest("tr").remove(); // Remove a linha da tabela
-                        }).catch((error) => {
-                            console.error("Erro ao deletar item:", error);
-                            alert("Não foi possível deletar o item.");
-                        });
-                    }
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Do you really want to delete this item?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'Cancel',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            deleteItemFromServer(itemId).then(() => {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Item Removed',
+                                    text: 'The item has been successfully removed!',
+                                    confirmButtonText: 'OK',
+                                });
+
+                                button.closest("tr").remove(); // Remove a linha da tabela
+                            }).catch((error) => {
+                                console.error("Error deleting item:", error);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: 'Unable to delete the item. Please try again later.',
+                                    confirmButtonText: 'OK',
+                                });
+                            });
+                        }
+                    });
+
                 });
             });
         }
@@ -183,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Função para enviar o pedido de delete ao servidor
     function deleteItemFromServer(itemId) {
-        return fetch(`/admin/removeItem/${itemId}`, {
+        return fetch(`/en/auth/admin/removeItem/${itemId}`, {
             method: "POST", // Post porque a rota Laravel está usando POST
             headers: {
                 "Content-Type": "application/json",
@@ -201,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault(); // Impede o envio do formulário imediatamente
             const userId = button.id.replace('promote-button-', ''); // Obtém o ID do usuário a partir do ID do botão
             const form = document.getElementById(`promote-form-${userId}`); // Seleciona o formulário correspondente
-            
+
             // Exibe o SweetAlert de confirmação
             Swal.fire({
                 title: 'Are you sure?',
@@ -214,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (result.isConfirmed) {
                     // Se o usuário confirmar, submete o formulário
                     form.submit();
-                    
+
                     // Exibe o SweetAlert de sucesso
                     Swal.fire(
                         'Success!',

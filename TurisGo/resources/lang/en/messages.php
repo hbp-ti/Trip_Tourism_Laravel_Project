@@ -331,5 +331,17 @@ return [
     'Invoices' => 'Invoices',
     'Proceed to Payment' => 'Proceed to Payment',
     'No active orders at the moment.' => 'No active orders at the moment.',
+    'Order ID' => 'Order ID',
+    'Customer Name' => 'Customer Name',
+    'Item' => 'Item',
+    'Quantity' => 'Quantity',
+    'Payment Information' => 'Payment Information',
+    'Method' => 'Method',
+    'Billing Country' => 'Billing Country',
+    'Billing City' => 'Billing City',
+    'Billing Address' => 'Billing Address',
+    'Postal Code' => 'Postal Code',
+    'Error' => 'Error',
+    'Page not found' => 'Page not found',
 ];
 
