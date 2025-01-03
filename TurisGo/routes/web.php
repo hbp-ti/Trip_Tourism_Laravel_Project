@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/notification/delete-all', [NotificationController::class, 'deleteAllNotifications'])->name('delete.notifications');
 });
 
+Route::get('reset/{token}/{email}', [AuthController::class, 'showResetForm'])->name('reset.form');
 
 Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () {
 
@@ -38,7 +39,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('forgot', [AuthController::class, 'showForgotForm'])->name('forgot.form');
         Route::post('forgot', [AuthController::class, 'sendResetLink'])->name('forgot.submit');
-        Route::get('reset/{token}/{email}', [AuthController::class, 'showResetForm'])->name('reset.form');
+
         Route::post('reset', [AuthController::class, 'resetPassword'])->name('reset.submit');
         Route::middleware('auth.redirect')->group(function () {
             Route::get('/orderDetail', [OrderController::class, 'getOrderDetail'])->name('orderDetail');
@@ -100,5 +101,4 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
 
     // Buscar jornadas
     Route::post('/search-journeys', [TrainController::class, 'journeys'])->name('search.journeys');
-
 });
