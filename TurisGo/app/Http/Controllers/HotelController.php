@@ -8,97 +8,131 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\PopupHelper;
 use App\Models\OrderItem;
+use App\Models\Room;
 use Illuminate\Support\Facades\DB;
 
 
 class HotelController extends Controller
 {
     public function showHotels(Request $request)
-    {
-        // Recupera os parâmetros enviados pelo POST
-        $location = $request->input('location', 'All');
-        $checkin = $request->input('checkin');
-        $checkout = $request->input('checkout');
-        $people = $request->input('people', 1); // Valor padrão para 'people' é 1
+{
+    // Recupera os parâmetros enviados pelo POST
+    $location = $request->input('location', 'All');
+    $checkin = $request->input('checkin');
+    $checkout = $request->input('checkout');
+    $people = $request->input('people', 1); // Valor padrão para 'people' é 1
 
-        // Definindo as opções de ordenação
-        $sortBy = $request->input('sort_by', 'price_asc');
-        $sortOptions = [
-            'price_asc' => ['min_price', 'asc'],
-            'price_desc' => ['min_price', 'desc'],
-            'alphabetical' => ['hotels.name', 'asc'],
+    // Definindo as opções de ordenação
+    $sortBy = $request->input('sort_by', 'price_asc');
+    $sortOptions = [
+        'price_asc' => ['min_price', 'asc'],
+        'price_desc' => ['min_price', 'desc'],
+        'alphabetical' => ['hotels.name', 'asc'],
+    ];
+    $sort = $sortOptions[$sortBy] ?? $sortOptions['price_asc'];
+
+    // Inicia a query para buscar os hotéis
+    $query = Hotel::query()
+        ->with(['item.images', 'rooms'])
+        ->select('hotels.*')
+        ->selectRaw('COALESCE((
+            SELECT MIN(price_night)
+            FROM rooms
+            WHERE rooms.hotel_id = hotels.id_item
+            ), 0) as min_price');
+
+    // Aplica o filtro de localização, se fornecido e não for "All"
+    if ($location && $location !== 'All') {
+        $query->where('city', $location);
+    }
+
+    // Filtro de Faixa de Preço - Usando os preços dos quartos da tabela 'rooms'
+    if ($request->has('price_range') && !empty($request->price_range)) {
+        $priceRange = explode('-', $request->price_range);
+        if (count($priceRange) === 2 && is_numeric($priceRange[0]) && is_numeric($priceRange[1])) {
+            // Filtra pelo menor preço da room associada ao hotel
+            $query->whereHas('rooms', function ($query) use ($priceRange) {
+                $query->selectRaw('MIN(price_night) as min_price')
+                      ->whereBetween('price_night', [$priceRange[0], $priceRange[1]])
+                      ->groupBy('rooms.hotel_id');
+            });
+        }
+    }
+
+    // Filtro de Estrelas do Hotel
+    if ($request->has('stars') && is_numeric($request->stars)) {
+        $query->where('stars', $request->stars);
+    }
+
+    // Filtro de Avaliação dos Hóspedes
+    if ($request->has('guest_ratings') && !empty($request->guest_ratings)) {
+        $ratingsRange = explode('-', $request->guest_ratings);
+        if (count($ratingsRange) === 2 && is_numeric($ratingsRange[0]) && is_numeric($ratingsRange[1])) {
+            $query->whereBetween('average_guest_rating', [$ratingsRange[0], $ratingsRange[1]]);
+        }
+    }
+
+    // Filtro de Comodidades e Serviços (com tratamento para valores booleanos)
+    $amenities = [
+        'breakfast' => 'breakfast_included',
+        'free_wifi' => 'free_wifi',
+        'parking' => 'parking',
+        'gym' => 'gym',
+        'pool' => 'pool',
+        'spa' => 'spa_and_wellness',
+        'restaurant' => 'hotel_restaurant',
+        'bar' => 'bar',
+        'non_smoking_rooms' => 'non_smoking_rooms',
+    ];
+
+    foreach ($amenities as $input => $column) {
+        if ($request->has($input)) {
+            $value = (bool) $request->$input;  // Converte para booleano
+            $query->where($column, $value);
+        }
+    }
+
+    // Filtro de Política de Cancelamento
+    if ($request->has('free_cancellation') && $request->free_cancellation) {
+        $query->where('free_cancellation', true);
+    }
+    if ($request->has('refundable_reservations') && $request->refundable_reservations) {
+        $query->where('refundable_reservations', true);
+    }
+
+    // Ordena conforme a opção de ordenação selecionada
+    $hotels = $query->orderBy($sort[0], $sort[1])
+        ->paginate(5)
+        ->appends($request->query()); // Preserva os parâmetros da URL na paginação
+
+    // Obter todas as cidades distintas
+    $cities = Hotel::distinct()->pluck('city');
+
+    // Passar as coordenadas dos hotéis para a view
+    $hotelCoordinates = Hotel::all()->map(function ($hotel) {
+        return [
+            'id' => $hotel->id_item,
+            'name' => $hotel->name,
+            'latitude' => $hotel->lat,
+            'longitude' => $hotel->lon,
+            'url' => route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]),
         ];
-        $sort = $sortOptions[$sortBy] ?? $sortOptions['price_asc'];
+    });
 
-        // Inicia a query para buscar os hotéis
-        $query = Hotel::query()
-            ->with(['item.images', 'rooms'])
-            ->select('hotels.*')
-            ->selectRaw('COALESCE((SELECT MIN(price_night) FROM rooms WHERE rooms.hotel_id = hotels.id_item), 0) as min_price');
-
-        // Aplica o filtro de localização, se fornecido e não for "All"
-        if ($location && $location !== 'All') {
-            $query->where('city', $location);
-        }
-
-        // Ordena conforme a opção de ordenação selecionada
-        $hotels = $query->orderBy($sort[0], $sort[1])
-            ->paginate(5)
-            ->appends($request->query()); // Preserva os parâmetros da URL na paginação
-
-        // Obter todas as cidades distintas
-        $cities = Hotel::distinct()->pluck('city');
-
-        // Passar as coordenadas dos hotéis para a view
-        $hotelCoordinates = Hotel::all()->map(function ($hotel) {
-            return [
-                'id' => $hotel->id_item,
-                'name' => $hotel->name,
-                'latitude' => $hotel->lat,
-                'longitude' => $hotel->lon,
-                'url' => route('hotel.hotel', ['locale' => app()->getLocale(), 'id' => $hotel->id_item]),
-            ];
-        });
-
-        // Verifica se a requisição é via AJAX
-        if ($request->ajax()) {
-            // Retorna apenas os hotéis paginados em formato JSON
-            return response()->json([
-                'html' => view('hotels._hotel_list', compact('hotels'))->render(),
-                'next_page' => $hotels->nextPageUrl(),
-            ]);
-        }
-
-        // Caso contrário, retorna a view completa
-        return view('hotels.hotels', compact('hotels', 'cities', 'hotelCoordinates', 'location', 'checkin', 'checkout', 'people', 'sortBy'));
+    // Verifica se a requisição é via AJAX
+    if ($request->ajax()) {
+        // Retorna apenas os hotéis paginados em formato JSON
+        return response()->json([
+            'html' => view('hotels._hotel_list', compact('hotels'))->render(),
+            'next_page' => $hotels->nextPageUrl(),
+        ]);
     }
-    
 
-    public function filterHotels(Request $request)
-    {
-        $query = Hotel::query();
+    // Caso contrário, retorna a view completa
+    return view('hotels.hotels', compact('hotels', 'cities', 'hotelCoordinates', 'location', 'checkin', 'checkout', 'people', 'sortBy'));
+}
 
-        if ($request->has('price_range')) {
-            $priceRange = explode('-', $request->price_range);
-            $query->whereBetween('price', $priceRange);
-        }
 
-        if ($request->has('stars')) {
-            $query->where('stars', $request->stars);
-        }
-
-        if ($request->has('location') && $request->location != '') {
-            $query->where('city', $request->location);
-        }
-
-        // Adicione outros filtros aqui
-
-        // Carregar hotéis com imagens associadas ao item
-        $hotels = $query->with(['item.images']) // Incluindo as imagens do item
-            ->get();
-
-        return view('hotels.hotels', compact('hotels'));
-    }
 
     public function showHotelDetails(Request $request)
     {

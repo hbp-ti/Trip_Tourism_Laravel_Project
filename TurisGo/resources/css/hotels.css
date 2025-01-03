@@ -502,3 +502,20 @@ select {
     text-align: center;
 }
 
+.button-apply-filters {
+    padding: 10px 20px;
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2081A5;
+    color: white;
+    cursor: pointer;
+    transition: 0.43s all;
+    position: relative;
+    z-index: 2;
+}
+
+.button-apply-filters:hover {
+    background-color: #207391;
+}
