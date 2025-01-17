@@ -343,4 +343,5 @@ return [
     'Postal Code' => 'Código Postal',
     'Error' => 'Erro',
     'Page not found' => 'Página não encontrada',
+    'All' => 'Todos',
 ];

@@ -6,7 +6,7 @@ window.translate = translate;
 
 const loadTranslations = async (locale) => {
     try {
-        const response = await fetch(`/lang/${locale}.json`);
+        const response = await fetch(appUrl + `/lang/${locale}.json`);
         if (!response.ok) throw new Error('Falha ao carregar as traduções.');
         return await response.json();
     } catch (error) {

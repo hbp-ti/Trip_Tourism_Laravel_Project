@@ -579,6 +579,8 @@
     <x-footer />
 
     <script>
+	const appUrl = "{{ config('app.url') }}";
+
         function dataFileDnD() {
             return {
                 files: [],

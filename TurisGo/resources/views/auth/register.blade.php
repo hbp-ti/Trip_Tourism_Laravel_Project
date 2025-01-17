@@ -96,7 +96,9 @@
             </div>
         </div>
     </div>
-
+	<script>
+	const appUrl = "{{ config('app.url') }}";
+	</script>
 </body>
 
 </html>

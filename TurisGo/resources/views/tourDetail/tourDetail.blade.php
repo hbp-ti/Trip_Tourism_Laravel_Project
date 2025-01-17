@@ -260,6 +260,8 @@
 
     <!-- Script para inicializar e controlar o mapa Leaflet -->
     <script>
+	const appUrl = "{{ config('app.url') }}";
+
         // Função de distância (Haversine) para encontrar estação mais próxima
         function haversineDist(lat1, lon1, lat2, lon2) {
             const R = 6371e3; // Raio médio da Terra em metros

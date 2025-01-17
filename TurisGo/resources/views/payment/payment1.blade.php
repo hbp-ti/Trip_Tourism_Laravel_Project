@@ -108,6 +108,8 @@
     <x-footer/>
 
     <script>
+	const appUrl = "{{ config('app.url') }}";
+	
         function selectPaymentMethod(method) {
             document.getElementById('payment_method').value = method;
         }

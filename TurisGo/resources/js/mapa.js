@@ -1,15 +1,17 @@
 // Inicializar o mapa
+//console.log(appUrl);
+
 const map = L.map('map').setView([40.641, -8.653], 13); // Coordenadas iniciais (Aveiro)
 
 const hotelIcon = L.icon({
-    iconUrl: '/images/hotelMarkerMap.png',
+    iconUrl: appUrl + '/images/hotelMarkerMap.png',
     iconSize: [41, 41], // Tamanho do ícone
     iconAnchor: [12, 41], // Posição do ponto de ancoragem
     popupAnchor: [1, -34] // Posição do popup
 });
 
 const tourIcon = L.icon({
-    iconUrl: '/images/tourMarkerMap.png',
+    iconUrl: appUrl + '/images/tourMarkerMap.png',
     iconSize: [41, 41], // Tamanho do ícone
     iconAnchor: [12, 41], // Posição do ponto de ancoragem
     popupAnchor: [1, -34] // Posição do popup

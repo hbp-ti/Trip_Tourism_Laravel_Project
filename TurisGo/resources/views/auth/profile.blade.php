@@ -520,6 +520,9 @@
 
 
     <x-footer /> <!-- Componente de Rodapé -->
+	<script>
+	const appUrl = "{{ config('app.url') }}";
+	</script>
 </body>
 
 </html>
