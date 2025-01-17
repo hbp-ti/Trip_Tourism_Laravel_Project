@@ -26,11 +26,11 @@
 
             <div class="content-box">
                 @if ($paymentMethod === 'mbway')
-                    <img class="overview-logo" src="/images/mbway.png" alt="{{ __('messages.MB Way') }}">
+                    <img class="overview-logo" src="{{ asset('images/mbway.png') }}" alt="{{ __('messages.MB Way') }}">
                 @elseif ($paymentMethod === 'multibanco')
-                    <img class="overview-logo" src="/images/multibanco.png" alt="{{ __('messages.Multibanco') }}">
+                    <img class="overview-logo" src="{{ asset('images/multibanco.png') }}" alt="{{ __('messages.Multibanco') }}">
                 @elseif ($paymentMethod === 'paypal')
-                    <img class="overview-logo" src="/images/paypal.png" alt="{{ __('messages.PayPal') }}">
+                    <img class="overview-logo" src="{{ asset('images/paypal.png') }}" alt="{{ __('messages.PayPal') }}">
                 @endif
 
                 @if ($paymentMethod === 'mbway')
@@ -79,18 +79,13 @@
                 @elseif($paymentMethod == 'paypal')
                     <div class="payment-details">
                         <div class="payment-item">
-                            <span class="label">{{ __('messages.Paypal') }}</span>
-                            <button type="button" class="buttonChange"
-                                onclick="openPopup('https://www.paypal.com/signin', 'PayPal Login', 800, 600)">
-                                {{ __('messages.PayPal') }}
-                            </button>
-
+                            <a type="button" class="button buttonPayPal">{{ __('messages.Pay with PayPal') }}</a>
                         </div>
                     </div>
                 @endif
 
                 <p class="info">
-                    <img src="/images/carepayment3.png" alt="{{ __('messages.Info Icon') }}" class="info-icon">
+                    <img src="{{ asset('images/carepayment3.png') }}" alt="{{ __('messages.Info Icon') }}" class="info-icon">
                     {{ __('messages.The receipt issued by the ATM serves as proof of payment. Please keep it for your records.') }}
                 </p>
 

@@ -41,7 +41,7 @@
                         <div class="info-title">{{ __('messages.Total Price') }}</div>
                         <div class="info-value">{{ $cart->total }}€</div>
                     </div>
-                    <img src="/images/payment2log.png" alt="Payment Logo" class="payment-logo">
+                    <img src="{{ asset('images/payment2log.png') }}" alt="Payment Logo" class="payment-logo">
                 </div>
                 <div class="reviewInformationLower">
                     @foreach ($cartItems as $it)
@@ -97,11 +97,11 @@
             <div class="selectedPaymentMethod">
                 @if ($paymentMethod)
                     @if ($paymentMethod == 'mbway')
-                        <img src="/images/mbway.png" alt="{{ __('messages.Multibanco') }}">
+                        <img src="{{ asset('images/mbway.png') }}" alt="{{ __('messages.MB Way') }}">
                     @elseif ($paymentMethod == 'paypal')
-                        <img src="/images/paypal.png" alt="{{ __('messages.Multibanco') }}">
+                        <img src="{{ asset('images/paypal.png') }}" alt="{{ __('messages.PayPal') }}">
                     @elseif ($paymentMethod == 'multibanco')
-                        <img src="/images/multibanco.png" alt="{{ __('messages.Multibanco') }}">
+                        <img src="{{ asset('images/multibanco.png') }}" alt="{{ __('messages.Multibanco') }}">
                     @endif
                 @endif
                 <form action="{{ route('auth.payment', ['locale' => app()->getLocale()]) }}" method="POST"

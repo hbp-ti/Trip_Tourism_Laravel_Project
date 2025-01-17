@@ -132,7 +132,7 @@
             @else
                 @foreach ($orders as $order)
                 <div class="reservation-item">
-                    <img src="{{ $order->image_url ?? asset('images/defaultOrder.png') }}" alt="Order {{ $order->id }}">
+                    <img src="{{ $order->image_url ?? asset('images/defaultOrder.jpg') }}" alt="Order {{ $order->id }}">
                     <div class="reservation-info">
                         <div>
                             <!-- Icone e data -->

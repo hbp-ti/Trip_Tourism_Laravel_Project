@@ -42,8 +42,12 @@ $(document).ready(function () {
             });
         }
     });
+        
+    $(document).on('click', '.buttonPayPal', function () {
+        openPopup('https://www.paypal.com/signin', 'PayPal Login', 800, 600);
+    });
 });
 
-document.querySelector('input[type="number"]').addEventListener('input', function (e) {
-    this.value = this.value.replace(/[^0-9]/g, ''); // Remove caracteres não numéricos
-});
+// document.querySelector('input[type="number"]').addEventListener('input', function (e) {
+//     this.value = this.value.replace(/[^0-9]/g, ''); // Remove caracteres não numéricos
+// });
