@@ -25,7 +25,7 @@
     <section class="cart-content">
         <div class="shopping-cart">
             <h2>{{ __('messages.Shopping Cart') }}</h2>
-
+        
             <div class="cart-items">
                 @foreach ($cartItems as $cartItem)
                     @if ($cartItem->details->type === 'Hotel')
