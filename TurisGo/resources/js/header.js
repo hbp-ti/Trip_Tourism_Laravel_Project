@@ -151,7 +151,7 @@ document.querySelectorAll('.toggle-button').forEach(button => {
 
 $(document).ready(function () {
     const notificationsUrl = appUrl + "/notifications";
-    console.log(appUrl);
+    //console.log(appUrl);
     const notificationUrl = appUrl + "/notification";
     const $toastAccordion = $('#toast-accordion');
 
