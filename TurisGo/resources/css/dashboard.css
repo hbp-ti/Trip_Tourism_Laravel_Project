@@ -594,7 +594,7 @@ input[type="checkbox"]:checked + .slider:before {
 
 /* Estilo para o Botão "Add Another Room" */
 #add-room-btn {
-    background-color: #007BFF; /* Cor de fundo azul */
+    background-color: #C76A37; /* Cor de fundo azul */
     color: white; /* Cor do texto */
     border: none;
     padding: 10px 20px;
@@ -605,15 +605,11 @@ input[type="checkbox"]:checked + .slider:before {
 }
 
 #add-room-btn:hover {
-    background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+    background-color: #b7531d; /* Cor de fundo ao passar o mouse */
 }
 
 #add-room-btn:focus {
     outline: none; /* Remove o contorno ao clicar */
-}
-
-#add-room-btn:active {
-    background-color: #004085; /* Cor de fundo ao clicar */
 }
 
 /* Estilo para os campos dentro da seção de quartos */
