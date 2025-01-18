@@ -34,13 +34,13 @@
                 <!-- Payment Methods -->    
                 <div class="payment-methods">
                     <div class="method" id="mbway" >
-                        <img class="mbway" src="/images/mbway.png" alt="{{ __('messages.MB Way') }}">
+                        <img class="mbway" src="{{ asset('images/mbway.png') }}" alt="{{ __('messages.MB Way') }}">
                     </div>
                     <div class="method" id="multibanco">
-                        <img class="multibanco" src="/images/multibanco.png" alt="{{ __('messages.Multibanco') }}">
+                        <img class="multibanco" src="{{ asset('images/multibanco.png') }}" alt="{{ __('messages.Multibanco') }}">
                     </div>
                     <div class="method" id="paypal">
-                        <img class="paypal" src="/images/paypal.png" alt="{{ __('messages.PayPal') }}">
+                        <img class="paypal" src="{{ asset('images/paypal.png') }}" alt="{{ __('messages.PayPal') }}">
                     </div>
                 </div>
 
@@ -108,6 +108,8 @@
     <x-footer/>
 
     <script>
+	const appUrl = "{{ config('app.url') }}";
+	
         function selectPaymentMethod(method) {
             document.getElementById('payment_method').value = method;
         }

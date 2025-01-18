@@ -26,56 +26,56 @@
         <div class="left-dashboard-options">
             <h2 class="dashboard-title">
                 <div class="icon">
-                    <img src="{{ asset('images/dashboard_icon_orange.png') }}" alt="dashboard">
+                    <img src="{{ asset('images/dashboard_icon_orange.png') }}" alt="{{ __('messages.Dashboard') }}">
                 </div>
-                Dashboard
+                {{ __('messages.Dashboard') }}
             </h2>
             <div class="left-dashboard">
                 <ul>
                     <li><a href="#" id="add-hotel-link"><img src="{{ asset('images/addHotel_icon.png') }} "
-                                alt="Add Hotel">Add Hotel</a></li>
+                                alt="{{ __('messages.Add Hotel') }}">{{ __('messages.Add Hotel') }}</a></li>
                     <li><a href="#" id="add-tour-link"><img src="{{ asset('images/addTour_icon.png') }} "
-                                alt="Add Tour">Add Tour</a></li>
+                                alt="{{ __('messages.Add Tour') }}">{{ __('messages.Add Tour') }}</a></li>
                     <li><a href="#" id="delete-item-link"><img src="{{ asset('images/deleteItem_icon.png') }} "
-                                alt="Delete Item">Delete Item</a></li>
+                                alt={{ __('messages.Delete Item') }}>{{ __('messages.Delete Item') }}</a></li>
                     <li><a href="#" id="admin-link"><img src="{{ asset('images/admin_icon.png') }} "
-                                alt="Manage Admins">List Admins</a></li>
+                                alt="{{ __('messages.List Admins') }}">List Admins</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="right-dashboard">
             <div id="add-hotel" class="form-section" style="display: none;">
-                <h2>Add New Hotel</h2>
+                <h2>{{ __('messages.Add New Hotel') }}</h2>
                 @csrf
                 <form action="{{ route('auth.admin.addHotel', ['locale' => app()->getLocale()]) }}" method="POST"
                     enctype="multipart/form-data">
                     <div class="search-field">
-                        <label for="name">Hotel Name</label>
-                        <input type="text" placeholder="Hotel Name" name="name" required>
+                        <label for="name">{{ __('messages.Hotel Hotel') }}</label>
+                        <input type="text" placeholder="{{ __('messages.Hotel Name') }}" name="name" required>
                     </div>
                     <div class="search-field">
-                        <label for="description">Description</label>
-                        <textarea placeholder="Description" name="description" required></textarea>
+                        <label for="description">{{ __('messages.Description') }}</label>
+                        <textarea placeholder="{{ __('messages.Description') }}" name="description" required></textarea>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
-                            <label for="Country">Country</label>
-                            <input type="text" name="country" placeholder="Country" required>
+                            <label for="Country">{{ __('messages.Country') }}</label>
+                            <input type="text" name="country" placeholder="{{ __('messages.Country') }}" required>
                         </div>
                         <div class="search-field">
-                            <label for="City">City</label>
-                            <input type="text" name="city" placeholder="City" required>
+                            <label for="City">{{ __('messages.City') }}</label>
+                            <input type="text" name="city" placeholder="{{ __('messages.City') }}" required>
                         </div>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
-                            <label for="Street">Street</label>
-                            <input type="text" name="street" placeholder="Street" required>
+                            <label for="Street">{{ __('messages.Street') }}</label>
+                            <input type="text" name="street" placeholder="{{ __('messages.Street') }}" required>
                         </div>
                         <div class="search-field">
-                            <label for="zip">Zip-Code</label>
-                            <input type="text" name="zip_code" placeholder="Zip" required>
+                            <label for="zip">{{ __('messages.ZIP Code') }}</label>
+                            <input type="text" name="zip_code" placeholder="{{ __('messages.ZIP Code') }}" required>
                         </div>
                     </div>
                     <div class="flex-container">
@@ -90,26 +90,26 @@
                             </select>
                         </div>
                         <div class="search-field">
-                            <label for="Price">Price</label>
-                            <input type="number" placeholder="Price" required>
+                            <label for="Price">{{ __('messages.Price') }}</label>
+                            <input type="number" placeholder="{{ __('messages.Price') }}" required>
                         </div>
                     </div>
                     <div class="search-field">
-                        <label for="rating">Guest Rating</label>
+                        <label for="rating">{{ __('messages.Guest Rating') }}</label>
                         <input type="number" id="rating" name="average_guest_rating" min="1" max="5" step="0.5"
-                            placeholder="Guest Rating" required>
+                            placeholder="{{ __('messages.Guest Rating') }}" required>
                     </div>
 
                     <div class="flex-container bottom">
                         <div class="coordinates">
                             <div class="search-field">
-                                <label for="coordinates">Coordinates</label>
-                                <input type="text" id="lat" name="lat" placeholder="Lat" required>
-                                <input type="text" id="lon" name="lon" placeholder="Lon" required>
+                                <label for="coordinates">{{ __('messages.Coordinates') }}</label>
+                                <input type="text" id="lat" name="lat" placeholder="{{ __('messages.Latitude') }}" required>
+                                <input type="text" id="lon" name="lon" placeholder="{{ __('messages.Longitude') }}" required>
                             </div>
                         </div>
                         <div class="hotel-filters">
-                            <div class="search-field"><label for="Filters">Filters</label></div>
+                            <div class="search-field"><label for="Filters">{{ __('messages.Filters') }}</label></div>
 
                             <div class="hotel-filters-top">                                
                                 <label>
@@ -177,7 +177,7 @@
 
                     <!-- Drag and Drop Upload Section -->
                     <div class="search-field images">
-                        <label for="hotel-images">Upload Hotel Images</label>
+                        <label for="hotel-images">{{ __('messages.Upload Hotel Images') }}</label>
                         <div x-data="dataFileDnD()" class="file-upload-area">
                             <div x-ref="dnd" class="drop-area" @click="$refs.fileInput.click()">
                                 <input accept="*" type="file" multiple class="file-input"
@@ -191,7 +191,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <p class="message">Click here to add your files.</p>
+                                    <p class="message">{{ __('messages.Click here to add your files.') }}</p>
                                 </div>
                             </div>
 
@@ -219,31 +219,31 @@
                     </div>
 
                     <div class="rooms-section">
-                        <h3>Rooms</h3>
+                        <h3>{{ __('messages.Rooms') }}</h3>
                         <div id="room-container">
                             <!-- Room 1 (Preenchido inicialmente) -->
                             <div class="room-item">
-                                <h4>Room 1</h4>
+                                <h4>{{ __('messages.Room 1') }}</h4>
                                 <div class="search-field">
-                                    <label for="room_type">Room Type</label>
-                                    <input type="text" name="rooms[0][type]" placeholder="Room Type" required>
+                                    <label for="room_type">{{ __('messages.Room Type') }}</label>
+                                    <input type="text" name="rooms[0][type]" placeholder="{{ __('messages.Room Type') }}" required>
                                 </div>
                                 <div class="search-field">
-                                    <label for="bed_type">Bed Type</label>
-                                    <input type="text" name="rooms[0][bed_type]" placeholder="Bed Type" required>
+                                    <label for="bed_type">{{ __('messages.Bed Type') }}</label>
+                                    <input type="text" name="rooms[0][bed_type]" placeholder="{{ __('messages.Bed Type') }}" required>
                                 </div>
                                 <div class="search-field">
-                                    <label for="bed_count">Bed Count</label>
-                                    <input type="number" name="rooms[0][bed_count]" placeholder="Number of Beds"
+                                    <label for="bed_count">{{ __('messages.Bed Count') }}</label>
+                                    <input type="number" name="rooms[0][bed_count]" placeholder="{{ __('messages.Number of Beds') }}"
                                         required>
                                 </div>
                                 <div class="search-field">
-                                    <label for="price_night">Price per Night</label>
-                                    <input type="number" name="rooms[0][price_night]" placeholder="Price per Night"
+                                    <label for="price_night">{{ __('messages.Price per Night') }}</label>
+                                    <input type="number" name="rooms[0][price_night]" placeholder="{{ __('messages.Price per Night') }}"
                                         required>
                                 </div>
                                 <div class="search-field">
-                                    <label for="available">Available</label>
+                                    <label for="available">{{ __('messages.Available') }}</label>
                                     <label class="switch">
                                         <input type="checkbox" name="rooms[0][available]" checked>
                                         <span class="slider"></span>
@@ -251,11 +251,11 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" id="add-room-btn">Add Another Room</button>
+                        <button type="button" id="add-room-btn">{{ __('messages.Add Another Room') }}</button>
                     </div>
 
                     <div class="add-button">
-                        <button type="submit">Add Hotel</button>
+                        <button type="submit">{{ __('messages.Add Hotel') }}</button>
                     </div>
                 </form>
             </div>
@@ -263,82 +263,82 @@
 
 
             <div id="add-tour" class="form-section" style="display: none;">
-                <h2>Add New Tour</h2>
+                <h2>{{ __('messages.Add New Tour') }}</h2>
                 <form action="{{ route('auth.admin.addActivity', ['locale' => app()->getLocale()]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="search-field">
-                        <label for="name">Tour Name</label>
-                        <input type="text" id="name" name="name" placeholder="Tour Name" required>
+                        <label for="name">{{ __('messages.Tour Name') }}</label>
+                        <input type="text" id="name" name="name" placeholder="{{ __('messages.Tour Name') }}" required>
                     </div>
                     <div class="search-field">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description" placeholder="Description" required></textarea>
+                        <label for="description">{{ __('messages.Description') }}</label>
+                        <textarea id="description" name="description" placeholder="{{ __('messages.Description') }}" required></textarea>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
-                            <label for="country">Country</label>
-                            <input type="text" id="country" name="country" placeholder="Country" required>
+                            <label for="country">{{ __('messages.Country') }}</label>
+                            <input type="text" id="country" name="country" placeholder="{{ __('messages.Country') }}" required>
                         </div>
                         <div class="search-field">
-                            <label for="city">City</label>
-                            <input type="text" id="city" name="city" placeholder="City" required>
-                        </div>
-                    </div>
-                    <div class="flex-container">
-                        <div class="search-field">
-                            <label for="street">Street</label>
-                            <input type="text" id="street" name="street" placeholder="Street" required>
-                        </div>
-                        <div class="search-field">
-                            <label for="zip">Zip-Code</label>
-                            <input type="text" id="zip" name="zip_code" placeholder="Zip-Code" required>
+                            <label for="city">{{ __('messages.City') }}</label>
+                            <input type="text" id="city" name="city" placeholder="{{ __('messages.City') }}" required>
                         </div>
                     </div>
                     <div class="flex-container">
                         <div class="search-field">
-                            <label for="price">Price</label>
-                            <input type="number" id="price" name="price_hour" placeholder="Price" required>
+                            <label for="street">{{ __('messages.Street') }}</label>
+                            <input type="text" id="street" name="street" placeholder="{{ __('messages.Street') }}" required>
                         </div>
                         <div class="search-field">
-                            <label for="language">Language</label>
-                            <input type="text" id="language" name="language" placeholder="Language" required>
+                            <label for="zip">{{ __('messages.ZIP Code') }}</label>
+                            <input type="text" id="zip" name="zip_code" placeholder="{{ __('messages.ZIP Code') }}" required>
+                        </div>
+                    </div>
+                    <div class="flex-container">
+                        <div class="search-field">
+                            <label for="price">{{ __('messages.Price') }}</label>
+                            <input type="number" id="price" name="price_hour" placeholder="{{ __('messages.Price') }}" required>
+                        </div>
+                        <div class="search-field">
+                            <label for="language">{{ __('messages.Language') }}</label>
+                            <input type="text" id="language" name="language" placeholder="{{ __('messages.Language') }}" required>
                         </div>
                     </div>
 
                     <div class="flex-container bottom">
                         <div class="coordinates">
                             <div class="search-field">
-                                <label for="coordinates">Coordinates</label>
-                                <input type="text" id="lat" name="lat" placeholder="Lat" required>
-                                <input type="text" id="lon" name="lon" placeholder="Lon" required>
+                                <label for="coordinates">{{ __('messages.Coordinates') }}</label>
+                                <input type="text" id="lat" name="lat" placeholder="{{ __('messages.Latitude') }}" required>
+                                <input type="text" id="lon" name="lon" placeholder="{{ __('messages.Longitude') }}" required>
                             </div>
                         </div>
                         <div class="tour-filters">
-                            <div class="search-field"><label for="filters">Filters</label></div>
+                            <div class="search-field"><label for="filters">{{ __('messages.Filters') }}</label></div>
                             <label>
-                                {{ __('Cancel anytime') }}
+                                {{ __('messages.Cancel anytime') }}
                                 <label class="switch">
                                     <input type="checkbox" id="cancel_anytime" name="cancel_anytime">
                                     <span class="slider"></span>
                                 </label>
                             </label>
                             <label>
-                                {{ __('Reserve now pay later') }}
+                                {{ __('messages.Reserve now pay later') }}
                                 <label class="switch">
                                     <input type="checkbox" id="reserve_now_pay_later" name="reserve_now_pay_later">
                                     <span class="slider"></span>
                                 </label>
                             </label>
                             <label>
-                                {{ __('Guide') }}
+                                {{ __('messages.Guide') }}
                                 <label class="switch">
                                     <input type="checkbox" id="guide" name="guide">
                                     <span class="slider"></span>
                                 </label>
                             </label>
                             <label>
-                                {{ __('Small Groups') }}
+                                {{ __('messages.Small Groups') }}
                                 <label class="switch">
                                     <input type="checkbox" id="small_groups" name="small_groups">
                                     <span class="slider"></span>
@@ -350,7 +350,7 @@
 
                     <!-- Drag and Drop Upload Section -->
                     <div class="search-field images">
-                        <label for="hotel-images">Upload Tour Images</label>
+                        <label for="hotel-images">{{ __('messages.Upload Tour Images') }}</label>
                         <div x-data="dataFileDnD()" class="file-upload-area">
                             <div x-ref="dnd" class="drop-area" @click="$refs.fileInput.click()">
                                 <!-- O campo de input é ativado ao clicar em qualquer lugar da área -->
@@ -366,7 +366,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <p class="message">Click here to add your files.</p>
+                                    <p class="message">{{ __('messages.Click here to add your files.') }}</p>
                                 </div>
                             </div>
 
@@ -395,7 +395,7 @@
 
 
                     <div class="add-button">
-                        <button type="submit">Add Tour</button>
+                        <button type="submit">{{ __('messages.Add Tour') }}</button>
                     </div>
                 </form>
             </div>
@@ -403,16 +403,16 @@
             <div id="delete-item" style="display: none;">
 
                 <div id="hotels-section" class="form-section">
-                    <h2>Delete Hotels</h2>
+                    <h2>{{ __('messages.Delete Hotels') }}</h2>
 
                     <div class="table-container">
                         <table class="styled-table">
                             <thead>
                                 <tr>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Actions</th>
+                                    <th>{{ __('messages.Image') }}</th>
+                                    <th>{{ __('messages.Name') }}</th>
+                                    <th>{{ __('messages.Price') }}</th>
+                                    <th>{{ __('messages.Actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody id="hotels-table-body">
@@ -436,7 +436,7 @@
                                                 method="POST">
                                                 @csrf
                                                 <button type="submit" class="delete-button"
-                                                    data-id="{{ $hotel->id_item }}">Delete</button>
+                                                    data-id="{{ $hotel->id_item }}">{{ __('messages.Delete') }}</button>
                                             </form>
 
                                         </td>
@@ -450,15 +450,15 @@
                     </div>
 
                     <div id="tours-section" class="form-section">
-                        <h2>Delete Tours</h2>
+                        <h2>{{ __('messages.Delete Tours') }}</h2>
                         <div class="table-container">
                             <table class="styled-table">
                                 <thead>
                                     <tr>
-                                        <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Actions</th>
+                                        <th>{{ __('messages.Image') }}</th>
+                                        <th>{{ __('messages.Name') }}</th>
+                                        <th>{{ __('messages.Price') }}</th>
+                                        <th>{{ __('messages.Actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tours-table-body">
@@ -470,7 +470,7 @@
                                             </td>
                                             <td>{{ $tour->name }}</td>
                                             <td>
-                                                {{ $tour->price_hour }}€/hour
+                                                {{ $tour->price_hour }}{{ __('messages.€/hour') }}
                                             </td>
                                             <td>
                                                 <form
@@ -478,7 +478,7 @@
                                                     method="POST">
                                                     @csrf
                                                     <button type="submit" class="delete-button"
-                                                        data-id="{{ $tour->id_item }}">Delete</button>
+                                                        data-id="{{ $tour->id_item }}">{{ __('messages.Delete') }}</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -496,16 +496,16 @@
 
             <div id="list-admins">
                 <div id="admins" class="form-section">
-                    <h2>Admins</h2>
+                    <h2>{{ __('messages.Admins') }}</h2>
                     <div class="table-container">
                         <table class="styled-table">
                             <thead>
                                 <tr>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Action</th>
+                                    <th>{{ __('messages.Image') }}</th>
+                                    <th>{{ __('messages.Name') }}</th>
+                                    <th>{{ __('messages.Username') }}</th>
+                                    <th>{{ __('messages.Email') }}</th>
+                                    <th>{{ __('messages.Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -520,7 +520,7 @@
                                         <td>{{ $admin->first_name }} {{ $admin->last_name }}</td>
                                         <td>{{ $admin->username }}</td>
                                         <td>{{ $admin->email }}</td>
-                                        <td>Admin</td>
+                                        <td>{{ __('messages.Admin') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -529,16 +529,16 @@
                 </div>
 
                 <div id="users" class="form-section">
-                    <h2>Users</h2>
+                    <h2>{{ __('messages.Users') }}</h2>
                     <div class="table-container">
                         <table class="styled-table">
                             <thead>
                                 <tr>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Action</th>
+                                    <th>{{ __('messages.Image') }}</th>
+                                    <th>{{ __('messages.Name') }}</th>
+                                    <th>{{ __('messages.Username') }}</th>
+                                    <th>{{ __('messages.Email') }}</th>
+                                    <th>{{ __('messages.Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -579,6 +579,8 @@
     <x-footer />
 
     <script>
+	const appUrl = "{{ config('app.url') }}";
+
         function dataFileDnD() {
             return {
                 files: [],
@@ -652,23 +654,23 @@
             newRoom.innerHTML = `
         <h4>Room ${roomIndex + 1}</h4>
         <div class="search-field">
-            <label for="room_type">Room Type</label>
-            <input type="text" name="rooms[${roomIndex}][type]" placeholder="Room Type" required>
+            <label for="room_type">{{ __('messages.Room Type') }}</label>
+            <input type="text" name="rooms[${roomIndex}][type]" placeholder="{{ __('messages.Room Type') }}" required>
         </div>
         <div class="search-field">
-            <label for="bed_type">Bed Type</label>
-            <input type="text" name="rooms[${roomIndex}][bed_type]" placeholder="Bed Type" required>
+            <label for="bed_type">{{ __('messages.Bed Type') }}</label>
+            <input type="text" name="rooms[${roomIndex}][bed_type]" placeholder="{{ __('messages.Bed Type') }}" required>
         </div>
         <div class="search-field">
-            <label for="bed_count">Bed Count</label>
-            <input type="number" name="rooms[${roomIndex}][bed_count]" placeholder="Number of Beds" required>
+            <label for="bed_count">{{ __('messages.Bed Count') }}</label>
+            <input type="number" name="rooms[${roomIndex}][bed_count]" placeholder="{{ __('messages.Number of Beds') }}" required>
         </div>
         <div class="search-field">
-            <label for="price_night">Price per Night</label>
-            <input type="number" name="rooms[${roomIndex}][price_night]" placeholder="Price per Night" required>
+            <label for="price_night">{{ __('messages.Price per Night') }}</label>
+            <input type="number" name="rooms[${roomIndex}][price_night]" placeholder="{{ __('messages.Price per Night') }}" required>
         </div>
         <div class="search-field">
-            <label for="available">Available</label>
+            <label for="available">{{ __('messages.Available') }}</label>
             <label class="switch">
                 <input type="checkbox" name="rooms[${roomIndex}][available]" checked>
                 <span class="slider"></span>

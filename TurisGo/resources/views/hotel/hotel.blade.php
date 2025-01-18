@@ -82,35 +82,35 @@
             <!-- Verificar se a instalação está disponível -->
             @if ($hotel->free_wifi)
                 <div class="icon">
-                    <img src="/images/wifi_free_icon.png" alt="{{ __('messages.WiFi') }}">
+                    <img src="{{ asset('images/wifi_free_icon.png') }}" alt="{{ __('messages.WiFi') }}">
                     <span>{{ __('messages.Free WiFi') }}</span>
                 </div>
             @endif
 
             @if ($hotel->pool)
                 <div class="icon">
-                    <img src="/images/pool_icon.png" alt="{{ __('messages.Pool') }}">
+                    <img src="{{ asset('images/pool_icon.png') }}" alt="{{ __('messages.Pool') }}">
                     <span>{{ __('messages.Pool') }}</span>
                 </div>
             @endif
 
             @if ($hotel->bar)
                 <div class="icon">
-                    <img src="/images/bar_icon.png" alt="{{ __('messages.Bar') }}">
+                    <img src="{{ asset('images/bar_icon.png') }}" alt="{{ __('messages.Bar') }}">
                     <span>{{ __('messages.Bar') }}</span>
                 </div>
             @endif
 
             @if ($hotel->parking)
                 <div class="icon">
-                    <img src="/images/parking_icon.png" alt="{{ __('messages.Parking') }}">
+                    <img src="{{ asset('images/parking_icon.png') }}" alt="{{ __('messages.Parking') }}">
                     <span>{{ __('messages.Free Parking') }}</span>
                 </div>
             @endif
 
             @if ($hotel->non_smoking_rooms)
                 <div class="icon">
-                    <img src="/images/no_smoking_icon.png" alt="{{ __('messages.Non-smoking rooms') }}">
+                    <img src="{{ asset('images/no_smoking_icon.png') }}" alt="{{ __('messages.Non-smoking rooms') }}">
                     <span>{{ __('messages.Non-smoking rooms') }}</span>
                 </div>
             @endif
@@ -269,6 +269,9 @@
     </section>
 
     <x-footer />
+	<script>
+	const appUrl = "{{ config('app.url') }}";
+	</script>
 </body>
 
 </html>

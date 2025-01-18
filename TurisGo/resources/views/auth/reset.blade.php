@@ -44,6 +44,9 @@
     @if(session('popup'))
         {!! session('popup') !!}
     @endif
+	<script>
+	const appUrl = "{{ config('app.url') }}";
+	</script>
 </body>
 
 </html>

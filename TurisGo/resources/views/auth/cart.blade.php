@@ -162,6 +162,9 @@
     @endif
     <!-- Rodapé Principal -->
     <x-footer />
+	<script>
+	const appUrl = "{{ config('app.url') }}";
+	</script>
 </body>
 
 </html>

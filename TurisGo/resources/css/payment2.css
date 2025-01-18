@@ -157,7 +157,7 @@ html, body {
 }
 
 .buttonChange:hover {
-    background-color: #0B55A0;
+    background-color: #207391;
 }
 
 .payment-logo {
@@ -216,5 +216,5 @@ html, body {
     transition: background 0.3s;
 }
 .selectedPaymentMethod .buttonChange:hover {
-    background-color: #0B55A0;
+    background-color: #207391;
 }

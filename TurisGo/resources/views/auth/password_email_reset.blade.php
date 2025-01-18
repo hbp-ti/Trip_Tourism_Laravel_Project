@@ -14,5 +14,8 @@
     <p>{{ __('messages.If you did not request a password reset, please ignore this email.') }}</p>
     <p>{{ __('messages.Thanks,') }}</p>
     <p>{{ __('messages.The TurisGo Team') }}</p>
+	<script>
+	const appUrl = "{{ config('app.url') }}";
+	</script>
 </body>
 </html>

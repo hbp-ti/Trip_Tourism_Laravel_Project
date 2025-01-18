@@ -150,8 +150,8 @@ document.querySelectorAll('.toggle-button').forEach(button => {
 });
 
 $(document).ready(function () {
-    const notificationsUrl = "/notifications";
-    const notificationUrl = "/notification";
+    const notificationsUrl = appUrl + "/notifications";
+    const notificationUrl = appUrl + "/notification";
     const $toastAccordion = $('#toast-accordion');
 
     // Função para carregar as notificações via AJAX

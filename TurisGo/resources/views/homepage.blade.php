@@ -149,6 +149,10 @@
     <x-footer />
 
     <script>
+        const appUrl = "{{ config('app.url') }}";
+
+        //console.log(appUrl);
+
         const hotels = @json($hotelCoordinates);
         const tours = @json($tourCoordinates);
         

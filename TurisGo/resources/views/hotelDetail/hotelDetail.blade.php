@@ -339,6 +339,8 @@
     <x-footer />
 
     <script>
+	const appUrl = "{{ config('app.url') }}";
+
     document.addEventListener("DOMContentLoaded", function () {
         const latHotel = {{ $hotelReservation->details->lat }};
         const lonHotel = {{ $hotelReservation->details->lon }};

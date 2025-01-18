@@ -216,6 +216,9 @@
             <p><span class="bold">Postal Code:</span> {{ $order->billing_postal_code }}</p>
         </div>
     </div>
+	<script>
+	const appUrl = "{{ config('app.url') }}";
+	</script>
 </body>
 
 </html>

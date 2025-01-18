@@ -105,7 +105,7 @@
                             <li>
                                 <a href="{{ route('auth.admin.dashboard', ['locale' => app()->getLocale()]) }}">
                                     <img src="{{ asset('images/dashboard_icon.png') }}" class="icon">
-                                    {{ __('Dashboard') }}
+                                    {{ __('messages.Dashboard') }}
                                     <img src="{{ asset('images/arrow_right.png') }}" class="arrow">
                                 </a>
                             </li>
