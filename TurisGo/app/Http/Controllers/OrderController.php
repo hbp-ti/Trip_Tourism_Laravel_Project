@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Order;
-use App\Models\OrderItem;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\Hotel;
 use App\Models\Room;
-use App\Models\Activity;
+use App\Models\Hotel;
+use App\Models\Order;
 use App\Models\Ticket;
+use App\Models\Activity;
+use App\Models\OrderItem;
 use App\Helpers\PopupHelper;
+use App\Models\Notification;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -41,7 +43,6 @@ class OrderController extends Controller
 
         // Encontre o item no pedido
         $orderItem = $order->orderItems->firstWhere('item_id', $itemId);
-
         // Verifique se o item foi encontrado e se o atributo is_active é true
         if ($orderItem && $orderItem->is_active) {
             // Armazenar o subtotal do item antes da remoção
@@ -157,7 +158,12 @@ class OrderController extends Controller
             $order->total = $totalOrder;  // Novo total do pedido com a taxa aplicada
             $order->save();
 
-            dd($subtotalOrder);
+            Notification::create([
+                'title' => 'Reservation Cancelled',
+                'description' => 'Your reservation with ID ' . $order->id . ' has been successfully cancelled.',
+                'is_read' => false,
+                'user_id' => Auth::id(), 
+            ]);
 
             $popup = PopupHelper::showPopup(
                 'Success!',

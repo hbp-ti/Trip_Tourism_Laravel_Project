@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 20);
-            $table->string('description', 100);
+            $table->string('title', 50);
+            $table->string('description', 200);
             $table->boolean('is_read');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

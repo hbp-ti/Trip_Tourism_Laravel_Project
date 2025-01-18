@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Cart;
-use App\Models\Ticket;
 use App\Models\Item;
-use App\Models\CartItem;
 use App\Models\Room;
-use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\Activity;
+use App\Models\User;
 use App\Models\Hotel;
-use Illuminate\Support\Facades\DB;
+use App\Models\Order;
+use App\Models\Ticket;
+use App\Models\Activity;
+use App\Models\CartItem;
+use App\Models\OrderItem;
 use App\Helpers\PopupHelper;
+use App\Models\Notification;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class PaymentController extends Controller
@@ -258,6 +259,13 @@ class PaymentController extends Controller
                     'is_active' => true,
                 ]);
             }
+
+            Notification::create([
+                'title' => 'Payment Successful',
+                'description' => 'Your payment of ' . $order->total . ' was successfully processed.',
+                'is_read' => false,
+                'user_id' => $user->id,
+            ]);
 
             // Limpar o carrinho e os itens do carrinho
             $cart->cartItems()->delete();
