@@ -28,11 +28,11 @@
                 @endforeach
             @else
                 {{-- Caso não haja imagens associadas, exibe as imagens padrão --}}
-                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default tour Image 1') }}"
+                <img src="{{ asset('images/imagemTesteHotel.jpg') }}" alt="{{ __('messages.Default tour Image 1') }}"
                     class="slider-image">
-                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default tour Image 2') }}"
+                <img src="{{ asset('images/imagemTesteHotel.jpg') }}" alt="{{ __('messages.Default tour Image 2') }}"
                     class="slider-image hidden">
-                <img src="/images/imagemTesteHotel.jpg" alt="{{ __('messages.Default tour Image 3') }}"
+                <img src="{{ asset('images/imagemTesteHotel.jpg') }}" alt="{{ __('messages.Default tour Image 3') }}"
                     class="slider-image hidden">
             @endif
         </div>
@@ -79,34 +79,34 @@
             <!-- Verificar se a instalação está disponível -->
             @if ($tour->cancel_anytime)
                 <div class="icon">
-                    <img src="/images/canceletour.png" alt="{{ __('messages.cancel_anytime') }}">
+                    <img src="{{ asset('images/canceletour.png') }}" alt="{{ __('messages.cancel_anytime') }}">
                     <span>{{ __('messages.cancel anytime') }}</span>
                 </div>
             @endif
 
             @if ($tour->guide)
                 <div class="icon">
-                    <img src="/images/guidetour.png" alt="{{ __('messages.guide') }}">
+                    <img src="{{ asset('images/guidetour.png') }}" alt="{{ __('messages.guide') }}">
                     <span>{{ __('messages.guide') }}</span>
                 </div>
             @endif
 
             @if ($tour->reserve_now_pay_later)
                 <div class="icon">
-                    <img src="/images/reservetour.png" alt="{{ __('messages.reserve_now_pay_later') }}">
+                    <img src="{{ asset('images/reservetour.png') }}" alt="{{ __('messages.reserve_now_pay_later') }}">
                     <span>{{ __('messages.reserve now pay later') }}</span>
                 </div>
             @endif
 
             @if ($tour->small_groups)
                 <div class="icon">
-                    <img src="/images/grouptour.png" alt="{{ __('messages.small_groups') }}">
+                    <img src="{{ asset('images/grouptour.png') }}" alt="{{ __('messages.small_groups') }}">
                     <span>{{ __('messages.small groups') }}</span>
                 </div>
             @endif
 
             <div class="icon">
-                <img src="/images/languagetour.png" alt="{{ __('messages.language') }}">
+                <img src="{{ asset('images/languagetour.png') }}" alt="{{ __('messages.language') }}">
                 <span>{{ $tour->language }}</span>
             </div>
         </div>
