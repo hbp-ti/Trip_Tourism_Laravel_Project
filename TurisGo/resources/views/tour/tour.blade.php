@@ -79,7 +79,7 @@
             <!-- Verificar se a instalação está disponível -->
             @if ($tour->cancel_anytime)
                 <div class="icon">
-                    <img src="/images/canceletour.png" alt="{{ __('messages.cancel_anytime') }}">
+                    <img src="{{ asset('images/canceletour.png') }}" alt="{{ __('messages.cancel_anytime') }}">
                     <span>{{ __('messages.cancel anytime') }}</span>
                 </div>
             @endif
