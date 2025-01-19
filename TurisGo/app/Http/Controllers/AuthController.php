@@ -691,7 +691,7 @@ class AuthController extends Controller
             $popupError = PopupHelper::showPopup(
                 'Authentication!',
                 'You must be logged in to add items to the cart',
-                'Error',
+                'error',
                 'OK',
                 false,
                 '',
@@ -810,7 +810,7 @@ class AuthController extends Controller
         $popupError = PopupHelper::showPopup(
             'Authentication!',
             'You must be logged in to add items to the cart',
-            'Error',
+            'error',
             'OK',
             false,
             '',
@@ -891,7 +891,7 @@ class AuthController extends Controller
             $popupError2 = PopupHelper::showPopup(
                 'Error!',
                 'Invalid item type.',
-                'Error',
+                'error',
                 'OK',
                 false,
                 '',
@@ -912,7 +912,7 @@ class AuthController extends Controller
                 $popupError2 = PopupHelper::showPopup(
                     'Error!',
                     'The ids do not match.',
-                    'Error',
+                    'error',
                     'OK',
                     false,
                     '',
@@ -1073,7 +1073,7 @@ class AuthController extends Controller
             $popupError = PopupHelper::showPopup(
                 'Authentication!',
                 'You must be logged in to remove items from the cart',
-                'Error',
+                'error',
                 'OK',
                 false,
                 '',
@@ -1205,7 +1205,7 @@ class AuthController extends Controller
             $popupSuccess = PopupHelper::showPopup(
                 'Success!',
                 'The item has been removed from your cart successfully',
-                'Success',
+                'success',
                 'OK',
                 false,
                 '',
@@ -1220,7 +1220,7 @@ class AuthController extends Controller
         $popupError = PopupHelper::showPopup(
             'Error!',
             'There was an error deleting the item from the cart',
-            'Error',
+            'error',
             'OK',
             false,
             '',
