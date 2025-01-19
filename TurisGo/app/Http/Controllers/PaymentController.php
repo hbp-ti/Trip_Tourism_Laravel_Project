@@ -281,7 +281,7 @@ class PaymentController extends Controller
             $popup = PopupHelper::showPopup(
                 'Your payment was successful!',
                 'Your order was successfully processed. Thank you for your purchase!',
-                'Success',
+                'success',
                 'OK',
                 false,
                 '',
@@ -293,7 +293,7 @@ class PaymentController extends Controller
             $popupError = PopupHelper::showPopup(
                 'An error occurred!',
                 'An error occurred while processing your payment. Please try again later.',
-                'Error',
+                'error',
                 'OK',
                 false,
                 '',
