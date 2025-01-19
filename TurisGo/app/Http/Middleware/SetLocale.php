@@ -47,10 +47,10 @@ class SetLocale
         // Verifica se a URL já contém o locale
         $url = $request->url();
         
-        // Se a URL não começa com /pt ou /en, adiciona o locale na URL
+        // Caso o caminho da URL não comece com /pt ou /en, adiciona o locale na URL
         if (!preg_match('#^/(' . implode('|', ['en', 'pt']) . ')#', $request->path())) {
-            // Caso não tenha idioma, adiciona o idioma padrão à URL
-            return url($locale . $request->getRequestUri());
+            // Se não tiver o idioma na URL, adiciona o locale à URL
+            return url('/' . $locale . $request->getRequestUri());
         }
 
         // Caso o locale já esteja na URL, retorna a URL original
