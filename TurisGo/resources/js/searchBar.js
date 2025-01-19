@@ -39,13 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!checkin || !checkout || !people || !location) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Missing Information',
-                text: 'Please fill in all the required fields before searching.',
-                confirmButtonText: 'OK',
+                title: translate('Missing Information'),
+                text: translate('Please fill in all the required fields before searching.'),
+                confirmButtonText: translate('OK'),
                 confirmButtonColor: '#207391'
             });
         } else {
-            const url = new URL("hotels", window.location.origin);
+            const url = new URL(appUrl + "/hotels", window.location.origin);
             url.searchParams.append("location", location);
             url.searchParams.append("checkin", checkin);
             url.searchParams.append("checkout", checkout);
