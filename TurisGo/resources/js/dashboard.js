@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Função para enviar o pedido de delete ao servidor
     function deleteItemFromServer(itemId) {
-        return fetch(`/en/auth/admin/removeItem/${itemId}`, {
+        return fetch(appUrl + `/en/auth/admin/removeItem/${itemId}`, {
             method: "POST", // Post porque a rota Laravel está usando POST
             headers: {
                 "Content-Type": "application/json",
