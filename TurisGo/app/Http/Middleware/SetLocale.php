@@ -11,32 +11,28 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next)
     {
+        // Obtém o locale da URL
+        $locale = $request->route('locale');
         $supportedLocales = ['en', 'pt']; // Idiomas suportados
-        $locale = null;
 
-        // Obtém os segmentos da URL
-        $segments = $request->segments();
-
-        // Verifica se o segundo segmento é um idioma suportado
-        if (!empty($segments) && isset($segments[1]) && in_array($segments[1], $supportedLocales)) {
-            $locale = $segments[1];
+        // Se não houver locale na URL
+        if (!$locale) {
+            // Tenta buscar o locale da sessão ou usa o padrão
+            $locale = Session::get('locale', config('app.locale'));
+            // Se não houver locale válido, adiciona o padrão à URL
+            return redirect()->to($this->addLocaleToUrl($request, $locale));
         }
 
-        // Se não houver locale ou ele for inválido
-        if (!$locale) {
-            // Usa o locale da sessão ou o padrão
-            $locale = Session::get('locale', config('app.locale'));
-            if (!in_array($locale, $supportedLocales)) {
-                $locale = config('app.fallback_locale', 'en'); // Locale padrão
-            }
-
-            // Redireciona com o locale correto
-            return redirect($this->addLocaleToUrl($request, $locale));
+        // Verifica se o locale é válido
+        if (!in_array($locale, $supportedLocales)) {
+            // Se o locale não for válido, usa o locale padrão
+            $locale = config('app.fallback_locale', 'en');
+            // Redireciona para a mesma URL com o locale correto
+            return redirect()->to($this->addLocaleToUrl($request, $locale));
         }
 
         // Define o locale na aplicação
         App::setLocale($locale);
-
         // Armazena o locale na sessão
         Session::put('locale', $locale);
 
@@ -44,23 +40,20 @@ class SetLocale
     }
 
     /**
-     * Adiciona o locale na URL sem duplicar o prefixo ou afetar a estrutura original.
+     * Adiciona o locale na URL sem perder os parâmetros e a rota original.
      */
     private function addLocaleToUrl(Request $request, $locale)
     {
-        $supportedLocales = ['en', 'pt']; // Idiomas suportados
-        $segments = $request->segments();
-
-        // Remove o idioma existente, se presente no segundo segmento
-        if (isset($segments[1]) && in_array($segments[1], $supportedLocales)) {
-            unset($segments[1]);
+        // Verifica se a URL já contém o locale
+        $url = $request->url();
+        
+        // Se a URL não começa com /pt ou /en, adiciona o locale na URL
+        if (!preg_match('#^/(' . implode('|', ['en', 'pt']) . ')#', $request->path())) {
+            // Caso não tenha idioma, adiciona o idioma padrão à URL
+            return url($locale . $request->getRequestUri());
         }
 
-        // Adiciona o novo idioma no segundo segmento
-        array_splice($segments, 1, 0, $locale);
-
-        // Reconstrói a URL com os segmentos corrigidos
-        $baseUrl = $request->getSchemeAndHttpHost(); // Ex.: http://estga-dev.ua.pt
-        return $baseUrl . '/' . implode('/', $segments);
+        // Caso o locale já esteja na URL, retorna a URL original
+        return $url;
     }
 }
