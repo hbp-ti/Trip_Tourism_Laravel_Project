@@ -50,7 +50,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setlocale'], function () 
             Route::post('/passwordUpdate', [AuthController::class, 'updatePassword'])->name('profile.updatePassword');
             Route::get('/cart', [AuthController::class, 'showCart'])->name('cart.show');
             Route::post('/cart/add', [AuthController::class, 'addToCart'])->name('cart.add');
-            Route::delete('/cart/{cartItem}/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
+            Route::delete('/cart/remove', [AuthController::class, 'removeFromCart'])->name('cart.remove');
             Route::post('/review/{item_id}/add', [ReviewController::class, 'addReview'])->name('reviews.add');
             Route::get('/buyTicketTrain', [TrainController::class, 'stations'])->name('tickets');
             Route::post('/payment', [PaymentController::class, 'paymentPhases'])->name('payment');

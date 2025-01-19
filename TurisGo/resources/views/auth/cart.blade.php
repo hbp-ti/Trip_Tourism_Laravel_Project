@@ -42,11 +42,11 @@
                             </div>
                             <p class="price">{{ $cartItem->details->subtotal }}€</p>
                             <!-- Botão de remover com API -->
-                            <form
-                                action="{{ route('auth.cart.remove', ['cartItem' => urlencode(json_encode($cartItem)), 'locale' => app()->getLocale()]) }}"
-                                method="POST">
+                            <form action="{{ route('auth.cart.remove', ['locale' => app()->getLocale()]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
+                                
+                                <input type="hidden" name="cartItem" value="{{ json_encode($cartItem) }}">
                                 <button class="remove-btn">
                                     <img src="{{ asset('images/removeItem.png') }}" alt="{{ __('messages.Remove') }}"
                                         style="width: 22px; height: 22px;">
@@ -66,11 +66,11 @@
                             </div>
                             <p class="price">{{ $cartItem->details->subtotal }}€</p>
                             <!-- Botão de remover com API -->
-                            <form
-                                action="{{ route('auth.cart.remove', ['cartItem' => urlencode(json_encode($cartItem)), 'locale' => app()->getLocale()]) }}"
-                                method="POST">
+                            <form action="{{ route('auth.cart.remove', ['locale' => app()->getLocale()]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
+                                
+                                <input type="hidden" name="cartItem" value="{{ json_encode($cartItem) }}">
                                 <button class="remove-btn">
                                     <img src="{{ asset('images/removeItem.png') }}" alt="{{ __('messages.Remove') }}"
                                         style="width: 22px; height: 22px;">
@@ -90,11 +90,11 @@
                             </div>
                             <p class="price">{{ $cartItem->details->subtotal }}€</p>
                             <!-- Botão de remover com API -->
-                            <form
-                                action="{{ route('auth.cart.remove', ['cartItem' => urlencode(json_encode($cartItem)), 'locale' => app()->getLocale()]) }}"
-                                method="POST">
+                            <form action="{{ route('cart.remove', ['locale' => app()->getLocale()]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
+                                
+                                <input type="hidden" name="cartItem" value="{{ json_encode($cartItem) }}">
                                 <button class="remove-btn">
                                     <img src="{{ asset('images/removeItem.png') }}" alt="{{ __('messages.Remove') }}"
                                         style="width: 22px; height: 22px;">

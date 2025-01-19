@@ -1061,10 +1061,12 @@ class AuthController extends Controller
     public function removeFromCart(Request $request)
     {
         $locale = $request->route('locale');
-        $cartItemJson = $request->route('cartItem');  // Recebe o objeto JSON como string
+        //$cartItemJson = $request->route('cartItem');  // Recebe o objeto JSON como string
 
         // Decodifica o JSON de volta para um array ou objeto
-        $cartItemOld = json_decode(urldecode($cartItemJson));
+        //$cartItemOld = json_decode(urldecode($cartItemJson));
+
+        $cartItemOld = $request->all();
 
         // Verifica se o usuário está autenticado
         if (!Auth::check()) {
@@ -1086,7 +1088,7 @@ class AuthController extends Controller
         $userId = Auth::id();
 
         // Verifica se o CartItem pertence ao carrinho do usuário autenticado
-        $cartItem = CartItem::where('id', $cartItemOld->id)  // Usando o id do objeto cartItem
+        $cartItem = CartItem::where('id', $cartItemOld['id'])  // Usando o id do objeto cartItem
             ->whereHas('cart', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })
