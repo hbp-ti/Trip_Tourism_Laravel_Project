@@ -1066,8 +1066,7 @@ class AuthController extends Controller
         // Decodifica o JSON de volta para um array ou objeto
         //$cartItemOld = json_decode(urldecode($cartItemJson));
 
-        $cartItemOld = $request->all();
-
+        $cartItemOld = json_decode($request->input('cartItem'));
         // Verifica se o usuário está autenticado
         if (!Auth::check()) {
             $popupError = PopupHelper::showPopup(
@@ -1088,7 +1087,7 @@ class AuthController extends Controller
         $userId = Auth::id();
 
         // Verifica se o CartItem pertence ao carrinho do usuário autenticado
-        $cartItem = CartItem::where('id', $cartItemOld['id'])  // Usando o id do objeto cartItem
+        $cartItem = CartItem::where('id', $cartItemOld->id)  // Usando o id do objeto cartItem
             ->whereHas('cart', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })
