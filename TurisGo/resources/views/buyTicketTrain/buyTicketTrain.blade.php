@@ -16,9 +16,8 @@
         <h1>{{ __('messages.Tickets') }}</h1>
         <p>{{ __('messages.Buy tickets with us') }}</p>
     </div>
-    <main>
+
         <section class="tickets">
-            <h1>{{ __('messages.Tickets') }}</h1>
             <div class="online-tickets">
                 <h2>{{ __('messages.Online Tickets') }}</h2>
                 <div class="form-container">
@@ -87,7 +86,7 @@
                             </div>
                         </div>
                     
-                        <button type="submit">{{ __('messages.Search') }}</button>
+                        <button type="submit" class="searchBtn">{{ __('messages.Search') }}</button>
                     </form>
                     
                     
@@ -148,7 +147,6 @@
         @if (session('popup'))
             {!! session('popup') !!}
         @endif
-    </main>
     <x-footer />
 	<script>
 	const appUrl = "{{ config('app.url') }}";

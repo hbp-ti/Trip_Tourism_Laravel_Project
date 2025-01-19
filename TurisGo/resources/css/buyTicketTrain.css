@@ -1,8 +1,11 @@
-body {
+* {
     font-family: 'Manrope', sans-serif;
-    line-height: 1.6;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
     background-color: #f9f9f9;
 }
 
@@ -34,20 +37,14 @@ html, body {
 }
 
 .header p {
-    margin-top: -40px;
     font-size: 30px;
 }
 
 .tickets {
     padding: 2rem;
-    max-width: 800px;
-    margin: 350px auto 0; /* Ajuste a margem para evitar sobreposição com o header */
-}
-
-.tickets h1 {
-    font-size: 40px;
-    margin-left: 350px;
-    margin-top: -50px;
+    max-width: 1000px;
+    margin: 350px auto 0;
+    margin-bottom: 150px;
 }
 
 .online-tickets h2 {
@@ -71,6 +68,8 @@ html, body {
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+    margin-top: 20px;
 }
 
 .form-group {
@@ -99,17 +98,17 @@ input[type="text"], input[type="date"], input[type="number"], select {
     gap: 1rem;
 }
 
-button[type="submit"], button[type="button"] {
+.searchBtn, .book-now {
     background: #C76A37;
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
     cursor: pointer;
     border-radius: 4px;
-    transition: background 0.3s;
+    transition: 0.43s all;
 }
 
-button[type="submit"]:hover, button[type="button"]:hover {
+.searchBtn:hover, .book-now:hover {
     background: #b3592b;
 }
 
@@ -120,7 +119,7 @@ label {
 
 .timetable {
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     border-collapse: collapse;
 }
@@ -165,7 +164,7 @@ label {
     background-color: #2081A5;
     margin-bottom: 40px; /* Adiciona uma margem inferior para criar espaço */
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -211,22 +210,4 @@ label {
 
 .confirm button {
     order: 2;
-}
-
-html, body {
-    height: 100%; /* Garantir que o body ocupe 100% da altura da tela */
-    margin: 0; /* Remover qualquer margem padrão do navegador */
-}
-
-body {
-    display: flex;
-    flex-direction: column; /* Organiza os itens na vertical */
-}
-
-main {
-    flex: 1; /* Faz o conteúdo principal ocupar o espaço restante */
-}
-
-footer {
-    margin-top: auto; /* Faz o footer "empurrar" para o fim da página */
 }
