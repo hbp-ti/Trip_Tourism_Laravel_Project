@@ -22,8 +22,7 @@
             </a>
             <div class="language-dropdown" id="languageDropdown">
                 <!-- Link para alterar para o inglês -->
-                <a href="{{ url('/' . (app()->getLocale() === 'en' ? 'pt' : 'en') . substr(request()->getRequestUri(), 3)) }}"
-                    class="language-option">
+                <a href="{{ url(preg_replace('#/' . app()->getLocale() . '(/|$)#', '/en$1', request()->getPathInfo())) }}" class="language-option">
                     <img src="{{ asset('images/UK_flag.png') }}" alt="{{ __('English') }}" class="flag-icon" />
                     {{ __('English') }}
                     @if (app()->getLocale() === 'en')
@@ -32,8 +31,7 @@
                 </a>
 
                 <!-- Link para alterar para o português -->
-                <a href="{{ url('/' . (app()->getLocale() === 'pt' ? 'en' : 'pt') . substr(request()->getRequestUri(), 3)) }}"
-                    class="language-option">
+                <a href="{{ url(preg_replace('#/' . app()->getLocale() . '(/|$)#', '/pt$1', request()->getPathInfo())) }}" class="language-option">
                     <img src="{{ asset('images/PT_flag.png') }}" alt="{{ __('Portuguese') }}" class="flag-icon" />
                     {{ __('Portuguese') }}
                     @if (app()->getLocale() === 'pt')
