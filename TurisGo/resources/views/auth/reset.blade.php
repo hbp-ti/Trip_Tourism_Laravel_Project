@@ -7,7 +7,7 @@
     <title>TurisGo</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    @vite(['resources/css/resetPass.css', 'resources/js/translations.js', 'resources/js/authentication.js'])
+    @vite(['resources/css/resetPass.css', 'resources/js/jquery-3.7.1.min.js', 'resources/js/translations.js', 'resources/js/authentication.js'])
 </head>
 
 <body>
