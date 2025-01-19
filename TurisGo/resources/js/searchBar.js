@@ -54,13 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
             // Redireciona para a página de pesquisa com os parâmetros
             let urlParaRedirecionar = url.toString();
 
-            if (urlParaRedirecionar.includes("/~ptdw-2024-gr1/en/~ptdw-2024-gr1/")) {
-                urlParaRedirecionar = urlParaRedirecionar.replace(/\/~ptdw-2024-gr1\/en\/~ptdw-2024-gr1\//g, "/~ptdw-2024-gr1/en/");
-            }
+			const linguagemAtual = document.documentElement.lang;
+			
+			//console.log(url.toString());
 
-            if (urlParaRedirecionar.includes("/~ptdw-2024-gr1/pt/~ptdw-2024-gr1/")) {
-                urlParaRedirecionar = urlParaRedirecionar.replace(/\/~ptdw-2024-gr1\/pt\/~ptdw-2024-gr1\//g, "/~ptdw-2024-gr1/pt/");
-            }
+			urlParaRedirecionar = urlParaRedirecionar.replace("/~ptdw-2024-gr1/", "/~ptdw-2024-gr1/" + linguagemAtual + "/");
+		
+			//console.log(urlParaRedirecionar);
 
             window.location.href = urlParaRedirecionar;
         }
