@@ -90,7 +90,7 @@
                             </div>
                             <p class="price">{{ $cartItem->details->subtotal }}€</p>
                             <!-- Botão de remover com API -->
-                            <form action="{{ route('cart.remove', ['locale' => app()->getLocale()]) }}" method="POST">
+                            <form action="{{ route('auth.cart.remove', ['locale' => app()->getLocale()]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 
