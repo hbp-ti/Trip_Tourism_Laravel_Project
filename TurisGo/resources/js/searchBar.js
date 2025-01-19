@@ -39,20 +39,30 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!checkin || !checkout || !people || !location) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Missing Information',
-                text: 'Please fill in all the required fields before searching.',
-                confirmButtonText: 'OK',
+                title: translate('Missing Information'),
+                text: translate('Please fill in all the required fields before searching.'),
+                confirmButtonText: translate('OK'),
                 confirmButtonColor: '#207391'
             });
         } else {
-            const url = new URL("hotels", window.location.origin);
+            const url = new URL(appUrl + "/hotels", window.location.origin);
             url.searchParams.append("location", location);
             url.searchParams.append("checkin", checkin);
             url.searchParams.append("checkout", checkout);
             url.searchParams.append("people", people);
 
             // Redireciona para a página de pesquisa com os parâmetros
-            window.location.href = url.toString();
+            let urlParaRedirecionar = url.toString();
+
+			const linguagemAtual = document.documentElement.lang;
+			
+			//console.log(url.toString());
+
+			urlParaRedirecionar = urlParaRedirecionar.replace("/~ptdw-2024-gr1/", "/~ptdw-2024-gr1/" + linguagemAtual + "/");
+		
+			//console.log(urlParaRedirecionar);
+
+            window.location.href = urlParaRedirecionar;
         }
     });
 

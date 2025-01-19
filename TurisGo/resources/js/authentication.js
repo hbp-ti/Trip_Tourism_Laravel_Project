@@ -48,7 +48,7 @@ $(document).ready(function () {
         e.stopPropagation();
     });
     
-// 4. Sticky Navbar and Language Image Swap
+    // 4. Sticky Navbar and Language Image Swap
     window.addEventListener('scroll', function () {
         const header = document.querySelector('.navbar');
         const languageImg = document.querySelector(".language-img");
