@@ -15,7 +15,6 @@ class SetLocale
         $locale = $request->route('locale');
         $supportedLocales = ['en', 'pt']; // Idiomas suportados
 
-
         // Se não houver locale na URL
         if (!$locale) {
             // Tenta buscar o locale da sessão ou usa o padrão
@@ -48,9 +47,10 @@ class SetLocale
         // Verifica se a URL já contém o locale
         $url = $request->url();
         
-        // Se o locale não estiver na URL, adicione ao início da URL
-        if (strpos($url, '/' . $locale) === false) {
-            return url($locale . $request->getRequestUri());
+        // Caso o caminho da URL não comece com /pt ou /en, adiciona o locale na URL
+        if (!preg_match('#^/(' . implode('|', ['en', 'pt']) . ')#', $request->path())) {
+            // Se não tiver o idioma na URL, adiciona o locale à URL
+            return url('/' . $locale . $request->getRequestUri());
         }
 
         // Caso o locale já esteja na URL, retorna a URL original
