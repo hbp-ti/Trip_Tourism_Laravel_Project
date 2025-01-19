@@ -52,7 +52,17 @@ document.addEventListener("DOMContentLoaded", () => {
             url.searchParams.append("people", people);
 
             // Redireciona para a página de pesquisa com os parâmetros
-            window.location.href = url.toString();
+            let urlParaRedirecionar = url.toString();
+
+            if (urlParaRedirecionar.includes("/~ptdw-2024-gr1/en/~ptdw-2024-gr1/")) {
+                urlParaRedirecionar = urlParaRedirecionar.replace("/~ptdw-2024-gr1/en/~ptdw-2024-gr1/", "/~ptdw-2024-gr1/en/");
+            }
+            
+            if (urlParaRedirecionar.includes("/~ptdw-2024-gr1/pt/~ptdw-2024-gr1/")) {
+                urlParaRedirecionar = urlParaRedirecionar.replace("/~ptdw-2024-gr1/pt/~ptdw-2024-gr1/", "~ptdw-2024-gr1/pt/");
+            }
+
+            window.location.href = urlParaRedirecionar;
         }
     });
 
