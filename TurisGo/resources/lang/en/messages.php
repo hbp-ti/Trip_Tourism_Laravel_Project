@@ -387,4 +387,5 @@ return [
     'Users' => 'Users',
     'ZIP Code' => 'ZIP Code',
     '€/hour' => '€/hour',
+    'Don\'t have an account?' => 'Don\'t have an account?',
 ];

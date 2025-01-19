@@ -387,4 +387,5 @@ return [
     'Users' => 'Utilizadores',
     'ZIP Code' => 'Código Postal',
     '€/hour' => '€/hora',
+    'Don\'t have an account?' => 'Não tem conta?',
 ];
